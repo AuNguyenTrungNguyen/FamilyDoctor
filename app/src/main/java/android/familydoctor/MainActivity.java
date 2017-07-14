@@ -1,43 +1,35 @@
 package android.familydoctor;
 
 
-import android.familydoctor.Adapter.ViewPagerAdapter;
-import android.familydoctor.Activity.Them_HoSoBenhAn;
-import android.familydoctor.Fragment.HoSoBenhAn;
-import android.familydoctor.Fragment.DanhSachBacSi_BenhNhan;
-import android.familydoctor.Fragment.ThongTinCaNhan_Fragment;
-import android.familydoctor.Fragment.TinTucSucKhoe;
-import android.familydoctor.Activity.TimKiem_Act;
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.familydoctor.Activity.Them_HoSoBenhAn;
+import android.familydoctor.Activity.TimKiem_Act;
+import android.familydoctor.Adapter.ViewPagerAdapter;
+import android.familydoctor.Fragment.DanhSachBacSi_BenhNhan;
+import android.familydoctor.Fragment.HoSoBenhAn;
+import android.familydoctor.Fragment.ThongTinCaNhan_Fragment;
+import android.familydoctor.Fragment.TinTucSucKhoe;
 import android.net.Uri;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-
-import android.support.v7.app.AppCompatActivity;
-
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-
-import android.widget.TextView;
 import android.widget.Toast;
 
-import android.Manifest;
 import java.util.ArrayList;
 import java.util.List;
-
 
 
 public class MainActivity extends AppCompatActivity {
@@ -199,12 +191,12 @@ public class MainActivity extends AppCompatActivity {
         String sdt = bundle.getString("sdt");
 
 
-        ImageView imageView = (ImageView) headerView.findViewById(R.id.imageView_nav_header);
+      /*  ImageView imageView = (ImageView) headerView.findViewById(R.id.imageView_nav_header);
         TextView tv_ten= (TextView) headerView.findViewById(R.id.tv_nav_user_name);
-        TextView tv_email= (TextView) headerView.findViewById(R.id.tv_nav_email);
+        TextView tv_email= (TextView) headerView.findViewById(R.id.tv_nav_email);*/
 
-        tv_ten.setText(ten);
-        tv_email.setText(email);
+     /*   tv_ten.setText(ten);
+        tv_email.setText(email);*/
 //        imageView.setImageURI(uri);
 
 

@@ -15,7 +15,7 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.viewdetail_user);
+        setContentView(R.layout.xemttbacsi);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_about);
         setSupportActionBar(toolbar);
