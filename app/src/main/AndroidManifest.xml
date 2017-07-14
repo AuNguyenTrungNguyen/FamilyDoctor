@@ -18,42 +18,39 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Sign_in">
-
+        <activity android:name="android.familydoctor.Sign_in">
         </activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity
-            android:name=".Activity.Them_HoSoBenhAn"
-            android:parentActivityName=".Sign_in" />
-        <activity
-            android:name=".Activity.ThongTinUngDung"
-            android:parentActivityName=".Sign_in" />
-        <activity
-            android:name=".Activity.CaiDat_TaiKhoan"
-            android:parentActivityName=".Sign_in" />
-        <activity
-            android:name=".Activity.CapNhatThongTinCaNhan_Act"
-            android:parentActivityName=".Sign_in" />
-        <activity
-            android:name=".Activity.XemTTBacSi_Act"
-            android:parentActivityName=".Sign_in" />
-        <activity
-            android:name=".Activity.XemTTBenhNhan_Act"
-            android:parentActivityName=".Sign_in" />
-        <activity
-            android:name=".Activity.TimKiem_Act"
-            android:parentActivityName=".Sign_in" />
-        <activity android:name=".Activity.User_Edit" />
-        <activity android:name=".Activity.LuaChonLoaiTaiKhoanActivity"
-            android:parentActivityName=".Sign_in">
 
+        <activity android:name="android.familydoctor.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+
+        <activity
+            android:name="android.familydoctor.Activity.Them_HoSoBenhAn"
+            android:parentActivityName="android.familydoctor.Sign_in" />
+        <activity
+            android:name="android.familydoctor.Activity.ThongTinUngDung"
+            android:parentActivityName="android.familydoctor.Sign_in" />
+        <activity
+            android:name="android.familydoctor.Activity.CaiDat_TaiKhoan"
+            android:parentActivityName="android.familydoctor.Sign_in" />
+        <activity
+            android:name="android.familydoctor.Activity.CapNhatThongTinCaNhan_Act"
+            android:parentActivityName="android.familydoctor.Sign_in" />
+        <activity
+            android:name="android.familydoctor.Activity.XemTTBacSi_Act"
+            android:parentActivityName="android.familydoctor.Sign_in" />
+        <activity
+            android:name="android.familydoctor.Activity.XemTTBenhNhan_Act"
+            android:parentActivityName="android.familydoctor.Sign_in" />
+        <activity
+            android:name="android.familydoctor.Activity.TimKiem_Act"
+            android:parentActivityName="android.familydoctor.Sign_in" />
+        <activity android:name="android.familydoctor.Activity.User_Edit" />
     </application>
 
 </manifest>

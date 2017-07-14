@@ -20,4 +20,9 @@
     <string name="tab_title_main_2">Công ty</string>
     <string name="tab_title_main_3">Sự kiện khởi nghiệp</string>
 
+    <string name="S_D_T">Số Điện Thoại</string>
+    <string name="M_X_N">Mã Xác Nhận</string>
+    <string name="But_DK">Đăng Ký</string>
+    <string name="But_X_N">Xác Nhận</string>
+    <string name="But_Resend">Gởi Lại Xác Nhận</string>
 </resources>
