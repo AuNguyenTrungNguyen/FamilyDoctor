@@ -18,11 +18,11 @@
         android:layout_height="50dp" />
 
     <Button
-
+        android:id="@+id/btn_signPhone"
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:text="Số Điện Thoại"/>
+        android:text="@string/S_D_T"/>
 
 </LinearLayout>

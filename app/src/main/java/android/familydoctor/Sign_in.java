@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -39,6 +40,8 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Sign_in extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener   {
 
+    private Button btn_phone ;
+
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
     private GoogleApiClient mGoogleApiClient;
@@ -57,6 +60,16 @@ public class Sign_in extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in);
+
+        btn_phone = (Button) findViewById(R.id.btn_signPhone);
+
+        btn_phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Sign_in.this,Login_Phone.class);
+                startActivity(intent);
+            }
+        });
 
         final SignInButton signInButton = (SignInButton) findViewById(R.id.sign_in_button);
 
