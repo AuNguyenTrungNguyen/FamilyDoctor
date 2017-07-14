@@ -14,7 +14,6 @@ import android.familydoctor.Fragment.TinTucSucKhoe;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -38,13 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     private TabLayout mTabLayout;
 
-
-
-    private NavigationView navigationView;
-    private View headerView;
-
-
-
     Bundle bundle;
     String id;
 
@@ -56,9 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
         initView();
         initViewPager();
-        layduLieuDangNhap();
+        //layduLieuDangNhap();
         checkPermission();
-//        openView();
 
     }
 
@@ -96,10 +87,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if (position == 2 ) {
+                if (position == 2) {
                     fab.hide();
-                }else if(position == 1 || position == 0)
-                {
+                } else if (position == 1 || position == 0) {
                     fab.show();
                 }
 
@@ -117,30 +107,24 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
 
-
         fab = (FloatingActionButton) findViewById(R.id.fab_main);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 PopupMenu popup = new PopupMenu(MainActivity.this, fab);
-                //Inflating the Popup using xml file
-                popup.getMenuInflater()
-                        .inflate(R.menu.fab_popup_menu, popup.getMenu());
+                popup.getMenuInflater().inflate(R.menu.fab_popup_menu, popup.getMenu());
+                Intent intent = new Intent();
 
-                        Intent intent  = new Intent();
-
-                                intent.setClass(MainActivity.this, Them_HoSoBenhAn.class);
-                                intent.putExtra("id",id);
-                                startActivity(intent);
+                intent.setClass(MainActivity.this, Them_HoSoBenhAn.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
 
             }
 
 
         });
         fab.show();
-
     }
-
 
 
     @Override
@@ -151,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent  = new Intent();
+        Intent intent = new Intent();
         switch (item.getItemId()) {
             case R.id.search_button:
                 intent.setClass(MainActivity.this, TimKiem_Act.class);
@@ -163,10 +147,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-            super.onBackPressed();
+        super.onBackPressed();
     }
 
-    public void phanHoiUngDung(){
+    public void phanHoiUngDung() {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:StartLink@gmail.com"));
@@ -179,10 +163,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void layduLieuDangNhap(){
+    /*public void layduLieuDangNhap() {
 
 
-        bundle=this.getIntent().getExtras();
+        bundle = this.getIntent().getExtras();
 
 //        Uri uri=getIntent().getData();
         id = bundle.getString("id");
@@ -191,34 +175,27 @@ public class MainActivity extends AppCompatActivity {
         String sdt = bundle.getString("sdt");
 
 
-      /*  ImageView imageView = (ImageView) headerView.findViewById(R.id.imageView_nav_header);
-        TextView tv_ten= (TextView) headerView.findViewById(R.id.tv_nav_user_name);
-        TextView tv_email= (TextView) headerView.findViewById(R.id.tv_nav_email);*/
+        ImageView imageView = (ImageView) headerView.findViewById(R.id.imageView_nav_header);
+        TextView tv_ten = (TextView) headerView.findViewById(R.id.tv_nav_user_name);
+        TextView tv_email = (TextView) headerView.findViewById(R.id.tv_nav_email);
 
-     /*   tv_ten.setText(ten);
-        tv_email.setText(email);*/
-//        imageView.setImageURI(uri);
+        tv_ten.setText(ten);
+        tv_email.setText(email);
 
-
-
-
-
-
-
-    }
+    }*/
 
     private void checkPermission() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
         }
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA}, 2);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 2);
         }
     }
 
@@ -263,9 +240,4 @@ public class MainActivity extends AppCompatActivity {
             // permissions this app might request
         }
     }
-
-
-
-
-
 }
