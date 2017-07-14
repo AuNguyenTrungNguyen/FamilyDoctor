@@ -22,11 +22,7 @@
         </activity>
 
         <activity android:name="android.familydoctor.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity
@@ -51,6 +47,16 @@
             android:name="android.familydoctor.Activity.TimKiem_Act"
             android:parentActivityName="android.familydoctor.Sign_in" />
         <activity android:name="android.familydoctor.Activity.User_Edit" />
+
+        <activity
+            android:name="android.familydoctor.Activity.LuaChonLoaiTaiKhoanActivity"
+            android:parentActivityName="android.familydoctor.Sign_in" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
