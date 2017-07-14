@@ -54,7 +54,7 @@ public class TinTucSucKhoe extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.tab3_sukien_nongnghiep, container, false);
+        View rootView = inflater.inflate(R.layout.tab1_tintuc, container, false);
 
 
 //        //Sự kiện 1
