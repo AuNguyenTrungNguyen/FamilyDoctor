@@ -25,4 +25,5 @@
     <string name="But_DK">Đăng Ký</string>
     <string name="But_X_N">Xác Nhận</string>
     <string name="But_Resend">Gởi Lại Xác Nhận</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

@@ -77,9 +77,9 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout.addTab(mTabLayout.newTab().setText(titles.get(3)));
 
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new DanhSachBacSi_BenhNhan());
-        fragments.add(new HoSoBenhAn());
         fragments.add(new TinTucSucKhoe());
+        fragments.add(new HoSoBenhAn());
+        fragments.add(new DanhSachBacSi_BenhNhan());
         fragments.add(new ThongTinCaNhan_Fragment());
 
         mViewPager.setOffscreenPageLimit(3);
@@ -185,11 +185,11 @@ public class MainActivity extends AppCompatActivity {
         bundle=this.getIntent().getExtras();
 
 //        Uri uri=getIntent().getData();
-        id = bundle.getString("id");
+       /* id = bundle.getString("id");
         String ten = bundle.getString("ten");
         String email = bundle.getString("email");
         String sdt = bundle.getString("sdt");
-
+*/
 
       /*  ImageView imageView = (ImageView) headerView.findViewById(R.id.imageView_nav_header);
         TextView tv_ten= (TextView) headerView.findViewById(R.id.tv_nav_user_name);
