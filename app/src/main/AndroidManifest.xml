@@ -42,13 +42,7 @@
             android:name="android.familydoctor.Activity.CaiDat_TaiKhoan"
             android:parentActivityName="android.familydoctor.Sign_in"/>
         <activity
-            android:name=".navigation.DuAn_KhoiNghiep_ThamGia"
-            android:parentActivityName="android.familydoctor.Sign_in"/>
-        <activity
             android:name="android.familydoctor.Activity.CapNhatThongTinCaNhan_Act"
-            android:parentActivityName="android.familydoctor.Sign_in"/>
-        <activity
-            android:name=".viewdetails.SuKien_KhoiNghiep_View"
             android:parentActivityName="android.familydoctor.Sign_in"/>
         <activity
             android:name="android.familydoctor.Activity.XemTTBacSi_Act"
@@ -62,14 +56,6 @@
         <activity
             android:name="android.familydoctor.Activity.User_Edit"
             android:parentActivityName="android.familydoctor.Sign_in"/>
-        <activity
-            android:name=".viewdetails.CongTy_CuaToi_View"
-            android:parentActivityName="android.familydoctor.Activity.NongSan_CanMua_CuaToi"/>
-        <activity
-            android:name=".viewdetails.KhoiNghiep_CuaToi_View"
-            android:parentActivityName="android.familydoctor.Activity.NongSan_Ban_CuaToi"
-
-            />
     </application>
 
 </manifest>
