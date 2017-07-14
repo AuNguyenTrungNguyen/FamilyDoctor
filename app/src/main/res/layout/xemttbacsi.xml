@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_about"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        android:background="@color/colorPrimaryDark"
+        />
+
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#75efefef"
+        >
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            card_view:cardCornerRadius="4dp">
+
+            <RelativeLayout
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/img_nongsan_ban_view"
+                    android:layout_width="100dp"
+                    android:textAlignment="center"
+                    android:layout_height="100dp" />
+
+                <LinearLayout
+                    android:id="@+id/id1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@+id/img_nongsan_ban_view">
+                    <TextView
+                        android:id="@+id/da"
+                        android:layout_toRightOf="@+id/img_nongsan_ban_view"
+                        android:text="Tên nông sản:"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        />
+
+                    <TextView
+                        android:layout_marginLeft="23dp"
+                        android:id="@+id/tv_ten_nongsan_ban"
+                        android:layout_alignBaseline="@+id/tda"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/id2"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/id1"
+                    android:layout_toRightOf="@+id/img_nongsan_ban_view">
+                    <TextView
+                        android:id="@+id/nt"
+                        android:layout_toRightOf="@+id/img_nongsan_ban_view"
+                        android:text="Người bán:"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/tv_nguonban_nongsan_ban"
+                        android:layout_alignBaseline="@+id/nt"
+                        android:layout_marginLeft="23dp"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/li3"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/img_nongsan_ban_view"
+                    android:layout_below="@id/id2">
+                    <TextView
+                        android:id="@+id/lv"
+                        android:layout_toRightOf="@+id/img_nongsan_ban_view"
+                        android:text="Loại:"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/tv_loai_nongsan_ban"
+
+                        android:layout_alignBaseline="@+id/lv"
+                        android:layout_marginLeft="32dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/line4"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/img_nongsan_ban_view"
+                    android:layout_below="@id/li3">
+                    <TextView
+                        android:id="@+id/tc"
+                        android:text="Tiêu chuẩn:"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/tv_tieuchuan_nongsan_ban"
+                        android:layout_alignBaseline="@+id/lv"
+                        android:layout_marginLeft="32dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+
+                <ImageView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#75131212"
+                    android:layout_below="@+id/line4"/>
+
+                <LinearLayout
+                    android:id="@+id/line1"
+                    android:layout_below="@+id/img_nongsan_ban_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:text="Số lượng"
+                        android:layout_marginTop="10dp"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tv_soluong_nongsan_ban"
+                        android:hint="Chưa có nội dung"
+                        android:layout_below="@+id/nd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:text="Trạng thái"
+                        android:layout_marginTop="10dp"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tv_trangthai_nongsan_ban"
+                        android:hint="Chưa có nội dung"
+                        android:layout_below="@+id/nd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:text="Giá bán (Theo Kg/VND)"
+                        android:layout_marginTop="10dp"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tv_giaban_ban_view"
+                        android:hint="Chưa có nội dung"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/sl_canmua_view"
+                        android:layout_below="@+id/line1"
+                        android:text="Ngày bắt đầu thu hoạch"
+                        android:layout_marginTop="10dp"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tv_time_batdau_th_nongsan_ban"
+                        android:hint="Chưa có nội dung"
+                        android:layout_below="@+id/nd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/nd3"
+                        android:layout_below="@+id/line1"
+                        android:text="Ngày kết thúc thu hoạch"
+                        android:layout_marginTop="10dp"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tv_time_ketthuc_th_nongsan_ban"
+                        android:hint="Chưa có nội dung"
+                        android:layout_below="@+id/nd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/nd"
+                    android:layout_below="@+id/line1"
+                    android:text="Địa điểm giao dịch"
+                    android:layout_marginTop="10dp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_diadiem"
+                    android:hint="Chưa có nội dung"
+                    android:layout_below="@+id/nd"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp" />
+
+
+                <TextView
+                    android:id="@+id/tv_diadiem_nongsan_ban"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_below="@+id/nd"
+                    android:hint="Chưa có nội dung" />
+
+                <Button
+                    android:id="@+id/btnsdt"
+                    android:text="SỐ ĐIỆN THOẠI"
+                    android:background="#0b3bb6"
+                    android:textStyle="bold"
+                    android:textColor="#ffff"
+                    android:layout_below="@+id/tv_diadiem_nongsan_ban"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
+                <Button
+                    android:id="@+id/btn_email_kn"
+                    android:text="EMAIL"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorAccent"
+                    android:textColor="#ffff"
+                    android:textAllCaps="false"
+                    android:layout_below="@+id/btnsdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/btn_mua"
+                    android:text="Mua"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorAccent"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold"
+                    android:layout_below="@+id/btn_email_kn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+            </RelativeLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+    </ScrollView>
+</LinearLayout>

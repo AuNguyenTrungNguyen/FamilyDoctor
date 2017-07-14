@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Agri Help</string>
+    <string name="loading">loading</string>
+    <string name="search">Tìm kiếm</string>
+
+    <string name="nav_header_text">Click to start login activity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_khoi_nghiep_da_tao">Dự án khởi nghiệp đã tạo</string>
+    <string name="nav_cong_ty_cua_ban">Công ty của bạn</string>
+    <string name="nav_du_an_da_tham_gia">Dự án đã tham gia</string>
+    <string name="nav_cai_dat_tai_khoan">Cài đặt tài khoản</string>
+    <string name="nav_phan_hoi">Phản hồi về ứng dụng</string>
+    <string name="nav_thong_tin_ung_dung">Thông tin ứng dụng</string>
+    <string name="nav_dang_xuat">Đăng xuất</string>
+    <string name="nav_share">Chia sẻ ứng dụng</string>
+    <string name="nav_rate">Đánh giá ứng dụng</string>
+
+    <string name="tab_title_main_1">Dự án khởi nghiệp</string>
+    <string name="tab_title_main_2">Công ty</string>
+    <string name="tab_title_main_3">Sự kiện khởi nghiệp</string>
+
+</resources>
