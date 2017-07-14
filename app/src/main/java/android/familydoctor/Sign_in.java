@@ -5,9 +5,6 @@ import android.familydoctor.Class.BacSi;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-/**
- * Created by buimi on 5/24/2017.
- */
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -92,11 +89,7 @@ public class Sign_in extends AppCompatActivity implements
 
     }
 
-
-
 //END ONCREATE
-
-
     @Override
     public void onStart() {
         super.onStart();

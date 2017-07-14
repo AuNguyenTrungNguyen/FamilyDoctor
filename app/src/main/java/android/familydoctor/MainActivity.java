@@ -38,12 +38,8 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     private TabLayout mTabLayout;
 
-
-
     private NavigationView navigationView;
     private View headerView;
-
-
 
     Bundle bundle;
     String id;
