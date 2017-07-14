@@ -43,6 +43,7 @@ public class LuaChonLoaiTaiKhoanActivity extends AppCompatActivity {
 
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new FragmentBacSi());
+
         fragments.add(new FragmentBenhNhan());
 
         viewPagerChoose.setOffscreenPageLimit(2);
