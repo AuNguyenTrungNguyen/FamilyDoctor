@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tên người dùng"
+            />
+        <EditText
+            android:id="@+id/SDT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Số Điện Thoại"
+            android:layout_below="@+id/name"
+            />
+        <TextView
+            android:id="@+id/viewYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Năm Sinh"
+            android:layout_below="@+id/SDT"
+            android:paddingRight="10dp"
+            />
+        <Spinner
+            android:id="@+id/Year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/SDT"
+            android:layout_toRightOf="@+id/viewYear"
+            >
+        </Spinner>
+
+        <EditText
+            android:id="@+id/edtDC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Địa Chỉ"
+            android:layout_below="@id/Year"
+            />
+        <TextView
+            android:id="@+id/showMT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edtDC"
+            android:text="ảnh xác thực"
+            />
+        <ImageView
+            android:id="@+id/ImgXT"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_below="@+id/showMT"
+            android:layout_centerInParent="true"
+            />
+
+    </RelativeLayout>
+
+</ScrollView>
