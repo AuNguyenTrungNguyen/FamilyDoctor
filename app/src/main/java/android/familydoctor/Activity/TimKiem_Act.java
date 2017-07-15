@@ -102,16 +102,16 @@ public class TimKiem_Act extends AppCompatActivity{
         });
 
         ArrayAdapter adapterkhuVuc = new ArrayAdapter(this,android.R.layout.simple_spinner_item, DanhSach_LinhVuc_Thuoc.getKhuvuc());
-        ArrayAdapter adapterLinhVuc = new ArrayAdapter(this,android.R.layout.simple_spinner_item, DanhSach_LinhVuc_Thuoc.getLoai());
-        ArrayAdapter adapterDoiTuong = new ArrayAdapter(this,android.R.layout.simple_spinner_item, DanhSach_LinhVuc_Thuoc.getDoituong());
+/*        ArrayAdapter adapterLinhVuc = new ArrayAdapter(this,android.R.layout.simple_spinner_item, DanhSach_LinhVuc_Thuoc.getLoai());
+        ArrayAdapter adapterDoiTuong = new ArrayAdapter(this,android.R.layout.simple_spinner_item, DanhSach_LinhVuc_Thuoc.getDoituong());*/
 
         adapterkhuVuc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapterLinhVuc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapterDoiTuong.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        /*adapterLinhVuc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterDoiTuong.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);*/
 
         khuVuc.setAdapter(adapterkhuVuc);
-        linhVuc.setAdapter(adapterLinhVuc);
-        doiTuong.setAdapter(adapterDoiTuong);
+     /*   linhVuc.setAdapter(adapterLinhVuc);
+        doiTuong.setAdapter(adapterDoiTuong);*/
     }
 
 }
