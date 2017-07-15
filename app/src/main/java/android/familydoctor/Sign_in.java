@@ -176,14 +176,14 @@ public class Sign_in extends AppCompatActivity implements
 //            Uri img = mAuth.getCurrentUser().getPhotoUrl();
 
                             newuser = new BacSi();
-                            newuser.setId(id);
+//                            newuser.setId(id);
                             newuser.setHoten(ten);
                             newuser.setEmail(email);
                             newuser.setSdt(sdt);
 
 
                             databaseReference = FirebaseDatabase.getInstance().getReference();
-                            databaseReference.child("USER").child(newuser.getId()).child(newuser.getId()).setValue(newuser);
+//                            databaseReference.child("USER").child(newuser.getId()).child(newuser.getId()).setValue(newuser);
 
                             updateUI(user);
                         } else {

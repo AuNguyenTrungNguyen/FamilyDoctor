@@ -46,15 +46,15 @@ public class User_Edit extends AppCompatActivity {
         bacSi.setHoten(tenNgdung.getText().toString());
         bacSi.setSdt(sdt.getText().toString());
         bacSi.setDiachi(diachi.getText().toString());
-        bacSi.setKynang(kynang.getText().toString());
+        /*bacSi.setKynang(kynang.getText().toString());*/
         bacSi.setLinhvucchuyenmon(lv.getSelectedItem().toString());
-        bacSi.setKhuvuc(kv.getSelectedItem().toString());
+        /*bacSi.setKhuvuc(kv.getSelectedItem().toString());*/
 
 
         //Updata
         databaseReference= FirebaseDatabase.getInstance().getReference();
         final String key = databaseReference.child("USER").push().getKey();
-        bacSi.setId(id);
+        /*bacSi.setId(id);*/
 
         firebaseStorage = FirebaseStorage.getInstance();
         StorageReference storageReference = firebaseStorage.getReferenceFromUrl("gs://startlinktesttheme.appspot.com/");
@@ -122,13 +122,15 @@ public class User_Edit extends AppCompatActivity {
 
 
         ArrayAdapter adapterKhuVuc = new ArrayAdapter(this,android.R.layout.simple_spinner_item, DanhSach_LinhVuc_Thuoc.getKhuvuc());
+/*
         ArrayAdapter adapterLinhVuc = new ArrayAdapter(this,android.R.layout.simple_spinner_item, DanhSach_LinhVuc_Thuoc.getLoai());
+*/
 
         adapterKhuVuc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapterLinhVuc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+       /* adapterLinhVuc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);*/
 
         khuvuc.setAdapter(adapterKhuVuc);
-        linhvuc.setAdapter(adapterLinhVuc);
+        /*linhvuc.setAdapter(adapterLinhVuc);*/
     }
 
 
