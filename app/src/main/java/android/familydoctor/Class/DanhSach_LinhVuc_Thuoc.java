@@ -4,7 +4,7 @@ package android.familydoctor.Class;
  * Created by buimi on 6/22/2017.
  */
 
-public class DanhSach_LinhVuc_KhuVuc {
+public class DanhSach_LinhVuc_Thuoc {
     static String[] khuvuc={"Khu vực","Tất cả","Cần Thơ","Đà Nẵng","Hồ Chí Minh","Trà vinh","Sóc Trăng","An Giang",
             "Vũng Tau","Bắc Giang", "Bắc Cạn","Bắc Ninh", "Bến Tre", "Bình Định", "Bình Dương",
             "Bình Phước", "Bình Thuận", "Cà Mau", "Cao Bằng","Đắc Lắk","Đắk Nông","Điện Biên",
@@ -15,28 +15,18 @@ public class DanhSach_LinhVuc_KhuVuc {
             "Quảng Ninh","Quảng Ngãi","Quảng Trị","Sơn La","Tây Ninh","Tiền Giang",
             "Tuyên Quang","Thái Bình","Thanh Hoá","Thừa Thiên Huế","Vĩnh Long","Vĩnh Phúc","Yên Bái"};
 
-    static String[] loai ={"Loại","Tất cả","Lúa","Heo","Cải","Xoài"};
+    static String[] linhvucchuyenmon ={"Lĩnh vực","Tất cả","Đông y","Răng hàm mặt","Phụ Sản","Đa Khoa"};
 
-    static String[] doituong={"Đối tượng","Cần Bán","Cần Mua","Người dùng"};
 
-    static String[] tieuChuan={"Tiêu chuẩn","Viet GAP","Global GAP","ISO 22000"};
+    static String[] danhmucthuoc ={"Thuốc","Tất cả","Đông y","Răng hàm mặt","Phụ Sản","Đa Khoa"};
 
 
     public static String[] getKhuvuc() {
         return khuvuc;
     }
 
-    public static String[] getLoai() {
-        return loai;
+
+    public static String[] getLinhvucchuyenmon() {
+        return linhvucchuyenmon;
     }
-
-    public static String[] getDoituong() {
-        return doituong;
-    }
-
-    public static String[] getTieuChuan() {
-        return tieuChuan;
-    }
-
-
 }

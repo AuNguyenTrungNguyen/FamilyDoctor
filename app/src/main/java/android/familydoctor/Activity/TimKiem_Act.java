@@ -3,7 +3,7 @@ package android.familydoctor.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.familydoctor.Class.DanhSach_LinhVuc_KhuVuc;
+import android.familydoctor.Class.DanhSach_LinhVuc_Thuoc;
 import android.familydoctor.R;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -101,9 +101,9 @@ public class TimKiem_Act extends AppCompatActivity{
             }
         });
 
-        ArrayAdapter adapterkhuVuc = new ArrayAdapter(this,android.R.layout.simple_spinner_item, DanhSach_LinhVuc_KhuVuc.getKhuvuc());
-        ArrayAdapter adapterLinhVuc = new ArrayAdapter(this,android.R.layout.simple_spinner_item, DanhSach_LinhVuc_KhuVuc.getLoai());
-        ArrayAdapter adapterDoiTuong = new ArrayAdapter(this,android.R.layout.simple_spinner_item, DanhSach_LinhVuc_KhuVuc.getDoituong());
+        ArrayAdapter adapterkhuVuc = new ArrayAdapter(this,android.R.layout.simple_spinner_item, DanhSach_LinhVuc_Thuoc.getKhuvuc());
+        ArrayAdapter adapterLinhVuc = new ArrayAdapter(this,android.R.layout.simple_spinner_item, DanhSach_LinhVuc_Thuoc.getLoai());
+        ArrayAdapter adapterDoiTuong = new ArrayAdapter(this,android.R.layout.simple_spinner_item, DanhSach_LinhVuc_Thuoc.getDoituong());
 
         adapterkhuVuc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapterLinhVuc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

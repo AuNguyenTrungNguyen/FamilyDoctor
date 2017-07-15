@@ -9,7 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.familydoctor.Class.DanhSach_LinhVuc_KhuVuc;
+import android.familydoctor.Class.DanhSach_LinhVuc_Thuoc;
 import android.familydoctor.R;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -154,8 +154,8 @@ public class User_Edit extends AppCompatActivity {
         });
 
 
-        ArrayAdapter adapterKhuVuc = new ArrayAdapter(this,android.R.layout.simple_spinner_item, DanhSach_LinhVuc_KhuVuc.getKhuvuc());
-        ArrayAdapter adapterLinhVuc = new ArrayAdapter(this,android.R.layout.simple_spinner_item, DanhSach_LinhVuc_KhuVuc.getLoai());
+        ArrayAdapter adapterKhuVuc = new ArrayAdapter(this,android.R.layout.simple_spinner_item, DanhSach_LinhVuc_Thuoc.getKhuvuc());
+        ArrayAdapter adapterLinhVuc = new ArrayAdapter(this,android.R.layout.simple_spinner_item, DanhSach_LinhVuc_Thuoc.getLoai());
 
         adapterKhuVuc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapterLinhVuc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
