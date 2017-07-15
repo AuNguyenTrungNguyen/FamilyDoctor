@@ -347,10 +347,7 @@ public class Login_Phone extends AppCompatActivity  implements View.OnClickListe
     private void disableViews(View... views) {
 
         for (View v : views) {
-
             v.setEnabled(false);
-
         }
     }
-
 }

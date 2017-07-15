@@ -4,275 +4,151 @@ package android.familydoctor.Fragment;
  * Created by ASUS on 27/05/2017.
  */
 
-import android.familydoctor.Adapter.RSS_Adapter;
-import android.familydoctor.Adapter.RSS_Item;
+import android.content.Context;
+import android.content.Intent;
+import android.familydoctor.Adapter.CustomAdapter;
+import android.familydoctor.Adapter.TinTuc;
+import android.familydoctor.Adapter.XMLDOMParser;
 import android.familydoctor.R;
 import android.os.AsyncTask;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.util.Log;
-import android.util.Xml;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
-import java.io.*;
-import java.net.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TinTucSucKhoe extends Fragment {
 
-    private List<RSS_Item> listItem_Rss = new ArrayList<>();
+    Context context;
 
-    private RSS_Adapter adapter_RSS;
-    private RecyclerView recyclerView_RSS;
-    WebView wv;
-    LinearLayout lineWebView;
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
+    /**
+     * The fragment argument representing the section number for this
+     * fragment.
+     */
 
-    private String mFeedTitle;
-    private String mFeedLink;
-    private String mFeedDescription;
-    private String mImg_url;
+    ListView listView;
 
+    CustomAdapter customAdapter;
+    ArrayList<TinTuc> tinTucs;
 
+    private static final String ARG_SECTION_NUMBER = "section_number";
 
+    public TinTucSucKhoe() {
+    }
+
+    public static TinTucSucKhoe newInstance(int sectionNumber) {
+        TinTucSucKhoe fragment = new TinTucSucKhoe();
+        Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.tab1_tintuc, container, false);
 
+        tinTucs = new ArrayList<TinTuc>();
 
-//        //Sự kiện 1
-//        String url="https://scontent.fsgn4-1.fna.fbcdn.net/v/t1.0-9/18813258_1500198210031718_550385503683032580_n.jpg?oh=492d852960305f62a04cb5bfb9bfea6f&oe=59E77057";
-//        imageView_Sukien1 = (ImageView) rootView.findViewById(R.id.imgView_SuKien1);
-//        Picasso.with(this.getActivity()).load(url).into(imageView_Sukien1);
-//
-//        cardViewSuKien1= (CardView) rootView.findViewById(R.id.card_view_SuKien1);
-//        cardViewSuKien1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent=new Intent(Intent.ACTION_VIEW);
-//                intent.setData(Uri.parse("http://startupwheel.vn"));
-//                startActivity(intent);
-//            }
-//        });
-//
-//        //Sự Kiện 2
+        listView = (ListView) rootView.findViewById(R.id.List_item);
 
-
-
-        //RSS
-
-
-        Button dong_webview= (Button) rootView.findViewById(R.id.dong_web_view);
-        lineWebView = (LinearLayout) rootView.findViewById(R.id.line_web_view);
-        wv = (WebView) rootView.findViewById(R.id.web_view);
-
-
-
-        recyclerView_RSS = (RecyclerView) rootView.findViewById(R.id.rss_tintuc);
-//        adapter_RSS = new RSS_Adapter(listItem_Rss,this.getContext());
-        recyclerView_RSS.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-
-        dong_webview.setOnClickListener(new View.OnClickListener() {
+        getActivity().runOnUiThread(new Runnable() {
             @Override
-            public void onClick(View v) {
-                recyclerView_RSS.setVisibility(View.VISIBLE);
-                lineWebView.setVisibility(View.GONE);
-
+            public void run() {
+                new ReadData().execute("http://vnexpress.net/rss/suc-khoe.rss");
             }
         });
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), ViewWeb.class);
+                intent.putExtra("link", tinTucs.get(position).link);
+                startActivity(intent);
+            }
+        });
 
-        //Đọc RSS
-        new FetchFeedTask().execute((Void) null);
-
-
-//        even();
         return rootView;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    class ReadData extends AsyncTask<String, Integer, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            return docNoiDung_Tu_URL(params[0]);
+        }
 
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
 
+            XMLDOMParser parser = new XMLDOMParser();
+            Document document = parser.getDocument(s);
+            NodeList nodeList = document.getElementsByTagName("item");
+            NodeList nodeListDes = document.getElementsByTagName("description");
+            String title = "";
+            String Image = "";
+            String link = "";
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                Element element = (Element) nodeList.item(i);
+                title = parser.getValue(element, "title");
+                link = parser.getValue(element, "link");
+                String Cdata = nodeListDes.item(i + 1).getTextContent();
+                Pattern p = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
+                Matcher matcher = p.matcher(Cdata);
+                if (matcher.find()) {
+                    Image = matcher.group(1);
+                }
+                tinTucs.add(new TinTuc(title, link, Image));
+            }
+            customAdapter = new CustomAdapter(getActivity(),android.R.layout.simple_list_item_1,tinTucs);
+            listView.setAdapter(customAdapter);
+        }
     }
 
-
-//    public void even(){
-//
-//        adapter_RSS.setOnItemClickListenerRSS(new RSS_Adapter.ClickListenerRSS() {
-//            @Override
-//            public void onItemClick(View v, int position) {
-//                wv.loadData(listItem_Rss.get(position).getLink(), "text/html; charset=utf-8", null);
-//
-//                wv.setVisibility(View.VISIBLE);
-//            }
-//        });
-//
-//    }
-
-
-    //Lấy Dữ liệu
-    public List<RSS_Item> parseFeed(InputStream inputStream) throws XmlPullParserException, IOException {
-        String title = null;
-        String link = null;
-        String description = null;
-        String img_url = null;
-        boolean isItem = false;
-        List<RSS_Item> items = new ArrayList<>();
-
+    private String docNoiDung_Tu_URL(String theUrl) {
+        StringBuilder content = new StringBuilder();
         try {
-            XmlPullParser xmlPullParser = Xml.newPullParser();
-            xmlPullParser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-            xmlPullParser.setInput(inputStream, null);
+            // create a url object
+            URL url = new URL(theUrl);
 
-            xmlPullParser.nextTag();
-            while (xmlPullParser.next() != XmlPullParser.END_DOCUMENT) {
-                int eventType = xmlPullParser.getEventType();
+            // create a urlconnection object
+            URLConnection urlConnection = url.openConnection();
 
-                String name = xmlPullParser.getName();
-                if(name == null)
-                    continue;
+            // wrap the urlconnection in a bufferedreader
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
 
-                if(eventType == XmlPullParser.END_TAG) {
-                    if(name.equalsIgnoreCase("item")) {
-                        isItem = false;
-                    }
-                    continue;
-                }
+            String line;
 
-                if (eventType == XmlPullParser.START_TAG) {
-                    if(name.equalsIgnoreCase("item")) {
-                        isItem = true;
-                        continue;
-                    }
-                }
-
-                Log.d("MainActivity", "Parsing name ==> " + name);
-                String result = "";
-                if (xmlPullParser.next() == XmlPullParser.TEXT) {
-                    result = xmlPullParser.getText();
-                    xmlPullParser.nextTag();
-                }
-
-
-                if (name.equalsIgnoreCase("image")){
-                    img_url = result;
-
-                }else if (name.equalsIgnoreCase("title")) {
-                    title = result;
-                } else if (name.equalsIgnoreCase("link")) {
-                    link = result;
-                } else if (name.equalsIgnoreCase("description")) {
-                    description = result;
-                }
-
-                if (title != null && link != null && description != null) {
-                    if(isItem) {
-                        RSS_Item item = new RSS_Item(title, img_url , description,link);
-                        items.add(item);
-                    }
-                    else {
-                        mFeedTitle = title;
-                        mFeedLink = link;
-                        mFeedDescription = description;
-                        mImg_url = img_url;
-                    }
-
-                    title = null;
-                    link = null;
-                    description = null;
-                    img_url = null;
-                    isItem = false;
-                }
+            // read from the urlconnection via the bufferedreader
+            while ((line = bufferedReader.readLine()) != null) {
+                content.append(line + "\n");
             }
-
-            return items;
-        } finally {
-            inputStream.close();
+            bufferedReader.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return content.toString();
     }
-
-    private class FetchFeedTask extends AsyncTask<Void, Void, Boolean> {
-
-        private String urlLink;
-
-        @Override
-        protected void onPreExecute() {
-
-            mFeedTitle = null;
-            mFeedLink = null;
-            mFeedDescription = null;
-            mImg_url = null;
-            urlLink = "http://nongnghiep.vn/rss/khuyen-nong-7.rss" ;
-
-
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            if (TextUtils.isEmpty(urlLink))
-                return false;
-
-            try {
-
-
-
-                URL url = new URL(urlLink);
-                InputStream inputStream = url.openConnection().getInputStream();
-                listItem_Rss = parseFeed(inputStream);
-                return true;
-            } catch (IOException e) {
-                Log.e("RSS", "Error", e);
-            } catch (XmlPullParserException e) {
-                Log.e("RSS", "Error", e);
-            }
-            return false;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean success) {
-
-            if (success) {
-
-//                RSS_Item rss_item = new RSS_Item(mFeedTitle,)
-//                listItem_Rss.add()
-//                mFeedTitleTextView.setText("Feed Title: " + mFeedTitle);
-//                mFeedDescriptionTextView.setText("Feed Description: " + mFeedDescription);
-//                mFeedLinkTextView.setText("Feed Link: " + mFeedLink);
-                // Fill RecyclerView
-
-
-                recyclerView_RSS.setAdapter(new RSS_Adapter(listItem_Rss,getContext()));
-
-
-
-
-            } else {
-                Toast.makeText(getActivity(),
-                        "Chưa kết nối Internet",
-                        Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
-
 }
