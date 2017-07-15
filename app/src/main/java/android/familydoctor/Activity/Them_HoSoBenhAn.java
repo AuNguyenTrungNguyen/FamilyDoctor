@@ -26,6 +26,7 @@ import com.google.firebase.storage.FirebaseStorage;
 
 public class Them_HoSoBenhAn extends AppCompatActivity {
 
+
     final Context context = this;
     private Toolbar toolbar;
     private ImageView imageView;
@@ -44,7 +45,6 @@ public class Them_HoSoBenhAn extends AppCompatActivity {
         initToolBar();
         initDanhSachGoiY();
 
-        //SetHinhf ảnh
 
         Bundle bundle=this.getIntent().getExtras();
 
@@ -66,13 +66,18 @@ public class Them_HoSoBenhAn extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                        intent.setType("image/*");
+                        intent.setType("image*//*");
                         startActivityForResult(intent, 2);
                     }
                 })
                 .show();
+
             }
         });
+
+
+
+
     }
 
     public String checkDigit(int number)
@@ -95,7 +100,11 @@ public class Them_HoSoBenhAn extends AppCompatActivity {
 //        int y = c.get(Calendar.YEAR);
 //        Random r = new Random();
 //        int ramdom = r.nextInt(1000 - 0) + 0;
+//
 //        final String key = y+mon+d+h+m+s+ms+ramdom+"";
+
+
+
 
         AutoCompleteTextView tenNongSan= (AutoCompleteTextView) findViewById(R.id.tv_add_ten_ban);
         Spinner loaiNongSan = (Spinner) findViewById(R.id.spinner_add_loai_ns_ban);
@@ -105,6 +114,8 @@ public class Them_HoSoBenhAn extends AppCompatActivity {
         DatePicker ngayThuHoach= (DatePicker) findViewById(R.id.tv_add_time_batdau_thuhoach);
         DatePicker ngayketthuc= (DatePicker) findViewById(R.id.tv_add_time_ketthuc_thuhoach);
         EditText diaDiemGiaoDich= (EditText) findViewById(R.id.tv_add_diadiem_ban);
+
+
 
 //        String ten = tenNongSan.getText().toString();
 //
@@ -141,7 +152,11 @@ public class Them_HoSoBenhAn extends AppCompatActivity {
 //
 //            }
 //        });
+
+
         finish();
+
+
     }
 
     public void initToolBar() {
@@ -157,12 +172,20 @@ public class Them_HoSoBenhAn extends AppCompatActivity {
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
+
+       /* ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item, DanhSach_LinhVuc_Thuoc.getLoai());
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spin.setAdapter(aa);*/
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -172,10 +195,14 @@ public class Them_HoSoBenhAn extends AppCompatActivity {
             // lay hinh thu nho cua hinh vua chup
             Bitmap hinh = (Bitmap) data.getExtras().get("data");
             imageView.setImageBitmap(hinh);
+
         }
+
         if (resultCode == RESULT_OK && requestCode == 2) {
+
             Uri imageUri = data.getData();
             imageView.setImageURI(imageUri);
+
         }
     }
 }
