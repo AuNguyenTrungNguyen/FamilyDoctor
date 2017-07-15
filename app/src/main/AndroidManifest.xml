@@ -20,18 +20,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".MainActivity"></activity>
 
-        <activity android:name=".Activity.LuaChonLoaiTaiKhoanActivity">
+        <activity android:name=".Activity.LuaChonLoaiTaiKhoanActivity"></activity>
+
+        <activity android:name=".Sign_in" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".Sign_in" />
 
         <activity
             android:name=".Activity.Them_HoSoBenhAn"
@@ -50,9 +49,6 @@
             android:parentActivityName=".Sign_in" />
         <activity
             android:name=".Activity.XemTTBenhNhan_Act"
-            android:parentActivityName=".Sign_in" />
-        <activity
-            android:name=".Activity.TimKiem_Act"
             android:parentActivityName=".Sign_in" />
         <activity
             android:name=".Activity.User_Edit"

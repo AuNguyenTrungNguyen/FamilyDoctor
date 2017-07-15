@@ -5,7 +5,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.familydoctor.Activity.Them_HoSoBenhAn;
-import android.familydoctor.Activity.TimKiem_Act;
 import android.familydoctor.Adapter.ViewPagerAdapter;
 import android.familydoctor.Fragment.DanhSachBacSi_BenhNhan;
 import android.familydoctor.Fragment.HoSoBenhAn;
