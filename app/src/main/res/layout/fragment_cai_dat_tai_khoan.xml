@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:textStyle="bold|italic"
+        android:gravity="left|center"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Cập nhật thông tin"/>
+
+    <TextView
+        android:textStyle="bold|italic"
+        android:gravity="left|center"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Thông tin ứng dụng"/>
+
+    <TextView
+        android:textStyle="bold|italic"
+        android:gravity="left|center"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Phản hồi ứng dụng"/>
+
+    <TextView
+        android:textStyle="bold|italic"
+        android:gravity="left|center"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Đăng xuất"/>
+
+    <ImageView
+        android:src="@drawable/backround_agri_help"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
