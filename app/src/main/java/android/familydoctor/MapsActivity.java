@@ -58,6 +58,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
+
     }
 
     public void moveCamera(double lat, double lng, float zoom) {
