@@ -146,6 +146,7 @@ public class TinTucSucKhoe extends Fragment {
                 content.append(line + "\n");
             }
             bufferedReader.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
