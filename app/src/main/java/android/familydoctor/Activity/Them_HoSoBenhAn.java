@@ -1,35 +1,13 @@
 package android.familydoctor.Activity;
 
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.familydoctor.Class.BenhNhan;
-import android.familydoctor.Class.DanhSach_LinhVuc_Thuoc;
 import android.familydoctor.R;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
 
 public class Them_HoSoBenhAn extends AppCompatActivity {
 
 
-    final Context context = this;
+   /* final Context context = this;
     private Toolbar toolbar;
     private ImageView imageView;
     BenhNhan benhNhan = new BenhNhan();
@@ -40,12 +18,12 @@ public class Them_HoSoBenhAn extends AppCompatActivity {
 
 
     private String id;
-
+*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.themhosobenhan);
-
+/*
         initToolBar();
         initDanhSachGoiY();
 
@@ -71,7 +49,7 @@ public class Them_HoSoBenhAn extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                        intent.setType("image/*");
+                        intent.setType("image*//*");
                         startActivityForResult(intent, 2);
                     }
                 })
@@ -209,5 +187,6 @@ public class Them_HoSoBenhAn extends AppCompatActivity {
             imageView.setImageURI(imageUri);
 
         }
+    }*/
     }
 }

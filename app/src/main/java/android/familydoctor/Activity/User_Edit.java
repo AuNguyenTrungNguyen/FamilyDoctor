@@ -1,46 +1,13 @@
 package android.familydoctor.Activity;
 
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.familydoctor.Class.BacSi;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
-import android.os.Bundle;
-import android.provider.MediaStore;
-import android.familydoctor.Class.DanhSach_LinhVuc_Thuoc;
-import android.familydoctor.R;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
-import java.io.ByteArrayOutputStream;
 
 /**
  * Created by buimi on 6/23/2017.
  */
 
 public class User_Edit extends AppCompatActivity {
-    final Context context = this;
+  /*  final Context context = this;
     private Toolbar toolbar;
     private ImageView imageView;
 
@@ -182,7 +149,7 @@ public class User_Edit extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                                intent.setType("image/*");
+                                intent.setType("image*//*");
                                 startActivityForResult(intent, 2);
                             }
                         })
@@ -209,5 +176,5 @@ public class User_Edit extends AppCompatActivity {
             imageView.setImageURI(imageUri);
 
         }
-    }
+    }*/
 }
