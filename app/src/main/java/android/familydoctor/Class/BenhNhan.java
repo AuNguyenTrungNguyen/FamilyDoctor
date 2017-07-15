@@ -11,6 +11,8 @@ public class BenhNhan {
     String email;
     String diachi;
     String imgUserURL;
+
+    //GPS ID
     float x;
     float y;
 

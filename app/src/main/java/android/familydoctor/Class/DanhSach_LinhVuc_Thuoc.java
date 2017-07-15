@@ -20,6 +20,8 @@ public class DanhSach_LinhVuc_Thuoc {
 
     static String[] danhmucthuoc ={"Thuốc","Tất cả","Đông y","Răng hàm mặt","Phụ Sản","Đa Khoa"};
 
+    static String[] nam ={"2010","2009","Đông y","Răng hàm mặt","Phụ Sản","Đa Khoa"};
+
 
     public static String[] getKhuvuc() {
         return khuvuc;
@@ -28,5 +30,9 @@ public class DanhSach_LinhVuc_Thuoc {
 
     public static String[] getLinhvucchuyenmon() {
         return linhvucchuyenmon;
+    }
+
+    public static String[] getNam() {
+        return nam;
     }
 }
