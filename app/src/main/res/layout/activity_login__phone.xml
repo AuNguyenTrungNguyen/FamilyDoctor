@@ -19,6 +19,7 @@
             android:inputType="phone"/>
 
         <Button
+            android:textAllCaps="false"
             android:id="@+id/button_start_verification"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -29,7 +30,6 @@
 
     <LinearLayout
         android:layout_margin="5dp"
-        android:weightSum="1"
         android:layout_width="match_parent"
         android:layout_height="50dp">
 
@@ -38,14 +38,15 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:hint="@string/M_X_N"
-            android:layout_weight="0.5"
+            android:layout_weight="0.6"
             android:inputType="number"/>
 
         <Button
             android:id="@+id/button_verify_phone"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.4"
+            android:layout_weight="0.3"
+            android:textAllCaps="false"
             android:text="@string/But_X_N"/>
 
         <Button
