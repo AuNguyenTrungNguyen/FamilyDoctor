@@ -23,7 +23,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -148,17 +147,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent  = new Intent();
-        switch (item.getItemId()) {
-            case R.id.search_button:
-                intent.setClass(MainActivity.this, TimKiem_Act.class);
-                startActivity(intent);
-                break;
-        }
-        return true;
-    }
 
     @Override
     public void onBackPressed() {
