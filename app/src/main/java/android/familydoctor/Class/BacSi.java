@@ -1,44 +1,29 @@
 package android.familydoctor.Class;
 public class BacSi {
-    String id, hoten, sdt, email, khuvuc,linhvucchuyenmon,kynang,diachi;
+
+    String hoten;
+    String sdt;
+    String email;
+    String linhvucchuyenmon;
+    String diachi;
     String imgUserURL;
+    String imgVanBang;
+    float x;
+    float y;
 
-    public String getImgUserURL() {
-        return imgUserURL;
-    }
-
-    public void setImgUserURL(String imgUserURL) {
-        this.imgUserURL = imgUserURL;
-    }
-
-    public BacSi() {
-    }
-
-    public BacSi(String id, String hoten, String email) {
-        this.id = id;
-        this.hoten = hoten;
-        this.email = email;
-    }
-
-    public BacSi(String id, String hoten, String email, String sdt, String khuvuc, String linhvucchuyenmon, String kynang, String diachi) {
-        this.id = id;
+    public BacSi(String hoten, String sdt, String email, String linhvucchuyenmon, String diachi, String imgUserURL, String imgVanBang, float x, float y) {
         this.hoten = hoten;
         this.sdt = sdt;
         this.email = email;
-        this.khuvuc = khuvuc;
         this.linhvucchuyenmon = linhvucchuyenmon;
-        this.kynang = kynang;
         this.diachi = diachi;
+        this.imgUserURL = imgUserURL;
+        this.imgVanBang = imgVanBang;
+        this.x = x;
+        this.y = y;
     }
 
-
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public BacSi() {
     }
 
     public String getHoten() {
@@ -65,14 +50,6 @@ public class BacSi {
         this.email = email;
     }
 
-    public String getKhuvuc() {
-        return khuvuc;
-    }
-
-    public void setKhuvuc(String khuvuc) {
-        this.khuvuc = khuvuc;
-    }
-
     public String getLinhvucchuyenmon() {
         return linhvucchuyenmon;
     }
@@ -81,19 +58,43 @@ public class BacSi {
         this.linhvucchuyenmon = linhvucchuyenmon;
     }
 
-    public String getKynang() {
-        return kynang;
-    }
-
-    public void setKynang(String kynang) {
-        this.kynang = kynang;
-    }
-
     public String getDiachi() {
         return diachi;
     }
 
     public void setDiachi(String diachi) {
         this.diachi = diachi;
+    }
+
+    public String getImgUserURL() {
+        return imgUserURL;
+    }
+
+    public void setImgUserURL(String imgUserURL) {
+        this.imgUserURL = imgUserURL;
+    }
+
+    public String getImgVanBang() {
+        return imgVanBang;
+    }
+
+    public void setImgVanBang(String imgVanBang) {
+        this.imgVanBang = imgVanBang;
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public void setY(float y) {
+        this.y = y;
     }
 }

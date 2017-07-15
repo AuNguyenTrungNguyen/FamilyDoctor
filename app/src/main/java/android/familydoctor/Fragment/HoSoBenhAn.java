@@ -40,7 +40,7 @@ public class HoSoBenhAn extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.tab2_sanpham_canmua, container, false);
+        View rootView = inflater.inflate(R.layout.tab2_hoso_benh, container, false);
 
         databaseReference= FirebaseDatabase.getInstance().getReference();
         databaseReference.child("NONG_SAN_MUA");

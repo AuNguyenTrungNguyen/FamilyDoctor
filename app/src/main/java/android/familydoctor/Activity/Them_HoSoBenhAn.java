@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.familydoctor.Class.BenhNhan;
-import android.familydoctor.Class.DanhSach_LinhVuc_KhuVuc;
+import android.familydoctor.Class.DanhSach_LinhVuc_Thuoc;
 import android.familydoctor.R;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -186,7 +186,7 @@ public class Them_HoSoBenhAn extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item, DanhSach_LinhVuc_KhuVuc.getLoai());
+        ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item, DanhSach_LinhVuc_Thuoc.getLoai());
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(aa);
     }

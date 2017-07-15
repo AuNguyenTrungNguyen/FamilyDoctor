@@ -7,12 +7,74 @@ import java.util.List;
  */
 
 public class HoSoBenh {
+
+    //ID Năm,tháng,ngày,giờ,phút, giây , miligiay
+
     private String idBacSi;
     private String idBenhNhan;
     private String idHoSo;
     private String ngayKham;
+    private String ngayTaiKham;
     private List<Thuoc> thuocDung;
 
 
+    public HoSoBenh(String idBacSi, String idBenhNhan, String idHoSo, String ngayKham, String ngayTaiKham, List<Thuoc> thuocDung) {
+        this.idBacSi = idBacSi;
+        this.idBenhNhan = idBenhNhan;
+        this.idHoSo = idHoSo;
+        this.ngayKham = ngayKham;
+        this.ngayTaiKham = ngayTaiKham;
+        this.thuocDung = thuocDung;
+    }
 
+    public HoSoBenh() {
+    }
+
+    public String getIdBacSi() {
+        return idBacSi;
+    }
+
+    public void setIdBacSi(String idBacSi) {
+        this.idBacSi = idBacSi;
+    }
+
+    public String getIdBenhNhan() {
+        return idBenhNhan;
+    }
+
+    public void setIdBenhNhan(String idBenhNhan) {
+        this.idBenhNhan = idBenhNhan;
+    }
+
+    public String getIdHoSo() {
+        return idHoSo;
+    }
+
+    public void setIdHoSo(String idHoSo) {
+        this.idHoSo = idHoSo;
+    }
+
+    public String getNgayKham() {
+        return ngayKham;
+    }
+
+    public void setNgayKham(String ngayKham) {
+        this.ngayKham = ngayKham;
+    }
+
+    public String getNgayTaiKham() {
+        return ngayTaiKham;
+    }
+
+    public void setNgayTaiKham(String ngayTaiKham) {
+        this.ngayTaiKham = ngayTaiKham;
+    }
+
+    public List<Thuoc> getThuocDung() {
+        return thuocDung;
+    }
+
+    public void setThuocDung(List<Thuoc> thuocDung) {
+        this.thuocDung = thuocDung;
+    }
 }

@@ -5,30 +5,26 @@ package android.familydoctor.Class;
  */
 
 public class BenhNhan {
-    String id, hoten, sdt, email, khuvuc,linhvucchuyenmon,kynang,diachi;
-    String imgUserURL;
 
-    public BenhNhan(String id, String hoten, String sdt, String email, String khuvuc, String linhvucchuyenmon, String kynang, String diachi, String imgUserURL) {
-        this.id = id;
+    String hoten;
+    String sdt;
+    String email;
+    String diachi;
+    String imgUserURL;
+    float x;
+    float y;
+
+    public BenhNhan(String hoten, String sdt, String email, String diachi, String imgUserURL, float x, float y) {
         this.hoten = hoten;
         this.sdt = sdt;
         this.email = email;
-        this.khuvuc = khuvuc;
-        this.linhvucchuyenmon = linhvucchuyenmon;
-        this.kynang = kynang;
         this.diachi = diachi;
         this.imgUserURL = imgUserURL;
+        this.x = x;
+        this.y = y;
     }
 
     public BenhNhan() {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getHoten() {
@@ -55,30 +51,6 @@ public class BenhNhan {
         this.email = email;
     }
 
-    public String getKhuvuc() {
-        return khuvuc;
-    }
-
-    public void setKhuvuc(String khuvuc) {
-        this.khuvuc = khuvuc;
-    }
-
-    public String getLinhvucchuyenmon() {
-        return linhvucchuyenmon;
-    }
-
-    public void setLinhvucchuyenmon(String linhvucchuyenmon) {
-        this.linhvucchuyenmon = linhvucchuyenmon;
-    }
-
-    public String getKynang() {
-        return kynang;
-    }
-
-    public void setKynang(String kynang) {
-        this.kynang = kynang;
-    }
-
     public String getDiachi() {
         return diachi;
     }
@@ -93,5 +65,21 @@ public class BenhNhan {
 
     public void setImgUserURL(String imgUserURL) {
         this.imgUserURL = imgUserURL;
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public void setY(float y) {
+        this.y = y;
     }
 }
