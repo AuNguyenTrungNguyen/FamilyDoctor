@@ -81,10 +81,6 @@ public class Login_Phone extends AppCompatActivity  implements View.OnClickListe
 
         mAuth = FirebaseAuth.getInstance();
 
-        // [END initialize_auth]
-
-        // Initialize phone auth callbacks
-        // [START phone_auth_callbacks]
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             @Override
@@ -111,17 +107,12 @@ public class Login_Phone extends AppCompatActivity  implements View.OnClickListe
                             Snackbar.LENGTH_SHORT).show();
                     // [END_EXCLUDE]
                 }
-                // Show a message and update the UI
-                // [START_EXCLUDE]
                 updateUI(STATE_VERIFY_FAILED);
                 // [END_EXCLUDE]
             }
             @Override
             public void onCodeSent(String verificationId,
                                    PhoneAuthProvider.ForceResendingToken token) {
-                // The SMS verification code has been sent to the provided phone number, we
-                // now need to ask the user to enter the code and then construct a credential
-                // by combining the code with a verification ID.
                 Log.d(TAG, "onCodeSent:" + verificationId);
                 // Save verification ID and resending token so we can use them later
                 mVerificationId = verificationId;
@@ -302,8 +293,6 @@ public class Login_Phone extends AppCompatActivity  implements View.OnClickListe
             enableViews(mPhoneNumberField, mVerificationField);
             mPhoneNumberField.setText(null);
             mVerificationField.setText(null);
-
-
         }
 
     }

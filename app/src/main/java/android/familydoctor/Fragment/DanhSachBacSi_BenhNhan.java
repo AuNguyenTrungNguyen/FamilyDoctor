@@ -24,7 +24,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -115,6 +114,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment {
                             Location.distanceBetween(latLng.latitude, latLng.longitude,
                                     toado.latitude, toado.longitude
                                     , results);
+                            /*
                             if (results[0] < 500) {
                                 markerOptions = new MarkerOptions()
                                         .position(toado)
@@ -124,6 +124,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment {
                                         );
                                 googleMap.addMarker(markerOptions).showInfoWindow();
                             }
+                            */
                         }
                     }
                 });
