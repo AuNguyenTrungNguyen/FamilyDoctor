@@ -1,7 +1,6 @@
 package android.familydoctor;
 
 import android.content.Intent;
-import android.familydoctor.Fragment.ThongTinCaNhan_Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,9 +29,7 @@ public class Sign_in extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,View.OnClickListener  {
 
     Button signinPhone ;
-
     private FirebaseAuth.AuthStateListener mAuthListener;
-
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
     // [START declare_auth]
@@ -46,22 +43,34 @@ public class Sign_in extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in);
 
+        mAuth = FirebaseAuth.getInstance();
 
         //Sign in by phone number
         signinPhone = (Button) findViewById(R.id.btn_signPhone);
         signinPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentPhone = new Intent(Sign_in.this,Login_Phone.class);
-                startActivity(intentPhone);
+                Intent intent = new Intent(Sign_in.this,LoginPhonee.class);
+                startActivity(intent);
             }
         });
-
         // sign with G+
-
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
         // Button listeners
         findViewById(R.id.btnSignGoogle).setOnClickListener(this);
-
         // [START config_signin]
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -74,10 +83,8 @@ public class Sign_in extends AppCompatActivity implements
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
         // [START initialize_auth]
-        mAuth = FirebaseAuth.getInstance();
+
     }
-
-
     @Override
     public void onStart() {
         super.onStart();
@@ -123,14 +130,11 @@ public class Sign_in extends AppCompatActivity implements
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
 
-                Intent gSignin = new Intent(this,ThongTinCaNhan_Fragment.class);
-                startActivity(gSignin);
+//                Intent gSignin = new Intent(this,ThongTinCaNhan_Fragment.class);
+//                startActivity(gSignin);
 
             } else {
-                // Google Sign In failed, update UI appropriately
-                // [START_EXCLUDE]
                 updateUI(null);
-                // [END_EXCLUDE]
             }
 
         }
@@ -139,8 +143,7 @@ public class Sign_in extends AppCompatActivity implements
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
-        // [START_EXCLUDE silent]
-        // [END_EXCLUDE]
+
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -165,7 +168,6 @@ public class Sign_in extends AppCompatActivity implements
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             findViewById(R.id.btnSignGoogle).setVisibility(View.GONE);
-
         }
     }
 

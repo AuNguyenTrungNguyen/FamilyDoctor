@@ -23,7 +23,11 @@ import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
 
-public class Login_Phone extends AppCompatActivity  implements View.OnClickListener {
+/**
+ * Created by Trung Banh on 17-Jul-17.
+ */
+
+public class LoginPhonee extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "PhoneAuthActivity";
     private static final String KEY_VERIFY_IN_PROGRESS = "key_verify_in_progress";
@@ -53,6 +57,7 @@ public class Login_Phone extends AppCompatActivity  implements View.OnClickListe
     private Button mStartButton;
     private Button mVerifyButton;
     private Button mResendButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,8 +68,6 @@ public class Login_Phone extends AppCompatActivity  implements View.OnClickListe
         if (savedInstanceState != null) {
             onRestoreInstanceState(savedInstanceState);
         }
-
-        // Assign views
 
         mPhoneNumberField = (EditText) findViewById(R.id.field_phone_number);
         mVerificationField = (EditText) findViewById(R.id.field_verification_code);
@@ -81,6 +84,10 @@ public class Login_Phone extends AppCompatActivity  implements View.OnClickListe
 
         mAuth = FirebaseAuth.getInstance();
 
+        // [END initialize_auth]
+
+        // Initialize phone auth callbacks
+        // [START phone_auth_callbacks]
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             @Override
@@ -89,6 +96,9 @@ public class Login_Phone extends AppCompatActivity  implements View.OnClickListe
                 Log.d(TAG, "onVerificationCompleted:" + credential);
                 // [START_EXCLUDE silent]
                 mVerificationInProgress = false;
+                // [END_EXCLUDE]
+                // [START_EXCLUDE silent]
+                // Update the UI and attempt sign in with the phone credential
                 updateUI(STATE_VERIFY_SUCCESS, credential);
                 // [END_EXCLUDE]
                 signInWithPhoneAuthCredential(credential);
@@ -107,12 +117,17 @@ public class Login_Phone extends AppCompatActivity  implements View.OnClickListe
                             Snackbar.LENGTH_SHORT).show();
                     // [END_EXCLUDE]
                 }
+                // Show a message and update the UI
+                // [START_EXCLUDE]
                 updateUI(STATE_VERIFY_FAILED);
                 // [END_EXCLUDE]
             }
             @Override
             public void onCodeSent(String verificationId,
                                    PhoneAuthProvider.ForceResendingToken token) {
+                // The SMS verification code has been sent to the provided phone number, we
+                // now need to ask the user to enter the code and then construct a credential
+                // by combining the code with a verification ID.
                 Log.d(TAG, "onCodeSent:" + verificationId);
                 // Save verification ID and resending token so we can use them later
                 mVerificationId = verificationId;
@@ -285,8 +300,7 @@ public class Login_Phone extends AppCompatActivity  implements View.OnClickListe
 
         }
         if (user == null) {
-
-
+            // Signed out
         } else {
 
             // Signed in
@@ -335,4 +349,5 @@ public class Login_Phone extends AppCompatActivity  implements View.OnClickListe
                 resendVerificationCode(mPhoneNumberField.getText().toString(), mResendToken);
                 break;
         }
-    }}
+    }
+}
