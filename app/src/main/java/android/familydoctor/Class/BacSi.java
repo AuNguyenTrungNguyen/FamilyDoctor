@@ -8,10 +8,13 @@ public class BacSi {
     String diachi;
     String imgUserURL;
     String imgVanBang;
-    float x;
-    float y;
+    String x;
+    String y;
 
-    public BacSi(String hoten, String sdt, String email, String linhvucchuyenmon, String diachi, String imgUserURL, String imgVanBang, float x, float y) {
+    public BacSi() {
+    }
+
+    public BacSi(String hoten, String sdt, String email, String linhvucchuyenmon, String diachi, String imgUserURL, String imgVanBang, String x, String y) {
         this.hoten = hoten;
         this.sdt = sdt;
         this.email = email;
@@ -21,9 +24,6 @@ public class BacSi {
         this.imgVanBang = imgVanBang;
         this.x = x;
         this.y = y;
-    }
-
-    public BacSi() {
     }
 
     public String getHoten() {
@@ -82,19 +82,19 @@ public class BacSi {
         this.imgVanBang = imgVanBang;
     }
 
-    public float getX() {
+    public String getX() {
         return x;
     }
 
-    public void setX(float x) {
+    public void setX(String x) {
         this.x = x;
     }
 
-    public float getY() {
+    public String getY() {
         return y;
     }
 
-    public void setY(float y) {
+    public void setY(String y) {
         this.y = y;
     }
 }

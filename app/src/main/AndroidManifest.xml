@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -19,18 +20,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
-        <activity android:name=".Activity.LuaChonLoaiTaiKhoanActivity" />
-        <activity android:name=".Sign_in">
+        <activity android:name=".MainActivity"></activity>
+
+        <activity android:name=".Activity.LuaChonLoaiTaiKhoanActivity"></activity>
+
+        <activity android:name=".Sign_in" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Login_Phone"
-            android:parentActivityName=".Sign_in"/>
+
         <activity
             android:name=".Activity.Them_HoSoBenhAn"
             android:parentActivityName=".Sign_in" />
@@ -66,8 +67,7 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" />
-        <activity android:name=".Fragment.ViewWeb"></activity>
+            android:label="@string/title_activity_maps"></activity>
     </application>
 
 </manifest>
