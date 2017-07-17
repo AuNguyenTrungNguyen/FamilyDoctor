@@ -27,7 +27,6 @@ public class DanhSach_LinhVuc_Thuoc {
         return khuvuc;
     }
 
-
     public static String[] getLinhvucchuyenmon() {
         return linhvucchuyenmon;
     }

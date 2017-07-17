@@ -22,5 +22,7 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+
     }
 }

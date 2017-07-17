@@ -29,6 +29,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".Login_Phone"
+            android:parentActivityName=".Sign_in"/>
+        <activity
             android:name=".Activity.Them_HoSoBenhAn"
             android:parentActivityName=".Sign_in" />
         <activity

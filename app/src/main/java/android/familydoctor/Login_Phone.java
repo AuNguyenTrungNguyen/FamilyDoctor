@@ -28,8 +28,6 @@ public class Login_Phone extends AppCompatActivity  implements View.OnClickListe
 
     private static final String TAG = "PhoneAuthActivity";
 
-
-
     private static final String KEY_VERIFY_IN_PROGRESS = "key_verify_in_progress";
     private static final int STATE_INITIALIZED = 1;
     private static final int STATE_CODE_SENT = 2;

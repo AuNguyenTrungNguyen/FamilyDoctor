@@ -3,7 +3,6 @@ package android.familydoctor.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.familydoctor.Class.BenhNhan;
 import android.familydoctor.R;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -30,8 +29,6 @@ public class Them_HoSoBenhAn extends AppCompatActivity {
     final Context context = this;
     private Toolbar toolbar;
     private ImageView imageView;
-    BenhNhan benhNhan = new BenhNhan();
-
     private DatabaseReference databaseReference;
     private FirebaseStorage firebaseStorage;
 
