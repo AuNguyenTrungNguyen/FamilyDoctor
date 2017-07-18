@@ -1,15 +1,15 @@
-package android.familydoctor;
+package android.familydoctor.Activity;
 //trungbanh
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.familydoctor.Activity.Them_HoSoBenhAn;
 import android.familydoctor.Adapter.ViewPagerAdapter;
 import android.familydoctor.Fragment.DanhSachBacSi_BenhNhan;
 import android.familydoctor.Fragment.HoSoBenhAn;
 import android.familydoctor.Fragment.ThongTinCaNhan_Fragment;
 import android.familydoctor.Fragment.TinTucSucKhoe;
+import android.familydoctor.R;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

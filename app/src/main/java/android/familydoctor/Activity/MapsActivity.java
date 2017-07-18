@@ -1,6 +1,7 @@
-package android.familydoctor;
+package android.familydoctor.Activity;
 
 import android.content.pm.PackageManager;
+import android.familydoctor.R;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
