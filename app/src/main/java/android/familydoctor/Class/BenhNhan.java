@@ -6,15 +6,16 @@ package android.familydoctor.Class;
 
 public class BenhNhan {
 
-    String hoten;
-    String sdt;
-    String email;
-    String diachi;
-    String imgUserURL;
+    private String hoten;
+    private String sdt;
+    private String email;
+    private String diachi;
+    private String imgUserURL;
+    private float x;
+    private float y;
 
-    //GPS ID
-    float x;
-    float y;
+    public BenhNhan() {
+    }
 
     public BenhNhan(String hoten, String sdt, String email, String diachi, String imgUserURL, float x, float y) {
         this.hoten = hoten;
@@ -26,7 +27,7 @@ public class BenhNhan {
         this.y = y;
     }
 
-    public BenhNhan() {
+    public BenhNhan(String hoTen, String namSinh, String sdt, String diaChi) {
     }
 
     public String getHoten() {

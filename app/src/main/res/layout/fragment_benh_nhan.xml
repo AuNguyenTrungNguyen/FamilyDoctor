@@ -4,10 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ImgAva"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -17,6 +23,7 @@
             android:textStyle="bold" />
 
         <EditText
+            android:id="@+id/HoTenE"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_margin="5dp" />
@@ -29,6 +36,7 @@
             android:textStyle="bold" />
 
         <EditText
+            android:id="@+id/SDTE"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_margin="5dp" />
@@ -62,6 +70,7 @@
             android:textStyle="bold" />
 
         <EditText
+            android:id="@+id/DiaChiE"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_margin="5dp" />
@@ -74,15 +83,23 @@
             android:textStyle="bold" />
 
         <ScrollView
+            android:id="@+id/NamSinhE"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <EditText
+                android:id="@+id/MoTaThemE"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp" />
 
         </ScrollView>
+        <Button
+            android:id="@+id/Submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="gởi"
+            />
 
     </LinearLayout>
 
