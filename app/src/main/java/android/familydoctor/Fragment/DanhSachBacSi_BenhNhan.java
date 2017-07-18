@@ -27,6 +27,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -44,101 +45,24 @@ public class DanhSachBacSi_BenhNhan extends Fragment {
     ArrayList<BacSi> dsBacSi;
     double longtitudeGPS;
     double latitudeGPS;
+
+    /*GoogleMap.OnMyLocationChangeListener listener =new GoogleMap.OnMyLocationChangeListener() {
+        @Override
+        public void onMyLocationChange(Location location) {
+            moveCameraMyLoc(location.getLatitude(),location.getLongitude(),18);
+        }
+    };*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tab3_danhasch_bs_bn, container, false);
         database = FirebaseDatabase.getInstance().getReference();
-        // testPusuDULieu();
+        //testPusuDULieu();
+
         dsBacSi = new ArrayList<>();
         mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
-        loadDuLieuFirebase();
-        try {
-            MapsInitializer.initialize(getActivity().getApplicationContext());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-
-        LocationManager lm = (LocationManager)getContext().getSystemService(Context.LOCATION_SERVICE);
-        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        longtitudeGPS = location.getLongitude();
-        latitudeGPS = location.getLatitude();
-
-        Toast.makeText(getContext(),latitudeGPS+"   "+longtitudeGPS , Toast.LENGTH_SHORT).show();
-        Log.d("TOADO",latitudeGPS+"   "+longtitudeGPS);
-        mMapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(final GoogleMap mMap) {
-                googleMap = mMap;
-
-                if (googleMap != null) {
-                    moveCameraMyLoc(latitudeGPS, longtitudeGPS, 17);
-                } else {
-                    final Handler handler = new Handler(Looper.getMainLooper());
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (googleMap != null) {
-                                moveCameraMyLoc(latitudeGPS
-                                        , longtitudeGPS
-                                        , 17);
-                            } else {
-                                handler.postDelayed(this, 300);
-                            }
-                        }
-                    }, 300);
-                }
-
-
-                if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
-                }
-                googleMap.setMyLocationEnabled(true);
-                googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng latLng) {
-                        googleMap.clear();
-                        moveCamera(latLng.latitude, latLng.longitude, 18);
-                        googleMap.addCircle(new CircleOptions()
-                                .radius(500)
-                                .center(latLng)
-                        );
-                        for (int i = 0; i < dsBacSi.size(); i++) {
-                            MarkerOptions markerOptions;
-                            LatLng toado = new LatLng(Double.parseDouble(dsBacSi.get(i).getX()), Double.parseDouble(dsBacSi.get(i).getY()));
-                            float[] results = new float[1];
-                            Location.distanceBetween(latLng.latitude, latLng.longitude,
-                                    toado.latitude, toado.longitude
-                                    , results);
-                            if (results[0] < 500) {
-                                markerOptions = new MarkerOptions()
-                                        .position(toado)
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.doctor))
-                                        .title(dsBacSi.get(i).getHoten())
-                                        .snippet(dsBacSi.get(i).getLinhvucchuyenmon()
-                                        );
-                                googleMap.addMarker(markerOptions).showInfoWindow();
-                            }
-                        }
-                    }
-                });
-                // For dropping a marker at a point on the Map
-                /*LatLng sydney = new LatLng(-34, 151);
-                googleMap.addMarker(new MarkerOptions().position(sydney).title("HBQ").snippet("huynh bao quoc"));
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 18));*/
-            }
-        });
-
-
-        return rootView;
-    }
-
-    private void testPusuDULieu() {
         BacSi bs = new BacSi(
                 "Huynh quoc"
                 , "01262985603"
@@ -199,6 +123,91 @@ public class DanhSachBacSi_BenhNhan extends Fragment {
                 , "105.764165"
         );
         database.child("BacSi").child("0122122122").setValue(bs4);
+
+        loadDuLieuFirebase();
+        try {
+            MapsInitializer.initialize(getActivity().getApplicationContext());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        LocationManager lm = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        longtitudeGPS = location.getLongitude();
+        latitudeGPS = location.getLatitude();
+
+        Toast.makeText(getContext(), latitudeGPS + "   " + longtitudeGPS, Toast.LENGTH_SHORT).show();
+        Log.d("TOADO", latitudeGPS + "   " + longtitudeGPS);
+        mMapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(final GoogleMap mMap) {
+                googleMap = mMap;
+                if (googleMap != null) {
+                    moveCameraMyLoc(latitudeGPS, longtitudeGPS, 17);
+                } else {
+                    final Handler handler = new Handler(Looper.getMainLooper());
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (googleMap != null) {
+                                moveCameraMyLoc(latitudeGPS
+                                        , longtitudeGPS
+                                        , 17);
+                            } else {
+                                handler.postDelayed(this, 300);
+                            }
+                        }
+                    }, 300);
+                }
+                if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
+                }
+                googleMap.setMyLocationEnabled(true);
+                googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+                //googleMap.setOnMyLocationChangeListener(listener);
+                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                    @Override
+                    public void onMapClick(LatLng latLng) {
+                        googleMap.clear();
+                        moveCamera(latLng.latitude, latLng.longitude, 18);
+                        googleMap.addCircle(new CircleOptions()
+                                .radius(500)
+                                .center(latLng)
+                        );
+                        for (int i = 0; i < dsBacSi.size(); i++) {
+                            MarkerOptions markerOptions;
+                            LatLng toado = new LatLng(Double.parseDouble(dsBacSi.get(i).getX()), Double.parseDouble(dsBacSi.get(i).getY()));
+                            float[] results = new float[1];
+                            Location.distanceBetween(latLng.latitude, latLng.longitude,
+                                    toado.latitude, toado.longitude
+                                    , results);
+                            if (results[0] < 500) {
+                                markerOptions = new MarkerOptions()
+                                        .position(toado)
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.doctor))
+                                        .title(dsBacSi.get(i).getHoten())
+                                        .snippet(dsBacSi.get(i).getLinhvucchuyenmon()
+                                        );
+                                Marker marker = googleMap.addMarker(markerOptions);
+                                marker.showInfoWindow();
+                            }
+                        }
+                    }
+
+                });
+                // For dropping a marker at a point on the Map
+                /*LatLng sydney = new LatLng(-34, 151);
+                googleMap.addMarker(new MarkerOptions().position(sydney).title("HBQ").snippet("huynh bao quoc"));
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 18));*/
+            }
+        });
+
+
+        return rootView;
+    }
+
+    private void testPusuDULieu() {
 
     }
 
