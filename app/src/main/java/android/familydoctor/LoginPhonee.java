@@ -2,7 +2,6 @@ package android.familydoctor;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -23,10 +22,6 @@ import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by Trung Banh on 17-Jul-17.
- */
-
 public class LoginPhonee extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "PhoneAuthActivity";
@@ -38,22 +33,20 @@ public class LoginPhonee extends AppCompatActivity implements View.OnClickListen
     private static final int STATE_VERIFY_SUCCESS = 4;
     private static final int STATE_SIGNIN_FAILED = 5;
     private static final int STATE_SIGNIN_SUCCESS = 6;
-    // [START declare_auth]
 
+    // [START declare_auth]
     private FirebaseAuth mAuth;
 
     // [END declare_auth]
 
     private boolean mVerificationInProgress = false;
-
     private String mVerificationId;
-
     private PhoneAuthProvider.ForceResendingToken mResendToken;
-
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
     private EditText mPhoneNumberField;
     private EditText mVerificationField;
+
     private Button mStartButton;
     private Button mVerifyButton;
     private Button mResendButton;
@@ -61,13 +54,12 @@ public class LoginPhonee extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_login__phone);
-
+        setContentView(R.layout.activity_main);
         // Restore instance state
         if (savedInstanceState != null) {
             onRestoreInstanceState(savedInstanceState);
         }
+        // Assign views
 
         mPhoneNumberField = (EditText) findViewById(R.id.field_phone_number);
         mVerificationField = (EditText) findViewById(R.id.field_verification_code);
@@ -75,24 +67,24 @@ public class LoginPhonee extends AppCompatActivity implements View.OnClickListen
         mStartButton = (Button) findViewById(R.id.button_start_verification);
         mVerifyButton = (Button) findViewById(R.id.button_verify_phone);
         mResendButton = (Button) findViewById(R.id.button_resend);
-
         // Assign click listeners
         mStartButton.setOnClickListener(this);
         mVerifyButton.setOnClickListener(this);
         mResendButton.setOnClickListener(this);
         // [START initialize_auth]
-
         mAuth = FirebaseAuth.getInstance();
-
         // [END initialize_auth]
-
         // Initialize phone auth callbacks
         // [START phone_auth_callbacks]
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-
             @Override
-
             public void onVerificationCompleted(PhoneAuthCredential credential) {
+                // This callback will be invoked in two situations:
+                // 1 - Instant verification. In some cases the phone number can be instantly
+                //     verified without needing to send or enter a verification code.
+                // 2 - Auto-retrieval. On some devices Google Play services can automatically
+                //     detect the incoming verification SMS and perform verificaiton without
+                //     user action.
                 Log.d(TAG, "onVerificationCompleted:" + credential);
                 // [START_EXCLUDE silent]
                 mVerificationInProgress = false;
@@ -105,16 +97,20 @@ public class LoginPhonee extends AppCompatActivity implements View.OnClickListen
             }
             @Override
             public void onVerificationFailed(FirebaseException e) {
+                // This callback is invoked in an invalid request for verification is made,
+                // for instance if the the phone number format is not valid.
                 Log.w(TAG, "onVerificationFailed", e);
-                // [START_EXCLUDE silent
+                // [START_EXCLUDE silent]
                 mVerificationInProgress = false;
                 // [END_EXCLUDE]
                 if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                    // Invalid request
+                    // [START_EXCLUDE]
                     mPhoneNumberField.setError("Invalid phone number.");
                     // [END_EXCLUDE]
                 } else if (e instanceof FirebaseTooManyRequestsException) {
-                    Snackbar.make(findViewById(android.R.id.content), "Quota exceeded.",
-                            Snackbar.LENGTH_SHORT).show();
+                    // The SMS quota for the project has been exceeded
+                    // [START_EXCLUDE]
                     // [END_EXCLUDE]
                 }
                 // Show a message and update the UI
@@ -159,7 +155,6 @@ public class LoginPhonee extends AppCompatActivity implements View.OnClickListen
         super.onSaveInstanceState(outState);
         outState.putBoolean(KEY_VERIFY_IN_PROGRESS, mVerificationInProgress);
     }
-
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -176,7 +171,6 @@ public class LoginPhonee extends AppCompatActivity implements View.OnClickListen
         // [END start_phone_auth]
         mVerificationInProgress = true;
     }
-
     private void verifyPhoneNumberWithCode(String verificationId, String code) {
         // [START verify_with_code]
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
@@ -184,7 +178,6 @@ public class LoginPhonee extends AppCompatActivity implements View.OnClickListen
         signInWithPhoneAuthCredential(credential);
     }
     // [START resend_verification]
-
     private void resendVerificationCode(String phoneNumber,
                                         PhoneAuthProvider.ForceResendingToken token) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
@@ -197,9 +190,7 @@ public class LoginPhonee extends AppCompatActivity implements View.OnClickListen
     }
     // [END resend_verification]
     // [START sign_in_with_phone]
-
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -225,24 +216,14 @@ public class LoginPhonee extends AppCompatActivity implements View.OnClickListen
                             updateUI(STATE_SIGNIN_FAILED);
                             // [END_EXCLUDE]
                         }
-
                     }
-
                 });
-
     }
     // [END sign_in_with_phone]
-
-    private void signOut() {
-
-        mAuth.signOut();
-        updateUI(STATE_INITIALIZED);
-    }
-
     private void updateUI(int uiState) {
         updateUI(uiState, mAuth.getCurrentUser(), null);
-    }
 
+    }
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             updateUI(STATE_SIGNIN_SUCCESS, user);
@@ -257,25 +238,23 @@ public class LoginPhonee extends AppCompatActivity implements View.OnClickListen
         updateUI(uiState, null, cred);
     }
     private void updateUI(int uiState, FirebaseUser user, PhoneAuthCredential cred) {
+
         switch (uiState) {
             case STATE_INITIALIZED:
                 // Initialized state, show only the phone number field and start button
                 enableViews(mStartButton, mPhoneNumberField);
                 disableViews(mVerifyButton, mResendButton, mVerificationField);
                 break;
-
             case STATE_CODE_SENT:
                 // Code sent state, show the verification field, the
                 enableViews(mVerifyButton, mResendButton, mPhoneNumberField, mVerificationField);
                 disableViews(mStartButton);
                 break;
-
             case STATE_VERIFY_FAILED:
                 // Verification has failed, show all options
                 enableViews(mStartButton, mVerifyButton, mResendButton, mPhoneNumberField,
                         mVerificationField);
                 break;
-
             case STATE_VERIFY_SUCCESS:
                 // Verification has succeeded, proceed to firebase sign in
                 disableViews(mStartButton, mVerifyButton, mResendButton, mPhoneNumberField,
@@ -287,28 +266,23 @@ public class LoginPhonee extends AppCompatActivity implements View.OnClickListen
                     } else {
 
                     }
-
                 }
                 break;
             case STATE_SIGNIN_FAILED:
                 // No-op, handled by sign-in check
                 break;
-
             case STATE_SIGNIN_SUCCESS:
                 // Np-op, handled by sign-in check
                 break;
-
         }
         if (user == null) {
             // Signed out
         } else {
-
             // Signed in
             enableViews(mPhoneNumberField, mVerificationField);
             mPhoneNumberField.setText(null);
             mVerificationField.setText(null);
         }
-
     }
     private boolean validatePhoneNumber() {
         String phoneNumber = mPhoneNumberField.getText().toString();

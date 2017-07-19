@@ -253,6 +253,20 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+//ma ket noi cai do lam chi?
+    // đăng nhập
+    // kh kết nối kh dc
+    //ua? ko dang nhap trong as la ko vao dc project ha?
+// kết nối nó mới lưu tại khoản lên firebase
 
+    //xàm
+    //LUU TK trong authentication
+    //luu trong nay chi?
+    // z ậy h chạy cho huynh xem
+    // kh kết nối là kh đăng nhập dc
+    //chay di
+    // là z đó
+    //nó không nhận số đt luôn mail cũng z
+    //mo code dang ky tai khoang coi
 
 }
