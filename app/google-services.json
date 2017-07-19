@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "457771740010",
-    "firebase_url": "https://familydoctor-56b96.firebaseio.com",
-    "project_id": "familydoctor-56b96",
-    "storage_bucket": "familydoctor-56b96.appspot.com"
+    "project_number": "129988298874",
+    "firebase_url": "https://familydoctor-728e1.firebaseio.com",
+    "project_id": "familydoctor-728e1",
+    "storage_bucket": "familydoctor-728e1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:457771740010:android:2c185e038be741d4",
+        "mobilesdk_app_id": "1:129988298874:android:2c185e038be741d4",
         "android_client_info": {
           "package_name": "android.familydoctor"
         }
       },
       "oauth_client": [
         {
-          "client_id": "457771740010-qk1dvqaf6sbtqdneud03g58kstlc8kar.apps.googleusercontent.com",
+          "client_id": "129988298874-3uvi5gjesqjuo4khvuab26kti6d80mrp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDsl3IEPpBAkmm52QyENudWbzqHeMp4NOk"
+          "current_key": "AIzaSyAh8MLRpSJjWrbsAV1dT1EBSMk1VKmuf08"
         }
       ],
       "services": {

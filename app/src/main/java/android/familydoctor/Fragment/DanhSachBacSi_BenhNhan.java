@@ -1,7 +1,9 @@
 package android.familydoctor.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.familydoctor.Activity.XemTTBacSi_Act;
 import android.familydoctor.Class.BacSi;
 import android.familydoctor.R;
 import android.location.Location;
@@ -13,10 +15,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -24,8 +29,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -35,7 +42,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class DanhSachBacSi_BenhNhan extends Fragment {
+public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickListener {
 
     MapView mMapView;
     private GoogleMap googleMap = null;
@@ -43,12 +50,24 @@ public class DanhSachBacSi_BenhNhan extends Fragment {
     ArrayList<BacSi> dsBacSi;
     double longtitudeGPS;
     double latitudeGPS;
+    EditText edtInput;
+    ImageButton btnSearch;
+    /*GoogleMap.OnMyLocationChangeListener listener =new GoogleMap.OnMyLocationChangeListener() {
+        @Override
+        public void onMyLocationChange(Location location) {
+            moveCameraMyLoc(location.getLatitude(),location.getLongitude(),18);
+        }
+    };*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tab3_danhasch_bs_bn, container, false);
         database = FirebaseDatabase.getInstance().getReference();
-        // testPusuDULieu();
+       // testPusuDULieu();
+
+        edtInput = (EditText) rootView.findViewById(R.id.edtSDT);
+        btnSearch= (ImageButton) rootView.findViewById(R.id.btnSearchAddress);
+        btnSearch.setOnClickListener(this);
         dsBacSi = new ArrayList<>();
         mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
@@ -61,21 +80,29 @@ public class DanhSachBacSi_BenhNhan extends Fragment {
         }
 
 
-
-        LocationManager lm = (LocationManager)getContext().getSystemService(Context.LOCATION_SERVICE);
+        LocationManager lm = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         longtitudeGPS = location.getLongitude();
         latitudeGPS = location.getLatitude();
 
-        Toast.makeText(getContext(),latitudeGPS+"   "+longtitudeGPS , Toast.LENGTH_SHORT).show();
-        Log.d("TOADO",latitudeGPS+"   "+longtitudeGPS);
+        Toast.makeText(getContext(), latitudeGPS + "   " + longtitudeGPS, Toast.LENGTH_SHORT).show();
+        Log.d("TOADO", latitudeGPS + "   " + longtitudeGPS);
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(final GoogleMap mMap) {
                 googleMap = mMap;
-
                 if (googleMap != null) {
                     moveCameraMyLoc(latitudeGPS, longtitudeGPS, 17);
+                    googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                        @Override
+                        public void onInfoWindowClick(Marker marker) {
+                            Intent it = new Intent(getContext(), XemTTBacSi_Act.class);
+                            Bundle bd = new Bundle();
+                            bd.putParcelable("Latlng",marker.getPosition());
+                            it.putExtra("BUNDLE",bd);
+                            startActivity(it);
+                        }
+                    });
                 } else {
                     final Handler handler = new Handler(Looper.getMainLooper());
                     handler.postDelayed(new Runnable() {
@@ -91,13 +118,12 @@ public class DanhSachBacSi_BenhNhan extends Fragment {
                         }
                     }, 300);
                 }
-
-
                 if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
                 }
                 googleMap.setMyLocationEnabled(true);
                 googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+                //googleMap.setOnMyLocationChangeListener(listener);
                 googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(LatLng latLng) {
@@ -114,7 +140,6 @@ public class DanhSachBacSi_BenhNhan extends Fragment {
                             Location.distanceBetween(latLng.latitude, latLng.longitude,
                                     toado.latitude, toado.longitude
                                     , results);
-                            /*
                             if (results[0] < 500) {
                                 markerOptions = new MarkerOptions()
                                         .position(toado)
@@ -122,11 +147,12 @@ public class DanhSachBacSi_BenhNhan extends Fragment {
                                         .title(dsBacSi.get(i).getHoten())
                                         .snippet(dsBacSi.get(i).getLinhvucchuyenmon()
                                         );
-                                googleMap.addMarker(markerOptions).showInfoWindow();
+                                Marker marker = googleMap.addMarker(markerOptions);
+                                marker.showInfoWindow();
                             }
-                            */
                         }
                     }
+
                 });
                 // For dropping a marker at a point on the Map
                 /*LatLng sydney = new LatLng(-34, 151);
@@ -140,7 +166,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment {
     }
 
     private void testPusuDULieu() {
-        BacSi bs = new BacSi(
+        /* BacSi bs = new BacSi(
                 "Huynh quoc"
                 , "01262985603"
                 , "quocb1400@gmail.com"
@@ -198,9 +224,8 @@ public class DanhSachBacSi_BenhNhan extends Fragment {
                 , ""
                 , "10.029583"
                 , "105.764165"
-        );
-        database.child("BacSi").child("0122122122").setValue(bs4);
-
+                database.child("BacSi").child("0122122122").setValue(bs4);
+        );*/
     }
 
     private void loadDuLieuFirebase() {
@@ -248,5 +273,33 @@ public class DanhSachBacSi_BenhNhan extends Fragment {
         LatLng loc = new LatLng(lat, lng);
         googleMap.addMarker(new MarkerOptions().position(loc).title("Bạn đang ở đây!"));
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, zoom));
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId()==R.id.btnSearchAddress)
+        {
+            String input=edtInput.getText().toString();
+            for(int i=0;i<dsBacSi.size();i++)
+            {
+                if (TextUtils.equals(input,dsBacSi.get(i).getSdt()))
+                {
+                    moveCamera(Double.parseDouble(dsBacSi.get(i).getX())
+                            ,Double.parseDouble(dsBacSi.get(i).getY())
+                            ,19);
+                    MarkerOptions markerOptions = new MarkerOptions()
+                            .position(new LatLng(Double.parseDouble(dsBacSi.get(i).getX()),Double.parseDouble(dsBacSi.get(i).getY())))
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.doctor))
+                            .title(dsBacSi.get(i).getHoten())
+                            .snippet(dsBacSi.get(i).getLinhvucchuyenmon()
+                            );
+                    Marker marker = googleMap.addMarker(markerOptions);
+                    marker.showInfoWindow();
+                    Toast.makeText(getContext(), "Ổng đây nè =))", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+        }
     }
 }
