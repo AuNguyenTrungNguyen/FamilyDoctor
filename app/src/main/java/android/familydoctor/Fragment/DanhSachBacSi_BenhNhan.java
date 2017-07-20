@@ -52,6 +52,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
     double latitudeGPS;
     EditText edtInput;
     ImageButton btnSearch;
+    ////////////////////hdqwdhqwudhuwqhduqwhduqwdh
     /*GoogleMap.OnMyLocationChangeListener listener =new GoogleMap.OnMyLocationChangeListener() {
         @Override
         public void onMyLocationChange(Location location) {
@@ -63,7 +64,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tab3_danhasch_bs_bn, container, false);
         database = FirebaseDatabase.getInstance().getReference();
-       // testPusuDULieu();
+       //testPusuDULieu();
 
         edtInput = (EditText) rootView.findViewById(R.id.edtSDT);
         btnSearch= (ImageButton) rootView.findViewById(R.id.btnSearchAddress);
@@ -130,7 +131,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                         googleMap.clear();
                         moveCamera(latLng.latitude, latLng.longitude, 18);
                         googleMap.addCircle(new CircleOptions()
-                                .radius(500)
+                                .radius(50)
                                 .center(latLng)
                         );
                         for (int i = 0; i < dsBacSi.size(); i++) {
@@ -140,7 +141,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                             Location.distanceBetween(latLng.latitude, latLng.longitude,
                                     toado.latitude, toado.longitude
                                     , results);
-                            if (results[0] < 500) {
+                            if (results[0] < 50) {
                                 markerOptions = new MarkerOptions()
                                         .position(toado)
                                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.doctor))
@@ -166,7 +167,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
     }
 
     private void testPusuDULieu() {
-        /* BacSi bs = new BacSi(
+         BacSi bs = new BacSi(
                 "Huynh quoc"
                 , "01262985603"
                 , "quocb1400@gmail.com"
@@ -224,8 +225,33 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                 , ""
                 , "10.029583"
                 , "105.764165"
+        );
                 database.child("BacSi").child("0122122122").setValue(bs4);
-        );*/
+
+        BacSi bs5 = new BacSi(
+                "Huynh quoc NEW"
+                , "00000000"
+                , "quocb1400@gmail.com"
+                , "Tổng hợp"
+                , "Ngô quyền, Cần thơ"
+                , ""
+                , ""
+                ,"10.024837"
+                ,"105.768665"
+        );
+        database.child("BacSi").child("00000000").setValue(bs5);
+        BacSi bs6 = new BacSi(
+                "Huynh quoc NEW"
+                , "111111111111"
+                , "quocb1400@gmail.com"
+                , "Tổng hợp"
+                , "Ngô quyền, Cần thơ"
+                , ""
+                , ""
+                ,"10.023400"
+                ,"105.767721"
+        );
+        database.child("BacSi").child("111111111111").setValue(bs6);
     }
 
     private void loadDuLieuFirebase() {
