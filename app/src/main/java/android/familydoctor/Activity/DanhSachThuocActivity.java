@@ -18,7 +18,7 @@ public class DanhSachThuocActivity extends AppCompatActivity {
 
     ListView listView;
     ArrayAdapter adapter;
-    ArrayList<String> list;
+    ArrayList<String> list, listSearch;
 
     Toolbar toolbarDanhSachThuoc;
     SearchView searchView;
@@ -48,8 +48,9 @@ public class DanhSachThuocActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent= new Intent();
+
                 String tenThuoc= list.get(position);
-                intent.putExtra("data", tenThuoc);
+                intent.putExtra("tenThuoc", tenThuoc);
                 setResult(ThemHoSoBenhAnActivity.RESULT_CODE, intent);
                 finish();
             }
@@ -71,7 +72,7 @@ public class DanhSachThuocActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                ArrayList<String> listSearch = new ArrayList<>();
+                listSearch = new ArrayList<>();
                 for(int i = 0; i < list.size(); i++){
                     if(list.get(i).toLowerCase().contains(newText.toLowerCase())){
                         listSearch.add(list.get(i));

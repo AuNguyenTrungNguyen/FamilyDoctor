@@ -31,7 +31,7 @@
                     android:weightSum="1">
 
                     <EditText
-                        android:hint="Số điện thoại cần kiểm tra"
+                        android:hint="Test: 123"
                         android:id="@+id/edtSoDienThoaiCanKiemTra"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -59,7 +59,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
                         android:layout_margin="5dp"
-                        android:text="Tên bệnh"
+                        android:text="Tên bệnh:"
                         android:textStyle="bold" />
 
 
