@@ -1,5 +1,7 @@
 package android.familydoctor;
 
+import android.content.Intent;
+import android.familydoctor.Fragment.ThongTinCaNhan_Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -256,9 +258,8 @@ public class LoginPhonee extends AppCompatActivity implements View.OnClickListen
                         mVerificationField);
                 break;
             case STATE_VERIFY_SUCCESS:
-                // Verification has succeeded, proceed to firebase sign in
-                disableViews(mStartButton, mVerifyButton, mResendButton, mPhoneNumberField,
-                        mVerificationField);
+                Intent intent = new Intent(this , ThongTinCaNhan_Fragment.class);
+                startActivity(intent);
                 // Set the verification text based on the credential
                 if (cred != null) {
                     if (cred.getSmsCode() != null) {

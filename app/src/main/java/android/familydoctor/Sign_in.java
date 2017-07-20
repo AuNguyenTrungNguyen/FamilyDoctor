@@ -1,9 +1,9 @@
 package android.familydoctor;
 
 import android.content.Intent;
+import android.familydoctor.Fragment.ThongTinCaNhan_Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -26,10 +26,8 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 
 public class Sign_in extends AppCompatActivity implements
-        GoogleApiClient.OnConnectionFailedListener,View.OnClickListener  {
-
-    Button signinPhone ;
-    private FirebaseAuth.AuthStateListener mAuthListener;
+        GoogleApiClient.OnConnectionFailedListener,
+        View.OnClickListener {
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
     // [START declare_auth]
@@ -37,40 +35,28 @@ public class Sign_in extends AppCompatActivity implements
     // [END declare_auth]
     private GoogleApiClient mGoogleApiClient;
 
-
+    Button phone ;
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in);
 
-        mAuth = FirebaseAuth.getInstance();
+        //sign in with phone
+        phone = (Button) findViewById(R.id.btn_signPhone);
 
-        //Sign in by phone number
-        signinPhone = (Button) findViewById(R.id.btn_signPhone);
-        signinPhone.setOnClickListener(new View.OnClickListener() {
+        phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Sign_in.this,LoginPhonee.class);
+                Intent intent = new Intent( Sign_in.this,LoginPhonee.class);
                 startActivity(intent);
             }
         });
-        // sign with G+
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-                // ...
-            }
-        };
+
+
+
+        // Views
         // Button listeners
-        findViewById(R.id.btnSignGoogle).setOnClickListener(this);
+        findViewById(R.id.sign_in_button).setOnClickListener(this);
         // [START config_signin]
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -83,67 +69,43 @@ public class Sign_in extends AppCompatActivity implements
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
         // [START initialize_auth]
-
+        mAuth = FirebaseAuth.getInstance();
+        // [END initialize_auth]
     }
+    // [START on_start_check_user]
     @Override
     public void onStart() {
         super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        updateUI(currentUser);
     }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
-    }
-
-
-    @Override
-    public void onClick(View v) {
-        int i = v.getId();
-        if (i == R.id.btnSignGoogle) {
-            signIn();
-        }
-    }
-    private void signIn() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
-
-
+    // [END on_start_check_user]
+    // [START onactivityresult]
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
-
-//                Intent gSignin = new Intent(this,ThongTinCaNhan_Fragment.class);
-//                startActivity(gSignin);
-
             } else {
+                // Google Sign In failed, update UI appropriately
+                // [START_EXCLUDE]
                 updateUI(null);
+                // [END_EXCLUDE]
             }
-
         }
-
     }
-
+    // [END onactivityresult]
+    // [START auth_with_google]
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
-
+        // [START_EXCLUDE silent]
+        // [END_EXCLUDE]
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -162,13 +124,40 @@ public class Sign_in extends AppCompatActivity implements
                             updateUI(null);
                         }
                         // [START_EXCLUDE]
+                        // [END_EXCLUDE]
                     }
                 });
     }
+    // [END auth_with_google]
+    // [START signin]
+    private void signIn() {
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            findViewById(R.id.btnSignGoogle).setVisibility(View.GONE);
+            findViewById(R.id.sign_in_button).setVisibility(View.GONE);
+
+            Intent intent = new Intent( Sign_in.this,ThongTinCaNhan_Fragment.class);
+            startActivity(intent);
+
+        } else {
+            findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
+
         }
     }
-
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        // An unresolvable error has occurred and Google APIs (including Sign-In) will not
+        // be available.
+        Log.d(TAG, "onConnectionFailed:" + connectionResult);
+        Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    public void onClick(View v) {
+        int i = v.getId();
+        if (i == R.id.sign_in_button) {
+            signIn();
+        }
+    }
 }
