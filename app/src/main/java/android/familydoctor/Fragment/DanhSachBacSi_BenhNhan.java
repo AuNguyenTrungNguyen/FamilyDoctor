@@ -83,8 +83,10 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
 
         LocationManager lm = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        longtitudeGPS = location.getLongitude();
-        latitudeGPS = location.getLatitude();
+        if(location != null){
+            longtitudeGPS = location.getLongitude();
+            latitudeGPS = location.getLatitude();
+        }
 
         Toast.makeText(getContext(), latitudeGPS + "   " + longtitudeGPS, Toast.LENGTH_SHORT).show();
         Log.d("TOADO", latitudeGPS + "   " + longtitudeGPS);
