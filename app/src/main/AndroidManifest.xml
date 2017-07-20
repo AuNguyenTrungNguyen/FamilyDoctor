@@ -27,16 +27,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".Activity.LuaChonLoaiTaiKhoanActivity">
-        </activity>
-
-        <activity android:name=".Sign_in" >
-
-        </activity>
-
-        <activity android:name=".LoginPhonee"/>
-
+        <activity android:name=".Activity.LuaChonLoaiTaiKhoanActivity"></activity>
+        <activity android:name=".Sign_in"></activity>
+        <activity android:name=".LoginPhonee" />
         <activity
             android:name=".Activity.Them_HoSoBenhAn"
             android:parentActivityName=".Sign_in" />
@@ -72,7 +65,12 @@
 
         <activity
             android:name=".Activity.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
+
+        <service
+            android:name=".service.GPSTracker"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

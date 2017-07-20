@@ -1,13 +1,12 @@
 package android.familydoctor.Fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.familydoctor.Activity.XemTTBacSi_Act;
 import android.familydoctor.Class.BacSi;
 import android.familydoctor.R;
+import android.familydoctor.service.GPSTracker;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,7 +15,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +50,8 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
     double latitudeGPS;
     EditText edtInput;
     ImageButton btnSearch;
+    GPSTracker gpsTracker;
+    private Location mLocation;
     ////////////////////hdqwdhqwudhuwqhduqwhduqwdh
     /*GoogleMap.OnMyLocationChangeListener listener =new GoogleMap.OnMyLocationChangeListener() {
         @Override
@@ -64,10 +64,10 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tab3_danhasch_bs_bn, container, false);
         database = FirebaseDatabase.getInstance().getReference();
-       //testPusuDULieu();
+        //testPusuDULieu();
 
         edtInput = (EditText) rootView.findViewById(R.id.edtSDT);
-        btnSearch= (ImageButton) rootView.findViewById(R.id.btnSearchAddress);
+        btnSearch = (ImageButton) rootView.findViewById(R.id.btnSearchAddress);
         btnSearch.setOnClickListener(this);
         dsBacSi = new ArrayList<>();
         mMapView = (MapView) rootView.findViewById(R.id.mapView);
@@ -80,14 +80,21 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
             e.printStackTrace();
         }
 
+        gpsTracker= new GPSTracker(getContext());
 
-        LocationManager lm = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+        if(gpsTracker!=null){
+            mLocation=gpsTracker.getLocation();
+            latitudeGPS= mLocation.getLatitude();
+            longtitudeGPS= mLocation.getLongitude();
+        }
+
+        /*LocationManager lm = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         longtitudeGPS = location.getLongitude();
         latitudeGPS = location.getLatitude();
-
+*/
         Toast.makeText(getContext(), latitudeGPS + "   " + longtitudeGPS, Toast.LENGTH_SHORT).show();
-        Log.d("TOADO", latitudeGPS + "   " + longtitudeGPS);
+
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(final GoogleMap mMap) {
@@ -99,8 +106,8 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                         public void onInfoWindowClick(Marker marker) {
                             Intent it = new Intent(getContext(), XemTTBacSi_Act.class);
                             Bundle bd = new Bundle();
-                            bd.putParcelable("Latlng",marker.getPosition());
-                            it.putExtra("BUNDLE",bd);
+                            bd.putParcelable("Latlng", marker.getPosition());
+                            it.putExtra("BUNDLE", bd);
                             startActivity(it);
                         }
                     });
@@ -167,7 +174,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
     }
 
     private void testPusuDULieu() {
-         BacSi bs = new BacSi(
+        BacSi bs = new BacSi(
                 "Huynh quoc"
                 , "01262985603"
                 , "quocb1400@gmail.com"
@@ -226,7 +233,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                 , "10.029583"
                 , "105.764165"
         );
-                database.child("BacSi").child("0122122122").setValue(bs4);
+        database.child("BacSi").child("0122122122").setValue(bs4);
 
         BacSi bs5 = new BacSi(
                 "Huynh quoc NEW"
@@ -236,8 +243,8 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                 , "Ngô quyền, Cần thơ"
                 , ""
                 , ""
-                ,"10.024837"
-                ,"105.768665"
+                , "10.024837"
+                , "105.768665"
         );
         database.child("BacSi").child("00000000").setValue(bs5);
         BacSi bs6 = new BacSi(
@@ -248,8 +255,8 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                 , "Ngô quyền, Cần thơ"
                 , ""
                 , ""
-                ,"10.023400"
-                ,"105.767721"
+                , "10.023400"
+                , "105.767721"
         );
         database.child("BacSi").child("111111111111").setValue(bs6);
     }
@@ -303,18 +310,15 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        if(v.getId()==R.id.btnSearchAddress)
-        {
-            String input=edtInput.getText().toString();
-            for(int i=0;i<dsBacSi.size();i++)
-            {
-                if (TextUtils.equals(input,dsBacSi.get(i).getSdt()))
-                {
+        if (v.getId() == R.id.btnSearchAddress) {
+            String input = edtInput.getText().toString();
+            for (int i = 0; i < dsBacSi.size(); i++) {
+                if (TextUtils.equals(input, dsBacSi.get(i).getSdt())) {
                     moveCamera(Double.parseDouble(dsBacSi.get(i).getX())
-                            ,Double.parseDouble(dsBacSi.get(i).getY())
-                            ,19);
+                            , Double.parseDouble(dsBacSi.get(i).getY())
+                            , 19);
                     MarkerOptions markerOptions = new MarkerOptions()
-                            .position(new LatLng(Double.parseDouble(dsBacSi.get(i).getX()),Double.parseDouble(dsBacSi.get(i).getY())))
+                            .position(new LatLng(Double.parseDouble(dsBacSi.get(i).getX()), Double.parseDouble(dsBacSi.get(i).getY())))
                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.doctor))
                             .title(dsBacSi.get(i).getHoten())
                             .snippet(dsBacSi.get(i).getLinhvucchuyenmon()
