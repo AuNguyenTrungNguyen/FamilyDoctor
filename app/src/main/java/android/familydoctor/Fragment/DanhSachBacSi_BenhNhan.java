@@ -7,6 +7,7 @@ import android.familydoctor.Class.BacSi;
 import android.familydoctor.R;
 import android.familydoctor.service.GPSTracker;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -40,6 +41,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+
+import static android.content.Context.LOCATION_SERVICE;
 
 public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickListener {
 
@@ -81,18 +84,17 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
             e.printStackTrace();
         }
         gpsTracker= new GPSTracker(getContext());
+        LocationManager locationManager = (LocationManager)getContext().getSystemService(LOCATION_SERVICE);
 
-        if(gpsTracker!=null){
+        if(gpsTracker!=null && locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
             mLocation=gpsTracker.getLocation();
             latitudeGPS= mLocation.getLatitude();
             longtitudeGPS= mLocation.getLongitude();
         }
-
-      /*  LocationManager lm = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
-        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        longtitudeGPS = location.getLongitude();
-        latitudeGPS = location.getLatitude();*/
-
+        else
+        {
+            Toast.makeText(getActivity().getApplicationContext(), "Không biết vị trí của bạn,hãy mở GPS của bạn!", Toast.LENGTH_SHORT).show();
+        }
         Toast.makeText(getContext(), latitudeGPS + "   " + longtitudeGPS, Toast.LENGTH_SHORT).show();
         Log.d("TOADO", latitudeGPS + "   " + longtitudeGPS);
         mMapView.getMapAsync(new OnMapReadyCallback() {
