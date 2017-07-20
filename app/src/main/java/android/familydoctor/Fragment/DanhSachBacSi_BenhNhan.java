@@ -1,13 +1,12 @@
 package android.familydoctor.Fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.familydoctor.Activity.XemTTBacSi_Act;
 import android.familydoctor.Class.BacSi;
 import android.familydoctor.R;
+import android.familydoctor.service.GPSTracker;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -52,6 +51,8 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
     double latitudeGPS;
     EditText edtInput;
     ImageButton btnSearch;
+    private GPSTracker gpsTracker;
+    private Location mLocation;
     ////////////////////hdqwdhqwudhuwqhduqwhduqwdh
     /*GoogleMap.OnMyLocationChangeListener listener =new GoogleMap.OnMyLocationChangeListener() {
         @Override
@@ -79,12 +80,18 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
         } catch (Exception e) {
             e.printStackTrace();
         }
+        gpsTracker= new GPSTracker(getContext());
 
+        if(gpsTracker!=null){
+            mLocation=gpsTracker.getLocation();
+            latitudeGPS= mLocation.getLatitude();
+            longtitudeGPS= mLocation.getLongitude();
+        }
 
-        LocationManager lm = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+      /*  LocationManager lm = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         longtitudeGPS = location.getLongitude();
-        latitudeGPS = location.getLatitude();
+        latitudeGPS = location.getLatitude();*/
 
         Toast.makeText(getContext(), latitudeGPS + "   " + longtitudeGPS, Toast.LENGTH_SHORT).show();
         Log.d("TOADO", latitudeGPS + "   " + longtitudeGPS);

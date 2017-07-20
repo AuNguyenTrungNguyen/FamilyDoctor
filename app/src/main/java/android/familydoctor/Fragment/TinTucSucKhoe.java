@@ -4,35 +4,15 @@ package android.familydoctor.Fragment;
  * Created by ASUS on 27/05/2017.
  */
 
-import android.content.Context;
-import android.content.Intent;
-import android.familydoctor.Adapter.CustomAdapter;
-import android.familydoctor.Adapter.TinTuc;
-import android.familydoctor.Adapter.XMLDOMParser;
 import android.familydoctor.R;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class TinTucSucKhoe extends Fragment {
-
+/*
     Context context;
 
     @Override
@@ -58,14 +38,14 @@ public class TinTucSucKhoe extends Fragment {
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
         return fragment;
-    }
+    }*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.tab1_tintuc, container, false);
 
-        tinTucs = new ArrayList<TinTuc>();
+       /* tinTucs = new ArrayList<TinTuc>();
 
         listView = (ListView) rootView.findViewById(R.id.List_item);
 
@@ -84,10 +64,10 @@ public class TinTucSucKhoe extends Fragment {
                 startActivity(intent);
             }
         });
-
+*/
         return rootView;
     }
-    class ReadData extends AsyncTask<String, Integer, String> {
+  /*  class ReadData extends AsyncTask<String, Integer, String> {
         @Override
         protected String doInBackground(String... params) {
             return docNoiDung_Tu_URL(params[0]);
@@ -145,5 +125,5 @@ public class TinTucSucKhoe extends Fragment {
             e.printStackTrace();
         }
         return content.toString();
-    }
+    }*/
 }
