@@ -23,6 +23,8 @@ public class DanhSachThuocActivity extends AppCompatActivity {
     Toolbar toolbarDanhSachThuoc;
     SearchView searchView;
 
+    Boolean isSearch = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +35,7 @@ public class DanhSachThuocActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.lvDanhSachThuoc);
         list = new ArrayList<>();
+        listSearch = new ArrayList<>();
 
         list.add("Đau đầu");
         list.add("Đau mắt");
@@ -48,8 +51,12 @@ public class DanhSachThuocActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent= new Intent();
-
-                String tenThuoc= list.get(position);
+                String tenThuoc = "";
+                if(isSearch){
+                    tenThuoc = listSearch.get(position);
+                }else{
+                    tenThuoc = list.get(position);
+                }
                 intent.putExtra("tenThuoc", tenThuoc);
                 setResult(ThemHoSoBenhAnActivity.RESULT_CODE, intent);
                 finish();
@@ -72,7 +79,12 @@ public class DanhSachThuocActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                listSearch = new ArrayList<>();
+
+                if(!newText.equals("")){
+                    isSearch = true;
+                }else{
+                    isSearch = false;
+                }
                 for(int i = 0; i < list.size(); i++){
                     if(list.get(i).toLowerCase().contains(newText.toLowerCase())){
                         listSearch.add(list.get(i));
