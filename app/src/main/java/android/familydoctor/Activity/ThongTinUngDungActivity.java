@@ -10,13 +10,13 @@ import android.support.v7.widget.Toolbar;
  * Created by buimi on 6/19/2017.
  */
 
-public class ThongTinUngDung extends AppCompatActivity{
+public class ThongTinUngDungActivity extends AppCompatActivity{
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tt_thongtin_ungdung);
+        setContentView(R.layout.activity_thong_tin_ung_dung);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_about);
         setSupportActionBar(toolbar);
