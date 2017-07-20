@@ -28,7 +28,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activity.LuaChonLoaiTaiKhoanActivity"></activity>
+        <activity android:name=".Activity.LuaChonLoaiTaiKhoanActivity">
+        </activity>
 
         <activity android:name=".Sign_in" >
 
@@ -40,7 +41,7 @@
             android:name=".Activity.Them_HoSoBenhAn"
             android:parentActivityName=".Sign_in" />
         <activity
-            android:name=".Activity.ThongTinUngDung"
+            android:name=".Activity.ThongTinUngDungActivity"
             android:parentActivityName=".Sign_in" />
         <activity
             android:name=".Activity.CaiDat_TaiKhoan"
