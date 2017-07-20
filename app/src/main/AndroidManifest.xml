@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -44,7 +45,9 @@
             android:parentActivityName=".Sign_in" />
         <activity
             android:name=".Activity.XemTTBacSi_Act"
-            android:parentActivityName=".Sign_in" />
+            android:parentActivityName=".Sign_in">
+
+        </activity>
         <activity
             android:name=".Activity.XemTTBenhNhan_Act"
             android:parentActivityName=".Sign_in" />
@@ -64,13 +67,10 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".Activity.MapsActivity"
-            android:label="@string/title_activity_maps" />
+            android:name=".Activity.ThemHoSoBenhAnActivity"
+            android:parentActivityName=".Activity.MainActivity" />
 
-        <activity android:name=".Activity.ThemHoSoBenhAnActivity"
-            android:parentActivityName=".Activity.MainActivity"/>
-
-        <activity android:name=".Activity.DanhSachThuocActivity"/>
+        <activity android:name=".Activity.DanhSachThuocActivity" />
 
         <service
             android:name=".service.GPSTracker"

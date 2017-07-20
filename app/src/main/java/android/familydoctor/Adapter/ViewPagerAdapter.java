@@ -1,5 +1,6 @@
 package android.familydoctor.Adapter;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -12,26 +13,27 @@ import java.util.List;
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     private List<Fragment> mFragments;
     private List<String> mTitles;
-
-    public ViewPagerAdapter(FragmentManager fm, List<Fragment> fragments, List<String> titles) {
+    Context context;
+    public ViewPagerAdapter(Context context,FragmentManager fm, List<Fragment> fragments, List<String> titles) {
         super(fm);
+        this.context=context;
         mFragments = fragments;
         mTitles = titles;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return mFragments.get(position);
+        return this.mFragments.get(position);
     }
 
     @Override
     public int getCount() {
-        return mFragments.size();
+        return this.mFragments.size();
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return mTitles.get(position);
+        return this.mTitles.get(position);
     }
 
 }
