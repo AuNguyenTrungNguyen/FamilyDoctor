@@ -12,18 +12,14 @@ import android.familydoctor.Fragment.TinTucSucKhoe;
 import android.familydoctor.R;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -33,14 +29,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
-    private FloatingActionButton fab;
     private TabLayout mTabLayout;
-
-
-
-    private NavigationView navigationView;
-    private View headerView;
-
 
 
     Bundle bundle;
@@ -86,57 +75,11 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(mFragmentAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabsFromPagerAdapter(mFragmentAdapter);
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (position == 2 ) {
-                    fab.hide();
-                }else if(position == 1 || position == 0)
-                {
-                    fab.show();
-                }
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
     }
 
     private void initView() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
-
-
-        fab = (FloatingActionButton) findViewById(R.id.fab_main);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PopupMenu popup = new PopupMenu(MainActivity.this, fab);
-                //Inflating the Popup using xml file
-                popup.getMenuInflater()
-                        .inflate(R.menu.fab_popup_menu, popup.getMenu());
-
-                        Intent intent  = new Intent();
-
-                                intent.setClass(MainActivity.this, Them_HoSoBenhAn.class);
-                                intent.putExtra("id",id);
-                                startActivity(intent);
-
-            }
-
-
-        });
-        fab.show();
-
     }
 
 

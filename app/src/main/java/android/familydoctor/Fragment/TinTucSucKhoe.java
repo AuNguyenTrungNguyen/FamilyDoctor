@@ -45,7 +45,7 @@ public class TinTucSucKhoe extends Fragment {
 
         View rootView = inflater.inflate(R.layout.tab1_tintuc, container, false);
 
-       /* tinTucs = new ArrayList<TinTuc>();
+        /*tinTucs = new ArrayList<TinTuc>();
 
         listView = (ListView) rootView.findViewById(R.id.List_item);
 
@@ -63,11 +63,11 @@ public class TinTucSucKhoe extends Fragment {
                 intent.putExtra("link", tinTucs.get(position).link);
                 startActivity(intent);
             }
-        });
-*/
+        });*/
+
         return rootView;
-    }
-  /*  class ReadData extends AsyncTask<String, Integer, String> {
+    }/*
+    class ReadData extends AsyncTask<String, Integer, String> {
         @Override
         protected String doInBackground(String... params) {
             return docNoiDung_Tu_URL(params[0]);

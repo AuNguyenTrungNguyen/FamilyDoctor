@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/edtTenThuocSeThem"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="5dp"
+        android:enabled="false"
+        android:gravity="center"
+        android:textColor="#ff6f00" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="5dp"
+        android:layout_weight="3"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:gravity="center"
+            android:text="Số lượng:"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edtSoLuongThuoc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:inputType="phone" />
+
+        <EditText
+            android:id="@+id/edtDonViThuoc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:inputType="phone"
+            android:enabled="false"
+            android:text="viên"
+            android:textColor="#ff6f00" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="5dp"
+        android:layout_weight="3"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/chkSang"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Buổi sáng: " />
+
+        <EditText
+            android:visibility="gone"
+            android:id="@+id/edtSoLuongSang"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:inputType="phone" />
+
+        <EditText
+            android:visibility="gone"
+            android:id="@+id/edtDonViSang"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:inputType="phone"
+            android:enabled="false"
+            android:text="viên"
+            android:textColor="#ff6f00" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="5dp"
+        android:layout_weight="3"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/chkTrua"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Buổi Trưa: " />
+
+        <EditText
+            android:visibility="gone"
+            android:id="@+id/edtSoLuongTrua"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:inputType="phone" />
+
+        <EditText
+            android:visibility="gone"
+            android:id="@+id/edtDonViTrua"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:inputType="phone"
+            android:enabled="false"
+            android:text="viên"
+            android:textColor="#ff6f00" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="5dp"
+        android:layout_weight="3"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <CheckBox
+
+            android:id="@+id/chkChieu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Buổi Chiều: " />
+
+        <EditText
+            android:visibility="gone"
+            android:id="@+id/edtSoLuongChieu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:inputType="phone" />
+
+        <EditText
+            android:visibility="gone"
+            android:id="@+id/edtDonViChieu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:inputType="phone"
+            android:enabled="false"
+            android:text="viên"
+            android:textColor="#ff6f00" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnHoanThanh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hoàn thành"/>
+
+</LinearLayout>
