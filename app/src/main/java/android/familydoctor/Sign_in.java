@@ -1,7 +1,7 @@
 package android.familydoctor;
 
 import android.content.Intent;
-import android.familydoctor.Fragment.FragmentCaiDat;
+import android.familydoctor.Activity.LuaChonLoaiTaiKhoanActivity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -138,7 +138,7 @@ public class Sign_in extends AppCompatActivity implements
         if (user != null) {
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
 
-            Intent intent = new Intent( Sign_in.this,FragmentCaiDat.class);
+            Intent intent = new Intent( Sign_in.this,LuaChonLoaiTaiKhoanActivity.class);
             startActivity(intent);
 
         } else {
