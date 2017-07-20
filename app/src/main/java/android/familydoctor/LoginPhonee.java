@@ -1,7 +1,7 @@
 package android.familydoctor;
 
 import android.content.Intent;
-import android.familydoctor.Fragment.FragmentCaiDat;
+import android.familydoctor.Activity.LuaChonLoaiTaiKhoanActivity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -258,7 +258,7 @@ public class LoginPhonee extends AppCompatActivity implements View.OnClickListen
                         mVerificationField);
                 break;
             case STATE_VERIFY_SUCCESS:
-                Intent intent = new Intent(this , FragmentCaiDat.class);
+                Intent intent = new Intent(this , LuaChonLoaiTaiKhoanActivity.class);
                 startActivity(intent);
                 // Set the verification text based on the credential
                 if (cred != null) {
