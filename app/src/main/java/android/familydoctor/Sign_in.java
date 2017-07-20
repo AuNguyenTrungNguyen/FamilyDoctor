@@ -52,12 +52,11 @@ public class Sign_in extends AppCompatActivity implements
             }
         });
 
-
-
         // Views
         // Button listeners
         findViewById(R.id.sign_in_button).setOnClickListener(this);
         // [START config_signin]
+
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -136,8 +135,6 @@ public class Sign_in extends AppCompatActivity implements
     }
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            findViewById(R.id.sign_in_button).setVisibility(View.GONE);
-
             Intent intent = new Intent( Sign_in.this,LuaChonLoaiTaiKhoanActivity.class);
             startActivity(intent);
 

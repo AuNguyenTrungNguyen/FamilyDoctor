@@ -92,8 +92,7 @@ public class FragmentBacSi extends Fragment {
 
         ArrayAdapter aa= new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item, namList);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        NamSinh.setAdapter(aa);
+        //NamSinh.setAdapter(aa);
 
         String hoTen = HoTen.getText().toString();
         String namSinh = NamSinh.getSelectedItem().toString();

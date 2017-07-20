@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.familydoctor.Activity.LuaChonLoaiTaiKhoanActivity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -23,9 +24,8 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
-
-public class LoginPhonee extends AppCompatActivity implements View.OnClickListener {
-
+public class LoginPhonee extends AppCompatActivity implements
+        View.OnClickListener {
     private static final String TAG = "PhoneAuthActivity";
     private static final String KEY_VERIFY_IN_PROGRESS = "key_verify_in_progress";
 
@@ -56,12 +56,11 @@ public class LoginPhonee extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login__phone);
         // Restore instance state
         if (savedInstanceState != null) {
             onRestoreInstanceState(savedInstanceState);
         }
-        // Assign views
 
         mPhoneNumberField = (EditText) findViewById(R.id.field_phone_number);
         mVerificationField = (EditText) findViewById(R.id.field_verification_code);
@@ -69,10 +68,11 @@ public class LoginPhonee extends AppCompatActivity implements View.OnClickListen
         mStartButton = (Button) findViewById(R.id.button_start_verification);
         mVerifyButton = (Button) findViewById(R.id.button_verify_phone);
         mResendButton = (Button) findViewById(R.id.button_resend);
-        // Assign click listeners
+
         mStartButton.setOnClickListener(this);
         mVerifyButton.setOnClickListener(this);
         mResendButton.setOnClickListener(this);
+
         // [START initialize_auth]
         mAuth = FirebaseAuth.getInstance();
         // [END initialize_auth]
@@ -113,6 +113,8 @@ public class LoginPhonee extends AppCompatActivity implements View.OnClickListen
                 } else if (e instanceof FirebaseTooManyRequestsException) {
                     // The SMS quota for the project has been exceeded
                     // [START_EXCLUDE]
+                    Snackbar.make(findViewById(android.R.id.content), "Quota exceeded.",
+                            Snackbar.LENGTH_SHORT).show();
                     // [END_EXCLUDE]
                 }
                 // Show a message and update the UI
@@ -221,14 +223,18 @@ public class LoginPhonee extends AppCompatActivity implements View.OnClickListen
                     }
                 });
     }
-    // [END sign_in_with_phone]
+
     private void updateUI(int uiState) {
+
         updateUI(uiState, mAuth.getCurrentUser(), null);
 
     }
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             updateUI(STATE_SIGNIN_SUCCESS, user);
+
+            Intent intent = new Intent( LoginPhonee.this,LuaChonLoaiTaiKhoanActivity.class);
+            startActivity(intent);
         } else {
             updateUI(STATE_INITIALIZED);
         }
@@ -258,8 +264,7 @@ public class LoginPhonee extends AppCompatActivity implements View.OnClickListen
                         mVerificationField);
                 break;
             case STATE_VERIFY_SUCCESS:
-                Intent intent = new Intent(this , LuaChonLoaiTaiKhoanActivity.class);
-                startActivity(intent);
+
                 // Set the verification text based on the credential
                 if (cred != null) {
                     if (cred.getSmsCode() != null) {
@@ -278,6 +283,7 @@ public class LoginPhonee extends AppCompatActivity implements View.OnClickListen
         }
         if (user == null) {
             // Signed out
+
         } else {
             // Signed in
             enableViews(mPhoneNumberField, mVerificationField);
