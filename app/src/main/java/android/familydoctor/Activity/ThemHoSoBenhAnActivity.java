@@ -2,6 +2,7 @@ package android.familydoctor.Activity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.familydoctor.Adapter.AdapterThuoc;
 import android.familydoctor.Class.BenhNhan;
 import android.familydoctor.Class.Thuoc;
 import android.familydoctor.R;
@@ -32,11 +33,12 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
 
     LinearLayout layoutThemHoSoBenhAn;
     EditText edtSoDienThoaiCanKiemTra, edtTenBenhTrongHoSoBenhAn;
-    TextView txtChonNgayTaiKham;
+    TextView txtChonNgayTaiKham, txtHeader;
     Button btnThemThuoc, btnKiemTra, btnHoanThanhHoSoBenhAn;
 
     ListView lvDanhSachThuocDaThem;
     ArrayList<Thuoc> danhSachThuoc;
+    AdapterThuoc adapterThuoc;
 
     EditText edtTenThuocSeThem, edtSoLuongThuoc;
     Button btnHoanThanh;
@@ -49,6 +51,9 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
     public static final int RESULT_CODE = 998;
 
     DatabaseReference databaseReference;
+
+
+    public static final String ID_BacSi = "12345678";
 
 
     @Override
@@ -77,6 +82,10 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
+        danhSachThuoc = new ArrayList<>();
+        adapterThuoc = new AdapterThuoc(ThemHoSoBenhAnActivity.this, R.layout.item_thuoc, danhSachThuoc);
+        lvDanhSachThuocDaThem.setAdapter(adapterThuoc);
+
         btnKiemTra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,6 +95,7 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
                 layoutThemHoSoBenhAn.setVisibility(View.GONE);
                 btnThemThuoc.setVisibility(View.GONE);
                 lvDanhSachThuocDaThem.setVisibility(View.GONE);
+                txtHeader.setVisibility(View.GONE);
                 databaseReference.child("BenhNhan").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -131,6 +141,7 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
                                         layoutThemHoSoBenhAn.setVisibility(View.VISIBLE);
                                         btnThemThuoc.setVisibility(View.VISIBLE);
                                         lvDanhSachThuocDaThem.setVisibility(View.VISIBLE);
+                                        txtHeader.setVisibility(View.VISIBLE);
                                         dialogKiemTra.dismiss();
                                     }
                                 });
@@ -159,6 +170,13 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
                 startActivityForResult(intentDanhSachThuoc, REQUEST_CODE);
             }
         });
+
+        btnHoanThanhHoSoBenhAn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ThemHoSoBenhAnActivity.this, "Làm PUT firebase đi cha", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void addControls() {
@@ -174,9 +192,12 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
         edtSoDienThoaiCanKiemTra = (EditText) findViewById(R.id.edtSoDienThoaiCanKiemTra);
         edtTenBenhTrongHoSoBenhAn = (EditText) findViewById(R.id.edtTenBenhTrongHoSoBenhAn);
         txtChonNgayTaiKham = (TextView) findViewById(R.id.txtChonNgayTaiKham);
+        txtHeader = (TextView) findViewById(R.id.txtHeader);
+
         btnThemThuoc = (Button) findViewById(R.id.btnThemThuoc);
         btnKiemTra = (Button) findViewById(R.id.btnKiemTra);
         btnHoanThanhHoSoBenhAn = (Button) findViewById(R.id.btnHoanThanhHoSoBenhAn);
+
         lvDanhSachThuocDaThem = (ListView) findViewById(R.id.lvDanhSachThuocDaThem);
     }
 
@@ -262,26 +283,39 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
 
                     Thuoc thuoc = new Thuoc();
                     thuoc.setTenThuoc(tenThuoc);
-                    thuoc.setSoLuong(edtSoLuongThuoc.getText().toString());
+                    thuoc.setSoLuong("Số lượng: "+edtSoLuongThuoc.getText().toString());
 
-                    String lieuDung = "";
+                    String lieuDungSang = "";
+                    String lieuDungTrua = "";
+                    String lieuDungChieu = "";
 
                     if (chkSang.isChecked()) {
-                        lieuDung += chkSang.getText().toString() + edtSoLuongSang.getText().toString() + " " + edtDonViSang.getText().toString() + "\n";
+                        lieuDungSang += chkSang.getText().toString() + edtSoLuongSang.getText().toString() + " " + edtDonViSang.getText().toString();
+                    }else{
+                        lieuDungSang = "";
                     }
 
                     if (chkTrua.isChecked()) {
-                        lieuDung += chkTrua.getText().toString() + edtSoLuongTrua.getText().toString() + " " + edtDonViTrua.getText().toString() + "\n";
+                        lieuDungTrua += chkTrua.getText().toString() + edtSoLuongTrua.getText().toString() + " " + edtDonViTrua.getText().toString();
+                    }else{
+                        lieuDungTrua = "";
                     }
 
                     if (chkChieu.isChecked()) {
-                        lieuDung += chkChieu.getText().toString() + edtSoLuongChieu.getText().toString() + " " + edtDonViChieu.getText().toString() + "\n";
+                        lieuDungChieu += chkChieu.getText().toString() + edtSoLuongChieu.getText().toString() + " " + edtDonViChieu.getText().toString();
+                    }else{
+                        lieuDungChieu = "";
                     }
 
-                    thuoc.setLieuDung(lieuDung);
+                    thuoc.setLieuDungSang(lieuDungSang);
+                    thuoc.setLieuDungTrua(lieuDungTrua);
+                    thuoc.setLieuDungChieu(lieuDungChieu);
+
+                    danhSachThuoc.add(thuoc);
 
                     dialogThemThuoc.dismiss();
-                    Toast.makeText(ThemHoSoBenhAnActivity.this, "Thêm thuốc thành công.", Toast.LENGTH_SHORT).show();
+
+                    adapterThuoc.notifyDataSetChanged();
                 }
             });
         }

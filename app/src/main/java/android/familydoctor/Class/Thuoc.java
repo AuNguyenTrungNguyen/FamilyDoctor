@@ -5,27 +5,22 @@ package android.familydoctor.Class;
  */
 
 public class Thuoc {
-    private String idThuoc;
     private String tenThuoc;
     private String soLuong;
-    private String lieuDung;
-
-    public Thuoc(String idThuoc, String tenThuoc, String soLuong, String lieuDung) {
-        this.idThuoc = idThuoc;
-        this.tenThuoc = tenThuoc;
-        this.soLuong = soLuong;
-        this.lieuDung = lieuDung;
-    }
+    private String lieuDungSang;
+    private String lieuDungTrua;
+    private String lieuDungChieu;
 
     public Thuoc() {
+
     }
 
-    public String getIdThuoc() {
-        return idThuoc;
-    }
-
-    public void setIdThuoc(String idThuoc) {
-        this.idThuoc = idThuoc;
+    public Thuoc(String tenThuoc, String soLuong, String lieuDungSang, String lieuDungTrua, String lieuDungChieu) {
+        this.tenThuoc = tenThuoc;
+        this.soLuong = soLuong;
+        this.lieuDungSang = lieuDungSang;
+        this.lieuDungTrua = lieuDungTrua;
+        this.lieuDungChieu = lieuDungChieu;
     }
 
     public String getTenThuoc() {
@@ -44,11 +39,27 @@ public class Thuoc {
         this.soLuong = soLuong;
     }
 
-    public String getLieuDung() {
-        return lieuDung;
+    public String getLieuDungSang() {
+        return lieuDungSang;
     }
 
-    public void setLieuDung(String lieuDung) {
-        this.lieuDung = lieuDung;
+    public void setLieuDungSang(String lieuDungSang) {
+        this.lieuDungSang = lieuDungSang;
+    }
+
+    public String getLieuDungTrua() {
+        return lieuDungTrua;
+    }
+
+    public void setLieuDungTrua(String lieuDungTrua) {
+        this.lieuDungTrua = lieuDungTrua;
+    }
+
+    public String getLieuDungChieu() {
+        return lieuDungChieu;
+    }
+
+    public void setLieuDungChieu(String lieuDungChieu) {
+        this.lieuDungChieu = lieuDungChieu;
     }
 }
