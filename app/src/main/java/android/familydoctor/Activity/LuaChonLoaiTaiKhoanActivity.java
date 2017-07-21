@@ -47,7 +47,7 @@ public class LuaChonLoaiTaiKhoanActivity extends AppCompatActivity {
 
         viewPagerChoose.setOffscreenPageLimit(2);
 
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments, titles);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this,getSupportFragmentManager(), fragments, titles);
         viewPagerChoose.setAdapter(viewPagerAdapter);
         tabLayoutChoose.setupWithViewPager(viewPagerChoose);
 

@@ -1,39 +1,34 @@
 package android.familydoctor.Activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.familydoctor.Class.BacSi;
-import android.familydoctor.Class.BenhNhan;
 import android.familydoctor.R;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DatabaseReference;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by buimi on 6/19/2017.
  */
 
 public class XemTTBacSi_Act extends AppCompatActivity {
-
-    private Intent intent = this.getIntent();
-
-    private List<BenhNhan> listBenhNhan = new ArrayList<>();
     private DatabaseReference databaseReference;
-    private String id;
-    private String iduser;
-
-    private int position = -1;
-
-    private String tenngtao;
-    private BenhNhan benhNhan;
     private BacSi bacSi;
+    ImageView imgAnhdaidien, imgVanBang;
+    FloatingActionButton fabCall;
+    TextView txtTen, txtChuyenMon, txtDiaChi, txtEmail, txtSDT;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,25 +39,50 @@ public class XemTTBacSi_Act extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        //Lấy ID từ Item
+        init();
 
-        /*Bundle extras = this.getIntent().getExtras();
-        id = extras.getString("id");*//*
-        Log.e("ID INTENT", id);*/
+
+    }
+
+    private void init() {
         Intent it = getIntent();
-        Bundle bd = getIntent().getBundleExtra("BUNDLE");
-        LatLng positionBacSi = bd.getParcelable("Latlng");
-        Toast.makeText(this, positionBacSi.latitude +" "+positionBacSi.longitude, Toast.LENGTH_SHORT).show();
-        //SetText
-        /*ImageView imageView = (ImageView) findViewById(R.id.img_nongsan_ban_view);
-        TextView tenNongSan = (TextView) findViewById(R.id.tv_ten_nongsan_ban);
-        TextView tenNguoiBan = (TextView) findViewById(R.id.tv_nguonban_nongsan_ban);
-        TextView loaiNongSan = (TextView) findViewById(R.id.tv_loai_nongsan_ban);
-        TextView soLuong_NS = (TextView) findViewById(R.id.tv_soluong_nongsan_ban);
-        TextView giaBan = (TextView) findViewById(R.id.tv_giaban_ban_view);
-        TextView ngayThuHoach = (TextView) findViewById(R.id.tv_time_batdau_th_nongsan_ban);
-        TextView ngayKetThuc_ThHoach = (TextView) findViewById(R.id.tv_time_ketthuc_th_nongsan_ban);
-        TextView diaDiemGiaodich = (TextView) findViewById(R.id.tv_diadiem_nongsan_ban);*/
-
+        String name = it.getStringExtra("name");
+        final String sdt = it.getStringExtra("sdt");
+        String email = it.getStringExtra("email");
+        String chuyenmon = it.getStringExtra("chuyenmon");
+        String diachi = it.getStringExtra("diachi");
+        String url1 = it.getStringExtra("url1");
+        String url2 = it.getStringExtra("url2");
+        String show =
+                name + "\n" + sdt + "\n" + email + "\n" + chuyenmon + "\n" + diachi + "\n" + url1 + "\n" + url2;
+        Log.d("THONGTIN", show);
+        txtTen = (TextView) findViewById(R.id.txtTen);
+        txtChuyenMon = (TextView) findViewById(R.id.txtChuyenMon);
+        txtDiaChi = (TextView) findViewById(R.id.txtDiaChi);
+        txtEmail = (TextView) findViewById(R.id.txtEmail);
+        txtSDT = (TextView) findViewById(R.id.txtSDT);
+        txtTen.setText(name);
+        txtChuyenMon.setText(chuyenmon);
+        txtDiaChi.setText(diachi);
+        txtEmail.setText(email);
+        txtSDT.setText(sdt);
+        findViewById(R.id.fabCall).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_CALL);
+                intent.setData(Uri.parse("tel:" + sdt));
+                if (ActivityCompat.checkSelfPermission(XemTTBacSi_Act.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -10,20 +10,17 @@ import android.familydoctor.Fragment.FragmentCaiDat;
 import android.familydoctor.Fragment.FragmentHoSoBenhAn;
 import android.familydoctor.Fragment.TinTucSucKhoe;
 import android.familydoctor.R;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -33,14 +30,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
-    private FloatingActionButton fab;
     private TabLayout mTabLayout;
-
-
-
-    private NavigationView navigationView;
-    private View headerView;
-
 
 
     Bundle bundle;
@@ -82,11 +72,11 @@ public class MainActivity extends AppCompatActivity {
 
         mViewPager.setOffscreenPageLimit(3);
 
-        ViewPagerAdapter mFragmentAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments, titles);
+        ViewPagerAdapter mFragmentAdapter = new ViewPagerAdapter(this, getSupportFragmentManager(), fragments, titles);
         mViewPager.setAdapter(mFragmentAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabsFromPagerAdapter(mFragmentAdapter);
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -94,13 +84,23 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if (position == 2 ) {
-                    fab.hide();
-                }else if(position == 1 || position == 0)
-                {
-                    fab.show();
+                switch (position) {
+                    case 0:
+                        Toast.makeText(getApplicationContext(), "tab 1", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        Toast.makeText(getApplicationContext(), "tab 2", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
+                        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                            Toast.makeText(getApplicationContext(), "Bạn chưa bật GPS nên không tìm được vị trí của bạn!", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case 3:
+                        Toast.makeText(MainActivity.this, "tab4", Toast.LENGTH_SHORT).show();
+                        break;
                 }
-
             }
 
             @Override
@@ -108,37 +108,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     private void initView() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
-
-
-        fab = (FloatingActionButton) findViewById(R.id.fab_main);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PopupMenu popup = new PopupMenu(MainActivity.this, fab);
-                //Inflating the Popup using xml file
-                popup.getMenuInflater()
-                        .inflate(R.menu.fab_popup_menu, popup.getMenu());
-
-                        Intent intent  = new Intent();
-
-                                intent.setClass(MainActivity.this, Them_HoSoBenhAn.class);
-                                intent.putExtra("id",id);
-                                startActivity(intent);
-
-            }
-
-
-        });
-        fab.show();
-
     }
-
 
 
     @Override
@@ -150,10 +125,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-            super.onBackPressed();
+        super.onBackPressed();
     }
 
-    public void phanHoiUngDung(){
+    public void phanHoiUngDung() {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:StartLink@gmail.com"));
@@ -166,11 +141,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void layduLieuDangNhap(){
-
-
-        bundle=this.getIntent().getExtras();
-
+    public void layduLieuDangNhap() {
+        bundle = this.getIntent().getExtras();
 //        Uri uri=getIntent().getData();
        /* id = bundle.getString("id");
         String ten = bundle.getString("ten");
@@ -185,13 +157,6 @@ public class MainActivity extends AppCompatActivity {
      /*   tv_ten.setText(ten);
         tv_email.setText(email);*/
 //        imageView.setImageURI(uri);
-
-
-
-
-
-
-
     }
 
     private void checkPermission() {
@@ -199,13 +164,13 @@ public class MainActivity extends AppCompatActivity {
                 Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
         }
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA}, 2);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 2);
         }
     }
 
@@ -250,23 +215,4 @@ public class MainActivity extends AppCompatActivity {
             // permissions this app might request
         }
     }
-
-
-
-//ma ket noi cai do lam chi?
-    // đăng nhập
-    // kh kết nối kh dc
-    //ua? ko dang nhap trong as la ko vao dc project ha?
-// kết nối nó mới lưu tại khoản lên firebase
-
-    //xàm
-    //LUU TK trong authentication
-    //luu trong nay chi?
-    // z ậy h chạy cho huynh xem
-    // kh kết nối là kh đăng nhập dc
-    //chay di
-    // là z đó
-    //nó không nhận số đt luôn mail cũng z
-    //mo code dang ky tai khoang coi
-
 }
