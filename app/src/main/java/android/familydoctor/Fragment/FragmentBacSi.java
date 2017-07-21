@@ -94,13 +94,11 @@ public class FragmentBacSi extends Fragment {
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         NamSinh.setAdapter(aa);
 
-        String hoTen = HoTen.getText().toString();
-        String namSinh = NamSinh.getSelectedItem().toString();
+        final String hoTen = HoTen.getText().toString();
+        final String namSinh = NamSinh.getSelectedItem().toString();
 
-        String sdt = SDT.getText().toString();
-        String diaChi = DiaChi.getText().toString();
-
-        Us = new BacSi(hoTen,namSinh,sdt,diaChi);
+        final String sdt = SDT.getText().toString();
+        final String diaChi = DiaChi.getText().toString();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -201,10 +199,12 @@ public class FragmentBacSi extends Fragment {
                     }
                 });
 
-                mDatabase.child("Users").setValue(Us);
+
+                Us = new BacSi(hoTen,namSinh,sdt,diaChi);
+                mDatabase.child("Users").push().setValue(Us);
 
 
-                if (!uploadTask.isSuccessful()) {
+                if (uploadTask.isSuccessful()) {
 
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);

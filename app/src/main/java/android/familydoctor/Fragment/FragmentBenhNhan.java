@@ -75,7 +75,7 @@ public class FragmentBenhNhan extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_benh_nhan, container, false);
+        final View view = inflater.inflate(R.layout.fragment_benh_nhan, container, false);
 
 
         HoTen = (EditText) view.findViewById(R.id.HoTenE);
@@ -97,13 +97,11 @@ public class FragmentBenhNhan extends Fragment {
 
         NamSinh.setAdapter(aa);
 
-        String hoTen = HoTen.getText().toString();
-        String namSinh = NamSinh.getSelectedItem().toString();
+        final String hoTen = HoTen.getText().toString();
+        final String namSinh = NamSinh.getSelectedItem().toString();
 
-        String sdt = SDT.getText().toString();
-        String diaChi = DiaChi.getText().toString();
-
-        Us = new BenhNhan(hoTen,namSinh,sdt,diaChi);
+        final String sdt = SDT.getText().toString();
+        final String diaChi = DiaChi.getText().toString();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -162,9 +160,11 @@ public class FragmentBenhNhan extends Fragment {
                     }
                 });
 
-                mDatabase.child("Users").setValue(Us);
+                Us = new BenhNhan(hoTen,namSinh,sdt,diaChi);
 
-                if (!uploadTask.isSuccessful()) {
+                mDatabase.child("Users").push().setValue(Us);
+
+                if (uploadTask.isSuccessful()) {
 
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);

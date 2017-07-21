@@ -11,6 +11,9 @@ public class BacSi {
     String x;
     String y;
 
+    public BacSi() {
+    }
+
     public BacSi(String hoTen, String namSinh, String sdt, String diaChi) {
     }
 
