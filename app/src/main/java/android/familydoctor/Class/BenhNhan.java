@@ -11,13 +11,14 @@ public class BenhNhan {
     private String email;
     private String diachi;
     private String imgUserURL;
-    private float x;
-    private float y;
+    String age;
+    String x;
+    String y;
 
     public BenhNhan() {
     }
 
-    public BenhNhan(String hoten, String sdt, String email, String diachi, String imgUserURL, float x, float y) {
+    public BenhNhan(String hoten, String sdt, String email, String diachi, String imgUserURL, String x, String y) {
         this.hoten = hoten;
         this.sdt = sdt;
         this.email = email;
@@ -28,6 +29,18 @@ public class BenhNhan {
     }
 
     public BenhNhan(String hoTen, String namSinh, String sdt, String diaChi) {
+        hoten=hoTen;
+        age=namSinh;
+        this.sdt=sdt;
+        diachi=diaChi;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
     }
 
     public String getHoten() {
@@ -70,19 +83,19 @@ public class BenhNhan {
         this.imgUserURL = imgUserURL;
     }
 
-    public float getX() {
+    public String getX() {
         return x;
     }
 
-    public void setX(float x) {
+    public void setX(String x) {
         this.x = x;
     }
 
-    public float getY() {
+    public String getY() {
         return y;
     }
 
-    public void setY(float y) {
+    public void setY(String y) {
         this.y = y;
     }
 }
