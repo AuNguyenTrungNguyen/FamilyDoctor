@@ -164,7 +164,7 @@ public class FragmentBenhNhan extends Fragment {
 
                 mDatabase.child("Users").setValue(Us);
 
-                if (uploadTask.isSuccessful()) {
+                if (!uploadTask.isSuccessful()) {
 
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);

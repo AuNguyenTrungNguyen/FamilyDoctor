@@ -11,7 +11,7 @@ public class BacSi {
     String x;
     String y;
 
-    public BacSi() {
+    public BacSi(String hoTen, String namSinh, String sdt, String diaChi) {
     }
 
     public BacSi(String hoten, String sdt, String email, String linhvucchuyenmon, String diachi, String imgUserURL, String imgVanBang, String x, String y) {

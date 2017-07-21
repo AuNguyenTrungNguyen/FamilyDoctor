@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.familydoctor.Activity.MainActivity;
-import android.familydoctor.Class.BenhNhan;
+import android.familydoctor.Class.BacSi;
 import android.familydoctor.R;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -70,7 +70,7 @@ public class FragmentBacSi extends Fragment {
     ImageView imgXT,imgAva ;
     float x ;
     float y ;
-    BenhNhan Us = new BenhNhan();
+    BacSi Us ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -100,7 +100,7 @@ public class FragmentBacSi extends Fragment {
         String sdt = SDT.getText().toString();
         String diaChi = DiaChi.getText().toString();
 
-        Us = new BenhNhan(hoTen,namSinh,sdt,diaChi);
+        Us = new BacSi(hoTen,namSinh,sdt,diaChi);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -204,7 +204,7 @@ public class FragmentBacSi extends Fragment {
                 mDatabase.child("Users").setValue(Us);
 
 
-                if (uploadTask.isSuccessful()) {
+                if (!uploadTask.isSuccessful()) {
 
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
