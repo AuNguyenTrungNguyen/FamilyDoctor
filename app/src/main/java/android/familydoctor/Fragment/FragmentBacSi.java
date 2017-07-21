@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.familydoctor.Activity.MainActivity;
-import android.familydoctor.Class.BenhNhan;
+import android.familydoctor.Class.BacSi;
 import android.familydoctor.R;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -70,7 +70,7 @@ public class FragmentBacSi extends Fragment {
     ImageView imgXT,imgAva ;
     float x ;
     float y ;
-    BenhNhan Us = new BenhNhan();
+    BacSi Us ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -94,13 +94,11 @@ public class FragmentBacSi extends Fragment {
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         NamSinh.setAdapter(aa);
 
-        String hoTen = HoTen.getText().toString();
-        String namSinh = NamSinh.getSelectedItem().toString();
+        final String hoTen = HoTen.getText().toString();
+        final String namSinh = NamSinh.getSelectedItem().toString();
 
-        String sdt = SDT.getText().toString();
-        String diaChi = DiaChi.getText().toString();
-
-        Us = new BenhNhan(hoTen,namSinh,sdt,diaChi);
+        final String sdt = SDT.getText().toString();
+        final String diaChi = DiaChi.getText().toString();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -201,7 +199,9 @@ public class FragmentBacSi extends Fragment {
                     }
                 });
 
-                mDatabase.child("Users").setValue(Us);
+
+                Us = new BacSi(hoTen,namSinh,sdt,diaChi);
+                mDatabase.child("Users").push().setValue(Us);
 
 
                 if (uploadTask.isSuccessful()) {
