@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
@@ -13,12 +13,12 @@
 
 
     <EditText
-        android:enabled="false"
-        android:textColor="#ff6f00"
+        android:id="@+id/edtTenBenhNhan"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_margin="5dp"
-        android:text="Bệnh nhân này là 123"/>
+        android:enabled="false"
+        android:textColor="#ff6f00" />
 
     <TextView
         android:layout_width="match_parent"
@@ -29,34 +29,34 @@
 
 
     <EditText
-        android:enabled="false"
-        android:textColor="#ff6f00"
+        android:id="@+id/edtNamSinhBenhNhan"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_margin="5dp"
-        android:text="1990"/>
+        android:enabled="false"
+        android:textColor="#ff6f00" />
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:weightSum="2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
 
         <Button
             android:id="@+id/btnLapHoSo"
-            android:layout_margin="5dp"
-            android:text="Lập Hồ Sơ"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="Lập Hồ Sơ" />
 
         <Button
             android:id="@+id/btnHuyBo"
-            android:layout_margin="5dp"
-            android:text="Hủy bỏ"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="Hủy bỏ" />
 
     </LinearLayout>
 

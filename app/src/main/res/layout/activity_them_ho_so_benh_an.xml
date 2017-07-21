@@ -31,7 +31,7 @@
                     android:weightSum="1">
 
                     <EditText
-                        android:hint="Test: 123"
+                        android:hint="Nhập số điện thoại bệnh nhân"
                         android:id="@+id/edtSoDienThoaiCanKiemTra"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
