@@ -232,7 +232,6 @@ public class LoginPhonee extends AppCompatActivity implements
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             updateUI(STATE_SIGNIN_SUCCESS, user);
-
             Intent intent = new Intent( LoginPhonee.this,LuaChonLoaiTaiKhoanActivity.class);
             startActivity(intent);
         } else {

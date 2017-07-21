@@ -3,6 +3,7 @@ package android.familydoctor.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.familydoctor.Activity.MainActivity;
 import android.familydoctor.Class.BenhNhan;
 import android.familydoctor.R;
 import android.graphics.Bitmap;
@@ -21,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -80,7 +82,7 @@ public class FragmentBenhNhan extends Fragment {
         NamSinh = (Spinner) view.findViewById(R.id.spNamSinhBenhNhan);
         SDT = (EditText) view.findViewById( R.id.SDTE);
         DiaChi = (EditText) view.findViewById(R.id.DiaChiE);
-        img  = (ImageView) view.findViewById(R.id.ImgAva);
+        img  = (ImageView) view.findViewById(R.id.ImgAvaE);
         setData = (Button) view.findViewById(R.id.Submit);
 
 
@@ -112,8 +114,8 @@ public class FragmentBenhNhan extends Fragment {
         Intent bundle = getActivity().getIntent();
 
         id = bundle.getDataString();
-        imageView = (ImageView) view.findViewById(R.id.ImgAva);
-        imageView.setOnClickListener(new View.OnClickListener() {
+        img = (ImageView) view.findViewById(R.id.ImgAvaE);
+        img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(getContext()).setNeutralButton("Chụp ảnh mới", new DialogInterface.OnClickListener() {
@@ -139,7 +141,7 @@ public class FragmentBenhNhan extends Fragment {
             @Override
             public void onClick(View v) {
                 //Up Hình ảnh
-                StorageReference storageReference = firebaseStorage.getReferenceFromUrl("gs://test-5b263.appspot.com/");
+                StorageReference storageReference = firebaseStorage.getReferenceFromUrl("gs://familydoctor-56b96.appspot.com/");
                 StorageReference reference = storageReference.child("Users").child(key+"jpg");
 
                 Bitmap bitmap = ((BitmapDrawable) img.getDrawable()).getBitmap();
@@ -161,6 +163,15 @@ public class FragmentBenhNhan extends Fragment {
                 });
 
                 mDatabase.child("Users").setValue(Us);
+
+                if (uploadTask.isSuccessful()) {
+
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(getContext(),"chưa up thong tin",Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -174,13 +185,13 @@ public class FragmentBenhNhan extends Fragment {
         if (resultCode == RESULT_OK && requestCode == 1) {
             // lay hinh thu nho cua hinh vua chup
             Bitmap hinh = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(hinh);
+            img.setImageBitmap(hinh);
         }
 
         if (resultCode == RESULT_OK && requestCode == 2) {
 
             Uri imageUri = data.getData();
-            imageView.setImageURI(imageUri);
+            img.setImageURI(imageUri);
         }
     }
 }

@@ -94,6 +94,12 @@
                 android:layout_margin="5dp" />
 
         </ScrollView>
+
+        <ImageView
+            android:id="@+id/ImgAvaE"
+            android:layout_width="250dp"
+            android:layout_height="250dp" />
+
         <Button
             android:id="@+id/Submit"
             android:layout_width="wrap_content"

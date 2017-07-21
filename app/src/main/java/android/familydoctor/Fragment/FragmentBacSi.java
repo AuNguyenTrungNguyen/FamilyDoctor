@@ -3,6 +3,7 @@ package android.familydoctor.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.familydoctor.Activity.MainActivity;
 import android.familydoctor.Class.BenhNhan;
 import android.familydoctor.R;
 import android.graphics.Bitmap;
@@ -21,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -74,16 +76,14 @@ public class FragmentBacSi extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bac_si, container, false);
 
-
-        HoTen = (EditText) view.findViewById(R.id.HoTenE);
-        NamSinh = (Spinner) view.findViewById(R.id.spNamSinhBenhNhan);
-        SDT = (EditText) view.findViewById( R.id.SDTE);
-        DiaChi = (EditText) view.findViewById(R.id.DiaChiE);
-        imgAva  = (ImageView) view.findViewById(R.id.ImgAva);
-        imgXT  = (ImageView) view.findViewById(R.id.ImgAva);
-        setData = (Button) view.findViewById(R.id.Submit);
-
-
+//
+        HoTen = (EditText) view.findViewById(R.id.HoTenD);
+        NamSinh = (Spinner) view.findViewById(R.id.spNamSinhBacSi);
+        SDT = (EditText) view.findViewById( R.id.SDTD);
+        DiaChi = (EditText) view.findViewById(R.id.DiaChiD);
+        imgAva  = (ImageView) view.findViewById(R.id.Ava);
+        imgXT  = (ImageView) view.findViewById(R.id.ImgXacThuc);
+        setData = (Button) view.findViewById(R.id.SubmitD);
         List<String> namList = new ArrayList<>();
         for (int i= 1960; i< 2018; i++){
 
@@ -92,7 +92,7 @@ public class FragmentBacSi extends Fragment {
 
         ArrayAdapter aa= new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item, namList);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //NamSinh.setAdapter(aa);
+        NamSinh.setAdapter(aa);
 
         String hoTen = HoTen.getText().toString();
         String namSinh = NamSinh.getSelectedItem().toString();
@@ -111,8 +111,8 @@ public class FragmentBacSi extends Fragment {
         Intent bundle = getActivity().getIntent();
 
         id = bundle.getDataString();
-        imageView = (ImageView) view.findViewById(R.id.ImgAva);
-        imageView.setOnClickListener(new View.OnClickListener() {
+        imgAva = (ImageView) view.findViewById(R.id.Ava);
+        imgAva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(getContext()).setNeutralButton("Chụp ảnh mới", new DialogInterface.OnClickListener() {
@@ -134,11 +134,33 @@ public class FragmentBacSi extends Fragment {
             }
         });
 
+        imgXT = (ImageView) view.findViewById(R.id.ImgXacThuc);
+        imgXT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(getContext()).setNeutralButton("Chụp ảnh mới", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(intent, 1);
+                    }
+                })
+                        .setNegativeButton("Chọn ảnh từ thư viện", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                                intent.setType("image/*");
+                                startActivityForResult(intent, 2);
+                            }
+                        })
+                        .show();
+            }
+        });
         setData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Up Hình ảnh
-                StorageReference storageReference = firebaseStorage.getReferenceFromUrl("gs://test-5b263.appspot.com/");
+                StorageReference storageReference = firebaseStorage.getReferenceFromUrl("gs://familydoctor-56b96.appspot.com/");
                 StorageReference reference = storageReference.child("Users").child(key+"jpg");
 
                 // stream avata
@@ -161,7 +183,7 @@ public class FragmentBacSi extends Fragment {
                 });
 
                 //stream xác thực
-                Bitmap bitmapXT = ((BitmapDrawable) imgAva.getDrawable()).getBitmap();
+                Bitmap bitmapXT = ((BitmapDrawable) imgXT.getDrawable()).getBitmap();
                 ByteArrayOutputStream streamXT = new ByteArrayOutputStream();
                 bitmapXT.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                 byte[] bitMapDataXT = stream.toByteArray();
@@ -179,8 +201,17 @@ public class FragmentBacSi extends Fragment {
                     }
                 });
 
-
                 mDatabase.child("Users").setValue(Us);
+
+
+                if (uploadTask.isSuccessful()) {
+
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(getContext(),"chưa up thong tin",Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -194,13 +225,19 @@ public class FragmentBacSi extends Fragment {
         if (resultCode == RESULT_OK && requestCode == 1) {
             // lay hinh thu nho cua hinh vua chup
             Bitmap hinh = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(hinh);
+            imgAva.setImageBitmap(hinh);
+
+            Bitmap hinh2 = (Bitmap) data.getExtras().get("data");
+            imgXT.setImageBitmap(hinh2);
         }
 
         if (resultCode == RESULT_OK && requestCode == 2) {
 
             Uri imageUri = data.getData();
-            imageView.setImageURI(imageUri);
+            imgAva.setImageURI(imageUri);
+
+            Uri imageUri2 = data.getData();
+            imgXT.setImageURI(imageUri2);
         }
     }
 }
