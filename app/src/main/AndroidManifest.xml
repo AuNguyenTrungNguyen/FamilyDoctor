@@ -29,35 +29,35 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.LuaChonLoaiTaiKhoanActivity"></activity>
-        <activity android:name=".Sign_in">
+        <activity android:name=".Activity.Sign_in">
 
         </activity>
-        <activity android:name=".LoginPhonee" />
+        <activity android:name=".Activity.LoginPhonee" />
         <activity
             android:name=".Activity.Them_HoSoBenhAn"
-            android:parentActivityName=".Sign_in" />
+            android:parentActivityName=".Activity.Sign_in" />
 
         <activity
             android:name=".Activity.ThongTinUngDungActivity"
-            android:parentActivityName=".Sign_in" />
+            android:parentActivityName=".Activity.Sign_in" />
         <activity
             android:name=".Activity.CaiDat_TaiKhoan"
-            android:parentActivityName=".Sign_in" />
+            android:parentActivityName=".Activity.Sign_in" />
         <activity
             android:name=".Activity.CapNhatThongTinCaNhan_Act"
-            android:parentActivityName=".Sign_in" />
+            android:parentActivityName=".Activity.Sign_in" />
         <activity
             android:name=".Activity.XemTTBacSi_Act"
-            android:parentActivityName=".Sign_in">
+            android:parentActivityName=".Activity.Sign_in">
 
         </activity>
         <activity android:name=".Activity.ViewWeb"/>
         <activity
             android:name=".Activity.XemTTBenhNhan_Act"
-            android:parentActivityName=".Sign_in" />
+            android:parentActivityName=".Activity.Sign_in" />
         <activity
             android:name=".Activity.User_Edit"
-            android:parentActivityName=".Sign_in" />
+            android:parentActivityName=".Activity.Sign_in" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

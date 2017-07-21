@@ -1,7 +1,7 @@
-package android.familydoctor;
+package android.familydoctor.Activity;
 
 import android.content.Intent;
-import android.familydoctor.Activity.LuaChonLoaiTaiKhoanActivity;
+import android.familydoctor.R;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;

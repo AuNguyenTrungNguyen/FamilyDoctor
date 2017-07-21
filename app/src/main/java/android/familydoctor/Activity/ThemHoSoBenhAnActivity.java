@@ -7,6 +7,7 @@ import android.familydoctor.R;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -46,9 +47,7 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_them_ho_so_benh_an);
-
         addControls();
-
         addEvents();
     }
 
@@ -226,6 +225,7 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
                     thuoc.setLieuDung(lieuDung);
 
                     dialogThemThuoc.dismiss();
+                    Log.d("THUOC",thuoc.getTenThuoc()+"\n"+thuoc.getLieuDung());
                     Toast.makeText(ThemHoSoBenhAnActivity.this, "Thêm thuốc thành công.", Toast.LENGTH_SHORT).show();
                 }
             });
