@@ -1,20 +1,15 @@
 package android.familydoctor.Fragment;
 
-/**
- * Created by ASUS on 27/05/2017.
- */
-
 import android.content.Context;
 import android.content.Intent;
 import android.familydoctor.Activity.ViewWeb;
-import android.familydoctor.Adapter.TinTucAdapter;
-import android.familydoctor.Class.TinTuc;
-import android.familydoctor.Class.XMLDOMParser;
+import android.familydoctor.Adapter.CustomAdapter;
+import android.familydoctor.Adapter.TinTuc;
+import android.familydoctor.Adapter.XMLDOMParser;
 import android.familydoctor.R;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,23 +21,36 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * Created by Trung Banh on 30-Jun-17.
+ */
 
 public class TinTucSucKhoe extends Fragment {
-//abcbcbcascsa test git hub
+
     Context context;
-    ArrayList<TinTuc> dsTinTuc;
-    ListView lv;
-    TinTucAdapter adapter;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         this.context = context;
     }
+
+    /**
+     * The fragment argument representing the section number for this
+     * fragment.
+     */
+
+    ListView listView;
+
+    CustomAdapter customAdapter;
+    ArrayList<TinTuc> tinTucs;
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -62,65 +70,86 @@ public class TinTucSucKhoe extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.tab1_tintuc, container, false);
-        dsTinTuc= new ArrayList<>();
-        lv= (ListView) rootView.findViewById(R.id.List_item);
-        new ReadRSS().execute("http://vnexpress.net/rss/suc-khoe.rss");
-        adapter= new TinTucAdapter(context,R.layout.item_rss,dsTinTuc);
-        lv.setAdapter(adapter);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        tinTucs = new ArrayList<TinTuc>();
+
+        listView = (ListView) rootView.findViewById(R.id.List_item);
+
+        getActivity().runOnUiThread(new Runnable() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getContext(), ViewWeb.class);
-                intent.putExtra("link", dsTinTuc.get(i).getLink());
-                startActivity(intent);
-                Log.d("LINKLINK",dsTinTuc.get(i).getLink());
+            public void run() {
+                new ReadData().execute("http://vnexpress.net/rss/suc-khoe.rss");
             }
         });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), ViewWeb.class);
+                intent.putExtra("link", tinTucs.get(position).link);
+                startActivity(intent);
+            }
+        });
+
         return rootView;
     }
 
-    class ReadRSS extends AsyncTask<String, Void, String> {
-
+    class ReadData extends AsyncTask<String, Integer, String> {
         @Override
         protected String doInBackground(String... params) {
-            StringBuilder content = new StringBuilder();
-            try {
-                URL url = new URL(params[0]);
-                InputStreamReader inputStreamReader =new InputStreamReader(url.openConnection().getInputStream());
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String line="";
-
-                while((line=bufferedReader.readLine())!=null)
-                {
-                    content.append(line);
-                }
-                bufferedReader.close();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return content.toString();
+            return docNoiDung_Tu_URL(params[0]);
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            XMLDOMParser parser= new XMLDOMParser();
+
+            XMLDOMParser parser = new XMLDOMParser();
             Document document = parser.getDocument(s);
             NodeList nodeList = document.getElementsByTagName("item");
-            String tieude="";
-            String link="";
-            String ngay_dang="";
-
-            for(int i =0;i<nodeList.getLength();i++)
-            {
-                Element element= (Element) nodeList.item(i);
-                tieude=parser.getValue(element,"title");
-                link=parser.getValue(element,"link");
-                ngay_dang=parser.getValue(element,"pubDate");
-                dsTinTuc.add(new TinTuc(tieude,link,ngay_dang));
+            NodeList nodeListDes = document.getElementsByTagName("description");
+            String title = "";
+            String Image = "";
+            String link = "";
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                Element element = (Element) nodeList.item(i);
+                title = parser.getValue(element, "title");
+                link = parser.getValue(element, "link");
+                String Cdata = nodeListDes.item(i + 1).getTextContent();
+                Pattern p = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
+                Matcher matcher = p.matcher(Cdata);
+                if (matcher.find()) {
+                    Image = matcher.group(1);
+                }
+                tinTucs.add(new TinTuc(title, link, Image));
             }
+            customAdapter = new CustomAdapter(getActivity(),android.R.layout.simple_list_item_1, tinTucs);
+            listView.setAdapter(customAdapter);
         }
+    }
+
+    private String docNoiDung_Tu_URL(String theUrl) {
+        StringBuilder content = new StringBuilder();
+        try {
+            // create a url object
+            URL url = new URL(theUrl);
+
+            // create a urlconnection object
+            URLConnection urlConnection = url.openConnection();
+
+            // wrap the urlconnection in a bufferedreader
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+
+            String line;
+
+            // read from the urlconnection via the bufferedreader
+            while ((line = bufferedReader.readLine()) != null) {
+                content.append(line + "\n");
+            }
+            bufferedReader.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return content.toString();
     }
 }
