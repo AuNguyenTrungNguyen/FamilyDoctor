@@ -3,9 +3,9 @@ package android.familydoctor.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.familydoctor.Activity.ViewWeb;
-import android.familydoctor.Adapter.CustomAdapter;
-import android.familydoctor.Adapter.TinTuc;
-import android.familydoctor.Adapter.XMLDOMParser;
+import android.familydoctor.Adapter.TinTucAdapter;
+import android.familydoctor.Class.TinTuc;
+import android.familydoctor.Class.XMLDOMParser;
 import android.familydoctor.R;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -45,7 +45,7 @@ public class TinTucSucKhoe extends Fragment {
 
     ListView listView;
 
-    CustomAdapter customAdapter;
+    TinTucAdapter customAdapter;
     ArrayList<TinTuc> tinTucs;
 
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -82,7 +82,7 @@ public class TinTucSucKhoe extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), ViewWeb.class);
-                intent.putExtra("link", tinTucs.get(position).link);
+                intent.putExtra("link", tinTucs.get(position).getLink());
                 startActivity(intent);
             }
         });
@@ -119,7 +119,7 @@ public class TinTucSucKhoe extends Fragment {
                 }
                 tinTucs.add(new TinTuc(title, link, Image));
             }
-            customAdapter = new CustomAdapter(getActivity(),android.R.layout.simple_list_item_1, tinTucs);
+            customAdapter = new TinTucAdapter(getActivity(),R.layout.item_rss, tinTucs);
             listView.setAdapter(customAdapter);
         }
     }

@@ -13,17 +13,13 @@ public class TinTuc {
     public TinTuc() {
     }
 
-    public TinTuc(String title, String link, String publish) {
-        this.title = title;
-        this.link = link;
-        this.publish = publish;
-    }
 
-    public TinTuc(String title, String link, String image, String publish) {
+
+    public TinTuc(String title, String link, String image) {
         this.title = title;
         this.link = link;
         this.image = image;
-        this.publish = publish;
+
     }
 
     public String getTitle() {

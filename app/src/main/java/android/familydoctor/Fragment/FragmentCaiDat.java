@@ -3,7 +3,7 @@ package android.familydoctor.Fragment;
 import android.content.Intent;
 import android.familydoctor.Activity.ThongTinUngDungActivity;
 import android.familydoctor.R;
-import android.familydoctor.Sign_in;
+import android.familydoctor.Activity.Sign_in;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;

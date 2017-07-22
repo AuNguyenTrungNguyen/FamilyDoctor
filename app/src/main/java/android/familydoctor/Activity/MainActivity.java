@@ -5,7 +5,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.familydoctor.Adapter.ViewPagerAdapter;
-import android.familydoctor.Fragment.DanhSachBacSi_BenhNhan;
 import android.familydoctor.Fragment.FragmentCaiDat;
 import android.familydoctor.Fragment.FragmentHoSoBenhAn;
 import android.familydoctor.Fragment.TinTucSucKhoe;
@@ -67,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new TinTucSucKhoe());
         fragments.add(new FragmentHoSoBenhAn());
-        fragments.add(new DanhSachBacSi_BenhNhan());
+        fragments.add(new FragmentHoSoBenhAn());
+       // fragments.add(new DanhSachBacSi_BenhNhan());
         fragments.add(new FragmentCaiDat());
 
         mViewPager.setOffscreenPageLimit(3);
