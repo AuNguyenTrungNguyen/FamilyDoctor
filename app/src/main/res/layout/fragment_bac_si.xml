@@ -75,7 +75,7 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_margin="5dp"
-        android:hint="Chọn ảnh xác thực:"
+        android:hint="Chọn ảnh xác thực (chụp ảnh trực tiếp):"
         android:textStyle="bold" />
 
         <ImageView
@@ -86,7 +86,7 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_margin="5dp"
-            android:hint="Chọn ảnh đại diện:"
+            android:hint="Chọn ảnh đại diện(lấy tù thư viện ảnh):"
             android:textStyle="bold" />
 
         <ImageView

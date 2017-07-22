@@ -94,17 +94,9 @@ public class FragmentBacSi extends Fragment {
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         NamSinh.setAdapter(aa);
 
-        final String hoTen = HoTen.getText().toString();
-        final String namSinh = NamSinh.getSelectedItem().toString();
-
-        final String sdt = SDT.getText().toString();
-        final String diaChi = DiaChi.getText().toString();
-
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         firebaseStorage = FirebaseStorage.getInstance();
-        final String key = mDatabase.child("User").push().getKey();
-
 
         Intent bundle = getActivity().getIntent();
 
@@ -113,13 +105,7 @@ public class FragmentBacSi extends Fragment {
         imgAva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(getContext()).setNeutralButton("Chụp ảnh mới", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        startActivityForResult(intent, 1);
-                    }
-                })
+                new AlertDialog.Builder(getContext())
                         .setNegativeButton("Chọn ảnh từ thư viện", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -131,7 +117,6 @@ public class FragmentBacSi extends Fragment {
                         .show();
             }
         });
-
         imgXT = (ImageView) view.findViewById(R.id.ImgXacThuc);
         imgXT.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,21 +127,14 @@ public class FragmentBacSi extends Fragment {
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         startActivityForResult(intent, 1);
                     }
-                })
-                        .setNegativeButton("Chọn ảnh từ thư viện", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                                intent.setType("image/*");
-                                startActivityForResult(intent, 2);
-                            }
-                        })
-                        .show();
+                }).show();
             }
         });
         setData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String key = mDatabase.child("User").push().getKey();
                 //Up Hình ảnh
                 StorageReference storageReference = firebaseStorage.getReferenceFromUrl("gs://familydoctor-56b96.appspot.com/");
                 StorageReference reference = storageReference.child("Users").child(key+"jpg");
@@ -199,12 +177,15 @@ public class FragmentBacSi extends Fragment {
                     }
                 });
 
+                String hoTen = HoTen.getText().toString();
+                String namSinh = NamSinh.getSelectedItem().toString();
+                String sdt = SDT.getText().toString();
+                String diaChi = DiaChi.getText().toString();
 
                 Us = new BacSi(hoTen,namSinh,sdt,diaChi);
                 mDatabase.child("Users").push().setValue(Us);
 
-
-                if (uploadTask.isSuccessful()) {
+                if (!uploadTask.isSuccessful()) {
 
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
@@ -225,19 +206,13 @@ public class FragmentBacSi extends Fragment {
         if (resultCode == RESULT_OK && requestCode == 1) {
             // lay hinh thu nho cua hinh vua chup
             Bitmap hinh = (Bitmap) data.getExtras().get("data");
-            imgAva.setImageBitmap(hinh);
-
-            Bitmap hinh2 = (Bitmap) data.getExtras().get("data");
-            imgXT.setImageBitmap(hinh2);
+            imgXT.setImageBitmap(hinh);
         }
 
         if (resultCode == RESULT_OK && requestCode == 2) {
 
-            Uri imageUri = data.getData();
-            imgAva.setImageURI(imageUri);
-
             Uri imageUri2 = data.getData();
-            imgXT.setImageURI(imageUri2);
+            imgAva.setImageURI(imageUri2);
         }
     }
 }

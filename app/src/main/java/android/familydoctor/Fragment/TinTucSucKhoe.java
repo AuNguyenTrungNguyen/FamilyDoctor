@@ -42,10 +42,6 @@ public class TinTucSucKhoe extends Fragment {
         this.context = context;
     }
 
-    /**
-     * The fragment argument representing the section number for this
-     * fragment.
-     */
 
     ListView listView;
 

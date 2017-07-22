@@ -101,6 +101,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
         loadDuLieuFirebase();
+
        /* try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
         } catch (Exception e) {

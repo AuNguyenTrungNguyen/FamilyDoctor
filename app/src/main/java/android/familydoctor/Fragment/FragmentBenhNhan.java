@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.key;
 import static android.app.Activity.RESULT_OK;
 
 /**
@@ -94,28 +96,23 @@ public class FragmentBenhNhan extends Fragment {
 
         ArrayAdapter aa= new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item, namList);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         NamSinh.setAdapter(aa);
-
-        final String hoTen = HoTen.getText().toString();
-        final String namSinh = NamSinh.getSelectedItem().toString();
-
-        final String sdt = SDT.getText().toString();
-        final String diaChi = DiaChi.getText().toString();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         firebaseStorage = FirebaseStorage.getInstance();
-        final String key = mDatabase.child("User").push().getKey();
-
 
         Intent bundle = getActivity().getIntent();
 
         id = bundle.getDataString();
+
         img = (ImageView) view.findViewById(R.id.ImgAvaE);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String key = mDatabase.child("User").push().getKey();
+
                 new AlertDialog.Builder(getContext()).setNeutralButton("Chụp ảnh mới", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -160,12 +157,18 @@ public class FragmentBenhNhan extends Fragment {
                     }
                 });
 
+                String hoTen = HoTen.getText().toString();
+                String namSinh = NamSinh.getSelectedItem().toString();
+                String sdt = SDT.getText().toString();
+                String diaChi = DiaChi.getText().toString();
+
                 Us = new BenhNhan(hoTen,namSinh,sdt,diaChi);
+
+                Log.d("loggg",hoTen);
 
                 mDatabase.child("Users").push().setValue(Us);
 
-                if (uploadTask.isSuccessful()) {
-
+                if (!uploadTask.isSuccessful()) {
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
                 }
