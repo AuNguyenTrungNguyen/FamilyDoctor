@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.USER_SERVICE;
 
 /**
  * Created by Au Nguyen on 7/14/2017.
@@ -84,9 +86,10 @@ public class FragmentBacSi extends Fragment {
         imgAva  = (ImageView) view.findViewById(R.id.Ava);
         imgXT  = (ImageView) view.findViewById(R.id.ImgXacThuc);
         setData = (Button) view.findViewById(R.id.SubmitD);
+
+        //Tạo danh sách năm
         List<String> namList = new ArrayList<>();
         for (int i= 1960; i< 2018; i++){
-
             namList.add(i+"");
         }
 
@@ -95,30 +98,15 @@ public class FragmentBacSi extends Fragment {
         NamSinh.setAdapter(aa);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
         firebaseStorage = FirebaseStorage.getInstance();
 
         Intent bundle = getActivity().getIntent();
 
         id = bundle.getDataString();
+
+        //Set hình ảnh đại diện và ảnh xác thực bác sĩ
         imgAva = (ImageView) view.findViewById(R.id.Ava);
         imgAva.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(getContext())
-                        .setNegativeButton("Chọn ảnh từ thư viện", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                                intent.setType("image/*");
-                                startActivityForResult(intent, 2);
-                            }
-                        })
-                        .show();
-            }
-        });
-        imgXT = (ImageView) view.findViewById(R.id.ImgXacThuc);
-        imgXT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(getContext()).setNeutralButton("Chụp ảnh mới", new DialogInterface.OnClickListener() {
@@ -127,15 +115,58 @@ public class FragmentBacSi extends Fragment {
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         startActivityForResult(intent, 1);
                     }
-                }).show();
+                }).setNegativeButton("Chọn ảnh từ thư viện", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                        intent.setType("image/*");
+                        startActivityForResult(intent, 2);
+                    }
+                })
+                        .show();
             }
         });
+
+        imgXT = (ImageView) view.findViewById(R.id.ImgXacThuc);
+        imgXT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(getContext()).setNeutralButton("Chụp ảnh mới", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(intent, 3);
+                    }
+                }).setNegativeButton("Chọn ảnh từ thư viện", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                        intent.setType("image/*");
+                        startActivityForResult(intent, 4);
+                    }
+                })
+                        .show();
+            }
+        });
+
+        //Put dữ liệu
         setData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String key = mDatabase.child("User").push().getKey();
-                //Up Hình ảnh
+
+                //Khởi tạo và thêm dữ liệu cho USER
+                String hoTen = HoTen.getText().toString();
+                String namSinh = NamSinh.getSelectedItem().toString();
+                String sdt = SDT.getText().toString();
+                String diaChi = DiaChi.getText().toString();
+
+                Us = new BacSi(hoTen,namSinh,sdt,"email",diaChi);
+
+
+
+                //Khai báo Up Hình ảnh
                 StorageReference storageReference = firebaseStorage.getReferenceFromUrl("gs://familydoctor-56b96.appspot.com/");
                 StorageReference reference = storageReference.child("Users").child(key+"jpg");
 
@@ -154,17 +185,18 @@ public class FragmentBacSi extends Fragment {
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
+                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        Us.setImgUserURL(downloadUrl.toString());
                     }
                 });
 
                 //stream xác thực
                 Bitmap bitmapXT = ((BitmapDrawable) imgXT.getDrawable()).getBitmap();
                 ByteArrayOutputStream streamXT = new ByteArrayOutputStream();
-                bitmapXT.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                byte[] bitMapDataXT = stream.toByteArray();
+                bitmapXT.compress(Bitmap.CompressFormat.JPEG, 100, streamXT);
+                byte[] bitMapDataXT = streamXT.toByteArray();
 
-                UploadTask uploadTaskXT = reference.putBytes(bitMapData);
+                UploadTask uploadTaskXT = reference.putBytes(bitMapDataXT);
                 uploadTaskXT.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
@@ -173,26 +205,28 @@ public class FragmentBacSi extends Fragment {
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
+                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        Us.setImgVanBang(downloadUrl.toString());
                     }
                 });
 
-                String hoTen = HoTen.getText().toString();
-                String namSinh = NamSinh.getSelectedItem().toString();
-                String sdt = SDT.getText().toString();
-                String diaChi = DiaChi.getText().toString();
 
-                Us = new BacSi(hoTen,namSinh,sdt,diaChi);
-                mDatabase.child("Users").push().setValue(Us);
+                Log.i("info", Us.getHoten()+Us.getImgUserURL());
 
-                if (!uploadTask.isSuccessful()) {
+                while (uploadTask.isSuccessful() && uploadTaskXT.isSuccessful() ) {
 
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                    startActivity(intent);
+
+
+
+//                    mDatabase.child("Users_BacSi").child(sdt.toString()).setValue(Us);
+
+//                    Intent intent = new Intent(getActivity(), MainActivity.class);
+//                    startActivity(intent);
+                    break;
                 }
-                else {
-                    Toast.makeText(getContext(),"chưa up thong tin",Toast.LENGTH_LONG).show();
-                }
+//                else {
+//                    Toast.makeText(getContext(),"chưa up thong tin",Toast.LENGTH_LONG).show();
+//                }
             }
         });
 
@@ -203,16 +237,27 @@ public class FragmentBacSi extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK && requestCode == 1) {
-            // lay hinh thu nho cua hinh vua chup
-            Bitmap hinh = (Bitmap) data.getExtras().get("data");
-            imgXT.setImageBitmap(hinh);
-        }
-
         if (resultCode == RESULT_OK && requestCode == 2) {
 
             Uri imageUri2 = data.getData();
             imgAva.setImageURI(imageUri2);
         }
+        if (resultCode == RESULT_OK && requestCode == 1) {
+            // lay hinh thu nho cua hinh vua chup
+            Bitmap hinh2 = (Bitmap) data.getExtras().get("data");
+            imgAva.setImageBitmap(hinh2);
+        }
+        if (resultCode == RESULT_OK && requestCode == 3) {
+            // lay hinh thu nho cua hinh vua chup
+            Bitmap hinh1 = (Bitmap) data.getExtras().get("data");
+            imgXT.setImageBitmap(hinh1);
+        }
+
+        if (resultCode == RESULT_OK && requestCode == 4) {
+
+            Uri imageUri1 = data.getData();
+            imgXT.setImageURI(imageUri1);
+        }
+
     }
 }

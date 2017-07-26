@@ -2,6 +2,7 @@ package android.familydoctor.Class;
 public class BacSi {
 
     String hoten;
+    String namSinhBS;
     String sdt;
     String email;
     String linhvucchuyenmon;
@@ -14,7 +15,13 @@ public class BacSi {
     public BacSi() {
     }
 
-    public BacSi(String hoTen, String namSinh, String sdt, String diaChi) {
+
+    public BacSi(String hoten, String namSinhBS, String sdt, String email, String diachi) {
+        this.hoten = hoten;
+        this.namSinhBS = namSinhBS;
+        this.sdt = sdt;
+        this.email = email;
+        this.diachi = diachi;
     }
 
     public BacSi(String hoten, String sdt, String email, String linhvucchuyenmon, String diachi, String imgUserURL, String imgVanBang, String x, String y) {
@@ -27,6 +34,14 @@ public class BacSi {
         this.imgVanBang = imgVanBang;
         this.x = x;
         this.y = y;
+    }
+
+    public String getNamSinhBS() {
+        return namSinhBS;
+    }
+
+    public void setNamSinhBS(String namSinhBS) {
+        this.namSinhBS = namSinhBS;
     }
 
     public String getHoten() {
