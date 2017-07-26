@@ -3,7 +3,6 @@ package android.familydoctor.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.familydoctor.Activity.MainActivity;
 import android.familydoctor.Class.BacSi;
 import android.familydoctor.R;
 import android.graphics.Bitmap;
@@ -14,7 +13,6 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +36,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
-import static android.content.Context.USER_SERVICE;
 
 /**
  * Created by Au Nguyen on 7/14/2017.
@@ -78,7 +75,7 @@ public class FragmentBacSi extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bac_si, container, false);
 
-//
+
         HoTen = (EditText) view.findViewById(R.id.HoTenD);
         NamSinh = (Spinner) view.findViewById(R.id.spNamSinhBacSi);
         SDT = (EditText) view.findViewById( R.id.SDTD);
@@ -164,8 +161,6 @@ public class FragmentBacSi extends Fragment {
 
                 Us = new BacSi(hoTen,namSinh,sdt,"email",diaChi);
 
-
-
                 //Khai báo Up Hình ảnh
                 StorageReference storageReference = firebaseStorage.getReferenceFromUrl("gs://familydoctor-56b96.appspot.com/");
                 StorageReference reference = storageReference.child("Users").child(key+"jpg");
@@ -176,19 +171,7 @@ public class FragmentBacSi extends Fragment {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                 byte[] bitMapData = stream.toByteArray();
 
-                UploadTask uploadTask = reference.putBytes(bitMapData);
-                uploadTask.addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                        Us.setImgUserURL(downloadUrl.toString());
-                    }
-                });
+                final UploadTask uploadTask = reference.putBytes(bitMapData);
 
                 //stream xác thực
                 Bitmap bitmapXT = ((BitmapDrawable) imgXT.getDrawable()).getBitmap();
@@ -196,37 +179,42 @@ public class FragmentBacSi extends Fragment {
                 bitmapXT.compress(Bitmap.CompressFormat.JPEG, 100, streamXT);
                 byte[] bitMapDataXT = streamXT.toByteArray();
 
-                UploadTask uploadTaskXT = reference.putBytes(bitMapDataXT);
+                final UploadTask uploadTaskXT = reference.putBytes(bitMapDataXT);
+
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Toast.makeText(getActivity(),"lổi không đăng kí thông tin được",Toast.LENGTH_LONG).show();
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        Us.setImgUserURL(downloadUrl.toString());
+
+                        if (uploadTaskXT.isSuccessful()){
+                            mDatabase.child("User_BacSi").child(Us.getSdt()).setValue(Us);
+                        }
+                    }
+                });
+
                 uploadTaskXT.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
-
+                        Toast.makeText(getActivity(),"lổi không đăng kí thông tin được",Toast.LENGTH_LONG).show();
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         Uri downloadUrl = taskSnapshot.getDownloadUrl();
                         Us.setImgVanBang(downloadUrl.toString());
+
+                        if (uploadTask.isSuccessful()){
+                            mDatabase.child("User_BacSi").child(Us.getSdt()).setValue(Us);
+                        }
                     }
                 });
 
-
-                Log.i("info", Us.getHoten()+Us.getImgUserURL());
-
-                while (uploadTask.isSuccessful() && uploadTaskXT.isSuccessful() ) {
-
-
-
-
-//                    mDatabase.child("Users_BacSi").child(sdt.toString()).setValue(Us);
-
-//                    Intent intent = new Intent(getActivity(), MainActivity.class);
-//                    startActivity(intent);
-                    break;
-                }
-//                else {
-//                    Toast.makeText(getContext(),"chưa up thong tin",Toast.LENGTH_LONG).show();
-//                }
             }
         });
 
@@ -238,7 +226,6 @@ public class FragmentBacSi extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK && requestCode == 2) {
-
             Uri imageUri2 = data.getData();
             imgAva.setImageURI(imageUri2);
         }

@@ -3,7 +3,6 @@ package android.familydoctor.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.familydoctor.Activity.MainActivity;
 import android.familydoctor.Class.BenhNhan;
 import android.familydoctor.R;
 import android.graphics.Bitmap;
@@ -14,7 +13,6 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -135,6 +133,14 @@ public class FragmentBenhNhan extends Fragment {
         setData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String hoTen = HoTen.getText().toString();
+                String namSinh = NamSinh.getSelectedItem().toString();
+                String sdt = SDT.getText().toString();
+                String diaChi = DiaChi.getText().toString();
+
+                Us = new BenhNhan(hoTen,namSinh,sdt,diaChi);
+
                 //Up Hình ảnh
                 StorageReference storageReference = firebaseStorage.getReferenceFromUrl("gs://familydoctor-56b96.appspot.com/");
                 StorageReference reference = storageReference.child("Users").child(key+"jpg");
@@ -148,33 +154,18 @@ public class FragmentBenhNhan extends Fragment {
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
-
+                        Toast.makeText(getActivity(),"lổi không đăng kí thông tin được",Toast.LENGTH_LONG).show();
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        Us.setImgUserURL(downloadUrl.toString());
 
+                        mDatabase.child("User_BacSi").child(Us.getSdt()).setValue(Us);
                     }
                 });
 
-                String hoTen = HoTen.getText().toString();
-                String namSinh = NamSinh.getSelectedItem().toString();
-                String sdt = SDT.getText().toString();
-                String diaChi = DiaChi.getText().toString();
-
-                Us = new BenhNhan(hoTen,namSinh,sdt,diaChi);
-
-                Log.d("loggg",hoTen);
-
-                mDatabase.child("Users").push().setValue(Us);
-
-                if (!uploadTask.isSuccessful()) {
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                    startActivity(intent);
-                }
-                else {
-                    Toast.makeText(getContext(),"chưa up thong tin",Toast.LENGTH_LONG).show();
-                }
             }
         });
 

@@ -33,7 +33,6 @@ public class FragmentHoSoBenhAn extends Fragment {
                 startActivity(intentThemHoSoBenhAn);
             }
         });
-
         return rootView;
     }
 
