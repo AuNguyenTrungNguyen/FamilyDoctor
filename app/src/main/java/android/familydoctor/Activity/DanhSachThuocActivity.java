@@ -82,7 +82,7 @@ public class DanhSachThuocActivity extends AppCompatActivity {
 
         searchView = (SearchView) menu.findItem(R.id.search).getActionView();
 
-        /*searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
@@ -90,23 +90,9 @@ public class DanhSachThuocActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
-                if(!newText.equals("")){
-                    isSearch = true;
-                }else{
-                    isSearch = false;
-                }
-                for(int i = 0; i < list.size(); i++){
-                    if(list.get(i).toLowerCase().contains(newText.toLowerCase())){
-                        listSearch.add(list.get(i));
-                    }
-                }
-
-                adapter = new ArrayAdapter<>(DanhSachThuocActivity.this, android.R.layout.simple_list_item_1, listSearch);
-                listView.setAdapter(adapter);
-                return true;
+                return false;
             }
-        });*/
+        });
         return super.onCreateOptionsMenu(menu);
     }
 }

@@ -184,6 +184,10 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && resultCode == RESULT_CODE && data != null) {
 
+            ArrayList<Thuoc> listThuoc = new ArrayList<>();
+            listThuoc = (ArrayList<Thuoc>) data.getSerializableExtra("listThuocSeThem");
+
+            Toast.makeText(this, listThuoc.size()+"", Toast.LENGTH_SHORT).show();
 
         }
     }

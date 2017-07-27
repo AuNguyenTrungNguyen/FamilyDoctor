@@ -112,40 +112,38 @@ public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
         chkTrua = (CheckBox) convertView.findViewById(R.id.chkTrua);
         chkChieu = (CheckBox) convertView.findViewById(R.id.chkChieu);
 
-        if(!thuoc.getSoLuong().equals("")){
+        if (!thuoc.getSoLuong().equals("")) {
             edtSoLuongThuoc.setText(thuoc.getSoLuong());
-        }else{
+        } else {
             edtSoLuongThuoc.setText("");
         }
 
-        if(!thuoc.getLieuDungSang().equals("")){
+        if (!thuoc.getLieuDungSang().equals("")) {
             chkSang.setChecked(true);
             edtSoLuongSang.setVisibility(View.VISIBLE);
             edtDonViSang.setVisibility(View.VISIBLE);
             edtSoLuongSang.setText(thuoc.getLieuDungSang());
-        }else{
+        } else {
             chkSang.setChecked(false);
             edtSoLuongSang.setText("");
         }
 
-        if(!thuoc.getLieuDungTrua().equals("")){
+        if (!thuoc.getLieuDungTrua().equals("")) {
             chkTrua.setChecked(true);
             edtSoLuongTrua.setVisibility(View.VISIBLE);
             edtDonViTrua.setVisibility(View.VISIBLE);
             edtSoLuongTrua.setText(thuoc.getLieuDungTrua());
-        }else{
+        } else {
             chkTrua.setChecked(false);
             edtSoLuongTrua.setText("");
         }
 
-        if(!thuoc.getLieuDungChieu().equals("")){
+        if (!thuoc.getLieuDungChieu().equals("")) {
             chkChieu.setChecked(true);
             edtSoLuongChieu.setVisibility(View.VISIBLE);
             edtDonViChieu.setVisibility(View.VISIBLE);
             edtSoLuongChieu.setText(thuoc.getLieuDungChieu());
-        }
-
-        else{
+        } else {
             chkChieu.setChecked(false);
             edtSoLuongChieu.setText("");
         }
@@ -199,19 +197,19 @@ public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
         btnXacNhan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!edtSoLuongThuoc.getText().toString().equals("")){
+                if (!edtSoLuongThuoc.getText().toString().equals("")) {
                     thuoc.setSoLuong(edtSoLuongThuoc.getText().toString());
                 }
 
-                if(!edtSoLuongSang.getText().toString().equals("")){
+                if (!edtSoLuongSang.getText().toString().equals("")) {
                     thuoc.setLieuDungSang(edtSoLuongSang.getText().toString());
                 }
 
-                if(!edtSoLuongTrua.getText().toString().equals("")){
+                if (!edtSoLuongTrua.getText().toString().equals("")) {
                     thuoc.setLieuDungTrua(edtSoLuongTrua.getText().toString());
                 }
 
-                if(!edtSoLuongChieu.getText().toString().equals("")){
+                if (!edtSoLuongChieu.getText().toString().equals("")) {
                     thuoc.setLieuDungChieu(edtSoLuongChieu.getText().toString());
                 }
                 Toast.makeText(context, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
@@ -226,4 +224,5 @@ public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
+
 }

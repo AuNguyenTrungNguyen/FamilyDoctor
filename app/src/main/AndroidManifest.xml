@@ -70,7 +70,8 @@
         <activity android:name=".Activity.ThemHoSoBenhAnActivity"
             android:parentActivityName=".Activity.MainActivity"/>
 
-        <activity android:name=".Activity.DanhSachThuocActivity"/>
+        <activity android:name=".Activity.DanhSachThuocActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
 
         <service
             android:name=".service.GPSTracker"

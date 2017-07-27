@@ -19,6 +19,13 @@ public class BenhNhan {
     public BenhNhan() {
     }
 
+    public BenhNhan(String soDienThoaiBenhNhan, String namSinhBenhNhan, String hoTenBenhNhan, String diaChiBenhNhan) {
+        this.soDienThoaiBenhNhan = soDienThoaiBenhNhan;
+        this.namSinhBenhNhan = namSinhBenhNhan;
+        this.hoTenBenhNhan = hoTenBenhNhan;
+        this.diaChiBenhNhan = diaChiBenhNhan;
+    }
+
     public BenhNhan(String soDienThoaiBenhNhan, String namSinhBenhNhan, String hoTenBenhNhan, String emailBenhNhan, String diaChiBenhNhan, String uriHinhAnhBenhNhan, String xBenhNhan, String yBenhNhan) {
         this.soDienThoaiBenhNhan = soDienThoaiBenhNhan;
         this.namSinhBenhNhan = namSinhBenhNhan;
