@@ -173,13 +173,13 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                                 public void onClick(DialogInterface dialog, int which) {
                                     BacSi bs = (BacSi) marker.getTag();
                                     Intent it =new Intent(getContext(), XemTTBacSi_Act.class);
-                                    it.putExtra("name",bs.getHoten());
-                                    it.putExtra("sdt",bs.getSdt());
-                                    it.putExtra("email",bs.getEmail());
-                                    it.putExtra("chuyenmon",bs.getLinhvucchuyenmon());
-                                    it.putExtra("diachi",bs.getDiachi());
-                                    it.putExtra("url1",bs.getImgUserURL());
-                                    it.putExtra("url2",bs.getImgVanBang());
+                                    it.putExtra("name",bs.getHoTenBacSi());
+                                    it.putExtra("sdt",bs.getSoDienThoaiBacSi());
+                                    it.putExtra("email",bs.getEmailBacSi());
+                                    it.putExtra("chuyenmon",bs.getChuyenMonBacSi());
+                                    it.putExtra("diachi",bs.getDiaChiBacSi());
+                                    it.putExtra("url1",bs.getUriHinhAnhBacSi());
+                                    it.putExtra("url2",bs.getUriVanBangBacSi());
                                     startActivity(it);
                                 }
                             });
@@ -243,32 +243,33 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                         googleMap.clear();
                         moveCamera(latLng.latitude, latLng.longitude, 18);
                         googleMap.addCircle(new CircleOptions()
-                                .radius(50)
+                                .radius(100)
                                 .strokeColor(Color.parseColor("#CD0000"))
                                 .fillColor(Color.parseColor("#FF85E880"))
                                 .center(latLng)
                         );
                         for (int i = 0; i < dsBacSi.size(); i++) {
                             MarkerOptions markerOptions;
-                            LatLng toado = new LatLng(Double.parseDouble(dsBacSi.get(i).getX()), Double.parseDouble(dsBacSi.get(i).getY()));
+                            LatLng toado = new LatLng(Double.parseDouble(dsBacSi.get(i).getxBacSi())
+                                    , Double.parseDouble(dsBacSi.get(i).getyBacSi()));
                             float[] results = new float[1];
                             Location.distanceBetween(latLng.latitude, latLng.longitude,
                                     toado.latitude, toado.longitude
                                     , results);
-                            if (results[0] < 50) {
+                            if (results[0] < 100) {
                                 markerOptions = new MarkerOptions()
                                         .position(toado)
                                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.doctor))
-                                        .title(dsBacSi.get(i).getHoten())
+                                        .title(dsBacSi.get(i).getHoTenBacSi())
                                         .snippet
                                                 (
-                                                        "Chuyên môn: " + dsBacSi.get(i).getLinhvucchuyenmon()
+                                                        "Chuyên môn: " + dsBacSi.get(i).getChuyenMonBacSi()
                                                                 + "\n"
-                                                                + "Email: " + dsBacSi.get(i).getEmail()
+                                                                + "Email: " + dsBacSi.get(i).getEmailBacSi()
                                                                 + "\n"
-                                                                + "Địa chỉ: " + dsBacSi.get(i).getDiachi()
+                                                                + "Địa chỉ: " + dsBacSi.get(i).getDiaChiBacSi()
                                                                 + "\n"
-                                                                + "SDT liên hệ:: " + dsBacSi.get(i).getSdt()
+                                                                + "SDT liên hệ:: " + dsBacSi.get(i).getSoDienThoaiBacSi()
 
                                                 );
 
@@ -296,6 +297,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
         BacSi bs = new BacSi(
                 "Huynh quoc"
                 , "01262985603"
+                ,"22/22/2222"
                 , "quocb1400@gmail.com"
                 , "Răng hàm mặt"
                 , "Ninh kiều, Cần thơ"
@@ -308,6 +310,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
         BacSi bs1 = new BacSi(
                 "Huynh quoc 1"
                 , "0123123123"
+                ,"22/22/2222"
                 , "quocb1400@gmail.com"
                 , "Mắt mũi"
                 , "Cái răng, Cần thơ"
@@ -320,6 +323,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
         BacSi bs2 = new BacSi(
                 "Huynh quoc 2"
                 , "0124124124"
+                ,"22/22/2222"
                 , "quocb1400@gmail.com"
                 , "Xương khóp"
                 , "Ô môn, Cần thơ"
@@ -332,6 +336,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
         BacSi bs3 = new BacSi(
                 "Huynh quoc 3"
                 , "01261262126"
+                ,"22/22/2222"
                 , "quocb1400@gmail.com"
                 , "Da liễu"
                 , "Mậu thân, Cần thơ"
@@ -344,6 +349,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
         BacSi bs4 = new BacSi(
                 "Huynh quoc 44"
                 , "0122122122"
+                ,"22/22/2222"
                 , "quocb1400@gmail.com"
                 , "Tổng hợp"
                 , "Ngô quyền, Cần thơ"
@@ -357,6 +363,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
         BacSi bs5 = new BacSi(
                 "Huynh quoc NEW"
                 , "00000000"
+                ,"22/22/2222"
                 , "quocb1400@gmail.com"
                 , "Tổng hợp"
                 , "Ngô quyền, Cần thơ"
@@ -369,6 +376,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
         BacSi bs6 = new BacSi(
                 "Huynh quoc NEW"
                 , "111111111111"
+                ,"22/22/2222"
                 , "quocb1400@gmail.com"
                 , "Tổng hợp"
                 , "Ngô quyền, Cần thơ"
@@ -426,22 +434,23 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
         if (v.getId() == R.id.btnSearchAddress) {
             String input = edtInput.getText().toString();
             for (int i = 0; i < dsBacSi.size(); i++) {
-                if (TextUtils.equals(input, dsBacSi.get(i).getSdt())) {
-                    moveCamera(Double.parseDouble(dsBacSi.get(i).getX())
-                            , Double.parseDouble(dsBacSi.get(i).getY())
+                if (TextUtils.equals(input, dsBacSi.get(i).getSoDienThoaiBacSi())) {
+                    moveCamera(Double.parseDouble(dsBacSi.get(i).getxBacSi())
+                            , Double.parseDouble(dsBacSi.get(i).getyBacSi())
                             , 19);
                     MarkerOptions markerOptions = new MarkerOptions()
-                            .position(new LatLng(Double.parseDouble(dsBacSi.get(i).getX()), Double.parseDouble(dsBacSi.get(i).getY())))
+                            .position(new LatLng(Double.parseDouble(dsBacSi.get(i).getxBacSi())
+                                    , Double.parseDouble(dsBacSi.get(i).getyBacSi())))
                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.doctor))
-                            .title(dsBacSi.get(i).getHoten())
+                            .title(dsBacSi.get(i).getHoTenBacSi())
                             .snippet(
-                                    "Chuyên môn: " + dsBacSi.get(i).getLinhvucchuyenmon()
+                                    "Chuyên môn: " + dsBacSi.get(i).getChuyenMonBacSi()
                                             + "\n"
-                                            + "Email: " + dsBacSi.get(i).getEmail()
+                                            + "Email: " + dsBacSi.get(i).getEmailBacSi()
                                             + "\n"
-                                            + "Địa chỉ: " + dsBacSi.get(i).getDiachi()
+                                            + "Địa chỉ: " + dsBacSi.get(i).getDiaChiBacSi()
                                             + "\n"
-                                            + "SDT liên hệ:: " + dsBacSi.get(i).getSdt()
+                                            + "SDT liên hệ:: " + dsBacSi.get(i).getSoDienThoaiBacSi()
                             );
                     googleMap.addMarker(markerOptions).setTag(dsBacSi.get(i));
                     Toast.makeText(getContext(), "Ổng đây nè", Toast.LENGTH_SHORT).show();

@@ -1,20 +1,25 @@
 package android.familydoctor.Class;
 public class BacSi {
-
+    private String hoTenBacSi;
     private String soDienThoaiBacSi;
     private String namSinhBacSi;
-    private String hoTenBacSi;
-    private String chuyenMonBacSi;
     private String emailBacSi;
+    private String chuyenMonBacSi;
     private String diaChiBacSi;
     private String uriHinhAnhBacSi;
+    private String uriVanBangBacSi;
     private String xBacSi;
     private String yBacSi;
 
-    public BacSi() {
+    public BacSi(String hoTenBacSi, String soDienThoaiBacSi, String namSinhBacSi, String emailBacSi, String diaChiBacSi) {
+        this.hoTenBacSi = hoTenBacSi;
+        this.soDienThoaiBacSi = soDienThoaiBacSi;
+        this.namSinhBacSi = namSinhBacSi;
+        this.emailBacSi = emailBacSi;
+        this.diaChiBacSi = diaChiBacSi;
     }
 
-    public BacSi(String soDienThoaiBacSi, String namSinhBacSi, String hoTenBacSi, String chuyenMonBacSi, String emailBacSi, String diaChiBacSi, String uriHinhAnhBacSi, String xBacSi, String yBacSi) {
+    public BacSi(String soDienThoaiBacSi, String namSinhBacSi, String hoTenBacSi, String chuyenMonBacSi, String emailBacSi, String diaChiBacSi, String uriHinhAnhBacSi, String uriVanBangBacSi, String xBacSi, String yBacSi) {
         this.soDienThoaiBacSi = soDienThoaiBacSi;
         this.namSinhBacSi = namSinhBacSi;
         this.hoTenBacSi = hoTenBacSi;
@@ -22,6 +27,7 @@ public class BacSi {
         this.emailBacSi = emailBacSi;
         this.diaChiBacSi = diaChiBacSi;
         this.uriHinhAnhBacSi = uriHinhAnhBacSi;
+        this.uriVanBangBacSi = uriVanBangBacSi;
         this.xBacSi = xBacSi;
         this.yBacSi = yBacSi;
     }
@@ -80,6 +86,14 @@ public class BacSi {
 
     public void setUriHinhAnhBacSi(String uriHinhAnhBacSi) {
         this.uriHinhAnhBacSi = uriHinhAnhBacSi;
+    }
+
+    public String getUriVanBangBacSi() {
+        return uriVanBangBacSi;
+    }
+
+    public void setUriVanBangBacSi(String uriVanBangBacSi) {
+        this.uriVanBangBacSi = uriVanBangBacSi;
     }
 
     public String getxBacSi() {

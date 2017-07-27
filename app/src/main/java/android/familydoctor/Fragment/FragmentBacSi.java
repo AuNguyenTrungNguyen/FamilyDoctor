@@ -190,10 +190,10 @@ public class FragmentBacSi extends Fragment {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                        Us.setImgUserURL(downloadUrl.toString());
+                        Us.setUriHinhAnhBacSi(downloadUrl.toString());
 
                         if (uploadTaskXT.isSuccessful()){
-                            mDatabase.child("User_BacSi").child(Us.getSdt()).setValue(Us);
+                            mDatabase.child("User_BacSi").child(Us.getSoDienThoaiBacSi()).setValue(Us);
                         }
                     }
                 });
@@ -207,10 +207,10 @@ public class FragmentBacSi extends Fragment {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                        Us.setImgVanBang(downloadUrl.toString());
+                        Us.setUriVanBangBacSi(downloadUrl.toString());
 
                         if (uploadTask.isSuccessful()){
-                            mDatabase.child("User_BacSi").child(Us.getSdt()).setValue(Us);
+                            mDatabase.child("User_BacSi").child(Us.getSoDienThoaiBacSi()).setValue(Us);
                         }
                     }
                 });

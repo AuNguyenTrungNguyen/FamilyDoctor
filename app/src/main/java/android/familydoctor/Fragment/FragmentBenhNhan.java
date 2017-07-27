@@ -3,16 +3,23 @@ package android.familydoctor.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.familydoctor.Class.BenhNhan;
 import android.familydoctor.R;
+import android.familydoctor.service.GPSTracker;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +44,7 @@ import java.util.List;
 
 import static android.R.attr.key;
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.LOCATION_SERVICE;
 
 /**
  * Created by Au Nguyen on 7/14/2017.
@@ -65,34 +73,41 @@ public class FragmentBenhNhan extends Fragment {
 
     private String id;
 
-    Spinner NamSinh ;
-    EditText HoTen ,SDT ,DiaChi ;
-    Button  setData;
-    ImageView img ;
-    float x ;
-    float y ;
+    Spinner NamSinh;
+    EditText HoTen, SDT, DiaChi;
+    Button setData;
+    ImageView img;
+    float x;
+    float y;
     BenhNhan Us = new BenhNhan();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_benh_nhan, container, false);
-
-
+        if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
+        }
+        LocationManager manager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
+        GPSTracker gpsTracker = new GPSTracker(getContext());
+        if (gpsTracker != null && manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            Location location = gpsTracker.getLocation();
+            Log.d("latlong :", location.getLatitude() + "   "+location.getLongitude());
+        }
         HoTen = (EditText) view.findViewById(R.id.HoTenE);
         NamSinh = (Spinner) view.findViewById(R.id.spNamSinhBenhNhan);
-        SDT = (EditText) view.findViewById( R.id.SDTE);
+        SDT = (EditText) view.findViewById(R.id.SDTE);
         DiaChi = (EditText) view.findViewById(R.id.DiaChiE);
-        img  = (ImageView) view.findViewById(R.id.ImgAvaE);
+        img = (ImageView) view.findViewById(R.id.ImgAvaE);
         setData = (Button) view.findViewById(R.id.Submit);
 
 
         List<String> namList = new ArrayList<>();
-        for (int i= 1960; i< 2018; i++){
+        for (int i = 1960; i < 2018; i++) {
 
-            namList.add(i+"");
+            namList.add(i + "");
         }
 
-        ArrayAdapter aa= new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item, namList);
+        ArrayAdapter aa = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, namList);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         NamSinh.setAdapter(aa);
 
@@ -139,11 +154,11 @@ public class FragmentBenhNhan extends Fragment {
                 String sdt = SDT.getText().toString();
                 String diaChi = DiaChi.getText().toString();
 
-                Us = new BenhNhan(hoTen,namSinh,sdt,diaChi);
+                Us = new BenhNhan(hoTen, namSinh, sdt, diaChi);
 
                 //Up Hình ảnh
                 StorageReference storageReference = firebaseStorage.getReferenceFromUrl("gs://familydoctor-56b96.appspot.com/");
-                StorageReference reference = storageReference.child("Users").child(key+"jpg");
+                StorageReference reference = storageReference.child("Users").child(key + "jpg");
 
                 Bitmap bitmap = ((BitmapDrawable) img.getDrawable()).getBitmap();
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -154,7 +169,7 @@ public class FragmentBenhNhan extends Fragment {
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
-                        Toast.makeText(getActivity(),"lổi không đăng kí thông tin được",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "lổi không đăng kí thông tin được", Toast.LENGTH_LONG).show();
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -168,6 +183,7 @@ public class FragmentBenhNhan extends Fragment {
 
             }
         });
+
 
         return view;
     }
