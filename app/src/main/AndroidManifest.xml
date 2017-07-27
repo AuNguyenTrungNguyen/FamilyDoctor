@@ -21,11 +21,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Activity.LuaChonLoaiTaiKhoanActivity"></activity>
         <activity android:name=".Sign_in"></activity>
@@ -70,7 +65,14 @@
         <activity android:name=".Activity.ThemHoSoBenhAnActivity"
             android:parentActivityName=".Activity.MainActivity"/>
 
-        <activity android:name=".Activity.DanhSachThuocActivity"/>
+        <activity android:name=".Activity.DanhSachThuocActivity"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name=".service.GPSTracker"

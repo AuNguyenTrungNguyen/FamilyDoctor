@@ -1,6 +1,7 @@
 package android.familydoctor.Activity;
 
-import android.content.Intent;
+import android.familydoctor.Adapter.AdapterDanhSachThuoc;
+import android.familydoctor.Class.Thuoc;
 import android.familydoctor.R;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,22 +9,26 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ExpandableListView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class DanhSachThuocActivity extends AppCompatActivity {
 
-    ListView listView;
-    ArrayAdapter adapter;
-    ArrayList<String> list, listSearch;
+    ExpandableListView elvDanhSachThuoc;
+    List<String> listTenThuoc;
+    HashMap<String, Thuoc> listThongTinThuoc;
+
+    AdapterDanhSachThuoc adapterDanhSachThuoc;
 
     Toolbar toolbarDanhSachThuoc;
     SearchView searchView;
 
-    Boolean isSearch = false;
+    Button btnHoanThanhThemThuoc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,36 +38,31 @@ public class DanhSachThuocActivity extends AppCompatActivity {
         toolbarDanhSachThuoc = (Toolbar) findViewById(R.id.toolbarDanhSachThuoc);
         setSupportActionBar(toolbarDanhSachThuoc);
 
-        listView = (ListView) findViewById(R.id.lvDanhSachThuoc);
-        list = new ArrayList<>();
-        listSearch = new ArrayList<>();
+        elvDanhSachThuoc = (ExpandableListView) findViewById(R.id.elvDanhSachThuoc);
+        listTenThuoc = new ArrayList<>();
+        listThongTinThuoc = new HashMap<>();
 
-        list.add("Đau đầu");
-        list.add("Đau mắt");
-        list.add("Đau răng");
-        list.add("Đau họng");
-        list.add("Nghẹt mũi");
-        list.add("Cảm");
+        for(int i = 0; i < 9; i++){
+            listTenThuoc.add("Thuốc " + i);
+            Thuoc thuoc = new Thuoc(listTenThuoc.get(i), "", "", "", "");
+            listThongTinThuoc.put(listTenThuoc.get(i), thuoc);
+        }
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
-        listView.setAdapter(adapter);
+        adapterDanhSachThuoc = new AdapterDanhSachThuoc(DanhSachThuocActivity.this, listTenThuoc, listThongTinThuoc);
+        elvDanhSachThuoc.setAdapter(adapterDanhSachThuoc);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        elvDanhSachThuoc.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
+
+        btnHoanThanhThemThuoc = (Button) findViewById(R.id.btnHoanThanhThemThuoc);
+
+        btnHoanThanhThemThuoc.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent= new Intent();
-                String tenThuoc = "";
-                if(isSearch){
-                    tenThuoc = listSearch.get(position);
-                }else{
-                    tenThuoc = list.get(position);
-                }
-                intent.putExtra("tenThuoc", tenThuoc);
-                setResult(ThemHoSoBenhAnActivity.RESULT_CODE, intent);
-                finish();
+            public void onClick(View v) {
+
             }
         });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -71,7 +71,7 @@ public class DanhSachThuocActivity extends AppCompatActivity {
 
         searchView = (SearchView) menu.findItem(R.id.search).getActionView();
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        /*searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
@@ -95,7 +95,7 @@ public class DanhSachThuocActivity extends AppCompatActivity {
                 listView.setAdapter(adapter);
                 return true;
             }
-        });
+        });*/
         return super.onCreateOptionsMenu(menu);
     }
 }

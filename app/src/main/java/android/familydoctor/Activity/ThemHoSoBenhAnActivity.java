@@ -12,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -201,123 +200,123 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
         lvDanhSachThuocDaThem = (ListView) findViewById(R.id.lvDanhSachThuocDaThem);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_CODE && data != null) {
-
-            final String tenThuoc = data.getStringExtra("tenThuoc");
-
-            final Dialog dialogThemThuoc = new Dialog(ThemHoSoBenhAnActivity.this);
-            dialogThemThuoc.setTitle("Thông tin thuốc:");
-            dialogThemThuoc.setContentView(R.layout.dialog_them_thuoc_moi);
-
-            edtTenThuocSeThem = (EditText) dialogThemThuoc.findViewById(R.id.edtTenThuocSeThem);
-            edtSoLuongThuoc = (EditText) dialogThemThuoc.findViewById(R.id.edtSoLuongThuoc);
-
-            edtTenThuocSeThem.setText(tenThuoc);
-
-            btnHoanThanh = (Button) dialogThemThuoc.findViewById(R.id.btnHoanThanh);
-
-            dialogThemThuoc.show();
-
-            chkSang = (CheckBox) dialogThemThuoc.findViewById(R.id.chkSang);
-            chkTrua = (CheckBox) dialogThemThuoc.findViewById(R.id.chkTrua);
-            chkChieu = (CheckBox) dialogThemThuoc.findViewById(R.id.chkChieu);
-
-            chkSang.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-                    edtSoLuongSang = (EditText) dialogThemThuoc.findViewById(R.id.edtSoLuongSang);
-                    edtDonViSang = (EditText) dialogThemThuoc.findViewById(R.id.edtDonViSang);
-
-                    if (b) {
-                        edtSoLuongSang.setVisibility(View.VISIBLE);
-                        edtDonViSang.setVisibility(View.VISIBLE);
-                    } else {
-                        edtSoLuongSang.setVisibility(View.INVISIBLE);
-                        edtDonViSang.setVisibility(View.INVISIBLE);
-                    }
-                }
-            });
-
-
-            chkTrua.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-                    edtSoLuongTrua = (EditText) dialogThemThuoc.findViewById(R.id.edtSoLuongTrua);
-                    edtDonViTrua = (EditText) dialogThemThuoc.findViewById(R.id.edtDonViTrua);
-
-                    if (b) {
-                        edtSoLuongTrua.setVisibility(View.VISIBLE);
-                        edtDonViTrua.setVisibility(View.VISIBLE);
-                    } else {
-                        edtSoLuongTrua.setVisibility(View.INVISIBLE);
-                        edtDonViTrua.setVisibility(View.INVISIBLE);
-                    }
-                }
-            });
-
-            chkChieu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-                    edtSoLuongChieu = (EditText) dialogThemThuoc.findViewById(R.id.edtSoLuongChieu);
-                    edtDonViChieu = (EditText) dialogThemThuoc.findViewById(R.id.edtDonViChieu);
-
-                    if (b) {
-                        edtSoLuongChieu.setVisibility(View.VISIBLE);
-                        edtDonViChieu.setVisibility(View.VISIBLE);
-                    } else {
-                        edtSoLuongChieu.setVisibility(View.INVISIBLE);
-                        edtDonViChieu.setVisibility(View.INVISIBLE);
-                    }
-                }
-            });
-
-            btnHoanThanh.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    Thuoc thuoc = new Thuoc();
-                    thuoc.setTenThuoc(tenThuoc);
-                    thuoc.setSoLuong("Số lượng: "+edtSoLuongThuoc.getText().toString());
-
-                    String lieuDungSang = "";
-                    String lieuDungTrua = "";
-                    String lieuDungChieu = "";
-
-                    if (chkSang.isChecked()) {
-                        lieuDungSang += chkSang.getText().toString() + edtSoLuongSang.getText().toString() + " " + edtDonViSang.getText().toString();
-                    }else{
-                        lieuDungSang = "";
-                    }
-
-                    if (chkTrua.isChecked()) {
-                        lieuDungTrua += chkTrua.getText().toString() + edtSoLuongTrua.getText().toString() + " " + edtDonViTrua.getText().toString();
-                    }else{
-                        lieuDungTrua = "";
-                    }
-
-                    if (chkChieu.isChecked()) {
-                        lieuDungChieu += chkChieu.getText().toString() + edtSoLuongChieu.getText().toString() + " " + edtDonViChieu.getText().toString();
-                    }else{
-                        lieuDungChieu = "";
-                    }
-
-                    thuoc.setLieuDungSang(lieuDungSang);
-                    thuoc.setLieuDungTrua(lieuDungTrua);
-                    thuoc.setLieuDungChieu(lieuDungChieu);
-
-                    danhSachThuoc.add(thuoc);
-
-                    dialogThemThuoc.dismiss();
-
-                    adapterThuoc.notifyDataSetChanged();
-                }
-            });
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == REQUEST_CODE && resultCode == RESULT_CODE && data != null) {
+//
+//            final String tenThuoc = data.getStringExtra("tenThuoc");
+//
+//            final Dialog dialogThemThuoc = new Dialog(ThemHoSoBenhAnActivity.this);
+//            dialogThemThuoc.setTitle("Thông tin thuốc:");
+//            dialogThemThuoc.setContentView(R.layout.dialog_them_thuoc_moi);
+//
+//            edtTenThuocSeThem = (EditText) dialogThemThuoc.findViewById(R.id.edtTenThuocSeThem);
+//            edtSoLuongThuoc = (EditText) dialogThemThuoc.findViewById(R.id.edtSoLuongThuoc);
+//
+//            edtTenThuocSeThem.setText(tenThuoc);
+//
+//            btnHoanThanh = (Button) dialogThemThuoc.findViewById(R.id.btnHoanThanh);
+//
+//            dialogThemThuoc.show();
+//
+//            chkSang = (CheckBox) dialogThemThuoc.findViewById(R.id.chkSang);
+//            chkTrua = (CheckBox) dialogThemThuoc.findViewById(R.id.chkTrua);
+//            chkChieu = (CheckBox) dialogThemThuoc.findViewById(R.id.chkChieu);
+//
+//            chkSang.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                @Override
+//                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//
+//                    edtSoLuongSang = (EditText) dialogThemThuoc.findViewById(R.id.edtSoLuongSang);
+//                    edtDonViSang = (EditText) dialogThemThuoc.findViewById(R.id.edtDonViSang);
+//
+//                    if (b) {
+//                        edtSoLuongSang.setVisibility(View.VISIBLE);
+//                        edtDonViSang.setVisibility(View.VISIBLE);
+//                    } else {
+//                        edtSoLuongSang.setVisibility(View.INVISIBLE);
+//                        edtDonViSang.setVisibility(View.INVISIBLE);
+//                    }
+//                }
+//            });
+//
+//
+//            chkTrua.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                @Override
+//                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//
+//                    edtSoLuongTrua = (EditText) dialogThemThuoc.findViewById(R.id.edtSoLuongTrua);
+//                    edtDonViTrua = (EditText) dialogThemThuoc.findViewById(R.id.edtDonViTrua);
+//
+//                    if (b) {
+//                        edtSoLuongTrua.setVisibility(View.VISIBLE);
+//                        edtDonViTrua.setVisibility(View.VISIBLE);
+//                    } else {
+//                        edtSoLuongTrua.setVisibility(View.INVISIBLE);
+//                        edtDonViTrua.setVisibility(View.INVISIBLE);
+//                    }
+//                }
+//            });
+//
+//            chkChieu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                @Override
+//                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//
+//                    edtSoLuongChieu = (EditText) dialogThemThuoc.findViewById(R.id.edtSoLuongChieu);
+//                    edtDonViChieu = (EditText) dialogThemThuoc.findViewById(R.id.edtDonViChieu);
+//
+//                    if (b) {
+//                        edtSoLuongChieu.setVisibility(View.VISIBLE);
+//                        edtDonViChieu.setVisibility(View.VISIBLE);
+//                    } else {
+//                        edtSoLuongChieu.setVisibility(View.INVISIBLE);
+//                        edtDonViChieu.setVisibility(View.INVISIBLE);
+//                    }
+//                }
+//            });
+//
+//            btnHoanThanh.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//
+//                    Thuoc thuoc = new Thuoc();
+//                    thuoc.setTenThuoc(tenThuoc);
+//                    thuoc.setSoLuong("Số lượng: "+edtSoLuongThuoc.getText().toString());
+//
+//                    String lieuDungSang = "";
+//                    String lieuDungTrua = "";
+//                    String lieuDungChieu = "";
+//
+//                    if (chkSang.isChecked()) {
+//                        lieuDungSang += chkSang.getText().toString() + edtSoLuongSang.getText().toString() + " " + edtDonViSang.getText().toString();
+//                    }else{
+//                        lieuDungSang = "";
+//                    }
+//
+//                    if (chkTrua.isChecked()) {
+//                        lieuDungTrua += chkTrua.getText().toString() + edtSoLuongTrua.getText().toString() + " " + edtDonViTrua.getText().toString();
+//                    }else{
+//                        lieuDungTrua = "";
+//                    }
+//
+//                    if (chkChieu.isChecked()) {
+//                        lieuDungChieu += chkChieu.getText().toString() + edtSoLuongChieu.getText().toString() + " " + edtDonViChieu.getText().toString();
+//                    }else{
+//                        lieuDungChieu = "";
+//                    }
+//
+//                    thuoc.setLieuDungSang(lieuDungSang);
+//                    thuoc.setLieuDungTrua(lieuDungTrua);
+//                    thuoc.setLieuDungChieu(lieuDungChieu);
+//
+//                    danhSachThuoc.add(thuoc);
+//
+//                    dialogThemThuoc.dismiss();
+//
+//                    adapterThuoc.notifyDataSetChanged();
+//                }
+//            });
+//        }
+//    }
 }
