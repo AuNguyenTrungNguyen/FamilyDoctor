@@ -77,13 +77,14 @@ public class FragmentBenhNhan extends Fragment {
     EditText HoTen, SDT, DiaChi;
     Button setData;
     ImageView img;
-    float x;
-    float y;
+    double x;
+    double y;
     BenhNhan Us = new BenhNhan();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_benh_nhan, container, false);
+
         if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
         }
@@ -91,8 +92,11 @@ public class FragmentBenhNhan extends Fragment {
         GPSTracker gpsTracker = new GPSTracker(getContext());
         if (gpsTracker != null && manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             Location location = gpsTracker.getLocation();
-            Log.d("latlong :", location.getLatitude() + "   "+location.getLongitude());
+
+            x = location.getLatitude() ;
+            y =location.getLongitude() ;
         }
+
         HoTen = (EditText) view.findViewById(R.id.HoTenE);
         NamSinh = (Spinner) view.findViewById(R.id.spNamSinhBenhNhan);
         SDT = (EditText) view.findViewById(R.id.SDTE);
@@ -154,7 +158,7 @@ public class FragmentBenhNhan extends Fragment {
                 String sdt = SDT.getText().toString();
                 String diaChi = DiaChi.getText().toString();
 
-                Us = new BenhNhan(hoTen, namSinh, sdt, diaChi);
+                Us = new BenhNhan(hoTen, namSinh, sdt, diaChi,x,y);
 
                 //Up Hình ảnh
                 StorageReference storageReference = firebaseStorage.getReferenceFromUrl("gs://familydoctor-56b96.appspot.com/");

@@ -57,18 +57,6 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
         addEvents();
     }
 
-    private void taoBenhNhanTrenFirebase() {
-
-        for (int i = 1; i < 10; i++) {
-            String soDienThoaiBenhNhan = String.valueOf(i * 11111111);
-            String namSinhBenhNhan = String.valueOf(1990 + i);
-            String hoTenBenhNhan = "Bệnh nhân: " + i;
-            //emailBenhNhan = diaChiBenhNhan = uriHinhAnhBenhNhan = xBenhNhan = yBenhNhan= "";
-            BenhNhan benhNhan = new BenhNhan(soDienThoaiBenhNhan, namSinhBenhNhan, hoTenBenhNhan, "", "", "", "", "");
-            databaseReference.child("BenhNhan").child(soDienThoaiBenhNhan).setValue(benhNhan);
-        }
-    }
-
     private void addEvents() {
         btnKiemTra.setOnClickListener(new View.OnClickListener() {
             @Override

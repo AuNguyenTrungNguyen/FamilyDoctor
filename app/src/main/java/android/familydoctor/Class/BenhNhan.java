@@ -12,21 +12,23 @@ public class BenhNhan {
     private String emailBenhNhan;
     private String diaChiBenhNhan;
     private String uriHinhAnhBenhNhan;
-    private String xBenhNhan;
-    private String yBenhNhan;
+    private double xBenhNhan;
+    private double yBenhNhan;
 
 
     public BenhNhan() {
     }
 
-    public BenhNhan(String soDienThoaiBenhNhan, String namSinhBenhNhan, String hoTenBenhNhan, String diaChiBenhNhan) {
+    public BenhNhan(String hoTenBenhNhan, String namSinhBenhNhan, String soDienThoaiBenhNhan, String diaChiBenhNhan, double x, double y) {
         this.soDienThoaiBenhNhan = soDienThoaiBenhNhan;
         this.namSinhBenhNhan = namSinhBenhNhan;
         this.hoTenBenhNhan = hoTenBenhNhan;
         this.diaChiBenhNhan = diaChiBenhNhan;
+        xBenhNhan=x;
+        yBenhNhan=y;
     }
 
-    public BenhNhan(String soDienThoaiBenhNhan, String namSinhBenhNhan, String hoTenBenhNhan, String emailBenhNhan, String diaChiBenhNhan, String uriHinhAnhBenhNhan, String xBenhNhan, String yBenhNhan) {
+    public BenhNhan(String soDienThoaiBenhNhan, String namSinhBenhNhan, String hoTenBenhNhan, String emailBenhNhan, String diaChiBenhNhan, String uriHinhAnhBenhNhan, double xBenhNhan, double yBenhNhan) {
         this.soDienThoaiBenhNhan = soDienThoaiBenhNhan;
         this.namSinhBenhNhan = namSinhBenhNhan;
         this.hoTenBenhNhan = hoTenBenhNhan;
@@ -85,19 +87,19 @@ public class BenhNhan {
         this.uriHinhAnhBenhNhan = uriHinhAnhBenhNhan;
     }
 
-    public String getxBenhNhan() {
+    public double getxBenhNhan() {
         return xBenhNhan;
     }
 
-    public void setxBenhNhan(String xBenhNhan) {
+    public void setxBenhNhan(double xBenhNhan) {
         this.xBenhNhan = xBenhNhan;
     }
 
-    public String getyBenhNhan() {
+    public double getyBenhNhan() {
         return yBenhNhan;
     }
 
-    public void setyBenhNhan(String yBenhNhan) {
+    public void setyBenhNhan(double yBenhNhan) {
         this.yBenhNhan = yBenhNhan;
     }
 }

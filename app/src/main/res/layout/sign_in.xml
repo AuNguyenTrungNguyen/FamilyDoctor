@@ -10,13 +10,6 @@
         android:layout_height="350dp"
         android:src="@drawable/backround_agri_help" />
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        />
 
     <Button
         android:id="@+id/btn_signPhone"
@@ -24,6 +17,6 @@
         android:layout_gravity="center"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:text="@string/S_D_T"/>
+        android:text="Đăng Nhập"/>
 
 </LinearLayout>
