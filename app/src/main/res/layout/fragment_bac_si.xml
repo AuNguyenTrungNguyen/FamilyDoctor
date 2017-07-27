@@ -9,6 +9,18 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <ImageView
+            android:id="@+id/Ava"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_margin="5dp"
+            android:hint="Chọn ảnh đại diện :"
+            android:textStyle="bold" />
+
         <TextView
 
             android:layout_width="match_parent"
@@ -72,25 +84,14 @@
             android:layout_margin="5dp" />
 
         <TextView
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_margin="5dp"
-        android:hint="Chọn ảnh xác thực (chụp ảnh trực tiếp):"
-        android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/ImgXacThuc"
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
-        <TextView
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_margin="5dp"
-            android:hint="Chọn ảnh đại diện(lấy tù thư viện ảnh):"
+            android:hint="Chọn ảnh xác thực:"
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/Ava"
+            android:id="@+id/ImgXacThuc"
             android:layout_width="100dp"
             android:layout_height="100dp" />
         <Button
