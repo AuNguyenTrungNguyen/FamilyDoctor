@@ -1,118 +1,100 @@
 package android.familydoctor.Class;
 public class BacSi {
 
-    String hoten;
-    String namSinhBS;
-    String sdt;
-    String email;
-    String linhvucchuyenmon;
-    String diachi;
-    String imgUserURL;
-    String imgVanBang;
-    String x;
-    String y;
+    private String soDienThoaiBacSi;
+    private String namSinhBacSi;
+    private String hoTenBacSi;
+    private String chuyenMonBacSi;
+    private String emailBacSi;
+    private String diaChiBacSi;
+    private String uriHinhAnhBacSi;
+    private String xBacSi;
+    private String yBacSi;
 
     public BacSi() {
     }
 
-
-    public BacSi(String hoten, String namSinhBS, String sdt, String email, String diachi) {
-        this.hoten = hoten;
-        this.namSinhBS = namSinhBS;
-        this.sdt = sdt;
-        this.email = email;
-        this.diachi = diachi;
+    public BacSi(String soDienThoaiBacSi, String namSinhBacSi, String hoTenBacSi, String chuyenMonBacSi, String emailBacSi, String diaChiBacSi, String uriHinhAnhBacSi, String xBacSi, String yBacSi) {
+        this.soDienThoaiBacSi = soDienThoaiBacSi;
+        this.namSinhBacSi = namSinhBacSi;
+        this.hoTenBacSi = hoTenBacSi;
+        this.chuyenMonBacSi = chuyenMonBacSi;
+        this.emailBacSi = emailBacSi;
+        this.diaChiBacSi = diaChiBacSi;
+        this.uriHinhAnhBacSi = uriHinhAnhBacSi;
+        this.xBacSi = xBacSi;
+        this.yBacSi = yBacSi;
     }
 
-    public BacSi(String hoten, String sdt, String email, String linhvucchuyenmon, String diachi, String imgUserURL, String imgVanBang, String x, String y) {
-        this.hoten = hoten;
-        this.sdt = sdt;
-        this.email = email;
-        this.linhvucchuyenmon = linhvucchuyenmon;
-        this.diachi = diachi;
-        this.imgUserURL = imgUserURL;
-        this.imgVanBang = imgVanBang;
-        this.x = x;
-        this.y = y;
+    public String getSoDienThoaiBacSi() {
+        return soDienThoaiBacSi;
     }
 
-    public String getNamSinhBS() {
-        return namSinhBS;
+    public void setSoDienThoaiBacSi(String soDienThoaiBacSi) {
+        this.soDienThoaiBacSi = soDienThoaiBacSi;
     }
 
-    public void setNamSinhBS(String namSinhBS) {
-        this.namSinhBS = namSinhBS;
+    public String getNamSinhBacSi() {
+        return namSinhBacSi;
     }
 
-    public String getHoten() {
-        return hoten;
+    public void setNamSinhBacSi(String namSinhBacSi) {
+        this.namSinhBacSi = namSinhBacSi;
     }
 
-    public void setHoten(String hoten) {
-        this.hoten = hoten;
+    public String getHoTenBacSi() {
+        return hoTenBacSi;
     }
 
-    public String getSdt() {
-        return sdt;
+    public void setHoTenBacSi(String hoTenBacSi) {
+        this.hoTenBacSi = hoTenBacSi;
     }
 
-    public void setSdt(String sdt) {
-        this.sdt = sdt;
+    public String getChuyenMonBacSi() {
+        return chuyenMonBacSi;
     }
 
-    public String getEmail() {
-        return email;
+    public void setChuyenMonBacSi(String chuyenMonBacSi) {
+        this.chuyenMonBacSi = chuyenMonBacSi;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getEmailBacSi() {
+        return emailBacSi;
     }
 
-    public String getLinhvucchuyenmon() {
-        return linhvucchuyenmon;
+    public void setEmailBacSi(String emailBacSi) {
+        this.emailBacSi = emailBacSi;
     }
 
-    public void setLinhvucchuyenmon(String linhvucchuyenmon) {
-        this.linhvucchuyenmon = linhvucchuyenmon;
+    public String getDiaChiBacSi() {
+        return diaChiBacSi;
     }
 
-    public String getDiachi() {
-        return diachi;
+    public void setDiaChiBacSi(String diaChiBacSi) {
+        this.diaChiBacSi = diaChiBacSi;
     }
 
-    public void setDiachi(String diachi) {
-        this.diachi = diachi;
+    public String getUriHinhAnhBacSi() {
+        return uriHinhAnhBacSi;
     }
 
-    public String getImgUserURL() {
-        return imgUserURL;
+    public void setUriHinhAnhBacSi(String uriHinhAnhBacSi) {
+        this.uriHinhAnhBacSi = uriHinhAnhBacSi;
     }
 
-    public void setImgUserURL(String imgUserURL) {
-        this.imgUserURL = imgUserURL;
+    public String getxBacSi() {
+        return xBacSi;
     }
 
-    public String getImgVanBang() {
-        return imgVanBang;
+    public void setxBacSi(String xBacSi) {
+        this.xBacSi = xBacSi;
     }
 
-    public void setImgVanBang(String imgVanBang) {
-        this.imgVanBang = imgVanBang;
+    public String getyBacSi() {
+        return yBacSi;
     }
 
-    public String getX() {
-        return x;
-    }
-
-    public void setX(String x) {
-        this.x = x;
-    }
-
-    public String getY() {
-        return y;
-    }
-
-    public void setY(String y) {
-        this.y = y;
+    public void setyBacSi(String yBacSi) {
+        this.yBacSi = yBacSi;
     }
 }

@@ -160,9 +160,9 @@ public class FragmentBenhNhan extends Fragment {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                        Us.setImgUserURL(downloadUrl.toString());
+                        Us.setUriHinhAnhBenhNhan(downloadUrl.toString());
 
-                        mDatabase.child("User_BacSi").child(Us.getSdt()).setValue(Us);
+                        mDatabase.child("User_BacSi").child(Us.getSoDienThoaiBenhNhan()).setValue(Us);
                     }
                 });
 

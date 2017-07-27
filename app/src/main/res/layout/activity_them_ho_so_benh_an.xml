@@ -31,7 +31,7 @@
                     android:weightSum="1">
 
                     <EditText
-                        android:hint="Test: 123"
+                        android:hint="Nhập số điện thoại bệnh nhân"
                         android:id="@+id/edtSoDienThoaiCanKiemTra"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -113,9 +113,20 @@
 
     </LinearLayout>
 
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/txtHeader"
+        android:textColor="#ff0000"
+        android:background="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:text="Danh sách thuốc"
+        android:textStyle="bold"/>
+
     <ListView
         android:visibility="gone"
-        tools:listheader="@layout/header_listview_thuoc_da_them"
         android:id="@+id/lvDanhSachThuocDaThem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

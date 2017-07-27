@@ -2,21 +2,26 @@ package android.familydoctor.Activity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.familydoctor.Class.BenhNhan;
 import android.familydoctor.Class.Thuoc;
 import android.familydoctor.R;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -42,57 +47,107 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
     public static final int REQUEST_CODE = 999;
     public static final int RESULT_CODE = 998;
 
+    DatabaseReference databaseReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_them_ho_so_benh_an);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        //taoBenhNhanTrenFirebase();
+
         addControls();
+
         addEvents();
+    }
+
+    private void taoBenhNhanTrenFirebase() {
+
+        for (int i = 1; i < 10; i++) {
+            String soDienThoaiBenhNhan = String.valueOf(i * 11111111);
+            String namSinhBenhNhan = String.valueOf(1990 + i);
+            String hoTenBenhNhan = "Bệnh nhân: " + i;
+            //emailBenhNhan = diaChiBenhNhan = uriHinhAnhBenhNhan = xBenhNhan = yBenhNhan= "";
+            BenhNhan benhNhan = new BenhNhan(soDienThoaiBenhNhan, namSinhBenhNhan, hoTenBenhNhan, "", "", "", "", "");
+            databaseReference.child("BenhNhan").child(soDienThoaiBenhNhan).setValue(benhNhan);
+        }
     }
 
     private void addEvents() {
         btnKiemTra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String soDienThoai = edtSoDienThoaiCanKiemTra.getText().toString();
-                if (soDienThoai.equals("123")) {
-                    final Dialog dialogKiemTra = new Dialog(ThemHoSoBenhAnActivity.this);
-                    dialogKiemTra.setTitle("Thông tin của: " + soDienThoai);
-                    dialogKiemTra.setContentView(R.layout.dialog_kiem_tra_so_dien_thoai);
-                    dialogKiemTra.show();
 
-                    Button btnLapHoSo, btnHuyBo;
+                final String soDienThoai = edtSoDienThoaiCanKiemTra.getText().toString();
+                btnHoanThanhHoSoBenhAn.setVisibility(View.GONE);
+                layoutThemHoSoBenhAn.setVisibility(View.GONE);
+                btnThemThuoc.setVisibility(View.GONE);
+                lvDanhSachThuocDaThem.setVisibility(View.GONE);
+                databaseReference.child("BenhNhan").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int count = 1;
+                        for (DataSnapshot data : dataSnapshot.getChildren()) {
+                            BenhNhan benhNhan = data.getValue(BenhNhan.class);
+                            assert benhNhan != null;
+                            count++;
+                            if (soDienThoai.equals(benhNhan.getSoDienThoaiBenhNhan())) {
+                                String tenBenhNhan = benhNhan.getHoTenBenhNhan();
+                                String namSinhBenhNhan = benhNhan.getNamSinhBenhNhan();
 
-                    btnLapHoSo = (Button) dialogKiemTra.findViewById(R.id.btnLapHoSo);
-                    btnHuyBo = (Button) dialogKiemTra.findViewById(R.id.btnHuyBo);
+                                final Dialog dialogKiemTra = new Dialog(ThemHoSoBenhAnActivity.this);
+                                dialogKiemTra.setTitle("Thông tin của: " + soDienThoai);
+                                dialogKiemTra.setContentView(R.layout.dialog_kiem_tra_so_dien_thoai);
 
-                    btnHuyBo.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Toast.makeText(ThemHoSoBenhAnActivity.this, "Hủy bỏ lập hồ sơ", Toast.LENGTH_SHORT).show();
-                            dialogKiemTra.dismiss();
+                                EditText edtTenBenhNhan, edtNamSinhBenhNhan;
+                                edtTenBenhNhan = (EditText) dialogKiemTra.findViewById(R.id.edtTenBenhNhan);
+                                edtNamSinhBenhNhan = (EditText) dialogKiemTra.findViewById(R.id.edtNamSinhBenhNhan);
+
+                                edtTenBenhNhan.setText(tenBenhNhan);
+                                edtNamSinhBenhNhan.setText(namSinhBenhNhan);
+
+                                dialogKiemTra.show();
+
+                                Button btnLapHoSo, btnHuyBo;
+
+                                btnLapHoSo = (Button) dialogKiemTra.findViewById(R.id.btnLapHoSo);
+                                btnHuyBo = (Button) dialogKiemTra.findViewById(R.id.btnHuyBo);
+
+                                btnHuyBo.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Toast.makeText(ThemHoSoBenhAnActivity.this, "Hủy bỏ lập hồ sơ", Toast.LENGTH_SHORT).show();
+                                        dialogKiemTra.dismiss();
+                                    }
+                                });
+
+                                btnLapHoSo.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        btnHoanThanhHoSoBenhAn.setVisibility(View.VISIBLE);
+                                        layoutThemHoSoBenhAn.setVisibility(View.VISIBLE);
+                                        btnThemThuoc.setVisibility(View.VISIBLE);
+                                        lvDanhSachThuocDaThem.setVisibility(View.VISIBLE);
+                                        dialogKiemTra.dismiss();
+                                    }
+                                });
+
+                                break;
+                            }
                         }
-                    });
 
-                    btnLapHoSo.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            btnHoanThanhHoSoBenhAn.setVisibility(View.VISIBLE);
-                            layoutThemHoSoBenhAn.setVisibility(View.VISIBLE);
-                            btnThemThuoc.setVisibility(View.VISIBLE);
-                            lvDanhSachThuocDaThem.setVisibility(View.VISIBLE);
-                            dialogKiemTra.dismiss();
+                        if(count > dataSnapshot.getChildrenCount()){
+                            Toast.makeText(ThemHoSoBenhAnActivity.this, "Số điện thoại này không tồn tại.", Toast.LENGTH_SHORT).show();
                         }
-                    });
+                    }
 
-                } else {
-                    btnHoanThanhHoSoBenhAn.setVisibility(View.GONE);
-                    layoutThemHoSoBenhAn.setVisibility(View.GONE);
-                    btnThemThuoc.setVisibility(View.GONE);
-                    lvDanhSachThuocDaThem.setVisibility(View.GONE);
-                    Toast.makeText(ThemHoSoBenhAnActivity.this, "Số điện thoại không tồn tại", Toast.LENGTH_SHORT).show();
-                }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
 
@@ -129,106 +184,9 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && resultCode == RESULT_CODE && data != null) {
 
-            final String tenThuoc = data.getStringExtra("tenThuoc");
+            ArrayList<Thuoc> listThuoc = new ArrayList<>();
+            listThuoc = (ArrayList<Thuoc>) data.getSerializableExtra("listThuocSeThem");
 
-            final Dialog dialogThemThuoc = new Dialog(ThemHoSoBenhAnActivity.this);
-            dialogThemThuoc.setTitle("Thông tin thuốc:");
-            dialogThemThuoc.setContentView(R.layout.dialog_them_thuoc_moi);
-
-            edtTenThuocSeThem = (EditText) dialogThemThuoc.findViewById(R.id.edtTenThuocSeThem);
-            edtSoLuongThuoc = (EditText) dialogThemThuoc.findViewById(R.id.edtSoLuongThuoc);
-
-            edtTenThuocSeThem.setText(tenThuoc);
-
-            btnHoanThanh = (Button) dialogThemThuoc.findViewById(R.id.btnHoanThanh);
-
-            dialogThemThuoc.show();
-
-            chkSang = (CheckBox) dialogThemThuoc.findViewById(R.id.chkSang);
-            chkTrua = (CheckBox) dialogThemThuoc.findViewById(R.id.chkTrua);
-            chkChieu = (CheckBox) dialogThemThuoc.findViewById(R.id.chkChieu);
-
-            chkSang.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-                    edtSoLuongSang = (EditText) dialogThemThuoc.findViewById(R.id.edtSoLuongSang);
-                    edtDonViSang = (EditText) dialogThemThuoc.findViewById(R.id.edtDonViSang);
-
-                    if(b){
-                        edtSoLuongSang.setVisibility(View.VISIBLE);
-                        edtDonViSang.setVisibility(View.VISIBLE);
-                    }else{
-                        edtSoLuongSang.setVisibility(View.INVISIBLE);
-                        edtDonViSang.setVisibility(View.INVISIBLE);
-                    }
-                }
-            });
-
-
-            chkTrua.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-                    edtSoLuongTrua = (EditText) dialogThemThuoc.findViewById(R.id.edtSoLuongTrua);
-                    edtDonViTrua = (EditText) dialogThemThuoc.findViewById(R.id.edtDonViTrua);
-
-                    if(b){
-                        edtSoLuongTrua.setVisibility(View.VISIBLE);
-                        edtDonViTrua.setVisibility(View.VISIBLE);
-                    }else{
-                        edtSoLuongTrua.setVisibility(View.INVISIBLE);
-                        edtDonViTrua.setVisibility(View.INVISIBLE);
-                    }
-                }
-            });
-
-            chkChieu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-                    edtSoLuongChieu = (EditText) dialogThemThuoc.findViewById(R.id.edtSoLuongChieu);
-                    edtDonViChieu = (EditText) dialogThemThuoc.findViewById(R.id.edtDonViChieu);
-
-                    if(b){
-                        edtSoLuongChieu.setVisibility(View.VISIBLE);
-                        edtDonViChieu.setVisibility(View.VISIBLE);
-                    }else{
-                        edtSoLuongChieu.setVisibility(View.INVISIBLE);
-                        edtDonViChieu.setVisibility(View.INVISIBLE);
-                    }
-                }
-            });
-
-            btnHoanThanh.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    Thuoc thuoc = new Thuoc();
-                    thuoc.setTenThuoc(tenThuoc);
-                    thuoc.setSoLuong(edtSoLuongThuoc.getText().toString());
-
-                    String lieuDung = "";
-
-                    if(chkSang.isChecked()){
-                        lieuDung += chkSang.getText().toString() + edtSoLuongSang.getText().toString() + " " + edtDonViSang.getText().toString() + "\n";
-                    }
-
-                    if(chkTrua.isChecked()){
-                        lieuDung += chkTrua.getText().toString() + edtSoLuongTrua.getText().toString() + " " + edtDonViTrua.getText().toString() + "\n";
-                    }
-
-                    if(chkChieu.isChecked()){
-                        lieuDung += chkChieu.getText().toString() + edtSoLuongChieu.getText().toString() + " " + edtDonViChieu.getText().toString()+ "\n";
-                    }
-
-                    thuoc.setLieuDung(lieuDung);
-
-                    dialogThemThuoc.dismiss();
-                    Log.d("THUOC",thuoc.getTenThuoc()+"\n"+thuoc.getLieuDung());
-                    Toast.makeText(ThemHoSoBenhAnActivity.this, "Thêm thuốc thành công.", Toast.LENGTH_SHORT).show();
-                }
-            });
         }
     }
 }
