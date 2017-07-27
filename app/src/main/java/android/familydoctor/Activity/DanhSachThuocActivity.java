@@ -66,6 +66,7 @@ public class DanhSachThuocActivity extends AppCompatActivity {
                         listThuocSeThem.add(thuoc);
                     }
                 }
+
                 Intent intent = new Intent();
                 intent.putExtra("listThuocSeThem", listThuocSeThem);
                 setResult(ThemHoSoBenhAnActivity.RESULT_CODE, intent);
