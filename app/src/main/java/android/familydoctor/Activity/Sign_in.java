@@ -1,7 +1,7 @@
-package android.familydoctor;
+package android.familydoctor.Activity;
 
 import android.content.Intent;
-import android.familydoctor.Activity.LuaChonLoaiTaiKhoanActivity;
+import android.familydoctor.R;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +23,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class Sign_in extends AppCompatActivity implements
@@ -52,12 +54,11 @@ public class Sign_in extends AppCompatActivity implements
             }
         });
 
-
-
         // Views
         // Button listeners
         findViewById(R.id.sign_in_button).setOnClickListener(this);
         // [START config_signin]
+
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -115,6 +116,7 @@ public class Sign_in extends AppCompatActivity implements
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -131,12 +133,20 @@ public class Sign_in extends AppCompatActivity implements
     // [END auth_with_google]
     // [START signin]
     private void signIn() {
+
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            findViewById(R.id.sign_in_button).setVisibility(View.GONE);
+
+            //Kiểm tra điều kiện tồn tại để chuyển sang Main hoặc lựa chọn tài khoản
+            String email = mAuth.getCurrentUser().getEmail();
+
+            Log.i("check",email);
+
+            DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("BacSi");
+            firebaseDatabase.equalTo(email,"email");
 
             Intent intent = new Intent( Sign_in.this,LuaChonLoaiTaiKhoanActivity.class);
             startActivity(intent);

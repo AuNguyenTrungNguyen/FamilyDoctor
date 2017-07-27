@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,6 +35,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.key;
 import static android.app.Activity.RESULT_OK;
 
 /**
@@ -73,14 +75,14 @@ public class FragmentBenhNhan extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_benh_nhan, container, false);
+        final View view = inflater.inflate(R.layout.fragment_benh_nhan, container, false);
 
 
         HoTen = (EditText) view.findViewById(R.id.HoTenE);
         NamSinh = (Spinner) view.findViewById(R.id.spNamSinhBenhNhan);
         SDT = (EditText) view.findViewById( R.id.SDTE);
         DiaChi = (EditText) view.findViewById(R.id.DiaChiE);
-        img  = (ImageView) view.findViewById(R.id.ImgAva);
+        img  = (ImageView) view.findViewById(R.id.ImgAvaE);
         setData = (Button) view.findViewById(R.id.Submit);
 
 
@@ -92,30 +94,23 @@ public class FragmentBenhNhan extends Fragment {
 
         ArrayAdapter aa= new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item, namList);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         NamSinh.setAdapter(aa);
-
-        String hoTen = HoTen.getText().toString();
-        String namSinh = NamSinh.getSelectedItem().toString();
-
-        String sdt = SDT.getText().toString();
-        String diaChi = DiaChi.getText().toString();
-
-        Us = new BenhNhan(hoTen,namSinh,sdt,diaChi);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         firebaseStorage = FirebaseStorage.getInstance();
-        final String key = mDatabase.child("User").push().getKey();
-
 
         Intent bundle = getActivity().getIntent();
 
         id = bundle.getDataString();
-        imageView = (ImageView) view.findViewById(R.id.ImgAva);
-        imageView.setOnClickListener(new View.OnClickListener() {
+
+        img = (ImageView) view.findViewById(R.id.ImgAvaE);
+        img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String key = mDatabase.child("User").push().getKey();
+
                 new AlertDialog.Builder(getContext()).setNeutralButton("Chụp ảnh mới", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -138,8 +133,16 @@ public class FragmentBenhNhan extends Fragment {
         setData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String hoTen = HoTen.getText().toString();
+                String namSinh = NamSinh.getSelectedItem().toString();
+                String sdt = SDT.getText().toString();
+                String diaChi = DiaChi.getText().toString();
+
+                Us = new BenhNhan(hoTen,namSinh,sdt,diaChi);
+
                 //Up Hình ảnh
-                StorageReference storageReference = firebaseStorage.getReferenceFromUrl("gs://test-5b263.appspot.com/");
+                StorageReference storageReference = firebaseStorage.getReferenceFromUrl("gs://familydoctor-56b96.appspot.com/");
                 StorageReference reference = storageReference.child("Users").child(key+"jpg");
 
                 Bitmap bitmap = ((BitmapDrawable) img.getDrawable()).getBitmap();
@@ -151,16 +154,18 @@ public class FragmentBenhNhan extends Fragment {
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
-
+                        Toast.makeText(getActivity(),"lổi không đăng kí thông tin được",Toast.LENGTH_LONG).show();
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        Us.setImgUserURL(downloadUrl.toString());
 
+                        mDatabase.child("User_BacSi").child(Us.getSdt()).setValue(Us);
                     }
                 });
 
-                mDatabase.child("Users").setValue(Us);
             }
         });
 
@@ -174,13 +179,13 @@ public class FragmentBenhNhan extends Fragment {
         if (resultCode == RESULT_OK && requestCode == 1) {
             // lay hinh thu nho cua hinh vua chup
             Bitmap hinh = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(hinh);
+            img.setImageBitmap(hinh);
         }
 
         if (resultCode == RESULT_OK && requestCode == 2) {
 
             Uri imageUri = data.getData();
-            imageView.setImageURI(imageUri);
+            img.setImageURI(imageUri);
         }
     }
 }

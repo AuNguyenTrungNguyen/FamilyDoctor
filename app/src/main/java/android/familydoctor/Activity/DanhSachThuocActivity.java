@@ -1,8 +1,6 @@
 package android.familydoctor.Activity;
 
 import android.content.Intent;
-import android.familydoctor.Adapter.AdapterDanhSachThuoc;
-import android.familydoctor.Class.Thuoc;
 import android.familydoctor.R;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,26 +8,22 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ExpandableListView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class DanhSachThuocActivity extends AppCompatActivity {
 
-    ExpandableListView elvDanhSachThuoc;
-    List<String> listTenThuoc;
-    HashMap<String, Thuoc> listThongTinThuoc;
-
-    AdapterDanhSachThuoc adapterDanhSachThuoc;
+    ListView listView;
+    ArrayAdapter adapter;
+    ArrayList<String> list, listSearch;
 
     Toolbar toolbarDanhSachThuoc;
     SearchView searchView;
 
-    Button btnHoanThanhThemThuoc;
+    Boolean isSearch = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,42 +33,36 @@ public class DanhSachThuocActivity extends AppCompatActivity {
         toolbarDanhSachThuoc = (Toolbar) findViewById(R.id.toolbarDanhSachThuoc);
         setSupportActionBar(toolbarDanhSachThuoc);
 
-        elvDanhSachThuoc = (ExpandableListView) findViewById(R.id.elvDanhSachThuoc);
-        listTenThuoc = new ArrayList<>();
-        listThongTinThuoc = new HashMap<>();
+        listView = (ListView) findViewById(R.id.lvDanhSachThuoc);
+        list = new ArrayList<>();
+        listSearch = new ArrayList<>();
 
-        for(int i = 0; i < 9; i++){
-            listTenThuoc.add("Thuốc " + i);
-            Thuoc thuoc = new Thuoc(listTenThuoc.get(i), "", "", "", "");
-            listThongTinThuoc.put(listTenThuoc.get(i), thuoc);
-        }
+        list.add("Đau đầu");
+        list.add("Đau mắt");
+        list.add("Đau răng");
+        list.add("Đau họng");
+        list.add("Nghẹt mũi");
+        list.add("Cảm");
 
-        adapterDanhSachThuoc = new AdapterDanhSachThuoc(DanhSachThuocActivity.this, listTenThuoc, listThongTinThuoc);
-        elvDanhSachThuoc.setAdapter(adapterDanhSachThuoc);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+        listView.setAdapter(adapter);
 
-        elvDanhSachThuoc.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
-
-        btnHoanThanhThemThuoc = (Button) findViewById(R.id.btnHoanThanhThemThuoc);
-
-        btnHoanThanhThemThuoc.setOnClickListener(new View.OnClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                ArrayList<Thuoc> listThuocSeThem = new ArrayList<Thuoc>();
-                for(int i = 0; i < listTenThuoc.size(); i++){
-                    Thuoc thuoc = listThongTinThuoc.get(listTenThuoc.get(i));
-                    if (!thuoc.getSoLuong().equals("")){
-                        listThuocSeThem.add(thuoc);
-                    }
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent= new Intent();
+                String tenThuoc = "";
+                if(isSearch){
+                    tenThuoc = listSearch.get(position);
+                }else{
+                    tenThuoc = list.get(position);
                 }
-
-                Intent intent = new Intent();
-                intent.putExtra("listThuocSeThem", listThuocSeThem);
+                intent.putExtra("tenThuoc", tenThuoc);
                 setResult(ThemHoSoBenhAnActivity.RESULT_CODE, intent);
                 finish();
             }
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -83,7 +71,7 @@ public class DanhSachThuocActivity extends AppCompatActivity {
 
         searchView = (SearchView) menu.findItem(R.id.search).getActionView();
 
-        /*searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
@@ -107,7 +95,7 @@ public class DanhSachThuocActivity extends AppCompatActivity {
                 listView.setAdapter(adapter);
                 return true;
             }
-        });*/
+        });
         return super.onCreateOptionsMenu(menu);
     }
 }

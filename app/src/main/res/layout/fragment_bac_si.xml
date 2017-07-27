@@ -18,6 +18,7 @@
             android:textStyle="bold" />
 
         <EditText
+
             android:id="@+id/HoTenD"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -74,7 +75,7 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_margin="5dp"
-        android:hint="Chọn ảnh xác thực:"
+        android:hint="Chọn ảnh xác thực (chụp ảnh trực tiếp):"
         android:textStyle="bold" />
 
         <ImageView
@@ -85,13 +86,19 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_margin="5dp"
-            android:hint="Chọn ảnh đại diện:"
+            android:hint="Chọn ảnh đại diện(lấy tù thư viện ảnh):"
             android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/Ava"
             android:layout_width="100dp"
             android:layout_height="100dp" />
+        <Button
+            android:id="@+id/SubmitD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="gởi thông tin"
+            />
 
     </LinearLayout>
 

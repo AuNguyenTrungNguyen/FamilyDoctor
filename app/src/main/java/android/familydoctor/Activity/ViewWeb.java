@@ -1,4 +1,4 @@
-package android.familydoctor.Fragment;
+package android.familydoctor.Activity;
 
 import android.content.Intent;
 import android.familydoctor.R;
