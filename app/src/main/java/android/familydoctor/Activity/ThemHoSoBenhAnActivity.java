@@ -187,8 +187,6 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
             ArrayList<Thuoc> listThuoc = new ArrayList<>();
             listThuoc = (ArrayList<Thuoc>) data.getSerializableExtra("listThuocSeThem");
 
-
-
         }
     }
 }
