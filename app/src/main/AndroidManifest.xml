@@ -63,15 +63,17 @@
             android:label="@string/title_activity_maps" />
 
         <activity android:name=".Activity.ThemHoSoBenhAnActivity"
-            android:parentActivityName=".Activity.MainActivity"/>
-
-        <activity android:name=".Activity.DanhSachThuocActivity"
-            android:windowSoftInputMode="adjustPan">
+            android:parentActivityName=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".Activity.DanhSachThuocActivity"
+            android:windowSoftInputMode="adjustPan">
+
         </activity>
 
         <service

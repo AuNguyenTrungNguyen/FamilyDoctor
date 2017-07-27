@@ -15,7 +15,7 @@
         android:weightSum="11">
 
         <ExpandableListView
-            android:listSelector="#91ff77"
+            android:choiceMode="singleChoice"
             android:dividerHeight="1dp"
             android:divider="@color/colorPrimary"
             android:id="@+id/elvDanhSachThuoc"

@@ -1,10 +1,12 @@
 package android.familydoctor.Class;
 
+import java.io.Serializable;
+
 /**
  * Created by buimi on 7/14/2017.
  */
 
-public class Thuoc {
+public class Thuoc implements Serializable {
     private String tenThuoc;
     private String soLuong;
     private String lieuDungSang;

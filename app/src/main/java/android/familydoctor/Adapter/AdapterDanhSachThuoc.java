@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.List;
@@ -82,7 +83,7 @@ public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, final ViewGroup parent) {
 
         if (convertView == null) {
             LayoutInflater layoutInflater;
@@ -213,11 +214,13 @@ public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
                 if(!edtSoLuongChieu.getText().toString().equals("")){
                     thuoc.setLieuDungChieu(edtSoLuongChieu.getText().toString());
                 }
+                Toast.makeText(context, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
             }
         });
 
         return convertView;
     }
+
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {

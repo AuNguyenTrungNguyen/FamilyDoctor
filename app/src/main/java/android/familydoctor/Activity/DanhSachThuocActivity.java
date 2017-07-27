@@ -1,5 +1,6 @@
 package android.familydoctor.Activity;
 
+import android.content.Intent;
 import android.familydoctor.Adapter.AdapterDanhSachThuoc;
 import android.familydoctor.Class.Thuoc;
 import android.familydoctor.R;
@@ -58,7 +59,17 @@ public class DanhSachThuocActivity extends AppCompatActivity {
         btnHoanThanhThemThuoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ArrayList<Thuoc> listThuocSeThem = new ArrayList<Thuoc>();
+                for(int i = 0; i < listTenThuoc.size(); i++){
+                    Thuoc thuoc = listThongTinThuoc.get(listTenThuoc.get(i));
+                    if (!thuoc.getSoLuong().equals("")){
+                        listThuocSeThem.add(thuoc);
+                    }
+                }
+                Intent intent = new Intent();
+                intent.putExtra("listThuocSeThem", listThuocSeThem);
+                setResult(ThemHoSoBenhAnActivity.RESULT_CODE, intent);
+                finish();
             }
         });
     }
