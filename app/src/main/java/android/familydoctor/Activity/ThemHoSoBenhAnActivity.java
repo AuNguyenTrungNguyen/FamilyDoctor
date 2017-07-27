@@ -187,7 +187,7 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
             ArrayList<Thuoc> listThuoc = new ArrayList<>();
             listThuoc = (ArrayList<Thuoc>) data.getSerializableExtra("listThuocSeThem");
 
-            Toast.makeText(this, listThuoc.size()+"", Toast.LENGTH_SHORT).show();
+
 
         }
     }
