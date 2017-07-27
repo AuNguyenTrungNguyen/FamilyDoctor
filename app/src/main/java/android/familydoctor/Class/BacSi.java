@@ -8,10 +8,10 @@ public class BacSi {
     private String diaChiBacSi;
     private String uriHinhAnhBacSi;
     private String uriVanBangBacSi;
-    private String xBacSi;
-    private String yBacSi;
+    private double xBacSi;
+    private double yBacSi;
 
-    public BacSi(String hoTenBacSi, String soDienThoaiBacSi, String namSinhBacSi, String emailBacSi, String diaChiBacSi) {
+    public BacSi(String hoTenBacSi, String soDienThoaiBacSi, String namSinhBacSi, String diaChiBacSi ,double x , double y ) {
         this.hoTenBacSi = hoTenBacSi;
         this.soDienThoaiBacSi = soDienThoaiBacSi;
         this.namSinhBacSi = namSinhBacSi;
@@ -19,7 +19,7 @@ public class BacSi {
         this.diaChiBacSi = diaChiBacSi;
     }
 
-    public BacSi(String soDienThoaiBacSi, String namSinhBacSi, String hoTenBacSi, String chuyenMonBacSi, String emailBacSi, String diaChiBacSi, String uriHinhAnhBacSi, String uriVanBangBacSi, String xBacSi, String yBacSi) {
+    public BacSi(String soDienThoaiBacSi, String namSinhBacSi, String hoTenBacSi, String chuyenMonBacSi, String emailBacSi, String diaChiBacSi, String uriHinhAnhBacSi, String uriVanBangBacSi, double xBacSi, double yBacSi) {
         this.soDienThoaiBacSi = soDienThoaiBacSi;
         this.namSinhBacSi = namSinhBacSi;
         this.hoTenBacSi = hoTenBacSi;
@@ -96,19 +96,19 @@ public class BacSi {
         this.uriVanBangBacSi = uriVanBangBacSi;
     }
 
-    public String getxBacSi() {
+    public double getxBacSi() {
         return xBacSi;
     }
 
-    public void setxBacSi(String xBacSi) {
+    public void setxBacSi(double xBacSi) {
         this.xBacSi = xBacSi;
     }
 
-    public String getyBacSi() {
+    public double getyBacSi() {
         return yBacSi;
     }
 
-    public void setyBacSi(String yBacSi) {
+    public void setyBacSi(double yBacSi) {
         this.yBacSi = yBacSi;
     }
 }

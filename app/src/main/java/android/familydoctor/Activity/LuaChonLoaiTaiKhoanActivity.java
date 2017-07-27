@@ -20,15 +20,20 @@ public class LuaChonLoaiTaiKhoanActivity extends AppCompatActivity {
     TabLayout tabLayoutChoose;
     ViewPager viewPagerChoose;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_lua_chon_loai_tai_khoan);
         initViewPager();
 
     }
 
     private void initViewPager(){
+
+
         toolbarChoose = (Toolbar) findViewById(R.id.toolbar_choose);
         setSupportActionBar(toolbarChoose);
 
