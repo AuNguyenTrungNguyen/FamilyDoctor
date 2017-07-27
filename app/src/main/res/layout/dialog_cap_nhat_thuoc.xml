@@ -68,26 +68,26 @@
             android:text="Buổi sáng: " />
 
         <EditText
-            android:visibility="gone"
             android:id="@+id/edtSoLuongSang"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:inputType="phone" />
+            android:inputType="phone"
+            android:visibility="gone" />
 
         <EditText
-            android:visibility="gone"
             android:id="@+id/edtDonViSang"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
+            android:enabled="false"
             android:gravity="center"
             android:inputType="phone"
-            android:enabled="false"
             android:text="viên"
-            android:textColor="#ff6f00" />
+            android:textColor="#ff6f00"
+            android:visibility="gone" />
 
     </LinearLayout>
 
@@ -171,9 +171,9 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnHoanThanh"
+        android:id="@+id/btnXacNhanCapNhatThuoc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hoàn thành"/>
+        android:text="Cập nhật"/>
 
 </LinearLayout>

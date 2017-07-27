@@ -2,6 +2,7 @@ package android.familydoctor.Activity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.familydoctor.Adapter.AdapterThuoc;
 import android.familydoctor.Class.BenhNhan;
 import android.familydoctor.Class.Thuoc;
 import android.familydoctor.R;
@@ -10,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -35,14 +35,8 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
     Button btnThemThuoc, btnKiemTra, btnHoanThanhHoSoBenhAn;
 
     ListView lvDanhSachThuocDaThem;
-    ArrayList<Thuoc> danhSachThuoc;
-
-    EditText edtTenThuocSeThem, edtSoLuongThuoc;
-    Button btnHoanThanh;
-    CheckBox chkSang, chkTrua, chkChieu;
-    EditText edtSoLuongSang, edtDonViSang;
-    EditText edtSoLuongTrua, edtDonViTrua;
-    EditText edtSoLuongChieu, edtDonViChieu;
+    ArrayList<Thuoc> listThuocSeThem = new ArrayList<>();
+    AdapterThuoc adapterThuoc;
 
     public static final int REQUEST_CODE = 999;
     public static final int RESULT_CODE = 998;
@@ -184,9 +178,14 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && resultCode == RESULT_CODE && data != null) {
 
-            ArrayList<Thuoc> listThuoc = new ArrayList<>();
-            listThuoc = (ArrayList<Thuoc>) data.getSerializableExtra("listThuocSeThem");
+            ArrayList<Thuoc> listThuoc = (ArrayList<Thuoc>) data.getSerializableExtra("listThuocSeThem");
 
+            for (int i = 0; i < listThuoc.size(); i++){
+                listThuocSeThem.add(listThuoc.get(i));
+            }
+
+            adapterThuoc = new AdapterThuoc(this, R.layout.item_thuoc, listThuocSeThem);
+            lvDanhSachThuocDaThem.setAdapter(adapterThuoc);
         }
     }
 }
