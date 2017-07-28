@@ -13,21 +13,24 @@ public class HoSoBenh {
     private String idBacSi;
     private String idBenhNhan;
     private String idHoSo;
+    private String tenBenh;
     private String ngayKham;
     private String ngayTaiKham;
     private List<Thuoc> thuocDung;
 
 
-    public HoSoBenh(String idBacSi, String idBenhNhan, String idHoSo, String ngayKham, String ngayTaiKham, List<Thuoc> thuocDung) {
+    public HoSoBenh() {
+
+    }
+
+    public HoSoBenh(String idBacSi, String idBenhNhan, String idHoSo, String tenBenh, String ngayKham, String ngayTaiKham, List<Thuoc> thuocDung) {
         this.idBacSi = idBacSi;
         this.idBenhNhan = idBenhNhan;
         this.idHoSo = idHoSo;
+        this.tenBenh = tenBenh;
         this.ngayKham = ngayKham;
         this.ngayTaiKham = ngayTaiKham;
         this.thuocDung = thuocDung;
-    }
-
-    public HoSoBenh() {
     }
 
     public String getIdBacSi() {
@@ -52,6 +55,14 @@ public class HoSoBenh {
 
     public void setIdHoSo(String idHoSo) {
         this.idHoSo = idHoSo;
+    }
+
+    public String getTenBenh() {
+        return tenBenh;
+    }
+
+    public void setTenBenh(String tenBenh) {
+        this.tenBenh = tenBenh;
     }
 
     public String getNgayKham() {
