@@ -66,28 +66,13 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
     private GPSTracker gpsTracker;
     private Location mLocation;
 
-    public double getLongtitudeGPS() {
-        return longtitudeGPS;
-    }
 
-    public void setLongtitudeGPS(double longtitudeGPS) {
-        this.longtitudeGPS = longtitudeGPS;
-    }
-
-    public double getLatitudeGPS() {
-        return latitudeGPS;
-    }
-
-    public void setLatitudeGPS(double latitudeGPS) {
-        this.latitudeGPS = latitudeGPS;
-    }
-
-    GoogleMap.OnMyLocationChangeListener listener =new GoogleMap.OnMyLocationChangeListener() {
+    /*GoogleMap.OnMyLocationChangeListener listener =new GoogleMap.OnMyLocationChangeListener() {
             @Override
             public void onMyLocationChange(Location location) {
                 moveCameraMyLoc(location.getLatitude(),location.getLongitude(),18);
             }
-        };
+        };*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

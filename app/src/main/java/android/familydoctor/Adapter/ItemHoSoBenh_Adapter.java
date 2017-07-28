@@ -38,15 +38,17 @@ public class ItemHoSoBenh_Adapter extends RecyclerView.Adapter<ItemHoSoBenh_Adap
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View row = inflater.inflate(R.layout.item_recycler_view, parent, false);
+        View row = inflater.inflate(R.layout.item_hsba, parent, false);
         return new RecyclerViewHolder(row);
     }
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
-        holder.txtTenBenh.setText(listData.get(position).getTenBenh());
-        holder.txtNgayKham.setText(listData.get(position).getNgayKham());
-        holder.txtNgayTaiKham.setText(listData.get(position).getNgayTaiKham());
+
+        holder.txtTenBenh.setText("Bệnh : "+listData.get(position).getTenBenh());
+        holder.txtName.setText("Họ tên : "+listData.get(position).getIdBacSi());
+        holder.txtNgayKham.setText("Ngày khám : "+listData.get(position).getNgayKham());
+        holder.txtNgayTaiKham.setText("Ngày tái khám : "+listData.get(position).getNgayTaiKham());
     }
 
     @Override
