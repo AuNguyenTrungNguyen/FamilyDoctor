@@ -1,5 +1,6 @@
 package android.familydoctor.Activity;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.familydoctor.Adapter.AdapterThuoc;
@@ -25,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ThemHoSoBenhAnActivity extends AppCompatActivity {
 
@@ -149,13 +151,19 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
         txtChonNgayTaiKham.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dialog dialogNgayTaiKham = new Dialog(getApplicationContext());
-                dialogNgayTaiKham.setContentView(R.layout.dialog_ngaytaikham);
-                DatePicker datePicker = (DatePicker) dialogNgayTaiKham.findViewById(R.id.ngaytaikham);
-                String ngayTaiKham= datePicker.getDayOfMonth() + "/"+
-                        datePicker.getMonth() + "/"+
-                        datePicker.getYear();
-                txtChonNgayTaiKham.setText(ngayTaiKham);
+                Calendar calendar = Calendar.getInstance();
+                int mYear = calendar.get(Calendar.YEAR);
+                int mMonth = calendar.get(Calendar.MONTH);
+                int mDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog date = new DatePickerDialog(ThemHoSoBenhAnActivity.this, new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                txtChonNgayTaiKham.setText(dayOfMonth + "/" + month + "/" + year);
+                            }
+                        },  mYear, mMonth, mDay);
+                date.setTitle("Chọn ngày tái khám");
+                date.show();
 
             }
         });
