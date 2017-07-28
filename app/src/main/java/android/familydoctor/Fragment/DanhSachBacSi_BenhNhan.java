@@ -93,7 +93,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tab3_danhasch_bs_bn, container, false);
         database = FirebaseDatabase.getInstance().getReference();
-        //testPusuDULieu();
+        testPusuDULieu();
         edtInput = (EditText) rootView.findViewById(R.id.edtSDT);
         btnSearch = (ImageButton) rootView.findViewById(R.id.btnSearchAddress);
         btnSearch.setOnClickListener(this);
@@ -116,10 +116,9 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
             latitudeGPS = mLocation.getLatitude();
             longtitudeGPS = mLocation.getLongitude();
         } else {
-            if (savedInstanceState != null) {
-                mLocation = savedInstanceState.getParcelable("Latlng");
-                moveCamera(mLocation.getLatitude(), mLocation.getLongitude(), 18);
-            }
+            Intent callGPSSettingIntent = new Intent(
+                    android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(callGPSSettingIntent);
         }
         //Toast.makeText(getContext(), latitudeGPS + "   " + longtitudeGPS, Toast.LENGTH_SHORT).show();
         //Log.d("TOADO", latitudeGPS + "   " + longtitudeGPS);

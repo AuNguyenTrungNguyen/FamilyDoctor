@@ -94,6 +94,10 @@ public class FragmentBacSi extends Fragment {
             x = location.getLatitude() ;
             y =location.getLongitude() ;
         }
+        else
+        {
+            Toast.makeText(getContext(), "Bạn vui lòng bật GPS", Toast.LENGTH_SHORT).show();
+        }
 
 
         HoTen = (EditText) view.findViewById(R.id.HoTenD);
