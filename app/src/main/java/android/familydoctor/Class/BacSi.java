@@ -14,7 +14,7 @@ public class BacSi {
     public BacSi() {
     }
 
-    public BacSi(String hoTenBacSi, String soDienThoaiBacSi, String namSinhBacSi, String diaChiBacSi , double x , double y ) {
+    public BacSi(String hoTenBacSi, String namSinhBacSi, String soDienThoaiBacSi, String diaChiBacSi , double x , double y ) {
         this.hoTenBacSi = hoTenBacSi;
         this.soDienThoaiBacSi = soDienThoaiBacSi;
         this.namSinhBacSi = namSinhBacSi;
