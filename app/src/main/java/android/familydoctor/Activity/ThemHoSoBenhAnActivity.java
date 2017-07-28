@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -142,6 +143,20 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
 
                     }
                 });
+            }
+        });
+
+        txtChonNgayTaiKham.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog dialogNgayTaiKham = new Dialog(getApplicationContext());
+                dialogNgayTaiKham.setContentView(R.layout.dialog_ngaytaikham);
+                DatePicker datePicker = (DatePicker) dialogNgayTaiKham.findViewById(R.id.ngaytaikham);
+                String ngayTaiKham= datePicker.getDayOfMonth() + "/"+
+                        datePicker.getMonth() + "/"+
+                        datePicker.getYear();
+                txtChonNgayTaiKham.setText(ngayTaiKham);
+
             }
         });
 
