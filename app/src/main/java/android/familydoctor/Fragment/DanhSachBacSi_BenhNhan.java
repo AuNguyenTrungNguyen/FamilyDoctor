@@ -115,10 +115,6 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
             mLocation = gpsTracker.getLocation();
             latitudeGPS = mLocation.getLatitude();
             longtitudeGPS = mLocation.getLongitude();
-        } else {
-            Intent callGPSSettingIntent = new Intent(
-                    android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            startActivity(callGPSSettingIntent);
         }
         //Toast.makeText(getContext(), latitudeGPS + "   " + longtitudeGPS, Toast.LENGTH_SHORT).show();
         //Log.d("TOADO", latitudeGPS + "   " + longtitudeGPS);
