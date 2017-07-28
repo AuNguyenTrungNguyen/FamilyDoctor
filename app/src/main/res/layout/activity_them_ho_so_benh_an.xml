@@ -112,18 +112,6 @@
 
     </LinearLayout>
 
-    <TextView
-        android:visibility="gone"
-        android:id="@+id/txtHeader"
-        android:textColor="#ff0000"
-        android:background="#ffffff"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_margin="5dp"
-        android:gravity="center"
-        android:text="Danh sách thuốc"
-        android:textStyle="bold"/>
-
     <ListView
         android:visibility="gone"
         android:id="@+id/lvDanhSachThuocDaThem"

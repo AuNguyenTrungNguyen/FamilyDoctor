@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.familydoctor.Adapter.AdapterThuoc;
 import android.familydoctor.Class.BenhNhan;
+import android.familydoctor.Class.HoSoBenh;
 import android.familydoctor.Class.Thuoc;
 import android.familydoctor.R;
 import android.os.Bundle;
@@ -47,7 +48,6 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
     public static final int RESULT_CODE = 998;
 
     DatabaseReference databaseReference;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,7 +170,7 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
                 DatePickerDialog date = new DatePickerDialog(ThemHoSoBenhAnActivity.this, new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                txtChonNgayTaiKham.setText(dayOfMonth + "/" + month + "/" + year);
+                                txtChonNgayTaiKham.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
                             }
                         },  mYear, mMonth, mDay);
                 date.setTitle("Chọn ngày tái khám");
@@ -192,18 +192,30 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Date date = new Date();
-
                 String strDateFormat = "dd/MM/yyyy";
-
                 SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
 
-                String toast = "SĐT BN" + soDienThoai[0] + "\n";
-                toast += "Tên bệnh: " + edtTenBenhTrongHoSoBenhAn.getText() + "\n";
-                toast += "Ngày khám" + sdf.format(date) + "\n";
-                toast += "Ngày tài khám" + txtChonNgayTaiKham.getText() + "\n";
-                toast += "Thuốc: " + listThuocSeThem.size() +"\n";
+                if(!soDienThoai[0].equals("") &&
+                   !txtChonNgayTaiKham.getText().equals("CHỌN NGÀY TÁI KHÁM") &&
+                   listThuocSeThem.size() != 0){
+                    HoSoBenh hoSoBenh = new HoSoBenh();
 
-                Toast.makeText(ThemHoSoBenhAnActivity.this, toast, Toast.LENGTH_SHORT).show();
+                    String idHoSoBenh = getDateTimeSystem();
+
+                    hoSoBenh.setIdHoSo(idHoSoBenh);
+                    hoSoBenh.setIdBacSi("Đợi đăng nhập");
+                    hoSoBenh.setIdBenhNhan(soDienThoai[0]);
+                    hoSoBenh.setTenBenh(edtTenBenhTrongHoSoBenhAn.getText().toString());
+                    hoSoBenh.setNgayKham(sdf.format(date));
+                    hoSoBenh.setNgayTaiKham(txtChonNgayTaiKham.getText().toString());
+                    hoSoBenh.setThuocDung(listThuocSeThem);
+                    databaseReference.child("HoSoBenhAn").child(idHoSoBenh).setValue(hoSoBenh);
+                    Toast.makeText(ThemHoSoBenhAnActivity.this, "Thêm Hồ sơ bệnh án thành công.", Toast.LENGTH_SHORT).show();
+                    finish();
+
+                }else{
+                    Toast.makeText(ThemHoSoBenhAnActivity.this, "Thông tin chưa hợp lệ. Xin kiểm tra lại.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -225,6 +237,13 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
         btnKiemTra = (Button) findViewById(R.id.btnKiemTra);
         btnHoanThanhHoSoBenhAn = (Button) findViewById(R.id.btnHoanThanhHoSoBenhAn);
         lvDanhSachThuocDaThem = (ListView) findViewById(R.id.lvDanhSachThuocDaThem);
+    }
+
+    private String getDateTimeSystem() {
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+        Date now = new Date();
+        String strDate = sdfDate.format(now);
+        return strDate + "-" +System.currentTimeMillis();
     }
 
     @Override

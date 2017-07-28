@@ -112,6 +112,8 @@ public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
         chkTrua = (CheckBox) convertView.findViewById(R.id.chkTrua);
         chkChieu = (CheckBox) convertView.findViewById(R.id.chkChieu);
 
+        // Khi thao tác mà ko lưu lại
+
         if (!thuoc.getSoLuong().equals("")) {
             edtSoLuongThuoc.setText(thuoc.getSoLuong());
         } else {
@@ -147,6 +149,8 @@ public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
             chkChieu.setChecked(false);
             edtSoLuongChieu.setText("");
         }
+
+        // Sự kiện trên childView
 
         chkSang.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -197,25 +201,37 @@ public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
         btnXacNhan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                int soLuongThuoc = -1;
+                int soLuongSang = 0;
+                int soLuongTrua = 0;
+                int soLuongChieu = 0;
+
                 if (!edtSoLuongThuoc.getText().toString().equals("")) {
-                    thuoc.setSoLuong(edtSoLuongThuoc.getText().toString());
+                    soLuongThuoc = Integer.parseInt(edtSoLuongThuoc.getText().toString());
                 }
 
                 if (!edtSoLuongSang.getText().toString().equals("")) {
-                    thuoc.setLieuDungSang(edtSoLuongSang.getText().toString());
+                    soLuongSang = Integer.parseInt(edtSoLuongSang.getText().toString());
                 }
 
                 if (!edtSoLuongTrua.getText().toString().equals("")) {
-                    thuoc.setLieuDungTrua(edtSoLuongTrua.getText().toString());
+                    soLuongTrua = Integer.parseInt(edtSoLuongTrua.getText().toString());
                 }
 
                 if (!edtSoLuongChieu.getText().toString().equals("")) {
-                    thuoc.setLieuDungChieu(edtSoLuongChieu.getText().toString());
+                    soLuongChieu = Integer.parseInt(edtSoLuongChieu.getText().toString());
                 }
 
-                Toast.makeText(context, "Đã lưu thông tin: " + thuoc.getTenThuoc(), Toast.LENGTH_SHORT).show();
-
-
+                if(soLuongThuoc >= (soLuongSang) + soLuongTrua + soLuongChieu){
+                    thuoc.setSoLuong(edtSoLuongThuoc.getText().toString());
+                    thuoc.setLieuDungSang(edtSoLuongSang.getText().toString());
+                    thuoc.setLieuDungTrua(edtSoLuongTrua.getText().toString());
+                    thuoc.setLieuDungChieu(edtSoLuongChieu.getText().toString());
+                    Toast.makeText(context, "Đã lưu thông tin: " + thuoc.getTenThuoc(), Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(context, "Thông tin chưa chính xác", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

@@ -74,7 +74,6 @@ public class DanhSachThuocActivity extends AppCompatActivity {
         });
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -100,7 +99,7 @@ public class DanhSachThuocActivity extends AppCompatActivity {
                 elvDanhSachThuoc.setAdapter(adapterDanhSachThuoc);
                 return true;
             }
-        });////////////////////////////////
+        });
         return super.onCreateOptionsMenu(menu);
     }
 }
