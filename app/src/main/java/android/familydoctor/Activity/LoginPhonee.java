@@ -29,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 public class LoginPhonee extends AppCompatActivity implements
         View.OnClickListener {
@@ -58,6 +59,9 @@ public class LoginPhonee extends AppCompatActivity implements
     private Button mStartButton;
     private Button mVerifyButton;
     private Button mResendButton;
+
+    Boolean isCompleteDoc = false;
+    Boolean isCompletePan = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -318,22 +322,49 @@ public class LoginPhonee extends AppCompatActivity implements
     }
 
     private void kiemTraCSDL(FirebaseUser user){
-        //Check tài khoản
-        String sdt = user.getPhoneNumber();
 
+        String getsdt = user.getPhoneNumber();
+        //Cắt ghép chuổi số điện thoại
+        String dauhieu="+84";
+        final String sdt = "0"+getsdt.substring(getsdt.indexOf(dauhieu)+3,getsdt.length());
         Log.i("checkUser",sdt);
-        DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-        Query checksDoctor = root.child("User_BacSi").equalTo("01279095508");
 
-//        Query checksPanter = root.child("User_BacSi").equalTo("01279095508");
+        DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference checksDoctor = root.child("User_BacSi").child(sdt);
+
+        DatabaseReference checksPanter = root.child("User_BenhNhan").child(sdt);
+
+        Log.i("checkUser", checksDoctor.toString());
 
         checksDoctor.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot itemSnapshot: dataSnapshot.getChildren()) {
 
-                    Log.i("checkUser", itemSnapshot.getValue(String.class));
+                if (dataSnapshot.child("soDienThoaiBacSi").getValue(String.class) != null){
+
+                    Intent intent = new Intent(LoginPhonee.this, MainActivity.class);
+                    intent.putExtra("sdt",sdt);
+                    intent.putExtra("dinhDanh",1);
+                    startActivity(intent);
+                }else {
+                    isCompleteDoc = true;
+
+                    Log.i("checkUser", "Bac si k ton tai");
+                    Log.i("checkUser", isCompleteDoc.toString());
+
+                    if (isCompleteDoc == true && isCompletePan == true){
+                        Intent intent = new Intent(LoginPhonee.this, LuaChonLoaiTaiKhoanActivity.class);
+                        startActivity(intent);
+                    }
+
                 }
+
+                try{
+                    Log.i("checkUser", dataSnapshot.child("soDienThoaiBacSi").getValue(String.class));
+                }catch (Exception e){
+
+                }
+
             }
 
             @Override
@@ -341,20 +372,36 @@ public class LoginPhonee extends AppCompatActivity implements
 
             }
         });
+            checksPanter.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
 
-        if (checksDoctor != null) {
-            Log.i("checkUser", "check");
-            Intent intent = new Intent(LoginPhonee.this, MainActivity.class);
-            startActivity(intent);
+                    if (dataSnapshot.child("soDienThoaiBenhNhan").getValue(String.class) != null){
+                        Intent intent = new Intent(LoginPhonee.this, MainActivity.class);
+                        intent.putExtra("sdt",sdt);
+                        intent.putExtra("dinhDanh",2);
+                        startActivity(intent);
+                    }else {
+                        isCompletePan = true;
+                        Log.i("checkUser", "Benh nhan k ton tai");
+                        if (isCompleteDoc == true && isCompletePan == true){
+                            Intent intent = new Intent(LoginPhonee.this, LuaChonLoaiTaiKhoanActivity.class);
+                            startActivity(intent);
+                        }
+                    }
 
-//        }else if (checksPanter != null) {
-//            Intent intent = new Intent( LoginPhonee.this,MainActivity.class);
-//            startActivity(intent);
-//        }
-        } else {
-            Intent intent = new Intent(LoginPhonee.this, LuaChonLoaiTaiKhoanActivity.class);
-            startActivity(intent);
-        }
+                    try{
+                        Log.i("checkUser", dataSnapshot.child("soDienThoaiBacSi").getValue(String.class));
+                    }catch (Exception e){
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
     }
 
     @Override
