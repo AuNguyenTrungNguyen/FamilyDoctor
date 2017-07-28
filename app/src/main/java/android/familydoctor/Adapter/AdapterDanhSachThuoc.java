@@ -197,25 +197,37 @@ public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
         btnXacNhan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                int soLuongThuoc = -1;
+                int soLuongSang = 0;
+                int soLuongTrua = 0;
+                int soLuongChieu = 0;
+
                 if (!edtSoLuongThuoc.getText().toString().equals("")) {
-                    thuoc.setSoLuong(edtSoLuongThuoc.getText().toString());
+                    soLuongThuoc = Integer.parseInt(edtSoLuongThuoc.getText().toString());
                 }
 
                 if (!edtSoLuongSang.getText().toString().equals("")) {
-                    thuoc.setLieuDungSang(edtSoLuongSang.getText().toString());
+                    soLuongSang = Integer.parseInt(edtSoLuongSang.getText().toString());
                 }
 
                 if (!edtSoLuongTrua.getText().toString().equals("")) {
-                    thuoc.setLieuDungTrua(edtSoLuongTrua.getText().toString());
+                    soLuongTrua = Integer.parseInt(edtSoLuongTrua.getText().toString());
                 }
 
                 if (!edtSoLuongChieu.getText().toString().equals("")) {
-                    thuoc.setLieuDungChieu(edtSoLuongChieu.getText().toString());
+                    soLuongChieu = Integer.parseInt(edtSoLuongChieu.getText().toString());
                 }
 
-                Toast.makeText(context, "Đã lưu thông tin: " + thuoc.getTenThuoc(), Toast.LENGTH_SHORT).show();
-
-
+                if (soLuongThuoc < (soLuongSang + soLuongTrua + soLuongChieu) || soLuongThuoc == 0) {
+                    Toast.makeText(context, "Thông tin thuốc không chính xác", Toast.LENGTH_SHORT).show();
+                } else {
+                    thuoc.setSoLuong(edtSoLuongThuoc.getText().toString());
+                    thuoc.setLieuDungSang(edtSoLuongSang.getText().toString());
+                    thuoc.setLieuDungTrua(edtSoLuongTrua.getText().toString());
+                    thuoc.setLieuDungChieu(edtSoLuongChieu.getText().toString());
+                    Toast.makeText(context, "Đã lưu thông tin: " + thuoc.getTenThuoc(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
