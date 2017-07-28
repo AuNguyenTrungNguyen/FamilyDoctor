@@ -89,7 +89,7 @@ public class FragmentBenhNhan extends Fragment {
         }
         LocationManager manager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
         GPSTracker gpsTracker = new GPSTracker(getContext());
-        if (gpsTracker != null && manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+        if (gpsTracker != null && manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             Location location = gpsTracker.getLocation();
 
             x = location.getLatitude() ;
@@ -147,7 +147,6 @@ public class FragmentBenhNhan extends Fragment {
                         .show();
             }
         });
-//////
         setData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

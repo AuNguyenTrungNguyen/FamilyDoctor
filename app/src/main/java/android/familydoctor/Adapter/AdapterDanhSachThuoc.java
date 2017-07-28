@@ -84,7 +84,6 @@ public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, final ViewGroup parent) {
-
         if (convertView == null) {
             LayoutInflater layoutInflater;
             layoutInflater = LayoutInflater.from(this.context);
@@ -215,7 +214,6 @@ public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
                 Toast.makeText(context, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
             }
         });
-
         return convertView;
     }
 
@@ -224,5 +222,6 @@ public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
+
 
 }
