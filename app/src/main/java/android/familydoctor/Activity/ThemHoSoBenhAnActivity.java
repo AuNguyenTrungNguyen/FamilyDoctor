@@ -25,8 +25,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class ThemHoSoBenhAnActivity extends AppCompatActivity {
 
@@ -73,15 +75,24 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
+
+        final String[] soDienThoai = {""};
+
         btnKiemTra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listThuocSeThem = new ArrayList<>();
-                final String soDienThoai = edtSoDienThoaiCanKiemTra.getText().toString();
+                soDienThoai[0] = edtSoDienThoaiCanKiemTra.getText().toString();
                 btnHoanThanhHoSoBenhAn.setVisibility(View.GONE);
                 layoutThemHoSoBenhAn.setVisibility(View.GONE);
                 btnThemThuoc.setVisibility(View.GONE);
                 lvDanhSachThuocDaThem.setVisibility(View.GONE);
+
+                listThuocSeThem = new ArrayList<>();
+                adapterThuoc = new AdapterThuoc(ThemHoSoBenhAnActivity.this, R.layout.item_thuoc, listThuocSeThem);
+                lvDanhSachThuocDaThem.setAdapter(adapterThuoc);
+                txtChonNgayTaiKham.setText("CHỌN NGÀY TÁI KHÁM");
+                edtTenBenhTrongHoSoBenhAn.setText("");
+
                 databaseReference.child("BenhNhan").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -90,12 +101,12 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
                             BenhNhan benhNhan = data.getValue(BenhNhan.class);
                             assert benhNhan != null;
                             count++;
-                            if (soDienThoai.equals(benhNhan.getSoDienThoaiBenhNhan())) {
+                            if (soDienThoai[0].equals(benhNhan.getSoDienThoaiBenhNhan())) {
                                 String tenBenhNhan = benhNhan.getHoTenBenhNhan();
                                 String namSinhBenhNhan = benhNhan.getNamSinhBenhNhan();
 
                                 final Dialog dialogKiemTra = new Dialog(ThemHoSoBenhAnActivity.this);
-                                dialogKiemTra.setTitle("Thông tin của: " + soDienThoai);
+                                dialogKiemTra.setTitle("Thông tin của: " + soDienThoai[0]);
                                 dialogKiemTra.setContentView(R.layout.dialog_kiem_tra_so_dien_thoai);
 
                                 EditText edtTenBenhNhan, edtNamSinhBenhNhan;
@@ -179,7 +190,20 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
         btnHoanThanhHoSoBenhAn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ThemHoSoBenhAnActivity.this, "Put HSBA chỗ này nè", Toast.LENGTH_SHORT).show();
+
+                Date date = new Date();
+
+                String strDateFormat = "dd/MM/yyyy";
+
+                SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
+
+                String toast = "SĐT BN" + soDienThoai[0] + "\n";
+                toast += "Tên bệnh: " + edtTenBenhTrongHoSoBenhAn.getText() + "\n";
+                toast += "Ngày khám" + sdf.format(date) + "\n";
+                toast += "Ngày tài khám" + txtChonNgayTaiKham.getText() + "\n";
+                toast += "Thuốc: " + listThuocSeThem.size() +"\n";
+
+                Toast.makeText(ThemHoSoBenhAnActivity.this, toast, Toast.LENGTH_SHORT).show();
             }
         });
     }

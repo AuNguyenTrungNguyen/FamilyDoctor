@@ -81,6 +81,7 @@ public class DanhSachThuocActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.search, menu);
 
         searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -89,7 +90,6 @@ public class DanhSachThuocActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                
                 return false;
             }
         });
