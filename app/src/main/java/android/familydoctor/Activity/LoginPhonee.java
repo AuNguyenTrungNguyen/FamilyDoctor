@@ -246,7 +246,7 @@ public class LoginPhonee extends AppCompatActivity implements
                 startActivity(intent);
             }
             DatabaseReference checksPanter = root.child("User_BenhNhan").child(sdt);
-            if (checksDoctor != null) {
+            if (checksPanter != null) {
                 Intent intent = new Intent( LoginPhonee.this,MainActivity.class);
                 startActivity(intent);
             }
