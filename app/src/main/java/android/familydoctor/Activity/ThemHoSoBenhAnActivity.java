@@ -1,5 +1,6 @@
 package android.familydoctor.Activity;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.familydoctor.Adapter.AdapterThuoc;
@@ -25,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ThemHoSoBenhAnActivity extends AppCompatActivity {
 
@@ -36,7 +38,7 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
     Button btnThemThuoc, btnKiemTra, btnHoanThanhHoSoBenhAn;
 
     ListView lvDanhSachThuocDaThem;
-    ArrayList<Thuoc> listThuocSeThem = new ArrayList<>();
+    ArrayList<Thuoc> listThuocSeThem;
     AdapterThuoc adapterThuoc;
 
     public static final int REQUEST_CODE = 999;
@@ -74,7 +76,7 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
         btnKiemTra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                listThuocSeThem = new ArrayList<>();
                 final String soDienThoai = edtSoDienThoaiCanKiemTra.getText().toString();
                 btnHoanThanhHoSoBenhAn.setVisibility(View.GONE);
                 layoutThemHoSoBenhAn.setVisibility(View.GONE);
@@ -133,7 +135,7 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
                             }
                         }
 
-                        if(count > dataSnapshot.getChildrenCount()){
+                        if (count > dataSnapshot.getChildrenCount()) {
                             Toast.makeText(ThemHoSoBenhAnActivity.this, "Số điện thoại này không tồn tại.", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -149,13 +151,19 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
         txtChonNgayTaiKham.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dialog dialogNgayTaiKham = new Dialog(getApplicationContext());
-                dialogNgayTaiKham.setContentView(R.layout.dialog_ngaytaikham);
-                DatePicker datePicker = (DatePicker) dialogNgayTaiKham.findViewById(R.id.ngaytaikham);
-                String ngayTaiKham= datePicker.getDayOfMonth() + "/"+
-                        datePicker.getMonth() + "/"+
-                        datePicker.getYear();
-                txtChonNgayTaiKham.setText(ngayTaiKham);
+                Calendar calendar = Calendar.getInstance();
+                int mYear = calendar.get(Calendar.YEAR);
+                int mMonth = calendar.get(Calendar.MONTH);
+                int mDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog date = new DatePickerDialog(ThemHoSoBenhAnActivity.this, new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                txtChonNgayTaiKham.setText(dayOfMonth + "/" + month + "/" + year);
+                            }
+                        },  mYear, mMonth, mDay);
+                date.setTitle("Chọn ngày tái khám");
+                date.show();
 
             }
         });
@@ -202,8 +210,32 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
 
             ArrayList<Thuoc> listThuoc = (ArrayList<Thuoc>) data.getSerializableExtra("listThuocSeThem");
 
-            for (int i = 0; i < listThuoc.size(); i++){
-                listThuocSeThem.add(listThuoc.get(i));
+            //Kiểm tra người dùng thêm thuốc lại thì sẽ update
+
+            if (listThuocSeThem.size() == 0) {
+                for (int i = 0; i < listThuoc.size(); i++) {
+                    Thuoc thuocGui = listThuoc.get(i);
+                    listThuocSeThem.add(thuocGui);
+                }
+            } else {
+                for (int i = 0; i < listThuoc.size(); i++) {
+                    Thuoc thuocGui = listThuoc.get(i);
+                    boolean checkAdd = true;
+                    for (int j = 0; j < listThuocSeThem.size(); j++) {
+                        Thuoc thuocNhan = listThuocSeThem.get(j);
+                        if (thuocGui.getTenThuoc().equals(thuocNhan.getTenThuoc())) {
+                            checkAdd = false;
+                            thuocNhan.setSoLuong(thuocGui.getSoLuong());
+                            thuocNhan.setLieuDungSang(thuocGui.getLieuDungSang());
+                            thuocNhan.setLieuDungTrua(thuocGui.getLieuDungTrua());
+                            thuocNhan.setLieuDungChieu(thuocGui.getLieuDungChieu());
+                            break;
+                        }
+                    }
+                    if(checkAdd){
+                        listThuocSeThem.add(thuocGui);
+                    }
+                }
             }
 
             adapterThuoc = new AdapterThuoc(this, R.layout.item_thuoc, listThuocSeThem);
