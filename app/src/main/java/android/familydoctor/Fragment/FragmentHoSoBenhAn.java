@@ -128,7 +128,6 @@ public class FragmentHoSoBenhAn extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 HoSoBenh hsb = dataSnapshot.getValue(HoSoBenh.class);
-                //list.add(hsb);
                 adapter.addItem(list.size(), hsb);
                 Log.d("FireBaseQuoc", hsb.getTenBenh() + "  " + hsb.getNgayKham() + "   " + hsb.getNgayTaiKham());
             }
