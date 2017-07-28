@@ -11,7 +11,10 @@ public class BacSi {
     private double xBacSi;
     private double yBacSi;
 
-    public BacSi(String hoTenBacSi, String soDienThoaiBacSi, String namSinhBacSi, String diaChiBacSi ,double x , double y ) {
+    public BacSi() {
+    }
+
+    public BacSi(String hoTenBacSi, String soDienThoaiBacSi, String namSinhBacSi, String diaChiBacSi , double x , double y ) {
         this.hoTenBacSi = hoTenBacSi;
         this.soDienThoaiBacSi = soDienThoaiBacSi;
         this.namSinhBacSi = namSinhBacSi;
