@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.familydoctor.Adapter.AdapterThuoc;
 import android.familydoctor.Class.BenhNhan;
+import android.familydoctor.Class.HoSoBenh;
 import android.familydoctor.Class.Thuoc;
 import android.familydoctor.R;
 import android.os.Bundle;
@@ -25,8 +26,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class ThemHoSoBenhAnActivity extends AppCompatActivity {
 
@@ -45,7 +48,6 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
     public static final int RESULT_CODE = 998;
 
     DatabaseReference databaseReference;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,15 +75,24 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
+
+        final String[] soDienThoai = {""};
+
         btnKiemTra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listThuocSeThem = new ArrayList<>();
-                final String soDienThoai = edtSoDienThoaiCanKiemTra.getText().toString();
+                soDienThoai[0] = edtSoDienThoaiCanKiemTra.getText().toString();
                 btnHoanThanhHoSoBenhAn.setVisibility(View.GONE);
                 layoutThemHoSoBenhAn.setVisibility(View.GONE);
                 btnThemThuoc.setVisibility(View.GONE);
                 lvDanhSachThuocDaThem.setVisibility(View.GONE);
+
+                listThuocSeThem = new ArrayList<>();
+                adapterThuoc = new AdapterThuoc(ThemHoSoBenhAnActivity.this, R.layout.item_thuoc, listThuocSeThem);
+                lvDanhSachThuocDaThem.setAdapter(adapterThuoc);
+                txtChonNgayTaiKham.setText("CHỌN NGÀY TÁI KHÁM");
+                edtTenBenhTrongHoSoBenhAn.setText("");
+
                 databaseReference.child("BenhNhan").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -90,12 +101,12 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
                             BenhNhan benhNhan = data.getValue(BenhNhan.class);
                             assert benhNhan != null;
                             count++;
-                            if (soDienThoai.equals(benhNhan.getSoDienThoaiBenhNhan())) {
+                            if (soDienThoai[0].equals(benhNhan.getSoDienThoaiBenhNhan())) {
                                 String tenBenhNhan = benhNhan.getHoTenBenhNhan();
                                 String namSinhBenhNhan = benhNhan.getNamSinhBenhNhan();
 
                                 final Dialog dialogKiemTra = new Dialog(ThemHoSoBenhAnActivity.this);
-                                dialogKiemTra.setTitle("Thông tin của: " + soDienThoai);
+                                dialogKiemTra.setTitle("Thông tin của: " + soDienThoai[0]);
                                 dialogKiemTra.setContentView(R.layout.dialog_kiem_tra_so_dien_thoai);
 
                                 EditText edtTenBenhNhan, edtNamSinhBenhNhan;
@@ -159,7 +170,7 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
                 DatePickerDialog date = new DatePickerDialog(ThemHoSoBenhAnActivity.this, new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                txtChonNgayTaiKham.setText(dayOfMonth + "/" + month + "/" + year);
+                                txtChonNgayTaiKham.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
                             }
                         },  mYear, mMonth, mDay);
                 date.setTitle("Chọn ngày tái khám");
@@ -179,7 +190,32 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
         btnHoanThanhHoSoBenhAn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ThemHoSoBenhAnActivity.this, "Put HSBA chỗ này nè", Toast.LENGTH_SHORT).show();
+
+                Date date = new Date();
+                String strDateFormat = "dd/MM/yyyy";
+                SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
+
+                if(!soDienThoai[0].equals("") &&
+                   !txtChonNgayTaiKham.getText().equals("CHỌN NGÀY TÁI KHÁM") &&
+                   listThuocSeThem.size() != 0){
+                    HoSoBenh hoSoBenh = new HoSoBenh();
+
+                    String idHoSoBenh = getDateTimeSystem();
+
+                    hoSoBenh.setIdHoSo(idHoSoBenh);
+                    hoSoBenh.setIdBacSi("Đợi đăng nhập");
+                    hoSoBenh.setIdBenhNhan(soDienThoai[0]);
+                    hoSoBenh.setTenBenh(edtTenBenhTrongHoSoBenhAn.getText().toString());
+                    hoSoBenh.setNgayKham(sdf.format(date));
+                    hoSoBenh.setNgayTaiKham(txtChonNgayTaiKham.getText().toString());
+                    hoSoBenh.setThuocDung(listThuocSeThem);
+                    databaseReference.child("HoSoBenhAn").child(idHoSoBenh).setValue(hoSoBenh);
+                    Toast.makeText(ThemHoSoBenhAnActivity.this, "Thêm Hồ sơ bệnh án thành công.", Toast.LENGTH_SHORT).show();
+                    finish();
+
+                }else{
+                    Toast.makeText(ThemHoSoBenhAnActivity.this, "Thông tin chưa hợp lệ. Xin kiểm tra lại.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -201,6 +237,13 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
         btnKiemTra = (Button) findViewById(R.id.btnKiemTra);
         btnHoanThanhHoSoBenhAn = (Button) findViewById(R.id.btnHoanThanhHoSoBenhAn);
         lvDanhSachThuocDaThem = (ListView) findViewById(R.id.lvDanhSachThuocDaThem);
+    }
+
+    private String getDateTimeSystem() {
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+        Date now = new Date();
+        String strDate = sdfDate.format(now);
+        return strDate + "-" +System.currentTimeMillis();
     }
 
     @Override

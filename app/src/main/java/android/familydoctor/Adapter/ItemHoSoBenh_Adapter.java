@@ -1,98 +1,86 @@
 package android.familydoctor.Adapter;
 
 
-import android.content.Context;
+import android.familydoctor.Class.HoSoBenh;
 import android.familydoctor.R;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ItemHoSoBenh_Adapter extends RecyclerView.Adapter<ItemHoSoBenh_Adapter.RecyclerViewHolder>  {
 
+    private List<HoSoBenh> listData = new ArrayList<HoSoBenh>();
 
-    private List<Item> danhSachShow = new ArrayList<>();
-    private Context context;
-
-
-    private static ClickListenerKN listenerKN;
-
-
-    public ItemHoSoBenh_Adapter(List<Item> danhSachShow, Context context) {
-        this.danhSachShow = danhSachShow;
-        this.context=context;
-
+    public ItemHoSoBenh_Adapter(List<HoSoBenh> listData) {
+        this.listData = listData;
     }
 
-    //tạo một ViewHolder mới khi được gọi.
+    public void updateList(List<HoSoBenh> data) {
+        listData = data;
+        notifyDataSetChanged();
+    }
+
+    public void addItem(int position, HoSoBenh data) {
+        listData.add(position, data);
+        notifyItemInserted(position);
+    }
+
+    public void removeItem(int position) {
+        listData.remove(position);
+        notifyItemRemoved(position);
+    }
+
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_view, parent, false);
-        return new RecyclerViewHolder(view);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View row = inflater.inflate(R.layout.item_hsba, parent, false);
+        return new RecyclerViewHolder(row);
     }
 
-    //gắn kết dữ liệu và view trong ViewHolder.
     @Override
-    public void onBindViewHolder(final RecyclerViewHolder holder, int position) {
-        final Item item = danhSachShow.get(position);
+    public void onBindViewHolder(RecyclerViewHolder holder, int position) {
 
-        holder.ten.setText(item.getTen());
-        holder.nguoitao.setText(item.getNguoitao());
-        holder.loai.setText(item.getLoai());
-        holder.gia.setText(item.getGia());
-        //View hình ảnh
-        Picasso.with(context).load(item.getSrc()).into(holder.imageView);
-
+        holder.txtTenBenh.setText("Bệnh : "+listData.get(position).getTenBenh());
+        holder.txtName.setText("Họ tên : "+listData.get(position).getIdBacSi());
+        holder.txtNgayKham.setText("Ngày khám : "+listData.get(position).getNgayKham());
+        holder.txtNgayTaiKham.setText("Ngày tái khám : "+listData.get(position).getNgayTaiKham());
     }
 
-    //trả về số lượng item của danh sách.
     @Override
     public int getItemCount() {
-        return danhSachShow == null ? 0 : danhSachShow.size();
+        return listData.size();
     }
 
-    //Gắn kết Với File XML
-    public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private ImageView imageView;
-        private TextView ten,nguoitao, loai,gia;
-        private RecyclerViewHolder(View itemView) {
+    private static OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+        void onItemClick(View itemView, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public class RecyclerViewHolder extends RecyclerView.ViewHolder {
+        TextView txtName,txtTenBenh,txtNgayKham,txtNgayTaiKham;
+        public RecyclerViewHolder(final View itemView) {
             super(itemView);
-            imageView = (ImageView) itemView.findViewById(R.id.imgPicture);
-            ten = (TextView) itemView.findViewById(R.id.tv_ten);
-            nguoitao = (TextView) itemView.findViewById(R.id.tv_nguoitao);
-            loai = (TextView) itemView.findViewById(R.id.tv_loai);
-            gia = (TextView) itemView.findViewById(R.id.tv_gia);
-
-            itemView.setOnClickListener(this);
-        }
-        @Override
-        public void onClick(View view) {
-
-                listenerKN.onItemClick(view, getAdapterPosition());
-
+            txtName = (TextView) itemView.findViewById(R.id.txtName);
+            txtNgayKham = (TextView) itemView.findViewById(R.id.txtNgayKham);
+            txtNgayTaiKham= (TextView) itemView.findViewById(R.id.txtNgayTaiKham);
+            txtTenBenh= (TextView) itemView.findViewById(R.id.txtTenBenh);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null)
+                        listener.onItemClick(itemView, getAdapterPosition());
+                }
+            });
         }
     }
-
-
-    //Suwk kiện CLick Item
-    public void setOnItemClickListenerKhoiNghiep(ClickListenerKN clickListener) {
-        ItemHoSoBenh_Adapter.listenerKN = clickListener;
-    }
-
-
-
-
-    public interface ClickListenerKN {
-        void onItemClick(View v, int position);
-    }
-
-
-
 }
