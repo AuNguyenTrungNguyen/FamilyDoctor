@@ -43,7 +43,7 @@ public class DanhSachThuocActivity extends AppCompatActivity {
         listTenThuoc = new ArrayList<>();
         listThongTinThuoc = new HashMap<>();
 
-        for (int i = 0; i < 9; i++) {
+        for(int i = 0; i < 9; i++){
             listTenThuoc.add("Thuốc " + i);
             Thuoc thuoc = new Thuoc(listTenThuoc.get(i), "", "", "", "");
             listThongTinThuoc.put(listTenThuoc.get(i), thuoc);
@@ -60,9 +60,9 @@ public class DanhSachThuocActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ArrayList<Thuoc> listThuocSeThem = new ArrayList<>();
-                for (int i = 0; i < listTenThuoc.size(); i++) {
+                for(int i = 0; i < listTenThuoc.size(); i++){
                     Thuoc thuoc = listThongTinThuoc.get(listTenThuoc.get(i));
-                    if (!thuoc.getSoLuong().equals("")) {
+                    if (!thuoc.getSoLuong().equals("")){
                         listThuocSeThem.add(thuoc);
                     }
                 }
@@ -90,16 +90,7 @@ public class DanhSachThuocActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
-                List<String> listSearch = new ArrayList<>();
-                for (int i = 0; i < listTenThuoc.size(); i++) {
-                    if (listTenThuoc.get(i).contains(newText)) {
-                        listSearch.add(listTenThuoc.get(i));
-                    }
-                }
-                adapterDanhSachThuoc = new AdapterDanhSachThuoc(DanhSachThuocActivity.this, listSearch, listThongTinThuoc);
-                elvDanhSachThuoc.setAdapter(adapterDanhSachThuoc);
-                return true;
+                return false;
             }
         });
         return super.onCreateOptionsMenu(menu);

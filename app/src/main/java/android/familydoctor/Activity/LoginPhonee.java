@@ -236,13 +236,23 @@ public class LoginPhonee extends AppCompatActivity implements
             updateUI(STATE_SIGNIN_SUCCESS, user);
 
             //Check tài khoản
-            String sdt = user.getPhoneNumber();
+            String sdt = mPhoneNumberField.getText().toString();
 
-            DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("BacSi");
-            firebaseDatabase.child("User").child("BenhNhan").child(sdt);
+            DatabaseReference root = FirebaseDatabase.getInstance().getReference();
 
+            DatabaseReference checksDoctor = root.child("User_BacSi").child(sdt);
+            if (checksDoctor != null) {
+                Intent intent = new Intent( LoginPhonee.this,MainActivity.class);
+                startActivity(intent);
+            }
+            DatabaseReference checksPanter = root.child("User_BenhNhan").child(sdt);
+            if (checksPanter != null) {
+                Intent intent = new Intent( LoginPhonee.this,MainActivity.class);
+                startActivity(intent);
+            }
             Intent intent = new Intent( LoginPhonee.this,LuaChonLoaiTaiKhoanActivity.class);
             startActivity(intent);
+
         } else {
             updateUI(STATE_INITIALIZED);
         }

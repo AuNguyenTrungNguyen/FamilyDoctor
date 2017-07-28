@@ -19,7 +19,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,12 +89,17 @@ public class FragmentBenhNhan extends Fragment {
         }
         LocationManager manager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
         GPSTracker gpsTracker = new GPSTracker(getContext());
-        if (gpsTracker != null && manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+        if (gpsTracker != null && manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             Location location = gpsTracker.getLocation();
 
             x = location.getLatitude() ;
             y =location.getLongitude() ;
         }
+        else
+        {
+            Toast.makeText(getContext(), "Bạn vui lòng bật GPS", Toast.LENGTH_SHORT).show();
+        }
+
 
         HoTen = (EditText) view.findViewById(R.id.HoTenE);
         NamSinh = (Spinner) view.findViewById(R.id.spNamSinhBenhNhan);
@@ -148,7 +152,6 @@ public class FragmentBenhNhan extends Fragment {
                         .show();
             }
         });
-//////
         setData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -181,7 +184,7 @@ public class FragmentBenhNhan extends Fragment {
                         Uri downloadUrl = taskSnapshot.getDownloadUrl();
                         Us.setUriHinhAnhBenhNhan(downloadUrl.toString());
 
-                        mDatabase.child("User_BacSi").child(Us.getSoDienThoaiBenhNhan()).setValue(Us);
+                        mDatabase.child("User_BenhNhan").child(Us.getSoDienThoaiBenhNhan()).setValue(Us);
                     }
                 });
 

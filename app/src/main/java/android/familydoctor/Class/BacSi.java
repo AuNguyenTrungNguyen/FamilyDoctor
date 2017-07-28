@@ -11,7 +11,10 @@ public class BacSi {
     private double xBacSi;
     private double yBacSi;
 
-    public BacSi(String hoTenBacSi, String soDienThoaiBacSi, String namSinhBacSi, String diaChiBacSi ,double x , double y ) {
+    public BacSi() {
+    }
+
+    public BacSi(String hoTenBacSi, String soDienThoaiBacSi, String namSinhBacSi, String diaChiBacSi , double x , double y ) {
         this.hoTenBacSi = hoTenBacSi;
         this.soDienThoaiBacSi = soDienThoaiBacSi;
         this.namSinhBacSi = namSinhBacSi;
@@ -19,12 +22,12 @@ public class BacSi {
         this.diaChiBacSi = diaChiBacSi;
     }
 
-    public BacSi(String soDienThoaiBacSi, String namSinhBacSi, String hoTenBacSi, String chuyenMonBacSi, String emailBacSi, String diaChiBacSi, String uriHinhAnhBacSi, String uriVanBangBacSi, double xBacSi, double yBacSi) {
+    public BacSi(String hoTenBacSi, String soDienThoaiBacSi, String namSinhBacSi, String emailBacSi, String chuyenMonBacSi, String diaChiBacSi, String uriHinhAnhBacSi, String uriVanBangBacSi, double xBacSi, double yBacSi) {
+        this.hoTenBacSi = hoTenBacSi;
         this.soDienThoaiBacSi = soDienThoaiBacSi;
         this.namSinhBacSi = namSinhBacSi;
-        this.hoTenBacSi = hoTenBacSi;
-        this.chuyenMonBacSi = chuyenMonBacSi;
         this.emailBacSi = emailBacSi;
+        this.chuyenMonBacSi = chuyenMonBacSi;
         this.diaChiBacSi = diaChiBacSi;
         this.uriHinhAnhBacSi = uriHinhAnhBacSi;
         this.uriVanBangBacSi = uriVanBangBacSi;
