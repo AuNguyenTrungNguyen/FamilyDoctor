@@ -83,7 +83,8 @@ public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, final ViewGroup parent) {
+    public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, final ViewGroup parent) {
+
         if (convertView == null) {
             LayoutInflater layoutInflater;
             layoutInflater = LayoutInflater.from(this.context);
@@ -211,17 +212,19 @@ public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
                 if (!edtSoLuongChieu.getText().toString().equals("")) {
                     thuoc.setLieuDungChieu(edtSoLuongChieu.getText().toString());
                 }
-                Toast.makeText(context, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(context, "Đã lưu thông tin: " + thuoc.getTenThuoc(), Toast.LENGTH_SHORT).show();
+
+
             }
         });
+
         return convertView;
     }
-
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
-
 
 }
