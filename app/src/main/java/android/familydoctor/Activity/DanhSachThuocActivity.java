@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class DanhSachThuocActivity extends AppCompatActivity{
+public class DanhSachThuocActivity extends AppCompatActivity {
 
     ExpandableListView elvDanhSachThuoc;
     List<String> listTenThuoc;
@@ -89,22 +89,10 @@ public class DanhSachThuocActivity extends AppCompatActivity{
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                locHeader(newText);
+                
                 return false;
             }
         });
         return super.onCreateOptionsMenu(menu);
     }
-
-    public void locHeader(String text) {
-        List<String> saochepTenHeader = new ArrayList<>();
-        for (int i = 0; i < listTenThuoc.size(); i++) {
-            if (listTenThuoc.get(i).contains(text)) {
-                saochepTenHeader.add(listTenThuoc.get(i));
-                adapterDanhSachThuoc = new AdapterDanhSachThuoc(DanhSachThuocActivity.this, saochepTenHeader, listThongTinThuoc);
-                elvDanhSachThuoc.setAdapter(adapterDanhSachThuoc);
-            }
-        }
-    }
-
 }

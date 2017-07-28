@@ -22,8 +22,12 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.concurrent.TimeUnit;
 public class LoginPhonee extends AppCompatActivity implements
@@ -234,25 +238,6 @@ public class LoginPhonee extends AppCompatActivity implements
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             updateUI(STATE_SIGNIN_SUCCESS, user);
-
-            //Check tài khoản
-            String sdt = mPhoneNumberField.getText().toString();
-
-            DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-
-            DatabaseReference checksDoctor = root.child("User_BacSi").child(sdt);
-            if (checksDoctor != null) {
-                Intent intent = new Intent( LoginPhonee.this,MainActivity.class);
-                startActivity(intent);
-            }
-            DatabaseReference checksPanter = root.child("User_BenhNhan").child(sdt);
-            if (checksPanter != null) {
-                Intent intent = new Intent( LoginPhonee.this,MainActivity.class);
-                startActivity(intent);
-            }
-            Intent intent = new Intent( LoginPhonee.this,LuaChonLoaiTaiKhoanActivity.class);
-            startActivity(intent);
-
         } else {
             updateUI(STATE_INITIALIZED);
         }
@@ -297,6 +282,10 @@ public class LoginPhonee extends AppCompatActivity implements
                 break;
             case STATE_SIGNIN_SUCCESS:
                 // Np-op, handled by sign-in check
+
+                Log.i("checkUser", "Đã dăng nhập thành công");
+                kiemTraCSDL(user);
+
                 break;
         }
         if (user == null) {
@@ -327,6 +316,47 @@ public class LoginPhonee extends AppCompatActivity implements
             v.setEnabled(false);
         }
     }
+
+    private void kiemTraCSDL(FirebaseUser user){
+        //Check tài khoản
+        String sdt = user.getPhoneNumber();
+
+        Log.i("checkUser",sdt);
+        DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+        Query checksDoctor = root.child("User_BacSi").equalTo("01279095508");
+
+//        Query checksPanter = root.child("User_BacSi").equalTo("01279095508");
+
+        checksDoctor.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot itemSnapshot: dataSnapshot.getChildren()) {
+
+                    Log.i("checkUser", itemSnapshot.getValue(String.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        if (checksDoctor != null) {
+            Log.i("checkUser", "check");
+            Intent intent = new Intent(LoginPhonee.this, MainActivity.class);
+            startActivity(intent);
+
+//        }else if (checksPanter != null) {
+//            Intent intent = new Intent( LoginPhonee.this,MainActivity.class);
+//            startActivity(intent);
+//        }
+        } else {
+            Intent intent = new Intent(LoginPhonee.this, LuaChonLoaiTaiKhoanActivity.class);
+            startActivity(intent);
+        }
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {

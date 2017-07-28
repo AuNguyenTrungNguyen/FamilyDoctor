@@ -22,9 +22,6 @@ import java.util.List;
  */
 
 public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
-    public void notifyDataSetInvalidated() {
-        super.notifyDataSetInvalidated();
-    }
 
     Context context;
     List<String> listTenThuoc;
@@ -35,8 +32,6 @@ public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
         this.listTenThuoc = listTenThuoc;
         this.listThongTinThuoc = listThongTinThuoc;
     }
-
-
 
     @Override
     public int getGroupCount() {
@@ -88,7 +83,7 @@ public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, final ViewGroup parent) {
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, final ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater layoutInflater;
             layoutInflater = LayoutInflater.from(this.context);
