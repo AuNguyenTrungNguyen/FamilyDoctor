@@ -93,7 +93,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tab3_danhasch_bs_bn, container, false);
         database = FirebaseDatabase.getInstance().getReference();
-        testPusuDULieu();
+        //testPusuDULieu();
         edtInput = (EditText) rootView.findViewById(R.id.edtSDT);
         btnSearch = (ImageButton) rootView.findViewById(R.id.btnSearchAddress);
         btnSearch.setOnClickListener(this);
