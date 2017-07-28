@@ -28,9 +28,6 @@
         </activity>
         <activity android:name=".LoginPhonee" />
         <activity
-            android:name=".Activity.Them_HoSoBenhAn"
-            android:parentActivityName=".Sign_in" />
-        <activity
             android:name=".Activity.ThongTinUngDungActivity"
             android:parentActivityName=".Sign_in" />
         <activity

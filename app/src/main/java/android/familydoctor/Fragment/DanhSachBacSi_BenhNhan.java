@@ -1,56 +1,6 @@
 package android.familydoctor.Fragment;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.familydoctor.Activity.XemTTBacSi_Act;
-import android.familydoctor.Class.BacSi;
-import android.familydoctor.R;
-import android.familydoctor.service.GPSTracker;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.location.Location;
-import android.location.LocationManager;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CircleOptions;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.ArrayList;
-
-import static android.content.Context.LOCATION_SERVICE;
-
+/*
 public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickListener {
     LocationManager locationManager;
     MapView mMapView;
@@ -81,12 +31,12 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
         this.latitudeGPS = latitudeGPS;
     }
 
-    /*GoogleMap.OnMyLocationChangeListener listener =new GoogleMap.OnMyLocationChangeListener() {
+    *//*GoogleMap.OnMyLocationChangeListener listener =new GoogleMap.OnMyLocationChangeListener() {
             @Override
             public void onMyLocationChange(Location location) {
                 moveCameraMyLoc(location.getLatitude(),location.getLongitude(),18);
             }
-        };*/
+        };*//*
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -102,11 +52,11 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
         mMapView.onResume();
         loadDuLieuFirebase();
 
-       /* try {
+       *//* try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }*//*
 
         locationManager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
         gpsTracker = new GPSTracker(getContext());
@@ -462,4 +412,4 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
     }
 
 
-}
+}*/

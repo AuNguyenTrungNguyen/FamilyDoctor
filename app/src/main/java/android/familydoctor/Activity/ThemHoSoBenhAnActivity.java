@@ -57,6 +57,18 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
         addEvents();
     }
 
+    private void taoBenhNhanTrenFirebase() {
+
+        for (int i = 1; i < 10; i++) {
+            String soDienThoaiBenhNhan = String.valueOf(i * 11111111);
+            String namSinhBenhNhan = String.valueOf(1990 + i);
+            String hoTenBenhNhan = "Bệnh nhân: " + i;
+            //emailBenhNhan = diaChiBenhNhan = uriHinhAnhBenhNhan = xBenhNhan = yBenhNhan= "";
+            BenhNhan benhNhan = new BenhNhan(soDienThoaiBenhNhan, namSinhBenhNhan, hoTenBenhNhan, "", "", "", 1, 1);
+            databaseReference.child("BenhNhan").child(soDienThoaiBenhNhan).setValue(benhNhan);
+        }
+    }
+
     private void addEvents() {
         btnKiemTra.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,6 +150,13 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intentDanhSachThuoc = new Intent(ThemHoSoBenhAnActivity.this, DanhSachThuocActivity.class);
                 startActivityForResult(intentDanhSachThuoc, REQUEST_CODE);
+            }
+        });
+
+        btnHoanThanhHoSoBenhAn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ThemHoSoBenhAnActivity.this, "Put HSBA chỗ này nè", Toast.LENGTH_SHORT).show();
             }
         });
     }
