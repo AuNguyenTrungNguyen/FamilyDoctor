@@ -10,15 +10,19 @@
         android:orientation="vertical">
 
         <ImageView
+            android:layout_gravity="center_horizontal"
             android:id="@+id/Ava"
             android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_height="100dp"
+            android:background="@drawable/add_picture"/>
 
         <TextView
-            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_margin="5dp"
-            android:hint="Chọn ảnh đại diện :"
+            android:hint="Chọn ảnh đại diện"
             android:textStyle="bold" />
 
         <TextView
@@ -93,12 +97,16 @@
         <ImageView
             android:id="@+id/ImgXacThuc"
             android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_height="100dp"
+            android:background="@drawable/add_picture"/>
         <Button
+            android:layout_marginTop="10dp"
             android:id="@+id/SubmitD"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="gởi thông tin"
+            android:background="#0079bf"
+            android:textColor="@color/white"
+            android:text="Đăng ký thông tin"
             />
 
     </LinearLayout>
