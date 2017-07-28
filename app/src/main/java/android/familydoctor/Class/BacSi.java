@@ -3,7 +3,6 @@ public class BacSi {
     private String hoTenBacSi;
     private String soDienThoaiBacSi;
     private String namSinhBacSi;
-    private String emailBacSi;
     private String chuyenMonBacSi;
     private String diaChiBacSi;
     private String uriHinhAnhBacSi;
@@ -14,25 +13,44 @@ public class BacSi {
     public BacSi() {
     }
 
-    public BacSi(String hoTenBacSi, String namSinhBacSi, String soDienThoaiBacSi, String diaChiBacSi , double x , double y ) {
+    public BacSi(String hoTenBacSi, String soDienThoaiBacSi, String namSinhBacSi, String chuyenMonBacSi, String diaChiBacSi, double xBacSi, double yBacSi) {
         this.hoTenBacSi = hoTenBacSi;
         this.soDienThoaiBacSi = soDienThoaiBacSi;
         this.namSinhBacSi = namSinhBacSi;
-        this.emailBacSi = emailBacSi;
+        this.chuyenMonBacSi = chuyenMonBacSi;
         this.diaChiBacSi = diaChiBacSi;
+        this.xBacSi = xBacSi;
+        this.yBacSi = yBacSi;
     }
 
-    public BacSi(String hoTenBacSi, String soDienThoaiBacSi, String namSinhBacSi, String emailBacSi, String chuyenMonBacSi, String diaChiBacSi, String uriHinhAnhBacSi, String uriVanBangBacSi, double xBacSi, double yBacSi) {
+    public BacSi(String hoTenBacSi
+            , String soDienThoaiBacSi,
+                 String namSinhBacSi,
+                 String chuyenMonBacSi,
+                 String diaChiBacSi,
+                 String uriHinhAnhBacSi,
+                 String uriVanBangBacSi,
+                 double xBacSi, double
+                         yBacSi)
+
+    {
         this.hoTenBacSi = hoTenBacSi;
         this.soDienThoaiBacSi = soDienThoaiBacSi;
         this.namSinhBacSi = namSinhBacSi;
-        this.emailBacSi = emailBacSi;
         this.chuyenMonBacSi = chuyenMonBacSi;
         this.diaChiBacSi = diaChiBacSi;
         this.uriHinhAnhBacSi = uriHinhAnhBacSi;
         this.uriVanBangBacSi = uriVanBangBacSi;
         this.xBacSi = xBacSi;
         this.yBacSi = yBacSi;
+    }
+
+    public String getHoTenBacSi() {
+        return hoTenBacSi;
+    }
+
+    public void setHoTenBacSi(String hoTenBacSi) {
+        this.hoTenBacSi = hoTenBacSi;
     }
 
     public String getSoDienThoaiBacSi() {
@@ -51,28 +69,12 @@ public class BacSi {
         this.namSinhBacSi = namSinhBacSi;
     }
 
-    public String getHoTenBacSi() {
-        return hoTenBacSi;
-    }
-
-    public void setHoTenBacSi(String hoTenBacSi) {
-        this.hoTenBacSi = hoTenBacSi;
-    }
-
     public String getChuyenMonBacSi() {
         return chuyenMonBacSi;
     }
 
     public void setChuyenMonBacSi(String chuyenMonBacSi) {
         this.chuyenMonBacSi = chuyenMonBacSi;
-    }
-
-    public String getEmailBacSi() {
-        return emailBacSi;
-    }
-
-    public void setEmailBacSi(String emailBacSi) {
-        this.emailBacSi = emailBacSi;
     }
 
     public String getDiaChiBacSi() {

@@ -48,23 +48,20 @@ public class XemTTBacSi_Act extends AppCompatActivity {
         Intent it = getIntent();
         String name = it.getStringExtra("name");
         final String sdt = it.getStringExtra("sdt");
-        String email = it.getStringExtra("email");
         String chuyenmon = it.getStringExtra("chuyenmon");
         String diachi = it.getStringExtra("diachi");
         String url1 = it.getStringExtra("url1");
         String url2 = it.getStringExtra("url2");
         String show =
-                name + "\n" + sdt + "\n" + email + "\n" + chuyenmon + "\n" + diachi + "\n" + url1 + "\n" + url2;
+                name + "\n" + sdt  + "\n" + chuyenmon + "\n" + diachi + "\n" + url1 + "\n" + url2;
         Log.d("THONGTIN", show);
         txtTen = (TextView) findViewById(R.id.txtTen);
         txtChuyenMon = (TextView) findViewById(R.id.txtChuyenMon);
         txtDiaChi = (TextView) findViewById(R.id.txtDiaChi);
-        txtEmail = (TextView) findViewById(R.id.txtEmail);
         txtSDT = (TextView) findViewById(R.id.txtSDT);
         txtTen.setText(name);
         txtChuyenMon.setText(chuyenmon);
         txtDiaChi.setText(diachi);
-        txtEmail.setText(email);
         txtSDT.setText(sdt);
         findViewById(R.id.fabCall).setOnClickListener(new View.OnClickListener() {
             @Override

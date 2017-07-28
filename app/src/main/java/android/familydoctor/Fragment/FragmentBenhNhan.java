@@ -87,18 +87,7 @@ public class FragmentBenhNhan extends Fragment {
         if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
         }
-        LocationManager manager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
-        GPSTracker gpsTracker = new GPSTracker(getContext());
-        if (gpsTracker != null && manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            Location location = gpsTracker.getLocation();
 
-            x = location.getLatitude() ;
-            y =location.getLongitude() ;
-        }
-        else
-        {
-            Toast.makeText(getContext(), "Bạn vui lòng bật GPS", Toast.LENGTH_SHORT).show();
-        }
 
 
         HoTen = (EditText) view.findViewById(R.id.HoTenE);
@@ -160,6 +149,14 @@ public class FragmentBenhNhan extends Fragment {
                 String namSinh = NamSinh.getSelectedItem().toString();
                 String sdt = SDT.getText().toString();
                 String diaChi = DiaChi.getText().toString();
+                LocationManager manager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
+                GPSTracker gpsTracker = new GPSTracker(getContext());
+                if (gpsTracker != null && manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                    Location location = gpsTracker.getLocation();
+
+                    x = location.getLatitude() ;
+                    y =location.getLongitude() ;
+                }
 
                 Us = new BenhNhan(hoTen, namSinh, sdt, diaChi,x,y);
 

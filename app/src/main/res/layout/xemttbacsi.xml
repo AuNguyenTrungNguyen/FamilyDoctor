@@ -117,13 +117,6 @@
                             android:textSize="20sp" />
 
                         <TextView
-                            android:id="@+id/txtEmail"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="huynhquoc@gmail.com"
-                            android:textSize="20sp" />
-
-                        <TextView
                             android:id="@+id/txtSDT"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
