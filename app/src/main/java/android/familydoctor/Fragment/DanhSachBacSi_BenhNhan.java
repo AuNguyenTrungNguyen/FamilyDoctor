@@ -273,7 +273,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
 
 
     private void loadDuLieuFirebase() {
-        database.child("BacSi").addChildEventListener(new ChildEventListener() {
+        database.child("User_BacSi").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 BacSi doctor = dataSnapshot.getValue(BacSi.class);

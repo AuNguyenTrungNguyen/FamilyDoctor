@@ -38,6 +38,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:inputType="textPersonName"
                 android:id="@+id/HoTenD"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -51,6 +52,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:inputType="phone"
                 android:id="@+id/SDTD"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -85,6 +87,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:inputType="text"
                 android:id="@+id/DiaChiD"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -97,6 +100,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:inputType="text"
                 android:id="@+id/edtChuyenMon"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"

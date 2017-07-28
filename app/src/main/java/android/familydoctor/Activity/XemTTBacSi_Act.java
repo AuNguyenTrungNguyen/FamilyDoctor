@@ -15,9 +15,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by buimi on 6/19/2017.
@@ -26,10 +29,9 @@ import com.google.firebase.database.DatabaseReference;
 public class XemTTBacSi_Act extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private BacSi bacSi;
-    ImageView imgAnhdaidien, imgVanBang;
     FloatingActionButton fabCall;
     TextView txtTen, txtChuyenMon, txtDiaChi, txtEmail, txtSDT;
-
+    ImageView imganhdaidien,imgvanbang;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,14 +57,40 @@ public class XemTTBacSi_Act extends AppCompatActivity {
         String show =
                 name + "\n" + sdt  + "\n" + chuyenmon + "\n" + diachi + "\n" + url1 + "\n" + url2;
         Log.d("THONGTIN", show);
+        imganhdaidien= (ImageView) findViewById(R.id.imgAnhdaidien);
+        imgvanbang= (ImageView) findViewById(R.id.imgVanBang);
         txtTen = (TextView) findViewById(R.id.txtTen);
         txtChuyenMon = (TextView) findViewById(R.id.txtChuyenMon);
         txtDiaChi = (TextView) findViewById(R.id.txtDiaChi);
         txtSDT = (TextView) findViewById(R.id.txtSDT);
-        txtTen.setText(name);
-        txtChuyenMon.setText(chuyenmon);
-        txtDiaChi.setText(diachi);
-        txtSDT.setText(sdt);
+        final ProgressBar progressAnhDaiDien = (ProgressBar) findViewById(R.id.progressAnhdaidien);
+        final ProgressBar progressVanBang = (ProgressBar) findViewById(R.id.progressVanBang);
+        txtTen.setText("Tên:"+name);
+        txtChuyenMon.setText("Chuyên môn:"+chuyenmon);
+        txtDiaChi.setText("Địa chỉ : "+diachi);
+        txtSDT.setText("SDT liên hệ : "+sdt);
+        Picasso.with(this).load(url1).into(imganhdaidien, new Callback() {
+            @Override
+            public void onSuccess() {
+                progressAnhDaiDien.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onError() {
+                imgvanbang.setImageResource(R.drawable.no_picture_available);
+            }
+        });
+        Picasso.with(this).load(url2).into(imgvanbang, new Callback() {
+            @Override
+            public void onSuccess() {
+                progressVanBang.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onError() {
+                imgvanbang.setImageResource(R.drawable.no_picture_available);
+            }
+        });
         findViewById(R.id.fabCall).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
