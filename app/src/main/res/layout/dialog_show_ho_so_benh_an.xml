@@ -1,20 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout android:layout_height="match_parent"
+    android:layout_margin="10dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
     <TextView
-        android:id="@+id/txtThongTinHSBA"
+        android:id="@+id/txtNameShow"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:text="Tên bệnh nhân"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtTenBenhShow"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:text="Tên bệnh"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txtNgayKhamShow"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:text="Ngày khám:"
+        android:textSize="16sp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/txtNgayTaiKhamShow"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:text="Ngày tái khám:"
+        android:textSize="16sp"
+        android:textStyle="italic" />
+
     <ExpandableListView
+        android:layout_margin="5dp"
         android:listSelector="#ffffff"
         android:choiceMode="singleChoice"
         android:dividerHeight="1dp"
         android:divider="@color/colorPrimary"
-        android:id="@+id/elvDanhSachThuoc"
+        android:id="@+id/elvDanhSachThuocShow"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10">
+        android:layout_height="match_parent">
     </ExpandableListView>
+
 </LinearLayout>

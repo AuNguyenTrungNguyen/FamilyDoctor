@@ -7,7 +7,7 @@ package android.familydoctor.Fragment;
 import android.app.Dialog;
 import android.content.Intent;
 import android.familydoctor.Activity.ThemHoSoBenhAnActivity;
-import android.familydoctor.Adapter.AdapterDanhSachThuoc;
+import android.familydoctor.Adapter.AdapterThongTinHoSoBenhAn;
 import android.familydoctor.Adapter.ItemHoSoBenh_Adapter;
 import android.familydoctor.Class.HoSoBenh;
 import android.familydoctor.Class.Thuoc;
@@ -18,7 +18,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,14 +40,18 @@ public class FragmentHoSoBenhAn extends Fragment {
     DatabaseReference databaseBS = FirebaseDatabase.getInstance().getReference("BacSi");
     DatabaseReference databaseBN = FirebaseDatabase.getInstance().getReference("BenhNhan");
     FloatingActionButton fabThemHoSoBenhAn;
+
     RecyclerView recyclerView;
     ItemHoSoBenh_Adapter adapter;
     LinearLayoutManager layoutManager;
-    List<HoSoBenh> list = new ArrayList<HoSoBenh>();
-    ExpandableListView elvDanhSachThuoc;
+    List<HoSoBenh> list = new ArrayList<>();
+
+    ExpandableListView elvDanhSachThuocShow;
     List<String> listTenThuoc;
     HashMap<String, Thuoc> listThongTinThuoc;
-    AdapterDanhSachThuoc adapterDanhSachThuoc;
+
+    AdapterThongTinHoSoBenhAn adapterThongTinHoSoBenhAn;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_ho_so_benh_an, container, false);
@@ -62,46 +65,44 @@ public class FragmentHoSoBenhAn extends Fragment {
         recyclerView.setAdapter(adapter);
 
         loadDuLieu();
+
         adapter.setOnItemClickListener(new ItemHoSoBenh_Adapter.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int position) {
                 //set up dialog
                 Dialog dialog = new Dialog(getContext());
-                dialog.setTitle("THÔNG TIN HỒ SƠ BỆNH ÁN");
+                dialog.setTitle("THÔNG TIN HỒ SƠ");
                 dialog.setContentView(R.layout.dialog_show_ho_so_benh_an);
 
                 //ánh xạ - khai báo
-                TextView tv = (TextView) dialog.findViewById(R.id.txtThongTinHSBA);
+                TextView txtNameShow = (TextView) dialog.findViewById(R.id.txtNameShow);
+                TextView txtTenBenhShow = (TextView) dialog.findViewById(R.id.txtTenBenhShow);
+                TextView txtNgayKhamShow = (TextView) dialog.findViewById(R.id.txtNgayKhamShow);
+                TextView txtngayTaiKhamShow = (TextView) dialog.findViewById(R.id.txtNgayTaiKhamShow);
                 HoSoBenh hsb = list.get(position);
-                List<Thuoc> listTHuocFB =hsb.getThuocDung();
+                List<Thuoc> listThuocTrongHSBA = hsb.getThuocDung();
 
-                elvDanhSachThuoc = (ExpandableListView) dialog.findViewById(R.id.elvDanhSachThuoc);
+                elvDanhSachThuocShow = (ExpandableListView) dialog.findViewById(R.id.elvDanhSachThuocShow);
                 listTenThuoc = new ArrayList<>();//list header
                 listThongTinThuoc = new HashMap<>();//child list
 
                 //for gán list header
-                for (int i = 0; i <listTHuocFB.size() ; i++) {
-                    listTenThuoc.add(listTHuocFB.get(i).getTenThuoc());
-                    listThongTinThuoc.put(listTHuocFB.get(i).getTenThuoc(),listTHuocFB.get(i));
+                for (int i = 0; i <listThuocTrongHSBA.size() ; i++) {
+                    listTenThuoc.add(listThuocTrongHSBA.get(i).getTenThuoc());
+                    listThongTinThuoc.put(listThuocTrongHSBA.get(i).getTenThuoc(),listThuocTrongHSBA.get(i));
                 }
                 //event
-                adapterDanhSachThuoc = new AdapterDanhSachThuoc(getContext(), listTenThuoc, listThongTinThuoc);
-                elvDanhSachThuoc.setAdapter(adapterDanhSachThuoc);
+                adapterThongTinHoSoBenhAn = new AdapterThongTinHoSoBenhAn(getContext(), listTenThuoc, listThongTinThuoc);
+                elvDanhSachThuocShow.setAdapter(adapterThongTinHoSoBenhAn);
+                elvDanhSachThuocShow.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
 
-                elvDanhSachThuoc.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
-                String thongtin_HSBA =
-                        "Họ và tên: "+hsb.getIdBacSi()
-                        +"\n"
-                        +"Bệnh cần điều trị : "+hsb.getTenBenh()
-                        +"\n"
-                        +"Ngày bắt đầu khám : "+hsb.getNgayKham()
-                        +"\n"
-                        +"Ngày tái khám : "+hsb.getNgayTaiKham()
-                        +"\n"
-                        ;
+                txtNameShow.setText("Họ và tên: " + hsb.getIdBacSi());
+                txtTenBenhShow.setText("Bệnh cần điều trị : "+hsb.getTenBenh());
+                txtNgayKhamShow.setText("Ngày khám : "+hsb.getNgayKham());
+                txtngayTaiKhamShow.setText("Ngày tái khám : "+hsb.getNgayTaiKham());
 
-                tv.setText(thongtin_HSBA);
                 dialog.show();
+
             }
         });
 
@@ -129,7 +130,7 @@ public class FragmentHoSoBenhAn extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 HoSoBenh hsb = dataSnapshot.getValue(HoSoBenh.class);
                 adapter.addItem(list.size(), hsb);
-                Log.d("FireBaseQuoc", hsb.getTenBenh() + "  " + hsb.getNgayKham() + "   " + hsb.getNgayTaiKham());
+                //Log.d("FireBaseQuoc", hsb.getTenBenh() + "  " + hsb.getNgayKham() + "   " + hsb.getNgayTaiKham());
             }
 
             @Override
