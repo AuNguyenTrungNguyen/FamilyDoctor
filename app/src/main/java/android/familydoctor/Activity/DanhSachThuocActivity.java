@@ -90,7 +90,15 @@ public class DanhSachThuocActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                return false;
+                List<String> listSearch = new ArrayList<>();
+                for (int i = 0; i < listTenThuoc.size(); i++) {
+                    if (listTenThuoc.get(i).toLowerCase().contains(newText.toLowerCase())) {
+                        listSearch.add(listTenThuoc.get(i));
+                    }
+                }
+                adapterDanhSachThuoc = new AdapterDanhSachThuoc(DanhSachThuocActivity.this, listSearch, listThongTinThuoc);
+                elvDanhSachThuoc.setAdapter(adapterDanhSachThuoc);
+                return true;
             }
         });
         return super.onCreateOptionsMenu(menu);
