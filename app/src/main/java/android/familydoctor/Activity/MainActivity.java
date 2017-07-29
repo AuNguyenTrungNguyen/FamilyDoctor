@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth mAuth ;
     Bundle bundle;
     String id;
+    static int dinhDanh = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +49,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        String sdt = intent.getStringExtra("sdt");
-        int dinhDanh = intent.getIntExtra("dinhDanh",1);
-        Log.i("intent", dinhDanh+"");
+        if (bundle != null){
+            String sdt = intent.getStringExtra("sdt");
+            dinhDanh = intent.getIntExtra("dinhDanh",1);
+            Log.i("intent", "bundle != null");
+        }
+
+
 
 
 
