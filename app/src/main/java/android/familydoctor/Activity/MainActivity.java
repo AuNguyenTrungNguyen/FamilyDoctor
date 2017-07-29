@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
             sdt = intent.getStringExtra("sdt");
             dinhDanh = intent.getIntExtra("dinhDanh",1);
-            Log.d("sdt",sdt);
 
         initView();
         initViewPager(dinhDanh);
