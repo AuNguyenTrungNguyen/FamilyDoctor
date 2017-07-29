@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth mAuth ;
     Bundle bundle;
     String id;
-    static int dinhDanh = 0;
+    static int dinhDanh = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

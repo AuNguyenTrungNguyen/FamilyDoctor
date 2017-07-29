@@ -23,7 +23,13 @@ public class HoSoBenh {
 
     }
 
-    public HoSoBenh(String idBacSi, String idBenhNhan, String idHoSo, String tenBenh, String ngayKham, String ngayTaiKham, List<Thuoc> thuocDung) {
+    public HoSoBenh(String idBacSi
+            , String idBenhNhan
+            , String idHoSo
+            , String ngayKham
+            , String ngayTaiKham
+            , String tenBenh
+            , List<Thuoc> thuocDung) {
         this.idBacSi = idBacSi;
         this.idBenhNhan = idBenhNhan;
         this.idHoSo = idHoSo;

@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.familydoctor.Activity.LuaChonLoaiTaiKhoanActivity;
-import android.familydoctor.Activity.MainActivity;
 import android.familydoctor.Class.BacSi;
 import android.familydoctor.R;
 import android.familydoctor.service.GPSTracker;
@@ -189,8 +187,8 @@ public class FragmentBacSi extends Fragment {
                 Log.d("hbqhbq",x+"     "+y);
 
                 //Khai báo Up Hình ảnh
-                StorageReference storageReference = firebaseStorage.getReferenceFromUrl("gs://familydoctor-56b96.appspot.com/");
-                StorageReference reference = storageReference.child("Users").child(key+"jpg");
+                StorageReference storageReference = firebaseStorage.getReferenceFromUrl("gs://familydoctor-56b96.appspot.com");
+                StorageReference reference = storageReference.child(key+"jpg");
 
                 // stream avata
                 Bitmap bitmap = ((BitmapDrawable) imgAva.getDrawable()).getBitmap();
@@ -211,6 +209,7 @@ public class FragmentBacSi extends Fragment {
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
+                        progressDialog.hide();
                         Toast.makeText(getActivity(),"lổi không đăng kí thông tin được",Toast.LENGTH_LONG).show();
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -223,15 +222,16 @@ public class FragmentBacSi extends Fragment {
                             mDatabase.child("User_BacSi").child(Us.getSoDienThoaiBacSi()).setValue(Us);
                             progressDialog.hide();
                             Toast.makeText(getContext(), "Đã đăng ký xong", Toast.LENGTH_SHORT).show();
-                            LuaChonLoaiTaiKhoanActivity a = new LuaChonLoaiTaiKhoanActivity();
-                            a.finish();
-                            startActivity(new Intent(getContext(), MainActivity.class));
+                            /*LuaChonLoaiTaiKhoanActivity a = new LuaChonLoaiTaiKhoanActivity();
+                            a.finish();*/
+                           // startActivity(new Intent(getContext(), MainActivity.class));
                         }
                     }
                 });
                 uploadTaskXT.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
+                        progressDialog.hide();
                         Toast.makeText(getActivity(),"lổi không đăng kí thông tin được",Toast.LENGTH_LONG).show();
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -244,9 +244,8 @@ public class FragmentBacSi extends Fragment {
                             mDatabase.child("User_BacSi").child(Us.getSoDienThoaiBacSi()).setValue(Us);
                             progressDialog.hide();
                             Toast.makeText(getContext(), "Đã đăng ký xong", Toast.LENGTH_SHORT).show();
-                            LuaChonLoaiTaiKhoanActivity a = new LuaChonLoaiTaiKhoanActivity();
-                            a.finish();
-                            startActivity(new Intent(getContext(), MainActivity.class));
+
+                            //startActivity(new Intent(getContext(), MainActivity.class));
                         }
                     }
                 });
