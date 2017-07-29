@@ -164,13 +164,34 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Calendar calendar = Calendar.getInstance();
                 int mYear = calendar.get(Calendar.YEAR);
-                int mMonth = calendar.get(Calendar.MONTH);
+                final int mMonth = calendar.get(Calendar.MONTH);
                 int mDay = calendar.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog date = new DatePickerDialog(ThemHoSoBenhAnActivity.this, new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                txtChonNgayTaiKham.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+                                String dayString = String.valueOf(dayOfMonth);
+                                String monthString = String.valueOf((month+1));
+
+                                if(dayOfMonth < 10){
+                                    dayString = "0" + dayOfMonth;
+                                }
+
+                                if((month+1) < 10){
+                                    monthString = "0" + (month+1);
+                                }
+                                String ngayTaiKham = year + "" + monthString + "" + dayString;
+
+                                SimpleDateFormat sdfDate = new SimpleDateFormat("yyyyMMdd");
+                                Date now = new Date();
+                                String ngayHienTai = sdfDate.format(now);
+
+                                if(Integer.parseInt(ngayTaiKham) > Integer.parseInt(ngayHienTai)){
+                                    txtChonNgayTaiKham.setText(dayString + "-" + monthString + "-" + year);
+                                }else{
+                                    Toast.makeText(ThemHoSoBenhAnActivity.this, "Ngày tái khám không hợp lệ.", Toast.LENGTH_SHORT).show();
+                                }
+
                             }
                         },  mYear, mMonth, mDay);
                 date.setTitle("Chọn ngày tái khám");
@@ -212,7 +233,6 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
                     databaseReference.child("HoSoBenhAn").child(idHoSoBenh).setValue(hoSoBenh);
                     Toast.makeText(ThemHoSoBenhAnActivity.this, "Thêm Hồ sơ bệnh án thành công.", Toast.LENGTH_SHORT).show();
                     finish();
-
                 }else{
                     Toast.makeText(ThemHoSoBenhAnActivity.this, "Thông tin chưa hợp lệ. Xin kiểm tra lại.", Toast.LENGTH_SHORT).show();
                 }
