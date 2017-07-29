@@ -4,27 +4,64 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:src="@drawable/logo" />
+
     <LinearLayout
         android:layout_margin="5dp"
         android:weightSum="1"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/field_phone_number"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:hint="@string/S_D_T"
             android:layout_weight="0.7"
-            android:inputType="phone"/>
+            android:inputType="phone"
+            />
 
         <Button
+
             android:textAllCaps="false"
             android:id="@+id/button_start_verification"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fafafa"
             android:text="@string/But_DK"/>
+
+
+        <EditText
+            android:visibility="gone"
+            android:id="@+id/field_verification_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/M_X_N"
+            android:inputType="number"/>
+        <Button
+            android:visibility="gone"
+            android:layout_marginTop="20dp"
+            android:id="@+id/button_resend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fafafa"
+            android:textAllCaps="false"
+            android:text="Gửi lại mã xác nhận"
+            />
+
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/button_verify_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="@string/But_X_N"
+            android:background="#fafafa"/>
 
     </LinearLayout>
 
@@ -33,29 +70,9 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
 
-        <EditText
-            android:id="@+id/field_verification_code"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:hint="@string/M_X_N"
-            android:layout_weight="0.6"
-            android:inputType="number"/>
 
-        <Button
-            android:id="@+id/button_verify_phone"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.3"
-            android:textAllCaps="false"
-            android:text="@string/But_X_N"/>
 
-        <Button
-            android:background="@drawable/resend_phone"
-            android:layout_marginTop="20dp"
-            android:id="@+id/button_resend"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.1" />
+
 
     </LinearLayout>
 </LinearLayout>

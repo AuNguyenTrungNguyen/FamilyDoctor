@@ -1,16 +1,25 @@
 package android.familydoctor.Activity;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.familydoctor.R;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,8 +35,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 public class LoginPhone extends AppCompatActivity implements
         View.OnClickListener {
@@ -40,6 +51,7 @@ public class LoginPhone extends AppCompatActivity implements
     private static final int STATE_VERIFY_SUCCESS = 4;
     private static final int STATE_SIGNIN_FAILED = 5;
     private static final int STATE_SIGNIN_SUCCESS = 6;
+    private static final int REQUEST_READ_PHONE_STATE = 1;
 
     // [START declare_auth]
     private FirebaseAuth mAuth;
@@ -77,8 +89,30 @@ public class LoginPhone extends AppCompatActivity implements
             onRestoreInstanceState(savedInstanceState);
         }
 
+        turnGPSOn();
+
         mPhoneNumberField = (EditText) findViewById(R.id.field_phone_number);
         mVerificationField = (EditText) findViewById(R.id.field_verification_code);
+
+        // ĐỌc số điện thoại từ trực tiếp từ điện thoại
+        TelephonyManager tm = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
+
+        int permissionCheck = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_PHONE_STATE);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_READ_PHONE_STATE);
+            if (tm != null && permissionCheck == PackageManager.PERMISSION_GRANTED){
+                Log.i("phonemunber", "onCreate: "+tm.getLine1Number());
+                mPhoneNumberField.setText(tm.getLine1Number());
+                Log.i("phonemunber", "Gettext: "+mPhoneNumberField.getText());
+            }
+        }
+        if (tm != null && permissionCheck == PackageManager.PERMISSION_GRANTED){
+            Log.i("phonemunber", "onCreate: "+tm.getLine1Number());
+            mPhoneNumberField.setText(tm.getLine1Number());
+            Log.i("phonemunber", "Gettext: "+mPhoneNumberField.getText());
+        }
+
 
         mStartButton = (Button) findViewById(R.id.button_start_verification);
         mVerifyButton = (Button) findViewById(R.id.button_verify_phone);
@@ -262,13 +296,23 @@ public class LoginPhone extends AppCompatActivity implements
         switch (uiState) {
             case STATE_INITIALIZED:
                 // Initialized state, show only the phone number field and start button
-                enableViews(mStartButton, mPhoneNumberField);
-                disableViews(mVerifyButton, mResendButton, mVerificationField);
+//                enableViews(mStartButton, mPhoneNumberField);
+
+//                disableViews(mVerifyButton, mResendButton, mVerificationField);
+                mResendButton.setVisibility(View.GONE);
+                mVerifyButton.setVisibility(View.GONE);
+                mVerificationField.setVisibility(View.GONE);
+
+                mStartButton.setVisibility(View.VISIBLE);
                 break;
             case STATE_CODE_SENT:
                 // Code sent state, show the verification field, the
-                enableViews(mVerifyButton, mResendButton, mPhoneNumberField, mVerificationField);
-                disableViews(mStartButton);
+//                enableViews(mVerifyButton, mResendButton, mPhoneNumberField, mVerificationField);
+//                disableViews(mStartButton);
+                mVerificationField.setVisibility(View.VISIBLE);
+                mResendButton.setVisibility(View.VISIBLE);
+                mVerifyButton.setVisibility(View.VISIBLE);
+                mStartButton.setVisibility(View.GONE);
                 break;
             case STATE_VERIFY_FAILED:
                 // Verification has failed, show all options
@@ -303,8 +347,8 @@ public class LoginPhone extends AppCompatActivity implements
         } else {
             // Signed in
             enableViews(mPhoneNumberField, mVerificationField);
-            mPhoneNumberField.setText(null);
-            mVerificationField.setText(null);
+//            mPhoneNumberField.setText(null);
+//            mVerificationField.setText(null);
         }
     }
     private boolean validatePhoneNumber() {
@@ -402,7 +446,6 @@ public class LoginPhone extends AppCompatActivity implements
 
                     }
                 }
-
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
@@ -420,6 +463,8 @@ public class LoginPhone extends AppCompatActivity implements
                 startPhoneNumberVerification(mPhoneNumberField.getText().toString());
                 break;
             case R.id.button_verify_phone:
+
+                //
                 String code = mVerificationField.getText().toString();
                 if (TextUtils.isEmpty(code)) {
                     mVerificationField.setError("Cannot be empty.");
@@ -430,6 +475,50 @@ public class LoginPhone extends AppCompatActivity implements
             case R.id.button_resend:
                 resendVerificationCode(mPhoneNumberField.getText().toString(), mResendToken);
                 break;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_READ_PHONE_STATE:
+                if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    //TODO
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    public void turnGPSOn() {
+        LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
+        boolean enabled = service
+                .isProviderEnabled(LocationManager.GPS_PROVIDER);
+        if (!enabled) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                    this);
+            alertDialogBuilder
+                    .setMessage("Mở GPS của bạn!")
+                    .setCancelable(false)
+                    .setPositiveButton("Mở",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int id) {
+                                    Intent callGPSSettingIntent = new Intent(
+                                            android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                    startActivity(callGPSSettingIntent);
+                                }
+                            });
+            alertDialogBuilder.setNegativeButton("Hủy",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert = alertDialogBuilder.create();
+            alert.show();
         }
     }
 }
