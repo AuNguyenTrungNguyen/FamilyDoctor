@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.familydoctor.Activity.LoginPhonee;
-import android.familydoctor.Activity.LuaChonLoaiTaiKhoanActivity;
 import android.familydoctor.Activity.MainActivity;
 import android.familydoctor.Class.BacSi;
 import android.familydoctor.R;
@@ -95,7 +94,6 @@ public class FragmentBacSi extends Fragment {
 
         HoTen = (EditText) view.findViewById(R.id.HoTenD);
         NamSinh = (Spinner) view.findViewById(R.id.spNamSinhBacSi);
-        SDT = (EditText) view.findViewById( R.id.SDTD);
         DiaChi = (EditText) view.findViewById(R.id.DiaChiD);
         imgAva  = (ImageView) view.findViewById(R.id.Ava);
         imgXT  = (ImageView) view.findViewById(R.id.ImgXacThuc);

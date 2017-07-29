@@ -203,7 +203,7 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
                     String idHoSoBenh = getDateTimeSystem();
 
                     hoSoBenh.setIdHoSo(idHoSoBenh);
-                    hoSoBenh.setIdBacSi(MainActivity.sdt);
+                    hoSoBenh.setIdBacSi(LoginPhonee.sdt_key);
                     hoSoBenh.setIdBenhNhan(soDienThoai[0]);
                     hoSoBenh.setTenBenh(edtTenBenhTrongHoSoBenhAn.getText().toString());
                     hoSoBenh.setNgayKham(sdf.format(date));
