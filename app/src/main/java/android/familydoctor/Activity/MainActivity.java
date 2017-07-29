@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.familydoctor.Adapter.ViewPagerAdapter;
-import android.familydoctor.Fragment.DanhSachBacSi_BenhNhan;
 import android.familydoctor.Fragment.FragmentCaiDat;
 import android.familydoctor.Fragment.FragmentHoSoBenhAn;
 import android.familydoctor.Fragment.TinTucSucKhoe;
@@ -26,8 +25,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,10 +34,10 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
 
-    FirebaseAuth mAuth ;
-    Bundle bundle;
+    public static String sdt = "";
+
     String id;
-    static int dinhDanh = 0;
+    static int dinhDanh = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,22 +46,21 @@ public class MainActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        if (bundle != null){
-            String sdt = intent.getStringExtra("sdt");
+            sdt = intent.getStringExtra("sdt");
             dinhDanh = intent.getIntExtra("dinhDanh",1);
-            Log.i("intent1", "bundle != null");
-        }
-
-
-
-
-
+            Log.d("sdt",sdt);
 
         initView();
         initViewPager(dinhDanh);
-        layduLieuDangNhap();
         checkPermission();
 //        openView();
+
+        //gọi lớp cần gởi dử liệu
+//        FragmentHoSoBenhAn main = new FragmentHoSoBenhAn() ;
+//        Bundle bundle = new Bundle() ;
+//        bundle.putString("sdt",sdt);
+//        main.setArguments(bundle);
+
 
     }
 
@@ -101,7 +97,8 @@ public class MainActivity extends AppCompatActivity {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new TinTucSucKhoe());
         fragments.add(new FragmentHoSoBenhAn());
-        fragments.add(new DanhSachBacSi_BenhNhan());
+        fragments.add(new FragmentHoSoBenhAn());
+       // fragments.add(new DanhSachBacSi_BenhNhan());
         fragments.add(new FragmentCaiDat());
 
         mViewPager.setOffscreenPageLimit(3);
@@ -195,25 +192,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(MainActivity.this, "Không tìm thấy Gmail", Toast.LENGTH_SHORT).show();
         }
-    }
-
-
-    public void layduLieuDangNhap() {
-        bundle = this.getIntent().getExtras();
-//        Uri uri=getIntent().getData();
-       /* id = bundle.getString("id");
-        String ten = bundle.getString("ten");
-        String email = bundle.getString("email");
-        String sdt = bundle.getString("sdt");
-*/
-
-      /*  ImageView imageView = (ImageView) headerView.findViewById(R.id.imageView_nav_header);
-        TextView tv_ten= (TextView) headerView.findViewById(R.id.tv_nav_user_name);
-        TextView tv_email= (TextView) headerView.findViewById(R.id.tv_nav_email);*/
-
-     /*   tv_ten.setText(ten);
-        tv_email.setText(email);*/
-//        imageView.setImageURI(uri);
     }
 
     private void checkPermission() {

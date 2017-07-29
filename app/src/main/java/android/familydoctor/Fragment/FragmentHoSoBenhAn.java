@@ -6,9 +6,11 @@ package android.familydoctor.Fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.familydoctor.Activity.MainActivity;
 import android.familydoctor.Activity.ThemHoSoBenhAnActivity;
 import android.familydoctor.Adapter.AdapterThongTinHoSoBenhAn;
 import android.familydoctor.Adapter.ItemHoSoBenh_Adapter;
+import android.familydoctor.Class.BenhNhan;
 import android.familydoctor.Class.HoSoBenh;
 import android.familydoctor.Class.Thuoc;
 import android.familydoctor.R;
@@ -18,6 +20,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,20 +41,22 @@ import java.util.List;
 
 public class FragmentHoSoBenhAn extends Fragment {
     DatabaseReference databaseHSBA;
-    DatabaseReference databaseBS = FirebaseDatabase.getInstance().getReference("BacSi");
-    DatabaseReference databaseBN = FirebaseDatabase.getInstance().getReference("BenhNhan");
+    DatabaseReference databaseBS = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference databaseBN = FirebaseDatabase.getInstance().getReference();
     FloatingActionButton fabThemHoSoBenhAn;
 
     RecyclerView recyclerView;
     ItemHoSoBenh_Adapter adapter;
     LinearLayoutManager layoutManager;
     List<HoSoBenh> list = new ArrayList<HoSoBenh>();
-
+    List<BenhNhan> listBn =new ArrayList<BenhNhan>();
     ExpandableListView elvDanhSachThuocShow;
     List<String> listTenThuoc;
     HashMap<String, Thuoc> listThongTinThuoc;
 
     AdapterThongTinHoSoBenhAn adapterThongTinHoSoBenhAn;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -65,6 +71,11 @@ public class FragmentHoSoBenhAn extends Fragment {
         recyclerView.setAdapter(adapter);
 
         loadDuLieu();
+        // nhận dử liệu từ Main
+        //Bundle main = getArguments();
+        //String sdt = main.getString("sdt","null");
+
+        Log.i("log", MainActivity.sdt);
 
         adapter.setOnItemClickListener(new ItemHoSoBenh_Adapter.OnItemClickListener() {
             @Override
@@ -97,8 +108,13 @@ public class FragmentHoSoBenhAn extends Fragment {
                 adapterThongTinHoSoBenhAn = new AdapterThongTinHoSoBenhAn(getContext(), listTenThuoc, listThongTinThuoc);
                 elvDanhSachThuocShow.setAdapter(adapterThongTinHoSoBenhAn);
                 elvDanhSachThuocShow.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
-
-                txtNameShow.setText("Họ và tên: " + hsb.getIdBacSi());
+                for (int i = 0; i <listBn.size() ; i++) {
+                    if(TextUtils.equals(listBn.get(i).getSoDienThoaiBenhNhan(),MainActivity.sdt))
+                    {
+                        txtNameShow.setText("Họ và tên: " + listBn.get(i).getHoTenBenhNhan());
+                        break;
+                    }
+                }
                 txtTenBenhShow.setText("Bệnh cần điều trị : "+hsb.getTenBenh());
                 txtNgayKhamShow.setText("Ngày khám : "+hsb.getNgayKham());
                 txtngayTaiKhamShow.setText("Ngày tái khám : "+hsb.getNgayTaiKham());
@@ -126,6 +142,33 @@ public class FragmentHoSoBenhAn extends Fragment {
     }
 
     public void loadDuLieu() {
+        databaseBS.child("BenhNhan").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                BenhNhan bn = dataSnapshot.getValue(BenhNhan.class);
+                listBn.add(bn);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         databaseHSBA.child("HoSoBenhAn").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {

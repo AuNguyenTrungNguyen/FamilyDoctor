@@ -45,8 +45,8 @@ public class ItemHoSoBenh_Adapter extends RecyclerView.Adapter<ItemHoSoBenh_Adap
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
 
-        holder.txtTenBenh.setText("Bệnh : "+listData.get(position).getTenBenh());
         holder.txtName.setText("Họ tên : "+listData.get(position).getIdBacSi());
+        holder.txtTenBenh.setText("Bệnh : "+listData.get(position).getTenBenh());
         holder.txtNgayKham.setText("Ngày khám : "+listData.get(position).getNgayKham());
         holder.txtNgayTaiKham.setText("Ngày tái khám : "+listData.get(position).getNgayTaiKham());
     }
