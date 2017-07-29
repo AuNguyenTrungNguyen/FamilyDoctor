@@ -116,7 +116,10 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 1:
 
-                        fabThemHoSoBenhAn.show();
+                        if (LoginPhonee.dinhDanh == 1){
+                            fabThemHoSoBenhAn.show();
+                        }
+
                         Toast.makeText(getApplicationContext(), "tab 2", Toast.LENGTH_SHORT).show();
                         break;
                     case 2:

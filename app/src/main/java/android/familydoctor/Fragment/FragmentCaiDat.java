@@ -71,6 +71,7 @@ public class FragmentCaiDat extends Fragment {
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
+                getActivity().finish();
                 Intent intent = new Intent(getActivity(),Sign_in.class);
                 startActivity(intent);
             }

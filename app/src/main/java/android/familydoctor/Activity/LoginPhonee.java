@@ -64,6 +64,9 @@ public class LoginPhonee extends AppCompatActivity implements
     Boolean isCompletePan = false;
 
     public static int dinhDanh = 1;
+    //Bác sĩ = 1
+    //Bệnh nhân = 2
+
     public static String sdt_key = "000000000";
 
 
