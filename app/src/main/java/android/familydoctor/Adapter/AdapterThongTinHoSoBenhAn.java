@@ -143,6 +143,7 @@ public class AdapterThongTinHoSoBenhAn extends BaseExpandableListAdapter {
             chkChieu.setChecked(false);
             edtSoLuongChieu.setText("");
         }
+
         return convertView;
     }
 
