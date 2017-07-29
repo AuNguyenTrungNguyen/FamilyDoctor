@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         if (bundle != null){
             String sdt = intent.getStringExtra("sdt");
             dinhDanh = intent.getIntExtra("dinhDanh",1);
-            Log.i("intent", "bundle != null");
+            Log.i("intent1", "bundle != null");
         }
 
 
