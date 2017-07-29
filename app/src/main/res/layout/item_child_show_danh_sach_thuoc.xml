@@ -22,6 +22,7 @@
             android:textStyle="bold" />
 
         <EditText
+            android:textColor="@color/colorPrimary"
             android:enabled="false"
             android:id="@+id/edtSoLuongThuoc"
             android:layout_width="0dp"
@@ -53,6 +54,7 @@
         android:orientation="horizontal">
 
         <CheckBox
+            android:textColor="#4e2406"
             android:enabled="false"
             android:id="@+id/chkSang"
             android:layout_width="0dp"
@@ -61,6 +63,7 @@
             android:text="Buổi sáng: " />
 
         <EditText
+            android:textColor="#ff0000"
             android:enabled="false"
             android:visibility="gone"
             android:id="@+id/edtSoLuongSang"
@@ -94,6 +97,7 @@
         android:orientation="horizontal">
 
         <CheckBox
+            android:textColor="#4e2406"
             android:enabled="false"
             android:id="@+id/chkTrua"
             android:layout_width="0dp"
@@ -102,6 +106,7 @@
             android:text="Buổi Trưa: " />
 
         <EditText
+            android:textColor="#ff0000"
             android:enabled="false"
             android:visibility="gone"
             android:id="@+id/edtSoLuongTrua"
@@ -135,6 +140,7 @@
         android:orientation="horizontal">
 
         <CheckBox
+            android:textColor="#4e2406"
             android:enabled="false"
             android:id="@+id/chkChieu"
             android:layout_width="0dp"
@@ -143,6 +149,7 @@
             android:text="Buổi Chiều: " />
 
         <EditText
+            android:textColor="#ff0000"
             android:enabled="false"
             android:visibility="gone"
             android:id="@+id/edtSoLuongChieu"
