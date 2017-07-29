@@ -226,7 +226,7 @@ public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
                     thuoc.setLieuDungSang(edtSoLuongSang.getText().toString());
                     thuoc.setLieuDungTrua(edtSoLuongTrua.getText().toString());
                     thuoc.setLieuDungChieu(edtSoLuongChieu.getText().toString());
-                    Toast.makeText(context, "Đã lưu thông tin: " + thuoc.getTenThuoc(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Đã xác nhận: " + thuoc.getTenThuoc(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

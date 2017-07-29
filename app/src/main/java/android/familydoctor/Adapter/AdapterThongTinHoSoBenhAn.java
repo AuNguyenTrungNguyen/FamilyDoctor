@@ -7,8 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -89,12 +89,16 @@ public class AdapterThongTinHoSoBenhAn extends BaseExpandableListAdapter {
         }
 
         final EditText edtSoLuongThuoc;
-        CheckBox chkSang, chkTrua, chkChieu;
+        LinearLayout layoutSang, layoutTrua, layoutChieu;
         final EditText edtSoLuongSang, edtDonViSang;
         final EditText edtSoLuongTrua, edtDonViTrua;
         final EditText edtSoLuongChieu, edtDonViChieu;
 
         final Thuoc thuoc = (Thuoc) getChild(groupPosition, childPosition);
+
+        layoutSang = (LinearLayout) convertView.findViewById(R.id.layoutSang);
+        layoutTrua = (LinearLayout) convertView.findViewById(R.id.layoutTrua);
+        layoutChieu = (LinearLayout) convertView.findViewById(R.id.layoutChieu);
 
         edtSoLuongThuoc = (EditText) convertView.findViewById(R.id.edtSoLuongThuocShow);
         edtSoLuongSang = (EditText) convertView.findViewById(R.id.edtSoLuongSangShow);
@@ -104,32 +108,21 @@ public class AdapterThongTinHoSoBenhAn extends BaseExpandableListAdapter {
         edtSoLuongChieu = (EditText) convertView.findViewById(R.id.edtSoLuongChieuShow);
         edtDonViChieu = (EditText) convertView.findViewById(R.id.edtDonViChieuShow);
 
-        chkSang = (CheckBox) convertView.findViewById(R.id.chkSangShow);
-        chkTrua = (CheckBox) convertView.findViewById(R.id.chkTruaShow);
-        chkChieu = (CheckBox) convertView.findViewById(R.id.chkChieuShow);
-
 
         edtSoLuongThuoc.setText(thuoc.getSoLuong());
 
-
         if (!thuoc.getLieuDungSang().equals("")) {
-            chkSang.setChecked(true);
-            edtSoLuongSang.setVisibility(View.VISIBLE);
-            edtDonViSang.setVisibility(View.VISIBLE);
+            layoutSang.setVisibility(View.VISIBLE);
             edtSoLuongSang.setText(thuoc.getLieuDungSang());
         }
 
         if (!thuoc.getLieuDungTrua().equals("")) {
-            chkTrua.setChecked(true);
-            edtSoLuongTrua.setVisibility(View.VISIBLE);
-            edtDonViTrua.setVisibility(View.VISIBLE);
+            layoutTrua.setVisibility(View.VISIBLE);
             edtSoLuongTrua.setText(thuoc.getLieuDungTrua());
         }
 
         if (!thuoc.getLieuDungChieu().equals("")) {
-            chkChieu.setChecked(true);
-            edtSoLuongChieu.setVisibility(View.VISIBLE);
-            edtDonViChieu.setVisibility(View.VISIBLE);
+            layoutChieu.setVisibility(View.VISIBLE);
             edtSoLuongChieu.setText(thuoc.getLieuDungChieu());
         }
 

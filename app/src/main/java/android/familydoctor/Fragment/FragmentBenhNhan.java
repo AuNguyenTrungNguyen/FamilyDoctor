@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.familydoctor.Activity.LoginPhonee;
+import android.familydoctor.Activity.LoginPhone;
 import android.familydoctor.Class.BenhNhan;
 import android.familydoctor.R;
 import android.familydoctor.service.GPSTracker;
@@ -146,7 +146,7 @@ public class FragmentBenhNhan extends Fragment {
 
                 String hoTen = HoTen.getText().toString();
                 String namSinh = NamSinh.getSelectedItem().toString();
-                String sdt = LoginPhonee.sdt_key;
+                String sdt = LoginPhone.sdt_key;
                 String diaChi = DiaChi.getText().toString();
                 LocationManager manager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
                 GPSTracker gpsTracker = new GPSTracker(getContext());

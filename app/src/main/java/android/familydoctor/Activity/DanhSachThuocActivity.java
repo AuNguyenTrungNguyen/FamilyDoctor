@@ -1,5 +1,6 @@
 package android.familydoctor.Activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.familydoctor.Adapter.AdapterDanhSachThuoc;
 import android.familydoctor.Class.Thuoc;
@@ -30,6 +31,9 @@ public class DanhSachThuocActivity extends AppCompatActivity {
     SearchView searchView;
 
     Button btnHoanThanhThemThuoc;
+
+    int count = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,5 +105,25 @@ public class DanhSachThuocActivity extends AppCompatActivity {
             }
         });
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        for(int i = 0; i < listTenThuoc.size(); i++){
+            Thuoc thuoc = listThongTinThuoc.get(listTenThuoc.get(i));
+            if (!thuoc.getSoLuong().equals("")){
+                count++;
+            }
+        }
+
+        if(count > 0){
+            Dialog dialog = new Dialog(this);
+            dialog.setTitle("Nhắc nhở:");
+            dialog.setContentView(R.layout.dialog_nhac_nho);
+            dialog.show();
+        }else{
+            finish();
+        }
     }
 }
