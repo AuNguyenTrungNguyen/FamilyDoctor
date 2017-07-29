@@ -24,7 +24,7 @@
         <EditText
             android:textColor="@color/colorPrimary"
             android:enabled="false"
-            android:id="@+id/edtSoLuongThuoc"
+            android:id="@+id/edtSoLuongThuocShow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -32,7 +32,7 @@
             android:inputType="phone" />
 
         <EditText
-            android:id="@+id/edtDonViThuoc"
+            android:id="@+id/edtDonViThuocShow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -56,7 +56,7 @@
         <CheckBox
             android:textColor="#4e2406"
             android:enabled="false"
-            android:id="@+id/chkSang"
+            android:id="@+id/chkSangShow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -66,7 +66,7 @@
             android:textColor="#ff0000"
             android:enabled="false"
             android:visibility="gone"
-            android:id="@+id/edtSoLuongSang"
+            android:id="@+id/edtSoLuongSangShow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -75,7 +75,7 @@
 
         <EditText
             android:visibility="gone"
-            android:id="@+id/edtDonViSang"
+            android:id="@+id/edtDonViSangShow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -99,7 +99,7 @@
         <CheckBox
             android:textColor="#4e2406"
             android:enabled="false"
-            android:id="@+id/chkTrua"
+            android:id="@+id/chkTruaShow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -109,7 +109,7 @@
             android:textColor="#ff0000"
             android:enabled="false"
             android:visibility="gone"
-            android:id="@+id/edtSoLuongTrua"
+            android:id="@+id/edtSoLuongTruaShow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -118,7 +118,7 @@
 
         <EditText
             android:visibility="gone"
-            android:id="@+id/edtDonViTrua"
+            android:id="@+id/edtDonViTruaShow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -142,7 +142,7 @@
         <CheckBox
             android:textColor="#4e2406"
             android:enabled="false"
-            android:id="@+id/chkChieu"
+            android:id="@+id/chkChieuShow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -152,7 +152,7 @@
             android:textColor="#ff0000"
             android:enabled="false"
             android:visibility="gone"
-            android:id="@+id/edtSoLuongChieu"
+            android:id="@+id/edtSoLuongChieuShow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -161,7 +161,7 @@
 
         <EditText
             android:visibility="gone"
-            android:id="@+id/edtDonViChieu"
+            android:id="@+id/edtDonViChieuShow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"

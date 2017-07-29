@@ -98,7 +98,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
         gpsTracker = new GPSTracker(getContext());
         if (gpsTracker != null && locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             mLocation = gpsTracker.getLocation();
-            latitudeGPS = mLocation.getLatitude();
+//            latitudeGPS = mLocation.getLatitude();
             longtitudeGPS = mLocation.getLongitude();
         }
         //Toast.makeText(getContext(), latitudeGPS + "   " + longtitudeGPS, Toast.LENGTH_SHORT).show();

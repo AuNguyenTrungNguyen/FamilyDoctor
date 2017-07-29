@@ -1,4 +1,5 @@
 package android.familydoctor.Class;
+
 public class BacSi {
     private String hoTenBacSi;
     private String soDienThoaiBacSi;
@@ -23,17 +24,7 @@ public class BacSi {
         this.yBacSi = yBacSi;
     }
 
-    public BacSi(String hoTenBacSi
-            , String soDienThoaiBacSi,
-                 String namSinhBacSi,
-                 String chuyenMonBacSi,
-                 String diaChiBacSi,
-                 String uriHinhAnhBacSi,
-                 String uriVanBangBacSi,
-                 double xBacSi, double
-                         yBacSi)
-
-    {
+    public BacSi(String hoTenBacSi, String soDienThoaiBacSi, String namSinhBacSi, String chuyenMonBacSi, String diaChiBacSi, String uriHinhAnhBacSi, String uriVanBangBacSi, double xBacSi, double yBacSi) {
         this.hoTenBacSi = hoTenBacSi;
         this.soDienThoaiBacSi = soDienThoaiBacSi;
         this.namSinhBacSi = namSinhBacSi;

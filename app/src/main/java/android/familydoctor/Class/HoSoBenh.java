@@ -1,12 +1,13 @@
 package android.familydoctor.Class;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by buimi on 6/24/2017.
  */
 
-public class HoSoBenh {
+public class HoSoBenh implements Serializable{
 
     //ID Năm,tháng,ngày,giờ,phút, giây , miligiay
 
@@ -23,7 +24,13 @@ public class HoSoBenh {
 
     }
 
-    public HoSoBenh(String idBacSi, String idBenhNhan, String idHoSo, String tenBenh, String ngayKham, String ngayTaiKham, List<Thuoc> thuocDung) {
+    public HoSoBenh(String idBacSi
+            , String idBenhNhan
+            , String idHoSo
+            , String ngayKham
+            , String ngayTaiKham
+            , String tenBenh
+            , List<Thuoc> thuocDung) {
         this.idBacSi = idBacSi;
         this.idBenhNhan = idBenhNhan;
         this.idHoSo = idHoSo;
