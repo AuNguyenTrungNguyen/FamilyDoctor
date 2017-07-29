@@ -63,7 +63,7 @@ public class LoginPhonee extends AppCompatActivity implements
     Boolean isCompleteDoc = false;
     Boolean isCompletePan = false;
 
-    public static int dinhDanh = 1;
+    public static int dinhDanh = 0;
     //Bác sĩ = 1
     //Bệnh nhân = 2
 
