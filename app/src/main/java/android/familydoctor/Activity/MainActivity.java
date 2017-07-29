@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         initView();
-        initViewPager(LoginPhonee.dinhDanh);
+        initViewPager(LoginPhone.dinhDanh);
         layduLieuDangNhap();
         checkPermission();
 //        openView();
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 1:
 
-                        if (LoginPhonee.dinhDanh == 1){
+                        if (LoginPhone.dinhDanh == 1){
                             fabThemHoSoBenhAn.show();
                         }
 

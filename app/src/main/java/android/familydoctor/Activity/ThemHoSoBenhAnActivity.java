@@ -106,7 +106,7 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
                                 String namSinhBenhNhan = benhNhan.getNamSinhBenhNhan();
 
                                 final Dialog dialogKiemTra = new Dialog(ThemHoSoBenhAnActivity.this);
-                                dialogKiemTra.setTitle("Thông tin của: " + soDienThoai[0]);
+                                dialogKiemTra.setTitle("Thông tin: " + soDienThoai[0]);
                                 dialogKiemTra.setContentView(R.layout.dialog_kiem_tra_so_dien_thoai);
 
                                 EditText edtTenBenhNhan, edtNamSinhBenhNhan;
@@ -224,7 +224,7 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
                     String idHoSoBenh = getDateTimeSystem();
 
                     hoSoBenh.setIdHoSo(idHoSoBenh);
-                    hoSoBenh.setIdBacSi(LoginPhonee.sdt_key);
+                    hoSoBenh.setIdBacSi(LoginPhone.sdt_key);
                     hoSoBenh.setIdBenhNhan(soDienThoai[0]);
                     hoSoBenh.setTenBenh(edtTenBenhTrongHoSoBenhAn.getText().toString());
                     hoSoBenh.setNgayKham(sdf.format(date));

@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -91,7 +90,6 @@ public class AdapterThongTinHoSoBenhAn extends BaseExpandableListAdapter {
 
         final EditText edtSoLuongThuoc;
         LinearLayout layoutSang, layoutTrua, layoutChieu;
-        CheckBox chkSang, chkTrua, chkChieu;
         final EditText edtSoLuongSang, edtDonViSang;
         final EditText edtSoLuongTrua, edtDonViTrua;
         final EditText edtSoLuongChieu, edtDonViChieu;
@@ -110,26 +108,20 @@ public class AdapterThongTinHoSoBenhAn extends BaseExpandableListAdapter {
         edtSoLuongChieu = (EditText) convertView.findViewById(R.id.edtSoLuongChieuShow);
         edtDonViChieu = (EditText) convertView.findViewById(R.id.edtDonViChieuShow);
 
-        chkSang = (CheckBox) convertView.findViewById(R.id.chkSangShow);
-        chkTrua = (CheckBox) convertView.findViewById(R.id.chkTruaShow);
-        chkChieu = (CheckBox) convertView.findViewById(R.id.chkChieuShow);
 
         edtSoLuongThuoc.setText(thuoc.getSoLuong());
 
         if (!thuoc.getLieuDungSang().equals("")) {
-            chkSang.setChecked(true);
             layoutSang.setVisibility(View.VISIBLE);
             edtSoLuongSang.setText(thuoc.getLieuDungSang());
         }
 
         if (!thuoc.getLieuDungTrua().equals("")) {
-            chkTrua.setChecked(true);
             layoutTrua.setVisibility(View.VISIBLE);
             edtSoLuongTrua.setText(thuoc.getLieuDungTrua());
         }
 
         if (!thuoc.getLieuDungChieu().equals("")) {
-            chkChieu.setChecked(true);
             layoutChieu.setVisibility(View.VISIBLE);
             edtSoLuongChieu.setText(thuoc.getLieuDungChieu());
         }

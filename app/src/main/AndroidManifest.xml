@@ -22,37 +22,40 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.MainActivity">
+
+        </activity>
+        <activity android:name=".Activity.LuaChonLoaiTaiKhoanActivity">
+
+        </activity>
+        <activity android:name=".Activity.Sign_in">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.LuaChonLoaiTaiKhoanActivity"></activity>
-        <activity android:name=".Activity.Sign_in">
-        </activity>
-        <activity android:name=".Activity.LoginPhonee" />
+        <activity android:name=".Activity.LoginPhone" />
         <activity
             android:name=".Activity.Them_HoSoBenhAn"
-            android:parentActivityName=".Sign_in" />
+            />
         <activity
             android:name=".Activity.ThongTinUngDungActivity"
-            android:parentActivityName=".Sign_in" />
+            />
         <activity
             android:name=".Activity.CaiDat_TaiKhoan"
-            android:parentActivityName=".Sign_in" />
+            />
         <activity
             android:name=".Activity.CapNhatThongTinCaNhan_Act"
-            android:parentActivityName=".Sign_in" />
+            />
         <activity
             android:name=".Activity.XemTTBacSi_Act"
-            android:parentActivityName=".Sign_in" />
+            />
         <activity
             android:name=".Activity.XemTTBenhNhan_Act"
-            android:parentActivityName=".Sign_in" />
+            />
         <activity
             android:name=".Activity.User_Edit"
-            android:parentActivityName=".Sign_in" />
+            />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
