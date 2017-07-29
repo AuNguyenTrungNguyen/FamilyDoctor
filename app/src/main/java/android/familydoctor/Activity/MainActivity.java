@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String sdt = intent.getStringExtra("sdt");
-        int dinhDanh = intent.getIntExtra("dinhDanh",0);
+        int dinhDanh = intent.getIntExtra("dinhDanh",1);
         Log.i("intent", dinhDanh+"");
 
 
@@ -69,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         List<String> titles = new ArrayList<>();
+
+        Log.i("initView", "initViewPager: "+i);
 
         switch (i) {
             case 1:
