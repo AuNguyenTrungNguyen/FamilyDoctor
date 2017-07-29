@@ -1,9 +1,12 @@
 package android.familydoctor.Fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.familydoctor.Activity.LuaChonLoaiTaiKhoanActivity;
+import android.familydoctor.Activity.MainActivity;
 import android.familydoctor.Class.BacSi;
 import android.familydoctor.R;
 import android.familydoctor.service.GPSTracker;
@@ -19,6 +22,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,15 +71,15 @@ public class FragmentBacSi extends Fragment {
     private FirebaseStorage firebaseStorage;
     final Context context = this.getContext();
     private ImageView imageView;
-
+    private ProgressDialog progressDialog;
     private String id;
 
     Spinner NamSinh ;
-    EditText HoTen ,SDT ,DiaChi ;
+    EditText HoTen ,SDT ,DiaChi,edtChuyenMon ;
     Button setData;
     ImageView imgXT,imgAva ;
-    double x ;
-    double y ;
+    double x = 0.0;
+    double y = 0.0;
     BacSi Us ;
 
     @Override
@@ -86,19 +90,9 @@ public class FragmentBacSi extends Fragment {
         if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
         }
-        LocationManager manager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
-        GPSTracker gpsTracker = new GPSTracker(getContext());
-        if (gpsTracker != null && manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            Location location = gpsTracker.getLocation();
 
-            x = location.getLatitude() ;
-            y =location.getLongitude() ;
-        }
-        else
-        {
-            Toast.makeText(getContext(), "Bạn vui lòng bật GPS", Toast.LENGTH_SHORT).show();
-        }
 
+        progressDialog = new ProgressDialog(getContext());
 
         HoTen = (EditText) view.findViewById(R.id.HoTenD);
         NamSinh = (Spinner) view.findViewById(R.id.spNamSinhBacSi);
@@ -107,7 +101,7 @@ public class FragmentBacSi extends Fragment {
         imgAva  = (ImageView) view.findViewById(R.id.Ava);
         imgXT  = (ImageView) view.findViewById(R.id.ImgXacThuc);
         setData = (Button) view.findViewById(R.id.SubmitD);
-
+        edtChuyenMon= (EditText) view.findViewById(R.id.edtChuyenMon);
         //Tạo danh sách năm
         List<String> namList = new ArrayList<>();
         for (int i= 1960; i< 2018; i++){
@@ -169,12 +163,13 @@ public class FragmentBacSi extends Fragment {
                         .show();
             }
         });
-
+//hbqqhqhdqwdqwd
         //Put dữ liệu
         setData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                progressDialog.setMessage("Đang đăng ký.....");
+                progressDialog.show();
                 String key = mDatabase.child("User").push().getKey();
 
                 //Khởi tạo và thêm dữ liệu cho USER
@@ -182,8 +177,16 @@ public class FragmentBacSi extends Fragment {
                 String namSinh = NamSinh.getSelectedItem().toString();
                 String sdt = SDT.getText().toString();
                 String diaChi = DiaChi.getText().toString();
-
-                Us = new BacSi(hoTen,namSinh,sdt,diaChi,x,y);
+                String chuyenMon = edtChuyenMon.getText().toString();
+                LocationManager manager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
+                GPSTracker gpsTracker = new GPSTracker(getContext());
+                if (gpsTracker != null && manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    Location location = gpsTracker.getLocation();
+                    x = location.getLatitude() ;
+                    y =location.getLongitude() ;
+                }
+                Us = new BacSi(hoTen,sdt,namSinh,chuyenMon,diaChi,x,y);
+                Log.d("hbqhbq",x+"     "+y);
 
                 //Khai báo Up Hình ảnh
                 StorageReference storageReference = firebaseStorage.getReferenceFromUrl("gs://familydoctor-56b96.appspot.com/");
@@ -218,10 +221,14 @@ public class FragmentBacSi extends Fragment {
 
                         if (uploadTaskXT.isSuccessful()){
                             mDatabase.child("User_BacSi").child(Us.getSoDienThoaiBacSi()).setValue(Us);
+                            progressDialog.hide();
+                            Toast.makeText(getContext(), "Đã đăng ký xong", Toast.LENGTH_SHORT).show();
+                            LuaChonLoaiTaiKhoanActivity a = new LuaChonLoaiTaiKhoanActivity();
+                            a.finish();
+                            startActivity(new Intent(getContext(), MainActivity.class));
                         }
                     }
                 });
-
                 uploadTaskXT.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
@@ -235,6 +242,11 @@ public class FragmentBacSi extends Fragment {
 
                         if (uploadTask.isSuccessful()){
                             mDatabase.child("User_BacSi").child(Us.getSoDienThoaiBacSi()).setValue(Us);
+                            progressDialog.hide();
+                            Toast.makeText(getContext(), "Đã đăng ký xong", Toast.LENGTH_SHORT).show();
+                            LuaChonLoaiTaiKhoanActivity a = new LuaChonLoaiTaiKhoanActivity();
+                            a.finish();
+                            startActivity(new Intent(getContext(), MainActivity.class));
                         }
                     }
                 });

@@ -14,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -178,23 +179,38 @@ public class AdapterThuoc extends ArrayAdapter<Thuoc> {
                 btnXacNhanCapNhatThuoc.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        int soLuongThuoc = -1;
+                        int soLuongSang = 0;
+                        int soLuongTrua = 0;
+                        int soLuongChieu = 0;
+
                         if (!edtSoLuongThuoc.getText().toString().equals("")) {
+                            soLuongThuoc = Integer.parseInt(edtSoLuongThuoc.getText().toString());
+                        }
+
+                        if (!edtSoLuongSang.getText().toString().equals("")) {
+                            soLuongSang = Integer.parseInt(edtSoLuongSang.getText().toString());
+                        }
+
+                        if (!edtSoLuongTrua.getText().toString().equals("")) {
+                            soLuongTrua = Integer.parseInt(edtSoLuongTrua.getText().toString());
+                        }
+
+                        if (!edtSoLuongChieu.getText().toString().equals("")) {
+                            soLuongChieu = Integer.parseInt(edtSoLuongChieu.getText().toString());
+                        }
+
+                        if (soLuongThuoc < (soLuongSang + soLuongTrua + soLuongChieu) || soLuongThuoc == 0) {
+                            Toast.makeText(activity, "Thông tin thuốc không chính xác", Toast.LENGTH_SHORT).show();
+                        } else {
                             thuoc.setSoLuong(edtSoLuongThuoc.getText().toString());
-                        }
-
-                        if (!edtSoLuongSang.getText().toString().equals(" viên")) {
                             thuoc.setLieuDungSang(edtSoLuongSang.getText().toString());
-                        }
-
-                        if (!edtSoLuongTrua.getText().toString().equals(" viên")) {
                             thuoc.setLieuDungTrua(edtSoLuongTrua.getText().toString());
-                        }
-
-                        if (!edtSoLuongChieu.getText().toString().equals(" viên")) {
                             thuoc.setLieuDungChieu(edtSoLuongChieu.getText().toString());
+                            Toast.makeText(activity, "Đã lưu thông tin: " + thuoc.getTenThuoc(), Toast.LENGTH_SHORT).show();
+                            notifyDataSetChanged();
+                            dialogCapNhatThuoc.dismiss();
                         }
-                        notifyDataSetChanged();
-                        dialogCapNhatThuoc.dismiss();
                     }
                 });
 

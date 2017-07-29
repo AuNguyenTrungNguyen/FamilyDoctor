@@ -58,11 +58,22 @@
                         android:orientation="horizontal"
                         android:weightSum="1">
 
-                        <ImageView
-                            android:id="@+id/imgAnhdaidien"
+                        <FrameLayout
                             android:layout_width="0dp"
-                            android:layout_height="150dp"
-                            android:layout_weight="0.5" />
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5">
+
+                            <ImageView
+                                android:id="@+id/imgAnhdaidien"
+                                android:layout_width="match_parent"
+                                android:layout_height="150dp" />
+
+                            <ProgressBar
+                                android:id="@+id/progressAnhdaidien"
+                                android:layout_width="match_parent"
+                                android:layout_height="150dp" />
+                        </FrameLayout>
+
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -117,13 +128,6 @@
                             android:textSize="20sp" />
 
                         <TextView
-                            android:id="@+id/txtEmail"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="huynhquoc@gmail.com"
-                            android:textSize="20sp" />
-
-                        <TextView
                             android:id="@+id/txtSDT"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -143,12 +147,22 @@
                         android:textSize="25sp"
                         android:textStyle="bold" />
 
-                    <ImageView
-                        android:id="@+id/imgVanBang"
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/add_picture" />
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/imgVanBang"
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:layout_gravity="center" />
+
+                        <ProgressBar
+                            android:id="@+id/progressVanBang"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </FrameLayout>
+
                 </LinearLayout>
 
 

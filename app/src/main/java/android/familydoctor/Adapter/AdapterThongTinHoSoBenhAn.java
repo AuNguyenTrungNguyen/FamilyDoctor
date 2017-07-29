@@ -7,12 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,13 +18,13 @@ import java.util.List;
  * Created by Au Nguyen on 7/25/2017.
  */
 
-public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
+public class AdapterThongTinHoSoBenhAn extends BaseExpandableListAdapter {
 
     Context context;
     List<String> listTenThuoc;
     HashMap<String, Thuoc> listThongTinThuoc;
 
-    public AdapterDanhSachThuoc(Context context, List<String> listTenThuoc, HashMap<String, Thuoc> listThongTinThuoc) {
+    public AdapterThongTinHoSoBenhAn(Context context, List<String> listTenThuoc, HashMap<String, Thuoc> listThongTinThuoc) {
         this.context = context;
         this.listTenThuoc = listTenThuoc;
         this.listThongTinThuoc = listThongTinThuoc;
@@ -88,7 +85,7 @@ public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
         if (convertView == null) {
             LayoutInflater layoutInflater;
             layoutInflater = LayoutInflater.from(this.context);
-            convertView = layoutInflater.inflate(R.layout.item_child_danh_sach_thuoc, parent, false);
+            convertView = layoutInflater.inflate(R.layout.item_child_show_danh_sach_thuoc, parent, false);
         }
 
         final EditText edtSoLuongThuoc;
@@ -96,7 +93,6 @@ public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
         final EditText edtSoLuongSang, edtDonViSang;
         final EditText edtSoLuongTrua, edtDonViTrua;
         final EditText edtSoLuongChieu, edtDonViChieu;
-        Button btnXacNhan = (Button) convertView.findViewById(R.id.btnXacNhan);
 
         final Thuoc thuoc = (Thuoc) getChild(groupPosition, childPosition);
 
@@ -147,90 +143,6 @@ public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
             chkChieu.setChecked(false);
             edtSoLuongChieu.setText("");
         }
-
-        chkSang.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-                if (b) {
-                    edtSoLuongSang.setVisibility(View.VISIBLE);
-                    edtDonViSang.setVisibility(View.VISIBLE);
-                } else {
-                    edtSoLuongSang.setText("");
-                    edtSoLuongSang.setVisibility(View.INVISIBLE);
-                    edtDonViSang.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
-
-
-        chkTrua.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-                if (b) {
-                    edtSoLuongTrua.setVisibility(View.VISIBLE);
-                    edtDonViTrua.setVisibility(View.VISIBLE);
-                } else {
-                    edtSoLuongTrua.setText("");
-                    edtSoLuongTrua.setVisibility(View.INVISIBLE);
-                    edtDonViTrua.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
-
-        chkChieu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-                if (b) {
-                    edtSoLuongChieu.setVisibility(View.VISIBLE);
-                    edtDonViChieu.setVisibility(View.VISIBLE);
-                } else {
-                    edtSoLuongChieu.setText("");
-                    edtSoLuongChieu.setVisibility(View.INVISIBLE);
-                    edtDonViChieu.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
-
-        btnXacNhan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                int soLuongThuoc = -1;
-                int soLuongSang = 0;
-                int soLuongTrua = 0;
-                int soLuongChieu = 0;
-
-                if (!edtSoLuongThuoc.getText().toString().equals("")) {
-                    soLuongThuoc = Integer.parseInt(edtSoLuongThuoc.getText().toString());
-                }
-
-                if (!edtSoLuongSang.getText().toString().equals("")) {
-                    soLuongSang = Integer.parseInt(edtSoLuongSang.getText().toString());
-                }
-
-                if (!edtSoLuongTrua.getText().toString().equals("")) {
-                    soLuongTrua = Integer.parseInt(edtSoLuongTrua.getText().toString());
-                }
-
-                if (!edtSoLuongChieu.getText().toString().equals("")) {
-                    soLuongChieu = Integer.parseInt(edtSoLuongChieu.getText().toString());
-                }
-
-                if (soLuongThuoc < (soLuongSang + soLuongTrua + soLuongChieu) || soLuongThuoc == 0) {
-                    Toast.makeText(context, "Thông tin thuốc không chính xác", Toast.LENGTH_SHORT).show();
-                } else {
-                    thuoc.setSoLuong(edtSoLuongThuoc.getText().toString());
-                    thuoc.setLieuDungSang(edtSoLuongSang.getText().toString());
-                    thuoc.setLieuDungTrua(edtSoLuongTrua.getText().toString());
-                    thuoc.setLieuDungChieu(edtSoLuongChieu.getText().toString());
-                    Toast.makeText(context, "Đã lưu thông tin: " + thuoc.getTenThuoc(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
         return convertView;
     }
 

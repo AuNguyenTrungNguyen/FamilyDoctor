@@ -156,7 +156,6 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                                     Intent it =new Intent(getContext(), XemTTBacSi_Act.class);
                                     it.putExtra("name",bs.getHoTenBacSi());
                                     it.putExtra("sdt",bs.getSoDienThoaiBacSi());
-                                    it.putExtra("email",bs.getEmailBacSi());
                                     it.putExtra("chuyenmon",bs.getChuyenMonBacSi());
                                     it.putExtra("diachi",bs.getDiaChiBacSi());
                                     it.putExtra("url1",bs.getUriHinhAnhBacSi());
@@ -246,14 +245,11 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                                                 (
                                                         "Chuyên môn: " + dsBacSi.get(i).getChuyenMonBacSi()
                                                                 + "\n"
-                                                                + "Email: " + dsBacSi.get(i).getEmailBacSi()
-                                                                + "\n"
                                                                 + "Địa chỉ: " + dsBacSi.get(i).getDiaChiBacSi()
                                                                 + "\n"
                                                                 + "SDT liên hệ:: " + dsBacSi.get(i).getSoDienThoaiBacSi()
 
                                                 );
-
                                 googleMap.addMarker(markerOptions).setTag(dsBacSi.get(i));
                             }
                         }
@@ -274,103 +270,10 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
         outState.putParcelable("Latlng", mLocation);
     }
 
-    private void testPusuDULieu() {
-        BacSi bs = new BacSi(
-                "Huynh quoc"
-                , "01262985603"
-                ,"22/22/2222"
-                , "quocb1400@gmail.com"
-                , "Răng hàm mặt"
-                , "Ninh kiều, Cần thơ"
-                , ""
-                , ""
-                , 10.028935
-                , 105.763333
-        );
-        database.child("BacSi").child("01262985603").setValue(bs);
-        BacSi bs1 = new BacSi(
-                "Huynh quoc 1"
-                , "0123123123"
-                ,"22/22/2222"
-                , "quocb1400@gmail.com"
-                , "Mắt mũi"
-                , "Cái răng, Cần thơ"
-                , ""
-                , ""
-                , 10.029458
-                , 105.762469
-        );
-        database.child("BacSi").child("0123123123").setValue(bs1);
-        BacSi bs2 = new BacSi(
-                "Huynh quoc 2"
-                , "0124124124"
-                ,"22/22/2222"
-                , "quocb1400@gmail.com"
-                , "Xương khóp"
-                , "Ô môn, Cần thơ"
-                , ""
-                , ""
-                , 10.029879
-                , 105.763230
-        );
-        database.child("BacSi").child("0124124124").setValue(bs2);
-        BacSi bs3 = new BacSi(
-                "Huynh quoc 3"
-                , "01261262126"
-                ,"22/22/2222"
-                , "quocb1400@gmail.com"
-                , "Da liễu"
-                , "Mậu thân, Cần thơ"
-                , ""
-                , ""
-                , 10.029840
-                , 105.764165
-        );
-        database.child("BacSi").child("01261262126").setValue(bs3);
-        BacSi bs4 = new BacSi(
-                "Huynh quoc 44"
-                , "0122122122"
-                ,"22/22/2222"
-                , "quocb1400@gmail.com"
-                , "Tổng hợp"
-                , "Ngô quyền, Cần thơ"
-                , ""
-                , ""
-                , 10.029583
-                , 105.764165
-        );
-        database.child("BacSi").child("0122122122").setValue(bs4);
 
-        BacSi bs5 = new BacSi(
-                "Huynh quoc NEW"
-                , "00000000"
-                ,"22/22/2222"
-                , "quocb1400@gmail.com"
-                , "Tổng hợp"
-                , "Ngô quyền, Cần thơ"
-                , ""
-                , ""
-                , 10.024837
-                , 105.768665
-        );
-        database.child("BacSi").child("00000000").setValue(bs5);
-        BacSi bs6 = new BacSi(
-                "Huynh quoc NEW"
-                , "111111111111"
-                ,"22/22/2222"
-                , "quocb1400@gmail.com"
-                , "Tổng hợp"
-                , "Ngô quyền, Cần thơ"
-                , ""
-                , ""
-                , 10.023400
-                , 105.767721
-        );
-        database.child("BacSi").child("111111111111").setValue(bs6);
-    }
 
     private void loadDuLieuFirebase() {
-        database.child("BacSi").addChildEventListener(new ChildEventListener() {
+        database.child("User_BacSi").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 BacSi doctor = dataSnapshot.getValue(BacSi.class);
@@ -426,8 +329,6 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                             .title(dsBacSi.get(i).getHoTenBacSi())
                             .snippet(
                                     "Chuyên môn: " + dsBacSi.get(i).getChuyenMonBacSi()
-                                            + "\n"
-                                            + "Email: " + dsBacSi.get(i).getEmailBacSi()
                                             + "\n"
                                             + "Địa chỉ: " + dsBacSi.get(i).getDiaChiBacSi()
                                             + "\n"
