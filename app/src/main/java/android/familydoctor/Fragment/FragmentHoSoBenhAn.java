@@ -64,6 +64,7 @@ public class FragmentHoSoBenhAn extends Fragment {
         adapter = new ItemHoSoBenh_Adapter(list);
         recyclerView.setAdapter(adapter);
 
+
         loadDuLieu();
 
         adapter.setOnItemClickListener(new ItemHoSoBenh_Adapter.OnItemClickListener() {
