@@ -70,7 +70,7 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
             String hoTenBenhNhan = "Bệnh nhân: " + i;
             //emailBenhNhan = diaChiBenhNhan = uriHinhAnhBenhNhan = xBenhNhan = yBenhNhan= "";
             BenhNhan benhNhan = new BenhNhan(soDienThoaiBenhNhan, namSinhBenhNhan, hoTenBenhNhan, "", "", "", 1, 1);
-            databaseReference.child("BenhNhan").child(soDienThoaiBenhNhan).setValue(benhNhan);
+            databaseReference.child("User_BenhNhan").child(soDienThoaiBenhNhan).setValue(benhNhan);
         }
     }
 
@@ -93,7 +93,7 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
                 txtChonNgayTaiKham.setText("CHỌN NGÀY TÁI KHÁM");
                 edtTenBenhTrongHoSoBenhAn.setText("");
 
-                databaseReference.child("BenhNhan").addListenerForSingleValueEvent(new ValueEventListener() {
+                databaseReference.child("User_BenhNhan").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         int count = 1;
