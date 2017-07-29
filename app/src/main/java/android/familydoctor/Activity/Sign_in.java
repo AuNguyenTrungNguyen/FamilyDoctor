@@ -29,36 +29,8 @@ public class Sign_in extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        turnGPSOn();
+
     }
 
-    public void turnGPSOn() {
-        LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
-        boolean enabled = service
-                .isProviderEnabled(LocationManager.GPS_PROVIDER);
-        if (!enabled) {
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                    this);
-            alertDialogBuilder
-                    .setMessage("Mở GPS của bạn!")
-                    .setCancelable(false)
-                    .setPositiveButton("Mở",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog,
-                                                    int id) {
-                                    Intent callGPSSettingIntent = new Intent(
-                                            android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                    startActivity(callGPSSettingIntent);
-                                }
-                            });
-            alertDialogBuilder.setNegativeButton("Hủy",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-            AlertDialog alert = alertDialogBuilder.create();
-            alert.show();
-        }
-    }
+
 }
