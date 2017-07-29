@@ -63,6 +63,10 @@ public class LoginPhonee extends AppCompatActivity implements
     Boolean isCompleteDoc = false;
     Boolean isCompletePan = false;
 
+    public static int dinhDanh = 1;
+    public static String sdt_key = "000000000";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -329,6 +333,9 @@ public class LoginPhonee extends AppCompatActivity implements
         final String sdt = "0"+getsdt.substring(getsdt.indexOf(dauhieu)+3,getsdt.length());
         Log.i("checkUser",sdt);
 
+        //SDT key
+        sdt_key = sdt;
+
         DatabaseReference root = FirebaseDatabase.getInstance().getReference();
         DatabaseReference checksDoctor = root.child("User_BacSi").child(sdt);
 
@@ -341,10 +348,8 @@ public class LoginPhonee extends AppCompatActivity implements
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 if (dataSnapshot.child("soDienThoaiBacSi").getValue(String.class) != null){
-
                     Intent intent = new Intent(LoginPhonee.this, MainActivity.class);
-                    intent.putExtra("sdt",sdt);
-                    intent.putExtra("dinhDanh",1);
+                    dinhDanh = 1;
                     startActivity(intent);
                 }else {
                     isCompleteDoc = true;
@@ -378,7 +383,6 @@ public class LoginPhonee extends AppCompatActivity implements
 
                     if (dataSnapshot.child("soDienThoaiBenhNhan").getValue(String.class) != null){
                         Intent intent = new Intent(LoginPhonee.this, MainActivity.class);
-                        intent.putExtra("sdt",sdt);
                         intent.putExtra("dinhDanh",2);
                         startActivity(intent);
                     }else {
@@ -386,6 +390,7 @@ public class LoginPhonee extends AppCompatActivity implements
                         Log.i("checkUser", "Benh nhan k ton tai");
                         if (isCompleteDoc == true && isCompletePan == true){
                             Intent intent = new Intent(LoginPhonee.this, LuaChonLoaiTaiKhoanActivity.class);
+                            dinhDanh = 2;
                             startActivity(intent);
                         }
                     }

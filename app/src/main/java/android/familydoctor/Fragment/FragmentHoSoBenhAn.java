@@ -107,15 +107,7 @@ public class FragmentHoSoBenhAn extends Fragment {
             }
         });
 
-        fabThemHoSoBenhAn = (FloatingActionButton) rootView.findViewById(R.id.fabThemHoSoBenhAn);
 
-        fabThemHoSoBenhAn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentThemHoSoBenhAn = new Intent(getContext(), ThemHoSoBenhAnActivity.class);
-                startActivity(intentThemHoSoBenhAn);
-            }
-        });
         return rootView;
     }
 

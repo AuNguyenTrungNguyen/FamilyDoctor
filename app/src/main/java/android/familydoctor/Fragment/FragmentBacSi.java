@@ -117,7 +117,10 @@ public class FragmentBacSi extends Fragment {
 
         Intent bundle = getActivity().getIntent();
 
-        id = bundle.getDataString();
+        if (bundle != null){
+
+           //Intent i = bundle.getDataString()
+        }
 
         //Set hình ảnh đại diện và ảnh xác thực bác sĩ
         imgAva = (ImageView) view.findViewById(R.id.Ava);
@@ -223,8 +226,7 @@ public class FragmentBacSi extends Fragment {
                             mDatabase.child("User_BacSi").child(Us.getSoDienThoaiBacSi()).setValue(Us);
                             progressDialog.hide();
                             Toast.makeText(getContext(), "Đã đăng ký xong", Toast.LENGTH_SHORT).show();
-                            LuaChonLoaiTaiKhoanActivity a = new LuaChonLoaiTaiKhoanActivity();
-                            a.finish();
+
                             startActivity(new Intent(getContext(), MainActivity.class));
                         }
                     }
@@ -244,8 +246,7 @@ public class FragmentBacSi extends Fragment {
                             mDatabase.child("User_BacSi").child(Us.getSoDienThoaiBacSi()).setValue(Us);
                             progressDialog.hide();
                             Toast.makeText(getContext(), "Đã đăng ký xong", Toast.LENGTH_SHORT).show();
-                            LuaChonLoaiTaiKhoanActivity a = new LuaChonLoaiTaiKhoanActivity();
-                            a.finish();
+
                             startActivity(new Intent(getContext(), MainActivity.class));
                         }
                     }

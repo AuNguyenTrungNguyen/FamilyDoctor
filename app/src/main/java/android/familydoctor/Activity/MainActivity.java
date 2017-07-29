@@ -14,6 +14,7 @@ import android.familydoctor.R;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,11 +38,12 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
+    private FloatingActionButton fabThemHoSoBenhAn;
 
     FirebaseAuth mAuth ;
     Bundle bundle;
     String id;
-    static int dinhDanh = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,20 +51,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        Intent intent = getIntent();
-        if (bundle != null){
-            String sdt = intent.getStringExtra("sdt");
-            dinhDanh = intent.getIntExtra("dinhDanh",1);
-            Log.i("intent1", "bundle != null");
-        }
-
-
-
-
-
-
         initView();
-        initViewPager(dinhDanh);
+        initViewPager(LoginPhonee.dinhDanh);
         layduLieuDangNhap();
         checkPermission();
 //        openView();
@@ -121,11 +112,15 @@ public class MainActivity extends AppCompatActivity {
                 switch (position) {
                     case 0:
                         Toast.makeText(getApplicationContext(), "tab 1", Toast.LENGTH_SHORT).show();
+                        fabThemHoSoBenhAn.hide();
                         break;
                     case 1:
+
+                        fabThemHoSoBenhAn.show();
                         Toast.makeText(getApplicationContext(), "tab 2", Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
+                        fabThemHoSoBenhAn.hide();
                         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
                         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                             Toast.makeText(getApplicationContext(), "Bạn chưa bật GPS nên không tìm được vị trí của bạn!", Toast.LENGTH_SHORT).show();
@@ -155,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     case 3:
+                        fabThemHoSoBenhAn.hide();
                         Toast.makeText(MainActivity.this, "tab4", Toast.LENGTH_SHORT).show();
                         break;
                 }
@@ -170,6 +166,16 @@ public class MainActivity extends AppCompatActivity {
     private void initView() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
+
+        fabThemHoSoBenhAn = (FloatingActionButton) findViewById(R.id.fab_main);
+
+        fabThemHoSoBenhAn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentThemHoSoBenhAn = new Intent(MainActivity.this, ThemHoSoBenhAnActivity.class);
+                startActivity(intentThemHoSoBenhAn);
+            }
+        });
     }
 
 
