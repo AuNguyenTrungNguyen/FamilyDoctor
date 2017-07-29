@@ -1,54 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_height="match_parent"
-    android:layout_margin="10dp"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/txtNameShow"
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_item_recycler_view"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_width="match_parent"
-        android:text="Tên bệnh nhân"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:layout_margin="10dp"
+        app:cardCornerRadius="10dp">
 
-    <TextView
-        android:id="@+id/txtTenBenhShow"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_width="match_parent"
-        android:text="Tên bệnh"
-        android:textSize="18sp" />
+        <LinearLayout
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/txtNgayKhamShow"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_width="match_parent"
-        android:text="Ngày khám:"
-        android:textSize="16sp"
-        android:textStyle="italic" />
+            <TextView
+                android:id="@+id/txtNameShow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Tên bệnh nhân"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/txtNgayTaiKhamShow"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_width="match_parent"
-        android:text="Ngày tái khám:"
-        android:textSize="16sp"
-        android:textStyle="italic" />
+            <TextView
+                android:id="@+id/txtTenBenhShow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Tên bệnh"
+                android:textSize="18sp" />
 
-    <ExpandableListView
-        android:layout_margin="5dp"
-        android:listSelector="#ffffff"
-        android:choiceMode="singleChoice"
-        android:dividerHeight="1dp"
-        android:divider="@color/colorPrimary"
-        android:id="@+id/elvDanhSachThuocShow"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ExpandableListView>
+            <TextView
+                android:id="@+id/txtNgayKhamShow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Ngày khám:"
+                android:textSize="16sp"
+                android:textStyle="italic" />
 
+            <TextView
+                android:id="@+id/txtNgayTaiKhamShow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Ngày tái khám:"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+
+            <ExpandableListView
+                android:id="@+id/elvDanhSachThuocShow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:divider="@color/colorPrimary"
+                android:dividerHeight="1dp"
+                android:listSelector="#ffffff">
+            </ExpandableListView>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>

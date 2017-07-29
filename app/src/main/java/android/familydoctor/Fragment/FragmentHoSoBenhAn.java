@@ -44,7 +44,7 @@ public class FragmentHoSoBenhAn extends Fragment {
     RecyclerView recyclerView;
     ItemHoSoBenh_Adapter adapter;
     LinearLayoutManager layoutManager;
-    List<HoSoBenh> list = new ArrayList<>();
+    List<HoSoBenh> list = new ArrayList<HoSoBenh>();
 
     ExpandableListView elvDanhSachThuocShow;
     List<String> listTenThuoc;
@@ -53,7 +53,7 @@ public class FragmentHoSoBenhAn extends Fragment {
     AdapterThongTinHoSoBenhAn adapterThongTinHoSoBenhAn;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_ho_so_benh_an, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewHoSoBenhAn);
         layoutManager = new LinearLayoutManager(getContext());
@@ -79,6 +79,7 @@ public class FragmentHoSoBenhAn extends Fragment {
                 TextView txtTenBenhShow = (TextView) dialog.findViewById(R.id.txtTenBenhShow);
                 TextView txtNgayKhamShow = (TextView) dialog.findViewById(R.id.txtNgayKhamShow);
                 TextView txtngayTaiKhamShow = (TextView) dialog.findViewById(R.id.txtNgayTaiKhamShow);
+
                 HoSoBenh hsb = list.get(position);
                 List<Thuoc> listThuocTrongHSBA = hsb.getThuocDung();
 
@@ -92,8 +93,9 @@ public class FragmentHoSoBenhAn extends Fragment {
                     listThongTinThuoc.put(listThuocTrongHSBA.get(i).getTenThuoc(),listThuocTrongHSBA.get(i));
                 }
                 //event
+
                 adapterThongTinHoSoBenhAn = new AdapterThongTinHoSoBenhAn(getContext(), listTenThuoc, listThongTinThuoc);
-                elvDanhSachThuocShow.setAdapter(adapterThongTinHoSoBenhAn);
+//                elvDanhSachThuocShow.setAdapter(adapterThongTinHoSoBenhAn);
                 elvDanhSachThuocShow.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
 
                 txtNameShow.setText("Họ và tên: " + hsb.getIdBacSi());
@@ -130,7 +132,6 @@ public class FragmentHoSoBenhAn extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 HoSoBenh hsb = dataSnapshot.getValue(HoSoBenh.class);
                 adapter.addItem(list.size(), hsb);
-                //Log.d("FireBaseQuoc", hsb.getTenBenh() + "  " + hsb.getNgayKham() + "   " + hsb.getNgayTaiKham());
             }
 
             @Override
