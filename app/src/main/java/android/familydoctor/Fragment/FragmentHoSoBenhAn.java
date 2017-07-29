@@ -40,7 +40,7 @@ public class FragmentHoSoBenhAn extends Fragment {
     DatabaseReference databaseBS = FirebaseDatabase.getInstance().getReference("BacSi");
     DatabaseReference databaseBN = FirebaseDatabase.getInstance().getReference("BenhNhan");
     FloatingActionButton fabThemHoSoBenhAn;
-
+//eweqqwewqeqw
     RecyclerView recyclerView;
     ItemHoSoBenh_Adapter adapter;
     LinearLayoutManager layoutManager;
