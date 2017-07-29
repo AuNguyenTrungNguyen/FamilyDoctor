@@ -19,7 +19,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -35,10 +34,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 public class LoginPhone extends AppCompatActivity implements
         View.OnClickListener {
@@ -73,11 +70,11 @@ public class LoginPhone extends AppCompatActivity implements
     Boolean isCompleteDoc = false;
     Boolean isCompletePan = false;
 
-    public static int dinhDanh = 2;
+    public static int dinhDanh = 0;
     //Bác sĩ = 1
     //Bệnh nhân = 2
 
-    public static String sdt_key = "01279095508";
+    public static String sdt_key = "";
 
 
     @Override

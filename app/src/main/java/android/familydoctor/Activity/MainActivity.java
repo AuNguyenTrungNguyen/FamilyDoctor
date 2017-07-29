@@ -52,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         initView();
-        initViewPager(LoginPhone.dinhDanh);
+        //initViewPager(LoginPhone.dinhDanh);
+        initViewPager(1);
         layduLieuDangNhap();
         checkPermission();
 //        openView();
@@ -72,14 +73,13 @@ public class MainActivity extends AppCompatActivity {
             case 1:
                 //Bác sĩ
                 titles.add("Tin tức sức khỏe");
-                titles.add("Hồ sơ bệnh cá nhân");
+                titles.add("Hồ sơ đã tạo");
                 titles.add("Tìm Bệnh nhân");
                 titles.add("Cài đặt");
             case 2:
-
                 //Bệnh nhân
                 titles.add("Tin tức sức khỏe");
-                titles.add("Hồ sơ đã tạo");
+                titles.add("Hồ sơ bệnh cá nhân");
                 titles.add("Tìm Bác sĩ");
                 titles.add("Cài đặt");
         }

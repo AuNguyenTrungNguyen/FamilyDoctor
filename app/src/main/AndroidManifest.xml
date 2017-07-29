@@ -22,19 +22,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity android:name=".Activity.LuaChonLoaiTaiKhoanActivity">
 
         </activity>
         <activity android:name=".Activity.Sign_in">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".Activity.LoginPhone" />
+        <activity android:name=".Activity.LoginPhone" >
+        </activity>
         <activity
             android:name=".Activity.Them_HoSoBenhAn"
             />

@@ -1,6 +1,7 @@
 package android.familydoctor.Adapter;
 
 
+import android.familydoctor.Class.BacSi;
 import android.familydoctor.Class.BenhNhan;
 import android.familydoctor.Class.HoSoBenh;
 import android.familydoctor.R;
@@ -19,13 +20,13 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdapterThongTinHoSoBanhAnBacSi extends RecyclerView.Adapter<AdapterThongTinHoSoBanhAnBacSi.RecyclerViewHolder>  {
+public class AdapterHoSoBenhAn extends RecyclerView.Adapter<AdapterHoSoBenhAn.RecyclerViewHolder>  {
 
     private List<HoSoBenh> listData = new ArrayList<>();
     DatabaseReference databaseHSBA;
     int dinhDanh = 0;
 
-    public AdapterThongTinHoSoBanhAnBacSi(List<HoSoBenh> listData, int dinhDanh) {
+    public AdapterHoSoBenhAn(List<HoSoBenh> listData, int dinhDanh) {
         this.listData = listData;
         this.dinhDanh = dinhDanh;
         databaseHSBA = FirebaseDatabase.getInstance().getReference();
@@ -39,7 +40,7 @@ public class AdapterThongTinHoSoBanhAnBacSi extends RecyclerView.Adapter<Adapter
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View row = inflater.inflate(R.layout.item_ho_so_benh_an_bac_si, parent, false);
+        View row = inflater.inflate(R.layout.item_ho_so_benh_an, parent, false);
         return new RecyclerViewHolder(row);
     }
 
@@ -80,10 +81,10 @@ public class AdapterThongTinHoSoBanhAnBacSi extends RecyclerView.Adapter<Adapter
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
-                            BenhNhan benhNhan = data.getValue(BenhNhan.class);
-                            assert benhNhan != null;
-                            if (benhNhan.getSoDienThoaiBenhNhan().equals(idBenhNhan)){
-                                holder.txtName.setText("Họ tên : " + benhNhan.getHoTenBenhNhan());
+                            BacSi bacSi = data.getValue(BacSi.class);
+                            assert bacSi != null;
+                            if (bacSi.getSoDienThoaiBacSi().equals(idBenhNhan)){
+                                holder.txtName.setText("Họ tên : " + bacSi.getHoTenBacSi());
                                 break;
                             }
                         }

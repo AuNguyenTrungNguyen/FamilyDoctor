@@ -6,8 +6,7 @@ package android.familydoctor.Fragment;
 
 import android.content.Intent;
 import android.familydoctor.Activity.HienThiThongTinHoSoBenhAnActivity;
-import android.familydoctor.Activity.LoginPhone;
-import android.familydoctor.Adapter.AdapterThongTinHoSoBanhAnBacSi;
+import android.familydoctor.Adapter.AdapterHoSoBenhAn;
 import android.familydoctor.Class.HoSoBenh;
 import android.familydoctor.R;
 import android.os.Bundle;
@@ -36,11 +35,13 @@ public class FragmentHoSoBenhAn extends Fragment {
     DatabaseReference databaseHSBA;
 
     RecyclerView recyclerView;
-    AdapterThongTinHoSoBanhAnBacSi adapter;
+    AdapterHoSoBenhAn adapter;
     LinearLayoutManager layoutManager;
     List<HoSoBenh> list = new ArrayList<>();
-    int dinhDanh = LoginPhone.dinhDanh;
 
+    // set dữ liệu chỗ này và cho app chạy Main chứ ko phải login - Nguyên
+    int dinhDanh = 2;
+    String id = "01279095508";
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,12 +54,13 @@ public class FragmentHoSoBenhAn extends Fragment {
 
         databaseHSBA = FirebaseDatabase.getInstance().getReference();
 
-        adapter = new AdapterThongTinHoSoBanhAnBacSi(list, dinhDanh);
+        adapter = new AdapterHoSoBenhAn(list, dinhDanh);
+
         recyclerView.setAdapter(adapter);
 
         loadDuLieu();
 
-        adapter.setOnItemClickListener(new AdapterThongTinHoSoBanhAnBacSi.OnItemClickListener() {
+        adapter.setOnItemClickListener(new AdapterHoSoBenhAn.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int position) {
 
@@ -78,8 +80,6 @@ public class FragmentHoSoBenhAn extends Fragment {
     }
 
     public void loadDuLieu() {
-
-        final String id = LoginPhone.sdt_key;
 
         databaseHSBA.child("HoSoBenhAn").addChildEventListener(new ChildEventListener() {
             @Override
