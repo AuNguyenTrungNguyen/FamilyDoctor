@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.familydoctor.Activity.LoginPhonee;
 import android.familydoctor.Activity.LuaChonLoaiTaiKhoanActivity;
 import android.familydoctor.Activity.MainActivity;
 import android.familydoctor.Class.BacSi;
@@ -171,7 +172,7 @@ public class FragmentBacSi extends Fragment {
                 //Khởi tạo và thêm dữ liệu cho USER
                 String hoTen = HoTen.getText().toString();
                 String namSinh = NamSinh.getSelectedItem().toString();
-                String sdt = SDT.getText().toString();
+                String sdt = LoginPhonee.sdt_key;
                 String diaChi = DiaChi.getText().toString();
                 String chuyenMon = edtChuyenMon.getText().toString();
                 LocationManager manager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);

@@ -40,10 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
     private FloatingActionButton fabThemHoSoBenhAn;
 
-    FirebaseAuth mAuth ;
     Bundle bundle;
     String id;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
