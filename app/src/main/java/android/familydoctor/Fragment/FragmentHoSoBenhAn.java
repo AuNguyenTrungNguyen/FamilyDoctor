@@ -95,14 +95,13 @@ public class FragmentHoSoBenhAn extends Fragment {
                 //event
 
                 adapterThongTinHoSoBenhAn = new AdapterThongTinHoSoBenhAn(getContext(), listTenThuoc, listThongTinThuoc);
-//                elvDanhSachThuocShow.setAdapter(adapterThongTinHoSoBenhAn);
+                elvDanhSachThuocShow.setAdapter(adapterThongTinHoSoBenhAn);
                 elvDanhSachThuocShow.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
 
                 txtNameShow.setText("Họ và tên: " + hsb.getIdBacSi());
                 txtTenBenhShow.setText("Bệnh cần điều trị : "+hsb.getTenBenh());
                 txtNgayKhamShow.setText("Ngày khám : "+hsb.getNgayKham());
                 txtngayTaiKhamShow.setText("Ngày tái khám : "+hsb.getNgayTaiKham());
-
                 dialog.show();
 
             }
