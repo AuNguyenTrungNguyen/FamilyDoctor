@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "457771740010-toba0olieqkg9va8bbfqteecqadekt2b.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "android.familydoctor",
-            "certificate_hash": "f75d49d0f73abebaa5abdb3ca92eedb9fefd8a75"
-          }
-        },
-        {
           "client_id": "457771740010-5cdnos3b5k2mb9otl6rgal5cmauljtb2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

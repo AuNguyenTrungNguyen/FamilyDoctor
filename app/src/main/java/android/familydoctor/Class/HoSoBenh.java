@@ -1,12 +1,13 @@
 package android.familydoctor.Class;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by buimi on 6/24/2017.
  */
 
-public class HoSoBenh {
+public class HoSoBenh implements Serializable{
 
     //ID Năm,tháng,ngày,giờ,phút, giây , miligiay
 
