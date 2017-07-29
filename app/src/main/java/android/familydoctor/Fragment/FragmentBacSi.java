@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.familydoctor.Activity.MainActivity;
 import android.familydoctor.Class.BacSi;
 import android.familydoctor.R;
 import android.familydoctor.service.GPSTracker;
@@ -224,7 +225,7 @@ public class FragmentBacSi extends Fragment {
                             Toast.makeText(getContext(), "Đã đăng ký xong", Toast.LENGTH_SHORT).show();
                             /*LuaChonLoaiTaiKhoanActivity a = new LuaChonLoaiTaiKhoanActivity();
                             a.finish();*/
-                           // startActivity(new Intent(getContext(), MainActivity.class));
+                            startActivity(new Intent(getContext(), MainActivity.class));
                         }
                     }
                 });
@@ -245,7 +246,7 @@ public class FragmentBacSi extends Fragment {
                             progressDialog.hide();
                             Toast.makeText(getContext(), "Đã đăng ký xong", Toast.LENGTH_SHORT).show();
 
-                            //startActivity(new Intent(getContext(), MainActivity.class));
+                            startActivity(new Intent(getContext(), MainActivity.class));
                         }
                     }
                 });
