@@ -96,12 +96,12 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
                 databaseReference.child("User_BenhNhan").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        int count = 1;
+                        boolean tonTai = false;
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
                             BenhNhan benhNhan = data.getValue(BenhNhan.class);
                             assert benhNhan != null;
-                            count++;
                             if (soDienThoai[0].equals(benhNhan.getSoDienThoaiBenhNhan())) {
+                                tonTai = true;
                                 String tenBenhNhan = benhNhan.getHoTenBenhNhan();
                                 String namSinhBenhNhan = benhNhan.getNamSinhBenhNhan();
 
@@ -146,7 +146,7 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
                             }
                         }
 
-                        if (count > dataSnapshot.getChildrenCount()) {
+                        if (!tonTai) {
                             Toast.makeText(ThemHoSoBenhAnActivity.this, "Số điện thoại này không tồn tại.", Toast.LENGTH_SHORT).show();
                         }
                     }
