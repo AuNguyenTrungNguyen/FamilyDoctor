@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 titles.add("Tìm Bệnh nhân");
                 titles.add("Cài đặt");
             case 2:
+
                 //Bệnh nhân
                 titles.add("Tin tức sức khỏe");
                 titles.add("Hồ sơ đã tạo");
