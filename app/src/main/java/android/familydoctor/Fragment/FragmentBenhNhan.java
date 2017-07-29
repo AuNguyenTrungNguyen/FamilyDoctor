@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.familydoctor.Activity.LoginPhonee;
 import android.familydoctor.Class.BenhNhan;
 import android.familydoctor.R;
 import android.familydoctor.service.GPSTracker;
@@ -92,7 +93,6 @@ public class FragmentBenhNhan extends Fragment {
 
         HoTen = (EditText) view.findViewById(R.id.HoTenE);
         NamSinh = (Spinner) view.findViewById(R.id.spNamSinhBenhNhan);
-        SDT = (EditText) view.findViewById(R.id.SDTE);
         DiaChi = (EditText) view.findViewById(R.id.DiaChiE);
         img = (ImageView) view.findViewById(R.id.ImgAvaE);
         setData = (Button) view.findViewById(R.id.Submit);
@@ -112,9 +112,8 @@ public class FragmentBenhNhan extends Fragment {
 
         firebaseStorage = FirebaseStorage.getInstance();
 
-        Intent bundle = getActivity().getIntent();
-
-        id = bundle.getDataString();
+//        Intent bundle = getActivity().getIntent();
+//        id = bundle.getDataString();
 
         img = (ImageView) view.findViewById(R.id.ImgAvaE);
         img.setOnClickListener(new View.OnClickListener() {
@@ -147,7 +146,7 @@ public class FragmentBenhNhan extends Fragment {
 
                 String hoTen = HoTen.getText().toString();
                 String namSinh = NamSinh.getSelectedItem().toString();
-                String sdt = SDT.getText().toString();
+                String sdt = LoginPhonee.sdt_key;
                 String diaChi = DiaChi.getText().toString();
                 LocationManager manager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
                 GPSTracker gpsTracker = new GPSTracker(getContext());
