@@ -39,6 +39,7 @@ public class FragmentHoSoBenhAn extends Fragment {
     AdapterThongTinHoSoBanhAnBacSi adapter;
     LinearLayoutManager layoutManager;
     List<HoSoBenh> list = new ArrayList<>();
+    int dinhDanh = LoginPhone.dinhDanh;
 
 
     @Override
@@ -52,7 +53,7 @@ public class FragmentHoSoBenhAn extends Fragment {
 
         databaseHSBA = FirebaseDatabase.getInstance().getReference();
 
-        adapter = new AdapterThongTinHoSoBanhAnBacSi(list);
+        adapter = new AdapterThongTinHoSoBanhAnBacSi(list, dinhDanh);
         recyclerView.setAdapter(adapter);
 
         loadDuLieu();
@@ -78,34 +79,39 @@ public class FragmentHoSoBenhAn extends Fragment {
 
     public void loadDuLieu() {
 
-        if (LoginPhone.dinhDanh == 1) {
-            final String idBacSi = LoginPhone.sdt_key;
-            databaseHSBA.child("HoSoBenhAn").addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    HoSoBenh hoSoBenh = dataSnapshot.getValue(HoSoBenh.class);
-                    assert hoSoBenh != null;
-                    if (TextUtils.equals(hoSoBenh.getIdBacSi(), idBacSi)) {
+        final String id = LoginPhone.sdt_key;
+
+        databaseHSBA.child("HoSoBenhAn").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                HoSoBenh hoSoBenh = dataSnapshot.getValue(HoSoBenh.class);
+                assert hoSoBenh != null;
+                if(dinhDanh == 1){
+                    if (TextUtils.equals(hoSoBenh.getIdBacSi(), id)) {
+                        adapter.addItem(list.size(), hoSoBenh);
+                    }
+                }else if (dinhDanh == 2){
+                    if (TextUtils.equals(hoSoBenh.getIdBenhNhan(), id)) {
                         adapter.addItem(list.size(), hoSoBenh);
                     }
                 }
+            }
 
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
 
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-                }
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
 
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                }
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            });
-        }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 }

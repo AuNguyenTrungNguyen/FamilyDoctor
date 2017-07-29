@@ -23,9 +23,11 @@ public class AdapterThongTinHoSoBanhAnBacSi extends RecyclerView.Adapter<Adapter
 
     private List<HoSoBenh> listData = new ArrayList<>();
     DatabaseReference databaseHSBA;
+    int dinhDanh = 0;
 
-    public AdapterThongTinHoSoBanhAnBacSi(List<HoSoBenh> listData) {
+    public AdapterThongTinHoSoBanhAnBacSi(List<HoSoBenh> listData, int dinhDanh) {
         this.listData = listData;
+        this.dinhDanh = dinhDanh;
         databaseHSBA = FirebaseDatabase.getInstance().getReference();
     }
 
@@ -47,29 +49,53 @@ public class AdapterThongTinHoSoBanhAnBacSi extends RecyclerView.Adapter<Adapter
         HoSoBenh hoSoBenh = listData.get(position);
 
         if(hoSoBenh != null){
+
             final String idBenhNhan = listData.get(position).getIdBenhNhan();
             String tenBenh = listData.get(position).getTenBenh();
             String ngayKham = listData.get(position).getNgayKham();
             String ngayTaiKham = listData.get(position).getNgayTaiKham();
 
-            databaseHSBA.child("User_BenhNhan").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (DataSnapshot data : dataSnapshot.getChildren()) {
-                        BenhNhan benhNhan = data.getValue(BenhNhan.class);
-                        assert benhNhan != null;
-                        if (benhNhan.getSoDienThoaiBenhNhan().equals(idBenhNhan)){
-                            holder.txtName.setText("Họ tên : " + benhNhan.getHoTenBenhNhan());
-                            break;
+            if(dinhDanh == 1){
+                databaseHSBA.child("User_BenhNhan").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot data : dataSnapshot.getChildren()) {
+                            BenhNhan benhNhan = data.getValue(BenhNhan.class);
+                            assert benhNhan != null;
+                            if (benhNhan.getSoDienThoaiBenhNhan().equals(idBenhNhan)){
+                                holder.txtName.setText("Họ tên : " + benhNhan.getHoTenBenhNhan());
+                                break;
+                            }
                         }
                     }
-                }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-                }
-            });
+                    }
+                });
+            }
+            else if(dinhDanh == 2){
+                databaseHSBA.child("User_BacSi").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot data : dataSnapshot.getChildren()) {
+                            BenhNhan benhNhan = data.getValue(BenhNhan.class);
+                            assert benhNhan != null;
+                            if (benhNhan.getSoDienThoaiBenhNhan().equals(idBenhNhan)){
+                                holder.txtName.setText("Họ tên : " + benhNhan.getHoTenBenhNhan());
+                                break;
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+
 
             holder.txtTenBenh.setText("Bệnh : "+ tenBenh);
             holder.txtNgayKham.setText("Ngày khám : "+ ngayKham);
