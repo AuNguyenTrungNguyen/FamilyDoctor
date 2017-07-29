@@ -446,7 +446,6 @@ public class LoginPhone extends AppCompatActivity implements
 
                     }
                 }
-
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
