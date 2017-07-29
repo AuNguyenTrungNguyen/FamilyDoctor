@@ -40,7 +40,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
-public class LoginPhonee extends AppCompatActivity implements
+public class LoginPhone extends AppCompatActivity implements
         View.OnClickListener {
     private static final String TAG = "PhoneAuthActivity";
     private static final String KEY_VERIFY_IN_PROGRESS = "key_verify_in_progress";
@@ -393,7 +393,7 @@ public class LoginPhonee extends AppCompatActivity implements
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 if (dataSnapshot.child("soDienThoaiBacSi").getValue(String.class) != null){
-                    Intent intent = new Intent(LoginPhonee.this, MainActivity.class);
+                    Intent intent = new Intent(LoginPhone.this, MainActivity.class);
                     dinhDanh = 1;
                     startActivity(intent);
                 }else {
@@ -403,7 +403,7 @@ public class LoginPhonee extends AppCompatActivity implements
                     Log.i("checkUser", isCompleteDoc.toString());
 
                     if (isCompleteDoc == true && isCompletePan == true){
-                        Intent intent = new Intent(LoginPhonee.this, LuaChonLoaiTaiKhoanActivity.class);
+                        Intent intent = new Intent(LoginPhone.this, LuaChonLoaiTaiKhoanActivity.class);
                         startActivity(intent);
                     }
 
@@ -427,14 +427,14 @@ public class LoginPhonee extends AppCompatActivity implements
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
                     if (dataSnapshot.child("soDienThoaiBenhNhan").getValue(String.class) != null){
-                        Intent intent = new Intent(LoginPhonee.this, MainActivity.class);
+                        Intent intent = new Intent(LoginPhone.this, MainActivity.class);
                         intent.putExtra("dinhDanh",2);
                         startActivity(intent);
                     }else {
                         isCompletePan = true;
                         Log.i("checkUser", "Benh nhan k ton tai");
                         if (isCompleteDoc == true && isCompletePan == true){
-                            Intent intent = new Intent(LoginPhonee.this, LuaChonLoaiTaiKhoanActivity.class);
+                            Intent intent = new Intent(LoginPhone.this, LuaChonLoaiTaiKhoanActivity.class);
                             dinhDanh = 2;
                             startActivity(intent);
                         }
