@@ -115,13 +115,6 @@ public class FragmentBacSi extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         firebaseStorage = FirebaseStorage.getInstance();
 
-        Intent bundle = getActivity().getIntent();
-
-        if (bundle != null){
-
-           //Intent i = bundle.getDataString()
-        }
-
         //Set hình ảnh đại diện và ảnh xác thực bác sĩ
         imgAva = (ImageView) view.findViewById(R.id.Ava);
         imgAva.setOnClickListener(new View.OnClickListener() {
