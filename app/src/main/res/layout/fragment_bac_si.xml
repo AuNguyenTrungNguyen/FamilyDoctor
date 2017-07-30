@@ -103,19 +103,20 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:background="@drawable/add_picture" />
+            <Button
+                android:id="@+id/SubmitD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="10dp"
+                android:background="#0079bf"
+                android:text="Đăng ký thông tin"
+                android:textColor="@color/white" />
 
 
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/SubmitD"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginTop="10dp"
-        android:background="#0079bf"
-        android:text="Đăng ký thông tin"
-        android:textColor="@color/white" />
+
 
 </FrameLayout>

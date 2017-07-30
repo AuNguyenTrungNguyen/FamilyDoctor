@@ -28,6 +28,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -351,7 +352,6 @@ public class LoginPhone extends AppCompatActivity implements
                 mResendButton.setVisibility(View.GONE);
                 mVerifyButton.setVisibility(View.GONE);
                 mVerificationField.setVisibility(View.GONE);
-
                 mStartButton.setVisibility(View.VISIBLE);
                 break;
             case STATE_CODE_SENT:
@@ -464,9 +464,7 @@ public class LoginPhone extends AppCompatActivity implements
                         Intent intent = new Intent(LoginPhone.this, LuaChonLoaiTaiKhoanActivity.class);
                         startActivity(intent);
                     }
-
                 }
-
                 try {
                     Log.i("checkUser", dataSnapshot.child("soDienThoaiBacSi").getValue(String.class));
                 } catch (Exception e) {
@@ -518,6 +516,8 @@ public class LoginPhone extends AppCompatActivity implements
                 if (!validatePhoneNumber()) {
                     return;
                 }
+                Toast.makeText(getApplicationContext(), "Đã gửi mã xác nhận", Toast.LENGTH_SHORT).show();
+                mStartButton.setEnabled(false);
                 startPhoneNumberVerification(mPhoneNumberField.getText().toString());
                 break;
             case R.id.button_verify_phone:
