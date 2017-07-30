@@ -75,11 +75,11 @@ public class LoginPhone extends AppCompatActivity implements
     Boolean isCompleteDoc = false;
     Boolean isCompletePan = false;
 
-    public static int dinhDanh = 2;
+    public static int dinhDanh = 0;
     //Bác sĩ = 1
     //Bệnh nhân = 2
 
-    public static String sdt_key = "01279095508";
+    public static String sdt_key = "";
 
     BroadcastReceiver receiver;
     String get_body,code;

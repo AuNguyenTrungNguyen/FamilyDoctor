@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new TinTucSucKhoe());
         fragments.add(new FragmentHoSoBenhAn());
-        fragments.add(new FragmentCaiDat());
+        fragments.add(new DanhSachBacSi_BenhNhan());
         fragments.add(new FragmentCaiDat());
 
         mViewPager.setOffscreenPageLimit(3);
