@@ -102,7 +102,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
         mMapView.onResume();
         loadDuLieuFirebase();
         Log.d("DinhDanh", LoginPhone.dinhDanh+"    "+ "toado"+latitudeGPS+"   "+longtitudeGPS);
-
+    ///qưdjqwhdwqd
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
         } catch (Exception e) {
