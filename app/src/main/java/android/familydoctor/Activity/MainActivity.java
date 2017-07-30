@@ -52,8 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         initView();
-        //initViewPager(LoginPhone.dinhDanh);
-        initViewPager(1);
+        initViewPager(LoginPhone.dinhDanh);
         layduLieuDangNhap();
         checkPermission();
 //        openView();
