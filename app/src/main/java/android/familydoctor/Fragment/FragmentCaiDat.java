@@ -3,6 +3,7 @@ package android.familydoctor.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.familydoctor.Activity.CapNhatThongTinCaNhan_Act;
+import android.familydoctor.Activity.LoginPhone;
 import android.familydoctor.Activity.MainActivity;
 import android.familydoctor.Activity.ThongTinUngDungActivity;
 import android.familydoctor.R;
@@ -78,19 +79,18 @@ public class FragmentCaiDat extends Fragment {
             @Override
             public void onClick(View v) {
 
-                new AlertDialog.Builder(getContext()).setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(getContext()).setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mAuth.signOut();
                         getActivity().finish();
-                        Intent intent = new Intent(getActivity(),Sign_in.class);
+                        Intent intent = new Intent(getActivity(),LoginPhone.class);
                         startActivity(intent);
                     }
                 }).setNegativeButton("Hủy", null)
                         .setMessage("Bạn có chắc chắn muốn đăng xuất không ?")
                         .setTitle("Xác nhận thoát")
                         .show();
-
             }
         });
 

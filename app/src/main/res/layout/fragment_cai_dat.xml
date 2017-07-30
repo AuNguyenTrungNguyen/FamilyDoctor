@@ -1,84 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <android.support.v7.widget.CardView
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <ImageView
+        <android.support.v7.widget.CardView
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
 
-            android:id="@+id/avataUser"
-            android:src="@drawable/logo"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+                android:id="@+id/avataUser"
+                android:src="@drawable/logo"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                />
+        </android.support.v7.widget.CardView>
+
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Xin chào !"
+            android:textColor="#000"
+            android:textStyle="bold"
             />
-    </android.support.v7.widget.CardView>
 
+        <TextView
+            android:id="@+id/txtNameShow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Bùi Minh Tâm"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            />
 
-    <TextView
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Xin chào !"
-        android:textColor="#000"
-        android:textStyle="bold"
-        />
+        <TextView
+            android:id="@+id/txtCapNhatThongTin"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:gravity="left|center"
+            android:text="  Cập nhật thông tin"
+            android:textStyle="bold"
+            android:drawableLeft="@drawable/update_icon_large_40"/>
 
-    <TextView
-        android:id="@+id/txtNameShow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Bùi Minh Tâm"
-        android:textColor="#000"
-        android:textStyle="bold"
-        android:textSize="30sp"
-        />
+        <TextView
+            android:id="@+id/txtThongTinUngDung"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:gravity="left|center"
+            android:text=" Thông tin ứng dụng"
+            android:textStyle="bold"
+            android:drawableLeft="@drawable/logo_big_information_40"/>
 
-    <TextView
-        android:id="@+id/txtCapNhatThongTin"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_margin="10dp"
-        android:gravity="left|center"
-        android:text="  Cập nhật thông tin"
-        android:textStyle="bold"
-        android:drawableLeft="@drawable/update_icon_large_40"/>
+        <TextView
+            android:id="@+id/txtPhanHoiUngDung"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:gravity="left|center"
+            android:text=" Phản hồi ứng dụng"
+            android:textStyle="bold"
+            android:drawableLeft="@drawable/feedback_icon_40"/>
 
-    <TextView
-        android:id="@+id/txtThongTinUngDung"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_margin="10dp"
-        android:gravity="left|center"
-        android:text=" Thông tin ứng dụng"
-        android:textStyle="bold"
-        android:drawableLeft="@drawable/logo_big_information_40"/>
+        <TextView
 
-    <TextView
-        android:id="@+id/txtPhanHoiUngDung"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_margin="10dp"
-        android:gravity="left|center"
-        android:text=" Phản hồi ứng dụng"
-        android:textStyle="bold"
-        android:drawableLeft="@drawable/feedback_icon_40"/>
+            android:drawableLeft="@drawable/logout_icon_40"
+            android:id="@+id/txtDangXuat"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:gravity="left|center"
+            android:text=" Đăng xuất"
+            android:textStyle="bold" />
 
-    <TextView
+    </LinearLayout>
+</ScrollView>
 
-        android:drawableLeft="@drawable/logout_icon_40"
-        android:id="@+id/txtDangXuat"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_margin="10dp"
-        android:gravity="left|center"
-        android:text=" Đăng xuất"
-        android:textStyle="bold" />
-
-</LinearLayout>

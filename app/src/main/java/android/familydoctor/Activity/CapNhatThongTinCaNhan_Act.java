@@ -129,8 +129,11 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
 
                 String hoTen = HoTen.getText().toString();
                 String namSinh = NamSinh.getSelectedItem().toString();
-                String sdt = LoginPhone.sdt_key;
                 String diaChi = DiaChi.getText().toString();
+
+                benhNhan.setHoTenBenhNhan(hoTen);
+                benhNhan.setNamSinhBenhNhan(namSinh);
+                benhNhan.setDiaChiBenhNhan(diaChi);
 
                 //Up Hình ảnh
                 StorageReference storageReference = firebaseStorage.getReferenceFromUrl("gs://familydoctor-56b96.appspot.com/");
@@ -172,9 +175,9 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
                 String namSinh = NamSinh.getSelectedItem().toString();
                 String diaChi = DiaChi.getText().toString();
 
-                benhNhan.setHoTenBenhNhan(hoTen);
-                benhNhan.setNamSinhBenhNhan(namSinh);
-                benhNhan.setDiaChiBenhNhan(diaChi);
+                bacSi.setHoTenBacSi(hoTen);
+                bacSi.setNamSinhBacSi(namSinh);
+                bacSi.setDiaChiBacSi(diaChi);
 
                 //Up Hình ảnh
                 StorageReference storageReference = firebaseStorage.getReferenceFromUrl("gs://familydoctor-56b96.appspot.com/");
