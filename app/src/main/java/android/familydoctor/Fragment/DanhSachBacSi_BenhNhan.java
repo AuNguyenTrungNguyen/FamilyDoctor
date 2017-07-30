@@ -5,8 +5,12 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.familydoctor.Activity.LoginPhone;
 import android.familydoctor.Activity.XemTTBacSi_Act;
+import android.familydoctor.Activity.XemTTBenhNhan_Act;
 import android.familydoctor.Class.BacSi;
+import android.familydoctor.Class.BenhNhan;
+import android.familydoctor.Class.HoSoBenh;
 import android.familydoctor.R;
 import android.familydoctor.service.GPSTracker;
 import android.graphics.Color;
@@ -36,6 +40,7 @@ import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
@@ -51,14 +56,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 import static android.content.Context.LOCATION_SERVICE;
+import static android.familydoctor.R.drawable.doctor;
+import static android.familydoctor.R.drawable.plus_48dp;
 
 public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickListener {
     LocationManager locationManager;
     MapView mMapView;
     private GoogleMap googleMap = null;
 
-    DatabaseReference database;
+    DatabaseReference databaseBS;
+    DatabaseReference databaseBN;
+    DatabaseReference databaseHSBA;
     ArrayList<BacSi> dsBacSi;
+    ArrayList<BenhNhan> dsBenhNhan;
+    ArrayList<HoSoBenh> dsHSBA;
     public static double longtitudeGPS;
     public static double latitudeGPS;
     EditText edtInput;
@@ -77,30 +88,33 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tab3_danhasch_bs_bn, container, false);
-        database = FirebaseDatabase.getInstance().getReference();
-        //testPusuDULieu();
+        databaseBN = FirebaseDatabase.getInstance().getReference();
+        databaseBS = FirebaseDatabase.getInstance().getReference();
+        databaseHSBA = FirebaseDatabase.getInstance().getReference();
         edtInput = (EditText) rootView.findViewById(R.id.edtSDT);
         btnSearch = (ImageButton) rootView.findViewById(R.id.btnSearchAddress);
         btnSearch.setOnClickListener(this);
         dsBacSi = new ArrayList<>();
+        dsBenhNhan= new ArrayList<>();
+        dsHSBA= new ArrayList<>();
         mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
         loadDuLieuFirebase();
-
-       /* try {
+        Log.d("DinhDanh", LoginPhone.dinhDanh+"    "+ "toado"+latitudeGPS+"   "+longtitudeGPS);
+    ///qưdjqwhdwqd
+        try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
-
+        }
         locationManager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
-        gpsTracker = new GPSTracker(getContext());
+       /* gpsTracker = new GPSTracker(getContext());
         if (gpsTracker != null && locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             mLocation = gpsTracker.getLocation();
-//            latitudeGPS = mLocation.getLatitude();
+            latitudeGPS = mLocation.getLatitude();
             longtitudeGPS = mLocation.getLongitude();
-        }
+        }*/
         //Toast.makeText(getContext(), latitudeGPS + "   " + longtitudeGPS, Toast.LENGTH_SHORT).show();
         //Log.d("TOADO", latitudeGPS + "   " + longtitudeGPS);
         mMapView.getMapAsync(new OnMapReadyCallback() {
@@ -112,7 +126,6 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                     public View getInfoWindow(Marker marker) {
                         return null;
                     }
-
                     @Override
                     public View getInfoContents(Marker marker) {
                         LinearLayout info = new LinearLayout(getContext().getApplicationContext());
@@ -135,66 +148,17 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                     }
                 });
                 if (googleMap != null) {
+                   // moveCameraMyLoc(LoginPhone.xxx, LoginPhone.yyy, 17);
                     moveCameraMyLoc(latitudeGPS, longtitudeGPS, 17);
-                    googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-                        @Override
-                        public void onInfoWindowClick(Marker marker) {
-                            Toast.makeText(getContext(), "Vui lòng nhấn giữ lâu để gọi hoặc xem chi tiết!", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    googleMap.setOnInfoWindowLongClickListener(new GoogleMap.OnInfoWindowLongClickListener() {
-                        @Override
-                        public void onInfoWindowLongClick(final Marker marker) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-                            builder.setMessage("Option của bạn");
-
-                            builder.setPositiveButton("Xem chi tiết bác sĩ này", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    BacSi bs = (BacSi) marker.getTag();
-                                    Intent it =new Intent(getContext(), XemTTBacSi_Act.class);
-                                    it.putExtra("name",bs.getHoTenBacSi());
-                                    it.putExtra("sdt",bs.getSoDienThoaiBacSi());
-                                    it.putExtra("chuyenmon",bs.getChuyenMonBacSi());
-                                    it.putExtra("diachi",bs.getDiaChiBacSi());
-                                    it.putExtra("url1",bs.getUriHinhAnhBacSi());
-                                    it.putExtra("url2",bs.getUriVanBangBacSi());
-                                    startActivity(it);
-                                }
-                            });
-
-                            builder.setNegativeButton("Gọi liên hệ", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    int dauhieu = marker.getSnippet().indexOf("::");
-
-                                    String number = marker.getSnippet().substring
-                                            (
-                                                    dauhieu + 1
-                                                    ,
-                                                    marker.getSnippet().length()
-                                            );
-                                    Log.d("SDT", number);
-                                    Intent intent = new Intent(Intent.ACTION_CALL);
-                                    intent.setData(Uri.parse("tel:" + number));
-                                    startActivity(intent);
-                                }
-                            });
-
-                            Dialog dialog = builder.create();
-                            dialog.show();
-                        }
-                    });
                 } else {
                     final Handler handler = new Handler(Looper.getMainLooper());
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             if (googleMap != null) {
-                                moveCameraMyLoc(latitudeGPS
-                                        , longtitudeGPS
-                                        , 17);
+//                                moveCameraMyLoc(LoginPhone.xxx, LoginPhone.yyy, 17);
+                                moveCameraMyLoc(latitudeGPS, longtitudeGPS, 17);
                             } else {
                                 handler.postDelayed(this, 300);
                             }
@@ -228,30 +192,158 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                                 .fillColor(Color.parseColor("#FF85E880"))
                                 .center(latLng)
                         );
-                        for (int i = 0; i < dsBacSi.size(); i++) {
-                            MarkerOptions markerOptions;
-                            LatLng toado = new LatLng(dsBacSi.get(i).getxBacSi()
-                                    , dsBacSi.get(i).getyBacSi());
-                            float[] results = new float[1];
-                            Location.distanceBetween(latLng.latitude, latLng.longitude,
-                                    toado.latitude, toado.longitude
-                                    , results);
-                            if (results[0] < 100) {
-                                markerOptions = new MarkerOptions()
-                                        .position(toado)
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.doctor))
-                                        .title(dsBacSi.get(i).getHoTenBacSi())
-                                        .snippet
-                                                (
-                                                        "Chuyên môn: " + dsBacSi.get(i).getChuyenMonBacSi()
-                                                                + "\n"
-                                                                + "Địa chỉ: " + dsBacSi.get(i).getDiaChiBacSi()
-                                                                + "\n"
-                                                                + "SDT liên hệ:: " + dsBacSi.get(i).getSoDienThoaiBacSi()
+                        if (LoginPhone.dinhDanh == 2)//////////laf benh nhan thi xem cac bac si
+                        {
+                            for (int i = 0; i < dsBacSi.size(); i++) {
+                                MarkerOptions markerOptions;
+                                LatLng toado = new LatLng(dsBacSi.get(i).getxBacSi()
+                                        , dsBacSi.get(i).getyBacSi());
+                                float[] results = new float[1];
+                                Location.distanceBetween(latLng.latitude, latLng.longitude,
+                                        toado.latitude, toado.longitude
+                                        , results);
+                                if (results[0] < 100) {
+                                    markerOptions = new MarkerOptions()
+                                            .position(toado)
+                                            .icon(BitmapDescriptorFactory.fromResource(doctor))
+                                            .title(dsBacSi.get(i).getHoTenBacSi())
+                                            .snippet
+                                                    (
+                                                            "Chuyên môn: " + dsBacSi.get(i).getChuyenMonBacSi()
+                                                                    + "\n"
+                                                                    + "Ðịa chỉ: " + dsBacSi.get(i).getDiaChiBacSi()
+                                                                    + "\n"
+                                                                    + "SDT liên hệ:: " + dsBacSi.get(i).getSoDienThoaiBacSi()
 
-                                                );
-                                googleMap.addMarker(markerOptions).setTag(dsBacSi.get(i));
+                                                    );
+                                    googleMap.addMarker(markerOptions).setTag(dsBacSi.get(i));
+                                }
                             }
+                            googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                                @Override
+                                public void onInfoWindowClick(Marker marker) {
+                                    Toast.makeText(getContext(), "Vui lòng nhấn giư lâu để gọi hoặc xem chi tiết!", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            googleMap.setOnInfoWindowLongClickListener(new GoogleMap.OnInfoWindowLongClickListener() {
+                                @Override
+                                public void onInfoWindowLongClick(final Marker marker) {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                    builder.setPositiveButton("Xem chi tiết bác sĩ này", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            BacSi bs = (BacSi) marker.getTag();
+                                            Intent it = new Intent(getContext(), XemTTBacSi_Act.class);
+                                            it.putExtra("name", bs.getHoTenBacSi());
+                                            it.putExtra("sdt", bs.getSoDienThoaiBacSi());
+                                            it.putExtra("chuyenmon", bs.getChuyenMonBacSi());
+                                            it.putExtra("diachi", bs.getDiaChiBacSi());
+                                            it.putExtra("url1", bs.getUriHinhAnhBacSi());
+                                            it.putExtra("url2", bs.getUriVanBangBacSi());
+                                            startActivity(it);
+                                        }
+                                    });
+
+                                    builder.setNegativeButton("Gọi liên hệ", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            int dauhieu = marker.getSnippet().indexOf("::");
+
+                                            String number = marker.getSnippet().substring
+                                                    (
+                                                            dauhieu + 1
+                                                            ,
+                                                            marker.getSnippet().length()
+                                                    );
+                                            Log.d("SDT", number);
+                                            Intent intent = new Intent(Intent.ACTION_CALL);
+                                            intent.setData(Uri.parse("tel:" + number));
+                                            startActivity(intent);
+                                        }
+                                    });
+
+                                    Dialog dialog = builder.create();
+                                    dialog.show();
+                                }
+                            });
+                        }
+                        else////la bac si thi xem benh nhan trong ho so benh an
+                        {
+                            for (int i = 0; i < dsHSBA.size(); i++) {
+                                for (int j = 0; j <dsBenhNhan.size() ; j++) {
+                                    if (TextUtils.equals(dsHSBA.get(i).getIdBenhNhan(),dsBenhNhan.get(j).getSoDienThoaiBenhNhan())
+                                            &&
+                                            TextUtils.equals(dsHSBA.get(i).getIdBacSi(), LoginPhone.sdt_key))
+                                    {
+                                        MarkerOptions markerOptions;
+                                        LatLng toado = new LatLng(dsBenhNhan.get(j).getxBenhNhan()
+                                                , dsBenhNhan.get(j).getyBenhNhan());
+                                        float[] results = new float[1];
+                                        Location.distanceBetween(latLng.latitude, latLng.longitude,
+                                                toado.latitude, toado.longitude
+                                                , results);
+                                        if (results[0] < 100) {
+                                            markerOptions = new MarkerOptions()
+                                                    .position(toado)
+                                                    .icon(BitmapDescriptorFactory.fromResource(plus_48dp))
+                                                    .title(dsBenhNhan.get(j).getHoTenBenhNhan())
+                                                    .snippet
+                                                            (
+                                                                    "Ðịa chỉ: " + dsBenhNhan.get(j).getDiaChiBenhNhan()
+                                                                            + "\n"
+                                                                            + "SDT liên hệ:: " + dsBenhNhan.get(j).getSoDienThoaiBenhNhan()
+
+                                                            );
+                                            googleMap.addMarker(markerOptions).setTag(dsBenhNhan.get(j));
+                                        }
+                                    }
+                                }
+                            }
+                            googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                                @Override
+                                public void onInfoWindowClick(Marker marker) {
+                                    Toast.makeText(getContext(), "Vui lòng nhấn giữ lâu để gọi hoặc xem chi tiết!", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            googleMap.setOnInfoWindowLongClickListener(new GoogleMap.OnInfoWindowLongClickListener() {
+                                @Override
+                                public void onInfoWindowLongClick(final Marker marker) {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                    builder.setPositiveButton("Xem chi tiết bệnnh nhân này", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            BenhNhan bs = (BenhNhan) marker.getTag();
+                                            Intent it = new Intent(getContext(), XemTTBenhNhan_Act.class);
+                                            it.putExtra("name", bs.getHoTenBenhNhan());
+                                            it.putExtra("sdt", bs.getSoDienThoaiBenhNhan());
+                                            it.putExtra("diachi", bs.getDiaChiBenhNhan());
+                                            it.putExtra("url1", bs.getUriHinhAnhBenhNhan());
+                                            startActivity(it);
+                                        }
+                                    });
+
+                                    builder.setNegativeButton("Gọi liên hệ", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            int dauhieu = marker.getSnippet().indexOf("::");
+
+                                            String number = marker.getSnippet().substring
+                                                    (
+                                                            dauhieu + 1
+                                                            ,
+                                                            marker.getSnippet().length()
+                                                    );
+                                            Log.d("SDT", number);
+                                            Intent intent = new Intent(Intent.ACTION_CALL);
+                                            intent.setData(Uri.parse("tel:" + number));
+                                            startActivity(intent);
+                                        }
+                                    });
+
+                                    Dialog dialog = builder.create();
+                                    dialog.show();
+                                }
+                            });
                         }
                     }
 
@@ -271,9 +363,62 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
     }
 
 
-
     private void loadDuLieuFirebase() {
-        database.child("User_BacSi").addChildEventListener(new ChildEventListener() {
+        databaseHSBA.child("HoSoBenhAn").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                HoSoBenh hsb = dataSnapshot.getValue(HoSoBenh.class);
+                dsHSBA.add(hsb);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        databaseBN.child("User_BenhNhan").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                BenhNhan benhNhan = dataSnapshot.getValue(BenhNhan.class);
+                dsBenhNhan.add(benhNhan);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        databaseBS.child("User_BacSi").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 BacSi doctor = dataSnapshot.getValue(BacSi.class);
@@ -320,28 +465,27 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
             for (int i = 0; i < dsBacSi.size(); i++) {
                 if (TextUtils.equals(input, dsBacSi.get(i).getSoDienThoaiBacSi())) {
                     moveCamera(dsBacSi.get(i).getxBacSi()
-                            ,dsBacSi.get(i).getyBacSi()
+                            , dsBacSi.get(i).getyBacSi()
                             , 19);
                     MarkerOptions markerOptions = new MarkerOptions()
                             .position(new LatLng(dsBacSi.get(i).getxBacSi()
-                                    ,dsBacSi.get(i).getyBacSi()))
-                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.doctor))
+                                    , dsBacSi.get(i).getyBacSi()))
+                            .icon(BitmapDescriptorFactory.fromResource(doctor))
                             .title(dsBacSi.get(i).getHoTenBacSi())
                             .snippet(
                                     "Chuyên môn: " + dsBacSi.get(i).getChuyenMonBacSi()
                                             + "\n"
-                                            + "Địa chỉ: " + dsBacSi.get(i).getDiaChiBacSi()
+                                            + "Ðịa chỉ: " + dsBacSi.get(i).getDiaChiBacSi()
                                             + "\n"
                                             + "SDT liên hệ:: " + dsBacSi.get(i).getSoDienThoaiBacSi()
                             );
                     googleMap.addMarker(markerOptions).setTag(dsBacSi.get(i));
-                    Toast.makeText(getContext(), "Ổng đây nè", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Ổng dây nè", Toast.LENGTH_SHORT).show();
                 }
 
             }
 
         }
     }
-
 
 }
