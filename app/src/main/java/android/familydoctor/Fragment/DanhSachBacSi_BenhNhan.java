@@ -101,7 +101,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
         loadDuLieuFirebase();
-        Log.d("DinhDanh", LoginPhone.dinhDanh+"    "+ "toado"+LoginPhone.xxx+"   "+LoginPhone.yyy);
+        Log.d("DinhDanh", LoginPhone.dinhDanh+"    "+ "toado"+latitudeGPS+"   "+longtitudeGPS);
 
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
@@ -148,7 +148,8 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                     }
                 });
                 if (googleMap != null) {
-                    moveCameraMyLoc(LoginPhone.xxx, LoginPhone.yyy, 17);
+                   // moveCameraMyLoc(LoginPhone.xxx, LoginPhone.yyy, 17);
+                    moveCameraMyLoc(latitudeGPS, longtitudeGPS, 17);
 
                 } else {
                     final Handler handler = new Handler(Looper.getMainLooper());
@@ -156,7 +157,8 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                         @Override
                         public void run() {
                             if (googleMap != null) {
-                                moveCameraMyLoc(LoginPhone.xxx, LoginPhone.yyy, 17);
+//                                moveCameraMyLoc(LoginPhone.xxx, LoginPhone.yyy, 17);
+                                moveCameraMyLoc(latitudeGPS, longtitudeGPS, 17);
                             } else {
                                 handler.postDelayed(this, 300);
                             }
@@ -227,7 +229,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                                 @Override
                                 public void onInfoWindowLongClick(final Marker marker) {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                                    builder.setPositiveButton("Xem chi tiết bác si này", new DialogInterface.OnClickListener() {
+                                    builder.setPositiveButton("Xem chi tiết bác sĩ này", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             BacSi bs = (BacSi) marker.getTag();
@@ -452,7 +454,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
 
     public void moveCameraMyLoc(double lat, double lng, float zoom) {
         LatLng loc = new LatLng(lat, lng);
-        googleMap.addMarker(new MarkerOptions().position(loc).title("B?n dang ? dây!"));
+        googleMap.addMarker(new MarkerOptions().position(loc).title("Bạn đang ở đây!"));
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, zoom));
     }
 
