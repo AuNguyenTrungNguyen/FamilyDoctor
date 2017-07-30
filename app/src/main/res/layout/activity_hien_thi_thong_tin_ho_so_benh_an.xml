@@ -20,11 +20,20 @@
             android:orientation="vertical">
 
             <TextView
+                android:textColor="#300505"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Thông tin bệnh án"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
                 android:id="@+id/txtNameShow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="Tên bệnh nhân"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -33,7 +42,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="Tên bệnh"
                 android:textSize="18sp" />
 
             <TextView
@@ -41,7 +49,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="Ngày khám:"
                 android:textSize="16sp"
                 android:textStyle="italic" />
 
@@ -50,7 +57,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="Ngày tái khám:"
                 android:textSize="16sp"
                 android:textStyle="italic" />
 

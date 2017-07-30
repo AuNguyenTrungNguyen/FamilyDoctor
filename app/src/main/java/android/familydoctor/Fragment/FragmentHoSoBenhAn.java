@@ -6,6 +6,7 @@ package android.familydoctor.Fragment;
 
 import android.content.Intent;
 import android.familydoctor.Activity.HienThiThongTinHoSoBenhAnActivity;
+import android.familydoctor.Activity.LoginPhone;
 import android.familydoctor.Adapter.AdapterHoSoBenhAn;
 import android.familydoctor.Class.HoSoBenh;
 import android.familydoctor.R;
@@ -39,9 +40,11 @@ public class FragmentHoSoBenhAn extends Fragment {
     LinearLayoutManager layoutManager;
     List<HoSoBenh> list = new ArrayList<>();
 
-    // set dữ liệu chỗ này và cho app chạy Main chứ ko phải login - Nguyên
-    int dinhDanh = 2;
-    String id = "01279095508";
+    // ko có public static và bằng LoginPhone.dinhDanh
+    int dinhDanh = LoginPhone.dinhDanh;
+
+    // ko có public static và bằng LoginPhone.sdt_key
+    String id = LoginPhone.sdt_key;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

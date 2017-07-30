@@ -1,137 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="wrap_content">
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_margin="5dp"
-            android:orientation="horizontal"
-            android:weightSum="12">
-
-            <TextView
-                android:lines="2"
-                android:id="@+id/txtTenThuoc"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                android:gravity="left|center"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/txtSoLuongThuoc"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="5"
-                android:gravity="left|center"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/btnXoaThuoc"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@android:drawable/ic_menu_delete" />
-
-            <Button
-                android:id="@+id/btnCapNhatThuoc"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@android:drawable/ic_menu_edit" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="12">
 
                 <TextView
+                    android:id="@+id/txtTenThuoc"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Buổi sáng"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:gravity="left|center"
+                    android:lines="2"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/txtSoLuongThuoc"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Buổi trưa"
+                    android:layout_weight="5"
+                    android:gravity="left|center"
                     android:textStyle="bold" />
 
-                <TextView
+                <Button
+                    android:id="@+id/btnXoaThuoc"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Buổi chiều"
-                    android:textStyle="bold" />
+                    android:background="@android:drawable/ic_menu_delete" />
+
+                <Button
+                    android:id="@+id/btnCapNhatThuoc"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@android:drawable/ic_menu_edit" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/txtLieuDungSang"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textColor="#ff0000"
-                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
 
-                <TextView
-                    android:id="@+id/txtLieuDungTrua"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textColor="#0000ff"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Buổi sáng"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/txtLieuDungChieu"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textColor="#ff9100"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Buổi trưa"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Buổi chiều"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <TextView
+                        android:id="@+id/txtLieuDungSang"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="#ff0000"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtLieuDungTrua"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="#0000ff"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtLieuDungChieu"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="#ff9100"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
         </LinearLayout>
-
-    </LinearLayout>
-</android.support.v7.widget.CardView>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

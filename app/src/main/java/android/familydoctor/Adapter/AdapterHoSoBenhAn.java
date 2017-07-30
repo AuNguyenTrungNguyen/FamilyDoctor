@@ -51,7 +51,9 @@ public class AdapterHoSoBenhAn extends RecyclerView.Adapter<AdapterHoSoBenhAn.Re
 
         if(hoSoBenh != null){
 
+            final String idBacSi = listData.get(position).getIdBacSi();
             final String idBenhNhan = listData.get(position).getIdBenhNhan();
+
             String tenBenh = listData.get(position).getTenBenh();
             String ngayKham = listData.get(position).getNgayKham();
             String ngayTaiKham = listData.get(position).getNgayTaiKham();
@@ -83,13 +85,12 @@ public class AdapterHoSoBenhAn extends RecyclerView.Adapter<AdapterHoSoBenhAn.Re
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
                             BacSi bacSi = data.getValue(BacSi.class);
                             assert bacSi != null;
-                            if (bacSi.getSoDienThoaiBacSi().equals(idBenhNhan)){
+                            if (bacSi.getSoDienThoaiBacSi().equals(idBacSi)){
                                 holder.txtName.setText("Họ tên : " + bacSi.getHoTenBacSi());
                                 break;
                             }
                         }
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 
