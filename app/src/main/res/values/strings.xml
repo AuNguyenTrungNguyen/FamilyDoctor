@@ -26,4 +26,121 @@
     <string name="But_X_N">Xác Nhận</string>
     <string name="But_Resend">Gởi Lại Xác Nhận</string>
     <string name="title_activity_maps">Map</string>
+
+    <string-array name="danhSachThuoc">
+        <item>	Atropin sulfat	</item>
+        <item>	Lidocain	</item>
+        <item>	Diclo fenac	</item>
+        <item>	Nimesulid	</item>
+        <item>	Meloxicam	</item>
+        <item>	Methyl salicylat	</item>
+        <item>	Paracetamol	</item>
+        <item>	Allopurinol	</item>
+        <item>	Colchicin	</item>
+        <item>	Alpha chymotrypsin	</item>
+        <item>	Serratiopeptidase	</item>
+        <item>	Glucosamin	</item>
+        <item>	Descotatyl	</item>
+        <item>	Cetirizin	</item>
+        <item>	Cinnarizin	</item>
+        <item>	Clorphenamin	</item>
+        <item>	Diphenhydramin	</item>
+        <item>	Epinephrin	</item>
+        <item>	Loratadin	</item>
+        <item>	Fexofenadin	</item>
+        <item>	Atropin	</item>
+        <item>	Albendazol	</item>
+        <item>	Mebendazol	</item>
+        <item>	Amoxicilin	</item>
+        <item>	Amoxicilin	</item>
+        <item>	Cefadroxil	</item>
+        <item>	Cefalexin	</item>
+        <item>	Cefixim	</item>
+        <item>	Cefuroxim	</item>
+        <item>	Cefotaxim	</item>
+        <item>	Ceftriaxon	</item>
+        <item>	Gentamicin	</item>
+        <item>	Tobramycin	</item>
+        <item>	Metronidazol	</item>
+        <item>	Clindamycin	</item>
+        <item>	Erythromycin	</item>
+        <item>	Spiramycin	</item>
+        <item>	Clarithromycin	</item>
+        <item>	Ciprofloxacin	</item>
+        <item>	Doxycyclin	</item>
+        <item>	Aciclovir	</item>
+        <item>	Fluconazol	</item>
+        <item>	Griseofulvin	</item>
+        <item>	Ketoconazol	</item>
+        <item>	Nystatin	</item>
+        <item>	Neotergynal	</item>
+        <item>	Folic acid (Vitamin B9)	</item>
+        <item>	Tranexamicacid	</item>
+        <item>	Glyceryl trinitrat	</item>
+        <item>	Trimetazidin	</item>
+        <item>	Cordarone	</item>
+        <item>	Amlodipin	</item>
+        <item>	Captopril	</item>
+        <item>	Losartan	</item>
+        <item>	Nifedipin	</item>
+        <item>	Atorvastatin 	</item>
+        <item>	Piracetam	</item>
+        <item>	Ginkgo biloba	</item>
+        <item>	Clotrimazol	</item>
+        <item>	Flucina	</item>
+        <item>	Oxy già	</item>
+        <item>	Xanh methylen	</item>
+        <item>	C?n 70°	</item>
+        <item>	C?n iod	</item>
+        <item>	Povidone iodine	</item>
+        <item>	Furosemid	</item>
+        <item>	Aluminum phosphat	</item>
+        <item>	Omeprazol	</item>
+        <item>	Acetyl leucin	</item>
+        <item>	Dimenhydrinat	</item>
+        <item>	Domperidon	</item>
+        <item>	Metoclopramid	</item>
+        <item>	Atropin (sulfat)	</item>
+        <item>	Spasmaverin	</item>
+        <item>	Nospa	</item>
+        <item>	Buscopan	</item>
+        <item>	Glycerol	</item>
+        <item>	Sorbitol	</item>
+        <item>	Duphalac	</item>
+        <item>	Diosmectit	</item>
+        <item>	Lactobacillus acidophilus	</item>
+        <item>	Loperamid	</item>
+        <item>	Neopeptin	</item>
+        <item>	Protolog	</item>
+        <item>	Dapflon	</item>
+        <item>	Dexamethason	</item>
+        <item>	Hydrocortison	</item>
+        <item>	Prednisolon	</item>
+        <item>	Gliclazid	</item>
+        <item>	Metformin	</item>
+        <item>	Natri clorid 0.9%	</item>
+        <item>	Gentamycin 0.3%	</item>
+        <item>	Rhinex	</item>
+        <item>	Otifa	</item>
+        <item>	Oxytocin </item>
+        <item>	Rotunda	</item>
+        <item>	Sulpirid	</item>
+        <item>	Lexomil	</item>
+        <item>	Salbutamol	</item>
+        <item>	Ventolin	</item>
+        <item>	Theophylin	</item>
+        <item>	N-acetylcystein	</item>
+        <item>	Calci clorid	</item>
+        <item>	Glucose 30%	</item>
+        <item>	Glucose 5%	</item>
+        <item>	Natri clorid 0.9%	</item>
+        <item>	Pantogen 500ml	</item>
+        <item>	Ringer Lactat	</item>
+        <item>	Aminoplasma 250ml	</item>
+        <item>	Vitamin C	</item>
+        <item>	Vitamin E	</item>
+        <item>	Vitamin PP	</item>
+        <item>	Vitamin A	</item>
+    </string-array>
+
 </resources>

@@ -34,6 +34,8 @@ public class DanhSachThuocActivity extends AppCompatActivity {
 
     int count = 0;
 
+    String[] danhSachThuoc;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +49,10 @@ public class DanhSachThuocActivity extends AppCompatActivity {
         listTenThuoc = new ArrayList<>();
         listThongTinThuoc = new HashMap<>();
 
-        for(int i = 0; i < 9; i++){
-            listTenThuoc.add("Thuốc " + i);
+        danhSachThuoc =  getResources().getStringArray(R.array.danhSachThuoc);
+
+        for(int i = 0; i < danhSachThuoc.length; i++){
+            listTenThuoc.add(danhSachThuoc[i]);
             Thuoc thuoc = new Thuoc(listTenThuoc.get(i), "", "", "", "");
             listThongTinThuoc.put(listTenThuoc.get(i), thuoc);
         }

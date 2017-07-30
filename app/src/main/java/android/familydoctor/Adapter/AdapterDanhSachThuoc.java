@@ -92,7 +92,7 @@ public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
         }
 
         final EditText edtSoLuongThuoc;
-        CheckBox chkSang, chkTrua, chkChieu;
+        final CheckBox chkSang, chkTrua, chkChieu;
         final EditText edtSoLuongSang, edtDonViSang;
         final EditText edtSoLuongTrua, edtDonViTrua;
         final EditText edtSoLuongChieu, edtDonViChieu;
@@ -219,13 +219,28 @@ public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
                     soLuongChieu = Integer.parseInt(edtSoLuongChieu.getText().toString());
                 }
 
-                if (soLuongThuoc < (soLuongSang + soLuongTrua + soLuongChieu) || soLuongThuoc == 0) {
+                if (soLuongThuoc < (soLuongSang + soLuongTrua + soLuongChieu)
+                        || soLuongThuoc == 0
+                        || (soLuongSang == 0 && chkSang.isChecked())
+                        || (soLuongTrua == 0 && chkTrua.isChecked())
+                        || (soLuongChieu == 0 && chkChieu.isChecked())) {
                     Toast.makeText(context, "Thông tin thuốc không chính xác", Toast.LENGTH_SHORT).show();
+
                 } else {
-                    thuoc.setSoLuong(edtSoLuongThuoc.getText().toString());
-                    thuoc.setLieuDungSang(edtSoLuongSang.getText().toString());
-                    thuoc.setLieuDungTrua(edtSoLuongTrua.getText().toString());
-                    thuoc.setLieuDungChieu(edtSoLuongChieu.getText().toString());
+
+                    thuoc.setSoLuong(String.valueOf(soLuongThuoc));
+
+                    if(soLuongSang > 0 ){
+                        thuoc.setLieuDungSang(String.valueOf(soLuongSang));
+                    }
+
+                    if(soLuongTrua > 0){
+                        thuoc.setLieuDungTrua(String.valueOf(soLuongTrua));
+                    }
+
+                    if(soLuongChieu > 0){
+                        thuoc.setLieuDungChieu(String.valueOf(soLuongChieu));
+                    }
                     Toast.makeText(context, "Đã xác nhận: " + thuoc.getTenThuoc(), Toast.LENGTH_SHORT).show();
                 }
             }

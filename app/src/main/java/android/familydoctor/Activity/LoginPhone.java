@@ -1,14 +1,20 @@
 package android.familydoctor.Activity;
 
 import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.familydoctor.Fragment.DanhSachBacSi_BenhNhan;
 import android.familydoctor.R;
 import android.familydoctor.service.GPSTracker;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -22,6 +28,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -74,6 +81,9 @@ public class LoginPhone extends AppCompatActivity implements
     Boolean isCompleteDoc = false;
     Boolean isCompletePan = false;
 
+    BroadcastReceiver receiver;
+    String get_body,code;
+
     public static int dinhDanh = 0;
     public static double xxx;
     public static double yyy;
@@ -115,6 +125,19 @@ public class LoginPhone extends AppCompatActivity implements
             Log.i("phonemunber", "Gettext: " + mPhoneNumberField.getText());
         }
 
+        //tạo bộ lọc để lắng nghe tin nhắn gửi tới
+        IntentFilter filter=new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
+        //tạo bộ lắng nghe
+        receiver=new BroadcastReceiver() {
+            // hàm tự kích hoạt khi có tin nhắn mới
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                DocTinNhanReceive();
+                mVerificationField.setText(code);
+            }
+        };
+        //đăng ký bộ lắng nghe vào hệ thống
+        registerReceiver(receiver, filter);
 
         mStartButton = (Button) findViewById(R.id.button_start_verification);
         mVerifyButton = (Button) findViewById(R.id.button_verify_phone);
@@ -192,6 +215,18 @@ public class LoginPhone extends AppCompatActivity implements
             }
         };
         // [END phone_auth_callbacks]
+    }
+
+    private void DocTinNhanReceive() {
+        Uri uri =Uri.parse("content://sms/inbox");
+        Cursor cursor= getContentResolver().query(uri,null,null,null,null);
+        if (cursor.moveToNext()){
+            int layNoiDung = cursor.getColumnIndex("body");
+            get_body = cursor.getString(layNoiDung);
+            code = get_body.substring(0,6);
+            Log.i("TinNhan",code);
+        }
+        cursor.close();
     }
 
     // [START on_start_check_user]
@@ -317,7 +352,6 @@ public class LoginPhone extends AppCompatActivity implements
                 mResendButton.setVisibility(View.GONE);
                 mVerifyButton.setVisibility(View.GONE);
                 mVerificationField.setVisibility(View.GONE);
-
                 mStartButton.setVisibility(View.VISIBLE);
                 break;
             case STATE_CODE_SENT:
@@ -350,6 +384,14 @@ public class LoginPhone extends AppCompatActivity implements
                 break;
             case STATE_SIGNIN_SUCCESS:
                 // Np-op, handled by sign-in check
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                // khởi tạo dialog
+                alertDialogBuilder.setMessage("Chờ 1 tí nha ...");
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // tạo dialog
+                alertDialog.show();
+                // hiển thị dialog
 
                 Log.i("checkUser", "Đã dăng nhập thành công");
                 kiemTraCSDL(user);
@@ -422,9 +464,7 @@ public class LoginPhone extends AppCompatActivity implements
                         Intent intent = new Intent(LoginPhone.this, LuaChonLoaiTaiKhoanActivity.class);
                         startActivity(intent);
                     }
-
                 }
-
                 try {
                     Log.i("checkUser", dataSnapshot.child("soDienThoaiBacSi").getValue(String.class));
                 } catch (Exception e) {
@@ -476,6 +516,8 @@ public class LoginPhone extends AppCompatActivity implements
                 if (!validatePhoneNumber()) {
                     return;
                 }
+                Toast.makeText(getApplicationContext(), "Đã gửi mã xác nhận", Toast.LENGTH_SHORT).show();
+                mStartButton.setEnabled(false);
                 startPhoneNumberVerification(mPhoneNumberField.getText().toString());
                 break;
             case R.id.button_verify_phone:
@@ -553,5 +595,11 @@ public class LoginPhone extends AppCompatActivity implements
             AlertDialog alert = alertDialogBuilder.create();
             alert.show();
         }
+    }
+
+    protected void onDestroy() {
+	    super.onDestroy();
+	    //hủy bỏ đăng ký khi tắt ứng dụng
+	    unregisterReceiver(receiver);
     }
 }
