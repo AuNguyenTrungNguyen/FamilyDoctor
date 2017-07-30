@@ -92,6 +92,7 @@ public class LoginPhone extends AppCompatActivity implements
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
         }
+        //kuku
         service=(LocationManager) getSystemService(LOCATION_SERVICE);
         Location location = service.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         xxx=location.getLatitude();
