@@ -185,6 +185,7 @@ public class AdapterThuoc extends ArrayAdapter<Thuoc> {
                         int soLuongSang = 0;
                         int soLuongTrua = 0;
                         int soLuongChieu = 0;
+                        boolean hopLe = true;
 
                         if (!edtSoLuongThuoc.getText().toString().equals("")) {
                             soLuongThuoc = Integer.parseInt(edtSoLuongThuoc.getText().toString());
@@ -202,11 +203,17 @@ public class AdapterThuoc extends ArrayAdapter<Thuoc> {
                             soLuongChieu = Integer.parseInt(edtSoLuongChieu.getText().toString());
                         }
 
+                        if((soLuongSang + soLuongTrua + soLuongChieu) != 0){
+                            if(soLuongThuoc % (soLuongSang + soLuongTrua + soLuongChieu) != 0){
+                                hopLe = false;
+                            }
+                        }
+
                         if (soLuongThuoc < (soLuongSang + soLuongTrua + soLuongChieu)
                                 || soLuongThuoc == 0 || (soLuongSang == 0 && chkSang.isChecked())
                                 || (soLuongTrua == 0 && chkTrua.isChecked())
                                 || (soLuongChieu == 0 && chkChieu.isChecked())
-                                || (soLuongThuoc % (soLuongSang + soLuongTrua + soLuongChieu) != 0)) {
+                                || !hopLe) {
                             Toast.makeText(activity, "Thông tin thuốc không chính xác", Toast.LENGTH_SHORT).show();
                         } else {
                             thuoc.setSoLuong(edtSoLuongThuoc.getText().toString());
