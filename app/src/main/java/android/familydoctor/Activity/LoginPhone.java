@@ -527,7 +527,7 @@ public class LoginPhone extends AppCompatActivity implements
             DanhSachBacSi_BenhNhan.latitudeGPS=location.getLatitude();
             DanhSachBacSi_BenhNhan.longtitudeGPS=location.getLongitude();
         }
-
+        //dqwd
         boolean enabled = service.isProviderEnabled(LocationManager.GPS_PROVIDER);
         if (!enabled) {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
