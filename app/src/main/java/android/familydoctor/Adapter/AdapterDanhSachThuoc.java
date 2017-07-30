@@ -223,7 +223,8 @@ public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
                         || soLuongThuoc == 0
                         || (soLuongSang == 0 && chkSang.isChecked())
                         || (soLuongTrua == 0 && chkTrua.isChecked())
-                        || (soLuongChieu == 0 && chkChieu.isChecked())) {
+                        || (soLuongChieu == 0 && chkChieu.isChecked())
+                        || (soLuongThuoc % (soLuongSang + soLuongTrua + soLuongChieu) != 0)) {
                     Toast.makeText(context, "Thông tin thuốc không chính xác", Toast.LENGTH_SHORT).show();
 
                 } else {

@@ -29,6 +29,7 @@ public class AdapterThuoc extends ArrayAdapter<Thuoc> {
         this.resource = resource;
         this.objects = objects;
     }
+
     @NonNull
     @Override
     public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
@@ -49,16 +50,16 @@ public class AdapterThuoc extends ArrayAdapter<Thuoc> {
         txtTenThuoc.setText(thuoc.getTenThuoc().toUpperCase());
         txtSoLuongThuoc.setText("Số lượng: " + thuoc.getSoLuong() + " viên");
 
-        if(!thuoc.getLieuDungSang().equals("")){
+        if (!thuoc.getLieuDungSang().equals("")) {
 
             txtLieuDungSang.setText(thuoc.getLieuDungSang() + " viên");
         }
 
-        if(!thuoc.getLieuDungTrua().equals("")){
+        if (!thuoc.getLieuDungTrua().equals("")) {
             txtLieuDungTrua.setText(thuoc.getLieuDungTrua() + " viên");
         }
 
-        if(!thuoc.getLieuDungChieu().equals("")){
+        if (!thuoc.getLieuDungChieu().equals("")) {
             txtLieuDungChieu.setText(thuoc.getLieuDungChieu() + " viên");
         }
 
@@ -179,6 +180,7 @@ public class AdapterThuoc extends ArrayAdapter<Thuoc> {
                 btnXacNhanCapNhatThuoc.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         int soLuongThuoc = -1;
                         int soLuongSang = 0;
                         int soLuongTrua = 0;
@@ -201,21 +203,22 @@ public class AdapterThuoc extends ArrayAdapter<Thuoc> {
                         }
 
                         if (soLuongThuoc < (soLuongSang + soLuongTrua + soLuongChieu)
-                                || soLuongThuoc == 0|| (soLuongSang == 0 && chkSang.isChecked())
+                                || soLuongThuoc == 0 || (soLuongSang == 0 && chkSang.isChecked())
                                 || (soLuongTrua == 0 && chkTrua.isChecked())
-                                || (soLuongChieu == 0 && chkChieu.isChecked())) {
+                                || (soLuongChieu == 0 && chkChieu.isChecked())
+                                || (soLuongThuoc % (soLuongSang + soLuongTrua + soLuongChieu) != 0)) {
                             Toast.makeText(activity, "Thông tin thuốc không chính xác", Toast.LENGTH_SHORT).show();
                         } else {
                             thuoc.setSoLuong(edtSoLuongThuoc.getText().toString());
-                            if(soLuongSang > 0 ){
+                            if (soLuongSang > 0) {
                                 thuoc.setLieuDungSang(String.valueOf(soLuongSang));
                             }
 
-                            if(soLuongTrua > 0){
+                            if (soLuongTrua > 0) {
                                 thuoc.setLieuDungTrua(String.valueOf(soLuongTrua));
                             }
 
-                            if(soLuongChieu > 0){
+                            if (soLuongChieu > 0) {
                                 thuoc.setLieuDungChieu(String.valueOf(soLuongChieu));
                             }
                             Toast.makeText(activity, "Đã lưu thông tin: " + thuoc.getTenThuoc(), Toast.LENGTH_SHORT).show();
