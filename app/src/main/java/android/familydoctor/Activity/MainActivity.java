@@ -52,11 +52,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         initView();
-        //initViewPager(LoginPhone.dinhDanh);
-        initViewPager(1);
-        layduLieuDangNhap();
+        initViewPager(LoginPhone.dinhDanh);
+//        initViewPager(1);
+
         checkPermission();
-//        openView();
 
     }
 
@@ -92,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new TinTucSucKhoe());
         fragments.add(new FragmentHoSoBenhAn());
-        fragments.add(new DanhSachBacSi_BenhNhan());
+        fragments.add(new FragmentCaiDat());
         fragments.add(new FragmentCaiDat());
 
         mViewPager.setOffscreenPageLimit(3);
@@ -184,7 +183,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -192,37 +190,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-    }
-
-    public void phanHoiUngDung() {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_SENDTO);
-        intent.setData(Uri.parse("mailto:familydoctor1996@gmail.com"));
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Phản hồi về FamilyDoctor");
-        try {
-            startActivity(intent);
-        } catch (Exception e) {
-            Toast.makeText(MainActivity.this, "Không tìm thấy Gmail", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
-    public void layduLieuDangNhap() {
-        bundle = this.getIntent().getExtras();
-//        Uri uri=getIntent().getData();
-       /* id = bundle.getString("id");
-        String ten = bundle.getString("ten");
-        String email = bundle.getString("email");
-        String sdt = bundle.getString("sdt");
-*/
-
-      /*  ImageView imageView = (ImageView) headerView.findViewById(R.id.imageView_nav_header);
-        TextView tv_ten= (TextView) headerView.findViewById(R.id.tv_nav_user_name);
-        TextView tv_email= (TextView) headerView.findViewById(R.id.tv_nav_email);*/
-
-     /*   tv_ten.setText(ten);
-        tv_email.setText(email);*/
-//        imageView.setImageURI(uri);
     }
 
     private void checkPermission() {
