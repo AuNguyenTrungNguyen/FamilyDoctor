@@ -464,9 +464,7 @@ public class LoginPhone extends AppCompatActivity implements
                         Intent intent = new Intent(LoginPhone.this, LuaChonLoaiTaiKhoanActivity.class);
                         startActivity(intent);
                     }
-
                 }
-
                 try {
                     Log.i("checkUser", dataSnapshot.child("soDienThoaiBacSi").getValue(String.class));
                 } catch (Exception e) {
@@ -519,6 +517,7 @@ public class LoginPhone extends AppCompatActivity implements
                     return;
                 }
                 Toast.makeText(getApplicationContext(), "Đã gửi mã xác nhận", Toast.LENGTH_SHORT).show();
+                mStartButton.setEnabled(false);
                 startPhoneNumberVerification(mPhoneNumberField.getText().toString());
                 break;
             case R.id.button_verify_phone:
