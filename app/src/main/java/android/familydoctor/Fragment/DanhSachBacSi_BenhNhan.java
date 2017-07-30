@@ -1,63 +1,63 @@
 package android.familydoctor.Fragment;
 
 
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.familydoctor.Activity.LoginPhone;
-import android.familydoctor.Activity.XemTTBacSi_Act;
-import android.familydoctor.Activity.XemTTBenhNhan_Act;
-import android.familydoctor.Class.BacSi;
-import android.familydoctor.Class.BenhNhan;
-import android.familydoctor.Class.HoSoBenh;
-import android.familydoctor.R;
-import android.familydoctor.service.GPSTracker;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.location.Location;
-import android.location.LocationManager;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+        import android.app.Dialog;
+        import android.content.DialogInterface;
+        import android.content.Intent;
+        import android.content.pm.PackageManager;
+        import android.familydoctor.Activity.LoginPhone;
+        import android.familydoctor.Activity.XemTTBacSi_Act;
+        import android.familydoctor.Activity.XemTTBenhNhan_Act;
+        import android.familydoctor.Class.BacSi;
+        import android.familydoctor.Class.BenhNhan;
+        import android.familydoctor.Class.HoSoBenh;
+        import android.familydoctor.R;
+        import android.familydoctor.service.GPSTracker;
+        import android.graphics.Color;
+        import android.graphics.Typeface;
+        import android.location.Location;
+        import android.location.LocationManager;
+        import android.net.Uri;
+        import android.os.Bundle;
+        import android.os.Handler;
+        import android.os.Looper;
+        import android.support.v4.app.ActivityCompat;
+        import android.support.v4.app.Fragment;
+        import android.support.v4.content.ContextCompat;
+        import android.support.v7.app.AlertDialog;
+        import android.text.TextUtils;
+        import android.util.Log;
+        import android.view.Gravity;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.ViewGroup;
+        import android.widget.EditText;
+        import android.widget.ImageButton;
+        import android.widget.LinearLayout;
+        import android.widget.TextView;
+        import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CircleOptions;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+        import com.google.android.gms.maps.CameraUpdateFactory;
+        import com.google.android.gms.maps.GoogleMap;
+        import com.google.android.gms.maps.MapView;
+        import com.google.android.gms.maps.MapsInitializer;
+        import com.google.android.gms.maps.OnMapReadyCallback;
+        import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+        import com.google.android.gms.maps.model.CircleOptions;
+        import com.google.android.gms.maps.model.LatLng;
+        import com.google.android.gms.maps.model.Marker;
+        import com.google.android.gms.maps.model.MarkerOptions;
+        import com.google.firebase.database.ChildEventListener;
+        import com.google.firebase.database.DataSnapshot;
+        import com.google.firebase.database.DatabaseError;
+        import com.google.firebase.database.DatabaseReference;
+        import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
+        import java.util.ArrayList;
 
-import static android.content.Context.LOCATION_SERVICE;
-import static android.familydoctor.R.drawable.doctor;
-import static android.familydoctor.R.drawable.plus_48dp;
+        import static android.content.Context.LOCATION_SERVICE;
+        import static android.familydoctor.R.drawable.doctor;
+        import static android.familydoctor.R.drawable.plus_48dp;
 
 public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickListener {
     LocationManager locationManager;
@@ -95,14 +95,14 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
         btnSearch = (ImageButton) rootView.findViewById(R.id.btnSearchAddress);
         btnSearch.setOnClickListener(this);
         dsBacSi = new ArrayList<>();
-        dsBenhNhan= new ArrayList<>();
-        dsHSBA= new ArrayList<>();
+        dsBenhNhan = new ArrayList<>();
+        dsHSBA = new ArrayList<>();
         mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
         loadDuLieuFirebase();
-        Log.d("DinhDanh", LoginPhone.dinhDanh+"    "+ "toado"+latitudeGPS+"   "+longtitudeGPS);
-    ///qưdjqwhdwqd
+        Log.d("DinhDanh", LoginPhone.dinhDanh + "    " + "toado" + latitudeGPS + "   " + longtitudeGPS);
+        ///qưdjqwhdwqd
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
         } catch (Exception e) {
@@ -126,6 +126,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                     public View getInfoWindow(Marker marker) {
                         return null;
                     }
+
                     @Override
                     public View getInfoContents(Marker marker) {
                         LinearLayout info = new LinearLayout(getContext().getApplicationContext());
@@ -148,7 +149,7 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                     }
                 });
                 if (googleMap != null) {
-                   // moveCameraMyLoc(LoginPhone.xxx, LoginPhone.yyy, 17);
+                    // moveCameraMyLoc(LoginPhone.xxx, LoginPhone.yyy, 17);
                     moveCameraMyLoc(latitudeGPS, longtitudeGPS, 17);
 
                 } else {
@@ -269,15 +270,16 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                         }
                         else////la bac si thi xem benh nhan trong ho so benh an
                         {
-                            for (int i = 0; i < dsHSBA.size(); i++) {
-                                for (int j = 0; j <dsBenhNhan.size() ; j++) {
-                                    if (TextUtils.equals(dsHSBA.get(i).getIdBenhNhan(),dsBenhNhan.get(j).getSoDienThoaiBenhNhan())
+                            for (int i = 0; i < dsBenhNhan.size(); i++) {
+                                for (int j = 0; j < dsHSBA.size(); j++) {
+                                    if (TextUtils.equals(dsHSBA.get(j).getIdBenhNhan(), dsBenhNhan.get(i).getSoDienThoaiBenhNhan())
                                             &&
-                                            TextUtils.equals(dsHSBA.get(i).getIdBacSi(), LoginPhone.sdt_key))
-                                    {
+                                            TextUtils.equals(dsHSBA.get(j).getIdBacSi(), LoginPhone.sdt_key)) {
+                                        Log.d("dsBenhNhan", dsBenhNhan.get(i).getHoTenBenhNhan());
+
                                         MarkerOptions markerOptions;
-                                        LatLng toado = new LatLng(dsBenhNhan.get(j).getxBenhNhan()
-                                                , dsBenhNhan.get(j).getyBenhNhan());
+                                        LatLng toado = new LatLng(dsBenhNhan.get(i).getxBenhNhan()
+                                                , dsBenhNhan.get(i).getyBenhNhan());
                                         float[] results = new float[1];
                                         Location.distanceBetween(latLng.latitude, latLng.longitude,
                                                 toado.latitude, toado.longitude
@@ -286,15 +288,14 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                                             markerOptions = new MarkerOptions()
                                                     .position(toado)
                                                     .icon(BitmapDescriptorFactory.fromResource(plus_48dp))
-                                                    .title(dsBenhNhan.get(j).getHoTenBenhNhan())
+                                                    .title(dsBenhNhan.get(i).getHoTenBenhNhan())
                                                     .snippet
                                                             (
-                                                                    "Ðịa chỉ: " + dsBenhNhan.get(j).getDiaChiBenhNhan()
+                                                                    "Ðịa chỉ: " + dsBenhNhan.get(i).getDiaChiBenhNhan()
                                                                             + "\n"
-                                                                            + "SDT liên hệ:: " + dsBenhNhan.get(j).getSoDienThoaiBenhNhan()
-
+                                                                            + "SDT liên hệ:: " + dsBenhNhan.get(i).getSoDienThoaiBenhNhan()
                                                             );
-                                            googleMap.addMarker(markerOptions).setTag(dsBenhNhan.get(j));
+                                            googleMap.addMarker(markerOptions).setTag(dsBenhNhan.get(i));
                                         }
                                     }
                                 }
@@ -482,9 +483,26 @@ public class DanhSachBacSi_BenhNhan extends Fragment implements View.OnClickList
                     googleMap.addMarker(markerOptions).setTag(dsBacSi.get(i));
                     Toast.makeText(getContext(), "Ổng dây nè", Toast.LENGTH_SHORT).show();
                 }
+            }
+            for (int i = 0; i < dsBenhNhan.size(); i++) {
+                if (TextUtils.equals(input, dsBenhNhan.get(i).getSoDienThoaiBenhNhan())) {
+                    moveCamera(dsBenhNhan.get(i).getxBenhNhan()
+                            , dsBenhNhan.get(i).getyBenhNhan()
+                            , 19);
+                    MarkerOptions markerOptions = new MarkerOptions()
+                            .position(new LatLng(dsBenhNhan.get(i).getxBenhNhan()
+                                    , dsBenhNhan.get(i).getyBenhNhan()))
+                            .icon(BitmapDescriptorFactory.fromResource(plus_48dp))
+                            .title(dsBenhNhan.get(i).getHoTenBenhNhan())
+                            .snippet(
+                                             "Ðịa chỉ: " + dsBenhNhan.get(i).getDiaChiBenhNhan()
+                                            + "\n"
+                                            + "SDT liên hệ:: " + dsBenhNhan.get(i).getSoDienThoaiBenhNhan()
+                            );
+                    googleMap.addMarker(markerOptions).setTag(dsBenhNhan.get(i));
+                }
 
             }
-
         }
     }
 

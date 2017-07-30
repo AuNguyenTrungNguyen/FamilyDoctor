@@ -1,220 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_about"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
         android:background="@color/colorPrimaryDark"
-        />
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#75e9e9e9"
-        >
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/card_view"
-            android:layout_gravity="center"
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            card_view:cardCornerRadius="5dp">
+            android:layout_height="wrap_content"
+            android:background="#75efefef">
 
-            <RelativeLayout
-                android:layout_marginRight="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/img_canmua_view"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp" />
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                card_view:cardCornerRadius="4dp">
 
                 <LinearLayout
-                    android:id="@+id/id1"
-                    android:layout_marginLeft="10dp"
+                    android:id="@+id/ln"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_toRightOf="@+id/img_canmua_view">
-                    <TextView
-                        android:id="@+id/hoSoBenh"
-                        android:layout_toRightOf="@+id/img_canmua_view"
-                        android:text="Tên nông sản:"
-                        android:textStyle="bold"
-
-                        android:textColor="#000000"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        />
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_marginLeft="24dp"
-                        android:id="@+id/tv_ten_canmua_view"
-
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/id2"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/id1"
-                    android:layout_toRightOf="@+id/img_canmua_view">
-                    <TextView
-                        android:id="@+id/gd"
-                        android:layout_toRightOf="@+id/img_canmua_view"
-                        android:text="Người mua:"
-                        android:textStyle="bold"
-                        android:textColor="#000000"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:id="@+id/tv_nguoimua_canmua_view"
-
-                        android:layout_alignBaseline="@+id/gd"
-                        android:layout_marginLeft="13dp"
-                        android:layout_height="wrap_content"
-                        />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:layout_toRightOf="@+id/img_canmua_view"
-                    android:layout_below="@id/id2">
-                    <TextView
-                        android:id="@+id/lv1"
-                        android:textColor="#000000"
-                        android:layout_toRightOf="@+id/img_canmua_view"
-                        android:text="Loại:"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:id="@+id/tv_loai_canmua_view"
-                        android:layout_marginStart="20dp"
-                        android:layout_alignBaseline="@+id/lv1"
-                        android:layout_marginLeft="10dp"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="#75131212"
-                    android:layout_below="@+id/img_canmua_view"/>
-                <TextView
-                    android:id="@+id/sl_canmua_view"
-                    android:layout_below="@+id/img_canmua_view"
-                    android:text="Số lượng cần mua"
-                    android:layout_marginTop="10dp"
-                    android:textStyle="bold"
-                    android:textColor="#000000"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/tv_soluong_canmua_view"
-                    android:hint="Chưa có nội dung"
-                    android:layout_below="@+id/sl_canmua_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_below="@+id/tv_soluong_canmua_view"
-                    >
-                    <TextView
-                        android:text="Giá mua (Theo Kg/VND)"
-                        android:layout_marginTop="10dp"
-                        android:textStyle="bold"
-                        android:textColor="#000000"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:id="@+id/tv_giamua_canmua_view"
-                        android:hint="Chưa có nội dung"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:text="Địa chỉ giao dịch"
-                        android:layout_marginTop="10dp"
-                        android:textStyle="bold"
-                        android:textColor="#000000"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="5dp"
+                        android:background="@color/amber_primary" />
 
                     <TextView
-                        android:id="@+id/tv_diachi_giaodich_canmua_view"
-                        android:hint="Chưa có nội dung"
-                        android:layout_below="@+id/sl_canmua_view"
                         android:layout_width="match_parent"
-                        android:layout_height="90dp" />
+                        android:layout_height="wrap_content"
+                        android:text="Cá nhân:"
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
 
-                    <Button
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
 
-                        android:id="@+id/btn_sdt_congty"
-                        android:text="SỐ ĐIỆN THOẠI"
-                        android:background="#0b3bb6"
-                        android:textStyle="bold"
-                        android:textColor="#ffff"
-                        android:visibility="gone"
+                        <FrameLayout
+
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5">
+
+                            <ImageView
+                                android:id="@+id/imgAnhdaidien"
+                                android:layout_width="match_parent"
+                                android:layout_height="150dp" />
+
+                            <ProgressBar
+                                android:id="@+id/progressAnhdaidien"
+                                android:layout_width="match_parent"
+                                android:layout_height="150dp" />
+                        </FrameLayout>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/txtTen"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                    <Button
-                        android:id="@+id/btn_email_congty"
-                        android:text="EMAIL"
-                        android:textAllCaps="false"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/colorAccent"
-                        android:textColor="#ffff"
-                        android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Huỳnh Bảo Quốc"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="5dp"
+                        android:background="@color/amber_primary" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Chi tiết liên hệ:"
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtDiaChi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Ninh kiều ,cần thơ"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/txtSDT"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="01262985603"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:background="@color/amber_primary" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/imgVanBang"
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:layout_gravity="center" />
+
+                    </FrameLayout>
 
                 </LinearLayout>
 
 
+            </android.support.v7.widget.CardView>
 
+        </ScrollView>
 
-            </RelativeLayout>
-
-
-        </android.support.v7.widget.CardView>
-
-    </ScrollView>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabCall"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/ic_call" />
+    </FrameLayout>
 
 
 </LinearLayout>
-
-
