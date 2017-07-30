@@ -44,7 +44,7 @@
 
                 <ImageView
                     android:id="@+id/hinh"
-                    android:background="@drawable/logosl"
+                    android:background="@drawable/logo"
                     android:layout_width="100dp"
                     android:layout_height="100dp" />
 

@@ -68,17 +68,13 @@ public class FragmentBenhNhan extends Fragment {
 
     private DatabaseReference mDatabase;
     private FirebaseStorage firebaseStorage;
-    final Context context = this.getContext();
-    private ImageView imageView;
 
-    private String id;
-
-    Spinner NamSinh;
-    EditText HoTen, SDT, DiaChi;
-    Button setData;
-    ImageView img;
-    double x;
-    double y;
+    private Spinner NamSinh;
+    private EditText HoTen, DiaChi;
+    private Button setData;
+    private ImageView img;
+    private double x;
+    private double y;
     BenhNhan Us = new BenhNhan();
 
     @Override
@@ -112,15 +108,12 @@ public class FragmentBenhNhan extends Fragment {
 
         firebaseStorage = FirebaseStorage.getInstance();
 
-//        Intent bundle = getActivity().getIntent();
-//        id = bundle.getDataString();
-
         img = (ImageView) view.findViewById(R.id.ImgAvaE);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String key = mDatabase.child("User").push().getKey();
+                String key = mDatabase.child("User_BenhNhan").push().getKey();
 
                 new AlertDialog.Builder(getContext()).setNeutralButton("Chụp ảnh mới", new DialogInterface.OnClickListener() {
                     @Override

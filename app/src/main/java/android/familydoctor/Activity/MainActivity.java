@@ -23,6 +23,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
@@ -43,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
     Bundle bundle;
     String id;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
 
         initView();
         initViewPager(LoginPhone.dinhDanh);
-        layduLieuDangNhap();
+//        initViewPager(1);
+
         checkPermission();
 
     }
@@ -61,7 +62,10 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout_main);
         mViewPager = (ViewPager) findViewById(R.id.view_pager_main);
 
+
         List<String> titles = new ArrayList<>();
+
+        Log.i("initView", "initViewPager: "+i);
 
         switch (i) {
             case 1:
@@ -105,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 switch (position) {
                     case 0:
+                        Toast.makeText(getApplicationContext(), "tab 1", Toast.LENGTH_SHORT).show();
                         fabThemHoSoBenhAn.hide();
                         break;
                     case 1:
@@ -113,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
                             fabThemHoSoBenhAn.show();
                         }
 
+                        Toast.makeText(getApplicationContext(), "tab 2", Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
                         fabThemHoSoBenhAn.hide();
@@ -146,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 3:
                         fabThemHoSoBenhAn.hide();
+                        Toast.makeText(MainActivity.this, "tab4", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -175,7 +182,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -183,37 +189,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-    }
-
-    public void phanHoiUngDung() {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_SENDTO);
-        intent.setData(Uri.parse("mailto:familydoctor1996@gmail.com"));
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Phản hồi về FamilyDoctor");
-        try {
-            startActivity(intent);
-        } catch (Exception e) {
-            Toast.makeText(MainActivity.this, "Không tìm thấy Gmail", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
-    public void layduLieuDangNhap() {
-        bundle = this.getIntent().getExtras();
-//        Uri uri=getIntent().getData();
-       /* id = bundle.getString("id");
-        String ten = bundle.getString("ten");
-        String email = bundle.getString("email");
-        String sdt = bundle.getString("sdt");
-*/
-
-      /*  ImageView imageView = (ImageView) headerView.findViewById(R.id.imageView_nav_header);
-        TextView tv_ten= (TextView) headerView.findViewById(R.id.tv_nav_user_name);
-        TextView tv_email= (TextView) headerView.findViewById(R.id.tv_nav_email);*/
-
-     /*   tv_ten.setText(ten);
-        tv_email.setText(email);*/
-//        imageView.setImageURI(uri);
     }
 
     private void checkPermission() {
