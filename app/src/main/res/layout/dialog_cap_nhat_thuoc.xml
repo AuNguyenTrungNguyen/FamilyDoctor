@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:inputType="phone" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/edtDonViThuoc"
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:inputType="phone"
+            android:inputType="number"
             android:visibility="gone" />
 
         <EditText
@@ -84,7 +84,6 @@
             android:layout_weight="1"
             android:enabled="false"
             android:gravity="center"
-            android:inputType="phone"
             android:text="viên"
             android:textColor="#ff6f00"
             android:visibility="gone" />
@@ -113,7 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:inputType="phone" />
+            android:inputType="number" />
 
         <EditText
             android:visibility="gone"
@@ -123,7 +122,6 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:inputType="phone"
             android:enabled="false"
             android:text="viên"
             android:textColor="#ff6f00" />
@@ -153,7 +151,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:inputType="phone" />
+            android:inputType="number" />
 
         <EditText
             android:visibility="gone"
@@ -163,7 +161,6 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:inputType="phone"
             android:enabled="false"
             android:text="viên"
             android:textColor="#ff6f00" />

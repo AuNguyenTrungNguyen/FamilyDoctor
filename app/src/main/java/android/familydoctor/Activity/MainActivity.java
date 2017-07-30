@@ -23,7 +23,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
@@ -55,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         initViewPager(LoginPhone.dinhDanh);
         layduLieuDangNhap();
         checkPermission();
-//        openView();
 
     }
 
@@ -63,10 +61,7 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout_main);
         mViewPager = (ViewPager) findViewById(R.id.view_pager_main);
 
-
         List<String> titles = new ArrayList<>();
-
-        Log.i("initView", "initViewPager: "+i);
 
         switch (i) {
             case 1:
@@ -110,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 switch (position) {
                     case 0:
-                        Toast.makeText(getApplicationContext(), "tab 1", Toast.LENGTH_SHORT).show();
                         fabThemHoSoBenhAn.hide();
                         break;
                     case 1:
@@ -119,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
                             fabThemHoSoBenhAn.show();
                         }
 
-                        Toast.makeText(getApplicationContext(), "tab 2", Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
                         fabThemHoSoBenhAn.hide();
@@ -153,7 +146,6 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 3:
                         fabThemHoSoBenhAn.hide();
-                        Toast.makeText(MainActivity.this, "tab4", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }

@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.familydoctor.R;
-import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -38,7 +37,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.concurrent.TimeUnit;
-
 public class LoginPhone extends AppCompatActivity implements
         View.OnClickListener {
     private static final String TAG = "PhoneAuthActivity";
@@ -73,11 +71,9 @@ public class LoginPhone extends AppCompatActivity implements
     Boolean isCompletePan = false;
 
     public static int dinhDanh = 0;
-    public static double xxx;
-    public static double yyy;
     //Bác sĩ = 1
     //Bệnh nhân = 2
-    LocationManager service ;
+
     public static String sdt_key = "";
 
 
@@ -89,36 +85,29 @@ public class LoginPhone extends AppCompatActivity implements
         if (savedInstanceState != null) {
             onRestoreInstanceState(savedInstanceState);
         }
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
-        }
-        //kuku
-        service=(LocationManager) getSystemService(LOCATION_SERVICE);
-        Location location = service.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        xxx=location.getLatitude();
-        yyy=location.getLongitude();
+
         turnGPSOn();
 
         mPhoneNumberField = (EditText) findViewById(R.id.field_phone_number);
         mVerificationField = (EditText) findViewById(R.id.field_verification_code);
 
         // ĐỌc số điện thoại từ trực tiếp từ điện thoại
-        TelephonyManager tm = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
 
         int permissionCheck = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_PHONE_STATE);
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_READ_PHONE_STATE);
-            if (tm != null && permissionCheck == PackageManager.PERMISSION_GRANTED) {
-                Log.i("phonemunber", "onCreate: " + tm.getLine1Number());
+            if (tm != null && permissionCheck == PackageManager.PERMISSION_GRANTED){
+                Log.i("phonemunber", "onCreate: "+tm.getLine1Number());
                 mPhoneNumberField.setText(tm.getLine1Number());
-                Log.i("phonemunber", "Gettext: " + mPhoneNumberField.getText());
+                Log.i("phonemunber", "Gettext: "+mPhoneNumberField.getText());
             }
         }
-        if (tm != null && permissionCheck == PackageManager.PERMISSION_GRANTED) {
-            Log.i("phonemunber", "onCreate: " + tm.getLine1Number());
+        if (tm != null && permissionCheck == PackageManager.PERMISSION_GRANTED){
+            Log.i("phonemunber", "onCreate: "+tm.getLine1Number());
             mPhoneNumberField.setText(tm.getLine1Number());
-            Log.i("phonemunber", "Gettext: " + mPhoneNumberField.getText());
+            Log.i("phonemunber", "Gettext: "+mPhoneNumberField.getText());
         }
 
 
@@ -154,7 +143,6 @@ public class LoginPhone extends AppCompatActivity implements
                 // [END_EXCLUDE]
                 signInWithPhoneAuthCredential(credential);
             }
-
             @Override
             public void onVerificationFailed(FirebaseException e) {
                 // This callback is invoked in an invalid request for verification is made,
@@ -180,7 +168,6 @@ public class LoginPhone extends AppCompatActivity implements
                 updateUI(STATE_VERIFY_FAILED);
                 // [END_EXCLUDE]
             }
-
             @Override
             public void onCodeSent(String verificationId,
                                    PhoneAuthProvider.ForceResendingToken token) {
@@ -199,7 +186,6 @@ public class LoginPhone extends AppCompatActivity implements
         };
         // [END phone_auth_callbacks]
     }
-
     // [START on_start_check_user]
     @Override
     public void onStart() {
@@ -213,20 +199,17 @@ public class LoginPhone extends AppCompatActivity implements
         }
         // [END_EXCLUDE]
     }
-
     // [END on_start_check_user]
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean(KEY_VERIFY_IN_PROGRESS, mVerificationInProgress);
     }
-
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         mVerificationInProgress = savedInstanceState.getBoolean(KEY_VERIFY_IN_PROGRESS);
     }
-
     private void startPhoneNumberVerification(String phoneNumber) {
         // [START start_phone_auth]
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
@@ -238,14 +221,12 @@ public class LoginPhone extends AppCompatActivity implements
         // [END start_phone_auth]
         mVerificationInProgress = true;
     }
-
     private void verifyPhoneNumberWithCode(String verificationId, String code) {
         // [START verify_with_code]
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
         // [END verify_with_code]
         signInWithPhoneAuthCredential(credential);
     }
-
     // [START resend_verification]
     private void resendVerificationCode(String phoneNumber,
                                         PhoneAuthProvider.ForceResendingToken token) {
@@ -257,7 +238,6 @@ public class LoginPhone extends AppCompatActivity implements
                 mCallbacks,         // OnVerificationStateChangedCallbacks
                 token);             // ForceResendingToken from callbacks
     }
-
     // [END resend_verification]
     // [START sign_in_with_phone]
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
@@ -295,7 +275,6 @@ public class LoginPhone extends AppCompatActivity implements
         updateUI(uiState, mAuth.getCurrentUser(), null);
 
     }
-
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             updateUI(STATE_SIGNIN_SUCCESS, user);
@@ -303,15 +282,12 @@ public class LoginPhone extends AppCompatActivity implements
             updateUI(STATE_INITIALIZED);
         }
     }
-
     private void updateUI(int uiState, FirebaseUser user) {
         updateUI(uiState, user, null);
     }
-
     private void updateUI(int uiState, PhoneAuthCredential cred) {
         updateUI(uiState, null, cred);
     }
-
     private void updateUI(int uiState, FirebaseUser user, PhoneAuthCredential cred) {
 
         switch (uiState) {
@@ -372,7 +348,6 @@ public class LoginPhone extends AppCompatActivity implements
 //            mVerificationField.setText(null);
         }
     }
-
     private boolean validatePhoneNumber() {
         String phoneNumber = mPhoneNumberField.getText().toString();
         if (TextUtils.isEmpty(phoneNumber)) {
@@ -381,26 +356,24 @@ public class LoginPhone extends AppCompatActivity implements
         }
         return true;
     }
-
     private void enableViews(View... views) {
         for (View v : views) {
             v.setEnabled(true);
         }
     }
-
     private void disableViews(View... views) {
         for (View v : views) {
             v.setEnabled(false);
         }
     }
 
-    private void kiemTraCSDL(FirebaseUser user) {
+    private void kiemTraCSDL(FirebaseUser user){
 
         String getsdt = user.getPhoneNumber();
         //Cắt ghép chuổi số điện thoại
-        String dauhieu = "+84";
-        final String sdt = "0" + getsdt.substring(getsdt.indexOf(dauhieu) + 3, getsdt.length());
-        Log.i("checkUser", sdt);
+        String dauhieu="+84";
+        final String sdt = "0"+getsdt.substring(getsdt.indexOf(dauhieu)+3,getsdt.length());
+        Log.i("checkUser",sdt);
 
         //SDT key
         sdt_key = sdt;
@@ -416,24 +389,26 @@ public class LoginPhone extends AppCompatActivity implements
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                if (dataSnapshot.child("soDienThoaiBacSi").getValue(String.class) != null) {
+                if (dataSnapshot.child("soDienThoaiBacSi").getValue(String.class) != null){
                     Intent intent = new Intent(LoginPhone.this, MainActivity.class);
                     dinhDanh = 1;
                     startActivity(intent);
-                } else {
+                }else {
                     isCompleteDoc = true;
+
                     Log.i("checkUser", "Bac si k ton tai");
                     Log.i("checkUser", isCompleteDoc.toString());
-                    if (isCompleteDoc == true && isCompletePan == true) {
+
+                    if (isCompleteDoc == true && isCompletePan == true){
                         Intent intent = new Intent(LoginPhone.this, LuaChonLoaiTaiKhoanActivity.class);
                         startActivity(intent);
                     }
 
                 }
 
-                try {
+                try{
                     Log.i("checkUser", dataSnapshot.child("soDienThoaiBacSi").getValue(String.class));
-                } catch (Exception e) {
+                }catch (Exception e){
 
                 }
 
@@ -444,35 +419,35 @@ public class LoginPhone extends AppCompatActivity implements
 
             }
         });
-        checksPanter.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            checksPanter.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
 
-                if (dataSnapshot.child("soDienThoaiBenhNhan").getValue(String.class) != null) {
-                    Intent intent = new Intent(LoginPhone.this, MainActivity.class);
-                    dinhDanh = 2;
-                    startActivity(intent);
-                } else {
-                    isCompletePan = true;
-                    Log.i("checkUser", "Benh nhan k ton tai");
-                    if (isCompleteDoc == true && isCompletePan == true) {
-                        Intent intent = new Intent(LoginPhone.this, LuaChonLoaiTaiKhoanActivity.class);
+                    if (dataSnapshot.child("soDienThoaiBenhNhan").getValue(String.class) != null){
+                        Intent intent = new Intent(LoginPhone.this, MainActivity.class);
+                        intent.putExtra("dinhDanh",2);
                         startActivity(intent);
+                    }else {
+                        isCompletePan = true;
+                        Log.i("checkUser", "Benh nhan k ton tai");
+                        if (isCompleteDoc == true && isCompletePan == true){
+                            Intent intent = new Intent(LoginPhone.this, LuaChonLoaiTaiKhoanActivity.class);
+                            dinhDanh = 2;
+                            startActivity(intent);
+                        }
+                    }
+
+                    try{
+                        Log.i("checkUser", dataSnapshot.child("soDienThoaiBacSi").getValue(String.class));
+                    }catch (Exception e){
+
                     }
                 }
-
-                try {
-                    Log.i("checkUser", dataSnapshot.child("soDienThoaiBacSi").getValue(String.class));
-                } catch (Exception e) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
                 }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+            });
     }
 
     @Override
@@ -515,7 +490,7 @@ public class LoginPhone extends AppCompatActivity implements
     }
 
     public void turnGPSOn() {
-
+        LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
         boolean enabled = service
                 .isProviderEnabled(LocationManager.GPS_PROVIDER);
         if (!enabled) {
