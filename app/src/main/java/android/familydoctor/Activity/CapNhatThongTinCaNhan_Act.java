@@ -111,8 +111,16 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
                         .setNegativeButton("Chọn ảnh từ thư viện", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                                Intent intent = new Intent(Intent.ACTION_PICK,
+                                        MediaStore.Images.Media.INTERNAL_CONTENT_URI);
                                 intent.setType("image/*");
+                                intent.putExtra("crop", "true");
+                                intent.putExtra("scale", true);
+                                intent.putExtra("outputX", 256);
+                                intent.putExtra("outputY", 256);
+                                intent.putExtra("aspectX", 1);
+                                intent.putExtra("aspectY", 1);
+                                intent.putExtra("return-data", true);
                                 startActivityForResult(intent, 2);
                             }
                         })
@@ -137,7 +145,6 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
         DatabaseReference root = FirebaseDatabase.getInstance().getReference();
         DatabaseReference checksDoctor = root.child("User_BacSi").child(LoginPhone.sdt_key);
         DatabaseReference checksPanter = root.child("User_BenhNhan").child(LoginPhone.sdt_key);
-
         checksPanter.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -152,11 +159,9 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
         });
 
         //Up thông tin bệnh nhân
-        final String key = mDatabase.child("User_BenhNhan").push().getKey();
         setData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String hoTen = HoTen.getText().toString();
                 String namSinh = NamSinh.getSelectedItem().toString();
                 String diaChi = DiaChi.getText().toString();
@@ -167,7 +172,7 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
 
                 //Up Hình ảnh
                 StorageReference storageReference = firebaseStorage.getReferenceFromUrl("gs://familydoctor-56b96.appspot.com/");
-                StorageReference reference = storageReference.child("Users").child(key + "jpg");
+                StorageReference reference = storageReference.child(System.currentTimeMillis() + "jpg");
 
                 Bitmap bitmap = ((BitmapDrawable) img.getDrawable()).getBitmap();
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -185,25 +190,20 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         Uri downloadUrl = taskSnapshot.getDownloadUrl();
                         benhNhan.setUriHinhAnhBenhNhan(downloadUrl.toString());
-
-                        mDatabase.child("User_BenhNhan").child(benhNhan.getSoDienThoaiBenhNhan()).setValue(benhNhan);
+                        mDatabase.child("User_BenhNhan").child(LoginPhone.sdt_key).setValue(benhNhan);
 
                         Toast.makeText(CapNhatThongTinCaNhan_Act.this,"Đã cập nhật thông tin thành công", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 });
-
             }
         });
-
     }
 
     private void capNhatBacSi(){
         //Show thông tin hiện tại
         DatabaseReference root = FirebaseDatabase.getInstance().getReference();
         DatabaseReference checksDoctor = root.child("User_BacSi").child(LoginPhone.sdt_key);
-
-
         checksDoctor.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -216,12 +216,7 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
-
-
-
         // Up thông tin
-        final String key = mDatabase.child("User_BacSi").push().getKey();
         setData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -236,7 +231,7 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
 
                 //Up Hình ảnh
                 StorageReference storageReference = firebaseStorage.getReferenceFromUrl("gs://familydoctor-56b96.appspot.com/");
-                StorageReference reference = storageReference.child("Users").child(key + "jpg");
+                StorageReference reference = storageReference.child(System.currentTimeMillis() + "jpg");
 
                 Bitmap bitmap = ((BitmapDrawable) img.getDrawable()).getBitmap();
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -255,10 +250,11 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
                         Uri downloadUrl = taskSnapshot.getDownloadUrl();
                         benhNhan.setUriHinhAnhBenhNhan(downloadUrl.toString());
 
-                        mDatabase.child("User_BacSi").child(benhNhan.getSoDienThoaiBenhNhan()).setValue(benhNhan);
+                        mDatabase.child("User_BacSi").child(LoginPhone.sdt_key).setValue(bacSi);
 
                         Toast.makeText(CapNhatThongTinCaNhan_Act.this,"Đã cập nhật thông tin thành công", Toast.LENGTH_SHORT).show();
                         finish();
+//                        startActivity(new Intent(CapNhatThongTinCaNhan_Act.this,MainActivity.class));
                     }
                 });
 
@@ -278,9 +274,13 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
         }
 
         if (resultCode == RESULT_OK && requestCode == 2) {
+            final Bundle extras = data.getExtras();
+            if (extras != null) {
+                //Get image
+                Bitmap newProfilePic = extras.getParcelable("data");
+                img.setImageBitmap(newProfilePic);
+            }
 
-            Uri imageUri = data.getData();
-            img.setImageURI(imageUri);
         }
     }
 

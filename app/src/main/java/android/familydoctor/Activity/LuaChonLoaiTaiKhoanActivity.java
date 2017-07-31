@@ -6,6 +6,7 @@ import android.familydoctor.Adapter.ViewPagerAdapter;
 import android.familydoctor.Fragment.FragmentBacSi;
 import android.familydoctor.Fragment.FragmentBenhNhan;
 import android.familydoctor.R;
+import android.graphics.Color;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -68,6 +69,7 @@ public class LuaChonLoaiTaiKhoanActivity extends AppCompatActivity {
 
         toolbarChoose = (Toolbar) findViewById(R.id.toolbar_choose);
         setSupportActionBar(toolbarChoose);
+        toolbarChoose.setTitleTextColor(Color.WHITE);
 
         tabLayoutChoose = (TabLayout) findViewById(R.id.tab_layout_choose);
         viewPagerChoose = (ViewPager) findViewById(R.id.view_pager_choose);

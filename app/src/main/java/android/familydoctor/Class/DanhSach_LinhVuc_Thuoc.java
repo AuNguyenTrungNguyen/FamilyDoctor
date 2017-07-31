@@ -15,7 +15,7 @@ public class DanhSach_LinhVuc_Thuoc {
             "Quảng Ninh","Quảng Ngãi","Quảng Trị","Sơn La","Tây Ninh","Tiền Giang",
             "Tuyên Quang","Thái Bình","Thanh Hoá","Thừa Thiên Huế","Vĩnh Long","Vĩnh Phúc","Yên Bái"};
 
-    static String[] linhvucchuyenmon ={"Lĩnh vực","Tất cả","Đông y","Răng hàm mặt","Phụ Sản","Đa Khoa","Tim mạch"};
+    static String[] linhvucchuyenmon ={"Chuyên môn","Đông y","Răng hàm mặt","Phụ Sản","Đa Khoa","Tim mạch"};
 
 
     public static String[] getKhuvuc() {

@@ -129,8 +129,16 @@ public class FragmentBacSi extends Fragment {
                 }).setNegativeButton("Chọn ảnh từ thư viện", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                        Intent intent = new Intent(Intent.ACTION_PICK,
+                                MediaStore.Images.Media.INTERNAL_CONTENT_URI);
                         intent.setType("image/*");
+                        intent.putExtra("crop", "true");
+                        intent.putExtra("scale", true);
+                        intent.putExtra("outputX", 256);
+                        intent.putExtra("outputY", 256);
+                        intent.putExtra("aspectX", 1);
+                        intent.putExtra("aspectY", 1);
+                        intent.putExtra("return-data", true);
                         startActivityForResult(intent, 2);
                     }
                 })
@@ -151,8 +159,16 @@ public class FragmentBacSi extends Fragment {
                 }).setNegativeButton("Chọn ảnh từ thư viện", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                        Intent intent = new Intent(Intent.ACTION_PICK,
+                                MediaStore.Images.Media.INTERNAL_CONTENT_URI);
                         intent.setType("image/*");
+                        intent.putExtra("crop", "true");
+                        intent.putExtra("scale", true);
+                        intent.putExtra("outputX", 256);
+                        intent.putExtra("outputY", 256);
+                        intent.putExtra("aspectX", 1);
+                        intent.putExtra("aspectY", 1);
+                        intent.putExtra("return-data", true);
                         startActivityForResult(intent, 4);
                     }
                 })
@@ -278,8 +294,12 @@ public class FragmentBacSi extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK && requestCode == 2) {
-            Uri imageUri2 = data.getData();
-            imgAva.setImageURI(imageUri2);
+            final Bundle extras = data.getExtras();
+            if (extras != null) {
+                //Get image
+                Bitmap newProfilePic = extras.getParcelable("data");
+                imgAva.setImageBitmap(newProfilePic);
+            }
         }
         if (resultCode == RESULT_OK && requestCode == 1) {
             // lay hinh thu nho cua hinh vua chup
@@ -293,9 +313,12 @@ public class FragmentBacSi extends Fragment {
         }
 
         if (resultCode == RESULT_OK && requestCode == 4) {
-
-            Uri imageUri1 = data.getData();
-            imgXT.setImageURI(imageUri1);
+            final Bundle extras = data.getExtras();
+            if (extras != null) {
+                //Get image
+                Bitmap newProfilePic = extras.getParcelable("data");
+                imgXT.setImageBitmap(newProfilePic);
+            }
         }
 
     }
