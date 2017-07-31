@@ -15,12 +15,7 @@ public class DanhSach_LinhVuc_Thuoc {
             "Quảng Ninh","Quảng Ngãi","Quảng Trị","Sơn La","Tây Ninh","Tiền Giang",
             "Tuyên Quang","Thái Bình","Thanh Hoá","Thừa Thiên Huế","Vĩnh Long","Vĩnh Phúc","Yên Bái"};
 
-    static String[] linhvucchuyenmon ={"Lĩnh vực","Tất cả","Đông y","Răng hàm mặt","Phụ Sản","Đa Khoa"};
-
-
-    static String[] danhmucthuoc ={"Thuốc","Tất cả","Đông y","Răng hàm mặt","Phụ Sản","Đa Khoa"};
-
-    static String[] nam ={"2010","2009","Đông y","Răng hàm mặt","Phụ Sản","Đa Khoa"};
+    static String[] linhvucchuyenmon ={"Lĩnh vực","Tất cả","Đông y","Răng hàm mặt","Phụ Sản","Đa Khoa","Tim mạch"};
 
 
     public static String[] getKhuvuc() {
@@ -31,7 +26,4 @@ public class DanhSach_LinhVuc_Thuoc {
         return linhvucchuyenmon;
     }
 
-    public static String[] getNam() {
-        return nam;
-    }
 }

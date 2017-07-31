@@ -55,7 +55,7 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
 
     private Spinner NamSinh;
     private EditText HoTen, DiaChi;
-    private Button setData;
+    private Button setData,cancel;
     private ImageView img;
 
     private BacSi bacSi = new BacSi();
@@ -77,6 +77,14 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
         DiaChi = (EditText) findViewById(R.id.DiaChiE);
         img = (ImageView) findViewById(R.id.ImgAvaE);
         setData = (Button) findViewById(R.id.Submit);
+        cancel = (Button) findViewById(R.id.Cancel);
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         List<String> namList = new ArrayList<>();
         for (int i = 1960; i < 2018; i++) {
@@ -93,9 +101,7 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
             @Override
             public void onClick(View v) {
 
-
-
-                new AlertDialog.Builder(getApplicationContext()).setNeutralButton("Chụp ảnh mới", new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(CapNhatThongTinCaNhan_Act.this).setNeutralButton("Chụp ảnh mới", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -127,23 +133,25 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
 
     private void capNhatBenhNhan(){
 
+        //SHow thông tin hiện tại
         DatabaseReference root = FirebaseDatabase.getInstance().getReference();
         DatabaseReference checksDoctor = root.child("User_BacSi").child(LoginPhone.sdt_key);
         DatabaseReference checksPanter = root.child("User_BenhNhan").child(LoginPhone.sdt_key);
 
-        checksDoctor.addValueEventListener(new ValueEventListener() {
+        checksPanter.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                bacSi = dataSnapshot.getValue(BacSi.class);
-                HoTen.setText(bacSi.getHoTenBacSi());
-                DiaChi.setText(bacSi.getDiaChiBacSi());
-                Picasso.with(getApplicationContext()).load(bacSi.getUriHinhAnhBacSi()).into(img);
+                benhNhan = dataSnapshot.getValue(BenhNhan.class);
+                HoTen.setText(benhNhan.getHoTenBenhNhan());
+                DiaChi.setText(benhNhan.getDiaChiBenhNhan());
+                Picasso.with(getApplicationContext()).load(benhNhan.getUriHinhAnhBenhNhan()).into(img);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
 
+        //Up thông tin bệnh nhân
         final String key = mDatabase.child("User_BenhNhan").push().getKey();
         setData.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,6 +187,9 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
                         benhNhan.setUriHinhAnhBenhNhan(downloadUrl.toString());
 
                         mDatabase.child("User_BenhNhan").child(benhNhan.getSoDienThoaiBenhNhan()).setValue(benhNhan);
+
+                        Toast.makeText(CapNhatThongTinCaNhan_Act.this,"Đã cập nhật thông tin thành công", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                 });
 
@@ -188,6 +199,28 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
     }
 
     private void capNhatBacSi(){
+        //Show thông tin hiện tại
+        DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference checksDoctor = root.child("User_BacSi").child(LoginPhone.sdt_key);
+
+
+        checksDoctor.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                bacSi = dataSnapshot.getValue(BacSi.class);
+                HoTen.setText(bacSi.getHoTenBacSi());
+                DiaChi.setText(bacSi.getDiaChiBacSi());
+                Picasso.with(getApplicationContext()).load(bacSi.getUriHinhAnhBacSi()).into(img);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+
+
+
+        // Up thông tin
         final String key = mDatabase.child("User_BacSi").push().getKey();
         setData.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,6 +256,9 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
                         benhNhan.setUriHinhAnhBenhNhan(downloadUrl.toString());
 
                         mDatabase.child("User_BacSi").child(benhNhan.getSoDienThoaiBenhNhan()).setValue(benhNhan);
+
+                        Toast.makeText(CapNhatThongTinCaNhan_Act.this,"Đã cập nhật thông tin thành công", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                 });
 

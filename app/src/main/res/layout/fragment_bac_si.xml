@@ -78,19 +78,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="5dp" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_margin="5dp"
-                android:hint="Chuyên môn:"
-                android:textStyle="bold" />
 
-            <EditText
-                android:inputType="text"
-                android:id="@+id/edtChuyenMon"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="5dp" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_margin="5dp"
+                    android:hint="Chuyên môn:"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:inputType="text"
+                    android:id="@+id/edtChuyenMon"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_margin="5dp" />
+            </LinearLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="20dp"

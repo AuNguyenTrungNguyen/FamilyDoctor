@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.familydoctor.Activity.LoginPhone;
 import android.familydoctor.Activity.MainActivity;
 import android.familydoctor.Class.BacSi;
+import android.familydoctor.Class.DanhSach_LinhVuc_Thuoc;
 import android.familydoctor.R;
 import android.familydoctor.service.GPSTracker;
 import android.graphics.Bitmap;
@@ -70,13 +71,9 @@ public class FragmentBacSi extends Fragment {
 
     private DatabaseReference mDatabase;
     private FirebaseStorage firebaseStorage;
-    final Context context = this.getContext();
-    private ImageView imageView;
     private ProgressDialog progressDialog;
-    private String id;
-
-    Spinner NamSinh;
-    EditText HoTen, SDT, DiaChi, edtChuyenMon;
+    Spinner NamSinh, edtChuyenMon;
+    EditText HoTen, DiaChi;
     Button setData;
     ImageView imgXT, imgAva;
     double x = 0.0;
@@ -100,12 +97,16 @@ public class FragmentBacSi extends Fragment {
         imgAva = (ImageView) view.findViewById(R.id.Ava);
         imgXT = (ImageView) view.findViewById(R.id.ImgXacThuc);
         setData = (Button) view.findViewById(R.id.SubmitD);
-        edtChuyenMon = (EditText) view.findViewById(R.id.edtChuyenMon);
+        edtChuyenMon = (Spinner) view.findViewById(R.id.edtChuyenMon);
         //Tạo danh sách năm
         List<String> namList = new ArrayList<>();
         for (int i = 1960; i < 2018; i++) {
             namList.add(i + "");
         }
+
+        ArrayAdapter chuyenmon = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, DanhSach_LinhVuc_Thuoc.getLinhvucchuyenmon());
+        chuyenmon.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        edtChuyenMon.setAdapter(chuyenmon);
 
         ArrayAdapter aa = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, namList);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -158,7 +159,7 @@ public class FragmentBacSi extends Fragment {
                         .show();
             }
         });
-//hbqqhqhdqwdqwd
+
         //Put dữ liệu
         setData.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,7 +173,7 @@ public class FragmentBacSi extends Fragment {
                 String namSinh = NamSinh.getSelectedItem().toString();
                 String sdt = LoginPhone.sdt_key;
                 String diaChi = DiaChi.getText().toString();
-                String chuyenMon = edtChuyenMon.getText().toString();
+                String chuyenMon = edtChuyenMon.getSelectedItem().toString();
                 LocationManager manager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
                 GPSTracker gpsTracker = new GPSTracker(getContext());
                 if (gpsTracker != null && manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {

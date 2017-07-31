@@ -11,6 +11,7 @@ import android.familydoctor.Fragment.FragmentCaiDat;
 import android.familydoctor.Fragment.FragmentHoSoBenhAn;
 import android.familydoctor.Fragment.TinTucSucKhoe;
 import android.familydoctor.R;
+import android.graphics.Color;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -167,6 +168,8 @@ public class MainActivity extends AppCompatActivity {
     private void initView() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
+
+        toolbar.setTitleTextColor(Color.WHITE);
 
         fabThemHoSoBenhAn = (FloatingActionButton) findViewById(R.id.fab_main);
 
