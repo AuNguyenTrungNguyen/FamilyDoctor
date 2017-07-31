@@ -1,10 +1,11 @@
 package android.familydoctor.Fragment;
 
-import android.content.Context;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.familydoctor.Activity.LoginPhone;
+import android.familydoctor.Activity.MainActivity;
 import android.familydoctor.Class.BenhNhan;
 import android.familydoctor.R;
 import android.familydoctor.service.GPSTracker;
@@ -42,7 +43,6 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.R.attr.key;
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.LOCATION_SERVICE;
 
@@ -68,7 +68,7 @@ public class FragmentBenhNhan extends Fragment {
 
     private DatabaseReference mDatabase;
     private FirebaseStorage firebaseStorage;
-
+    private ProgressDialog progressDialog;
     private Spinner NamSinh;
     private EditText HoTen, DiaChi;
     private Button setData;
@@ -86,7 +86,7 @@ public class FragmentBenhNhan extends Fragment {
         }
 
 
-
+        progressDialog = new ProgressDialog(getContext());
         HoTen = (EditText) view.findViewById(R.id.HoTenE);
         NamSinh = (Spinner) view.findViewById(R.id.spNamSinhBenhNhan);
         DiaChi = (EditText) view.findViewById(R.id.DiaChiE);
@@ -136,7 +136,8 @@ public class FragmentBenhNhan extends Fragment {
         setData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                progressDialog.setMessage("Đang đăng ký.....");
+                progressDialog.show();
                 String hoTen = HoTen.getText().toString();
                 String namSinh = NamSinh.getSelectedItem().toString();
                 String sdt = LoginPhone.sdt_key;
@@ -153,8 +154,8 @@ public class FragmentBenhNhan extends Fragment {
                 Us = new BenhNhan(hoTen, namSinh, sdt, diaChi,x,y);
 
                 //Up Hình ảnh
-                StorageReference storageReference = firebaseStorage.getReferenceFromUrl("gs://familydoctor-56b96.appspot.com/");
-                StorageReference reference = storageReference.child("Users").child(key + "jpg");
+                StorageReference storageReference = firebaseStorage.getReferenceFromUrl("gs://familydoctor-56b96.appspot.com");//*
+                StorageReference reference = storageReference.child(System.currentTimeMillis() + "jpg");//*
 
                 Bitmap bitmap = ((BitmapDrawable) img.getDrawable()).getBitmap();
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -174,6 +175,9 @@ public class FragmentBenhNhan extends Fragment {
                         Us.setUriHinhAnhBenhNhan(downloadUrl.toString());
 
                         mDatabase.child("User_BenhNhan").child(Us.getSoDienThoaiBenhNhan()).setValue(Us);
+                        progressDialog.hide();
+                        Toast.makeText(getContext(), "Đã đăng ký xong", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getContext(), MainActivity.class));
                     }
                 });
 

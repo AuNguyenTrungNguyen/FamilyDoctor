@@ -16,6 +16,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -74,13 +75,14 @@ public class FragmentBacSi extends Fragment {
     private ProgressDialog progressDialog;
     private String id;
 
-    Spinner NamSinh ;
-    EditText HoTen ,SDT ,DiaChi,edtChuyenMon ;
+    Spinner NamSinh;
+    EditText HoTen, SDT, DiaChi, edtChuyenMon;
     Button setData;
-    ImageView imgXT,imgAva ;
+    ImageView imgXT, imgAva;
     double x = 0.0;
     double y = 0.0;
-    BacSi Us ;
+    BacSi Us;
+    boolean uploadAnhXong = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -95,17 +97,17 @@ public class FragmentBacSi extends Fragment {
         HoTen = (EditText) view.findViewById(R.id.HoTenD);
         NamSinh = (Spinner) view.findViewById(R.id.spNamSinhBacSi);
         DiaChi = (EditText) view.findViewById(R.id.DiaChiD);
-        imgAva  = (ImageView) view.findViewById(R.id.Ava);
-        imgXT  = (ImageView) view.findViewById(R.id.ImgXacThuc);
+        imgAva = (ImageView) view.findViewById(R.id.Ava);
+        imgXT = (ImageView) view.findViewById(R.id.ImgXacThuc);
         setData = (Button) view.findViewById(R.id.SubmitD);
-        edtChuyenMon= (EditText) view.findViewById(R.id.edtChuyenMon);
+        edtChuyenMon = (EditText) view.findViewById(R.id.edtChuyenMon);
         //Tạo danh sách năm
         List<String> namList = new ArrayList<>();
-        for (int i= 1960; i< 2018; i++){
-            namList.add(i+"");
+        for (int i = 1960; i < 2018; i++) {
+            namList.add(i + "");
         }
 
-        ArrayAdapter aa= new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item, namList);
+        ArrayAdapter aa = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, namList);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         NamSinh.setAdapter(aa);
 
@@ -156,12 +158,14 @@ public class FragmentBacSi extends Fragment {
                         .show();
             }
         });
+//hbqqhqhdqwdqwd
+        //Put dữ liệu
         setData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 progressDialog.setMessage("Đang đăng ký.....");
                 progressDialog.show();
-                String key = mDatabase.child("User").push().getKey();
+                String key = mDatabase.child("Users").push().getKey();
 
                 //Khởi tạo và thêm dữ liệu cho USER
                 String hoTen = HoTen.getText().toString();
@@ -173,15 +177,15 @@ public class FragmentBacSi extends Fragment {
                 GPSTracker gpsTracker = new GPSTracker(getContext());
                 if (gpsTracker != null && manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                     Location location = gpsTracker.getLocation();
-                    x = location.getLatitude() ;
-                    y =location.getLongitude() ;
+                    x = location.getLatitude();
+                    y = location.getLongitude();
                 }
-                Us = new BacSi(hoTen,sdt,namSinh,chuyenMon,diaChi,x,y);
-                Log.d("hbqhbq",x+"     "+y);
+                Us = new BacSi(hoTen, sdt, namSinh, chuyenMon, diaChi, x, y);
+                Log.d("hbqhbq", x + "     " + y);
 
                 //Khai báo Up Hình ảnh
                 StorageReference storageReference = firebaseStorage.getReferenceFromUrl("gs://familydoctor-56b96.appspot.com/");
-                StorageReference reference = storageReference.child("Users").child(key+"jpg");
+                StorageReference reference = storageReference.child(System.currentTimeMillis() + "jpg");
 
                 // stream avata
                 Bitmap bitmap = ((BitmapDrawable) imgAva.getDrawable()).getBitmap();
@@ -197,12 +201,11 @@ public class FragmentBacSi extends Fragment {
                 bitmapXT.compress(Bitmap.CompressFormat.JPEG, 100, streamXT);
                 byte[] bitMapDataXT = streamXT.toByteArray();
 
-                final UploadTask uploadTaskXT = reference.putBytes(bitMapDataXT);
 
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
-                        Toast.makeText(getActivity(),"lổi không đăng kí thông tin được",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "lổi không đăng kí thông tin được", Toast.LENGTH_LONG).show();
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -210,19 +213,31 @@ public class FragmentBacSi extends Fragment {
                         Uri downloadUrl = taskSnapshot.getDownloadUrl();
                         Us.setUriHinhAnhBacSi(downloadUrl.toString());
 
-                        if (uploadTaskXT.isSuccessful()){
+                        if (uploadTask.isSuccessful()) {
                             mDatabase.child("User_BacSi").child(Us.getSoDienThoaiBacSi()).setValue(Us);
                             progressDialog.hide();
                             Toast.makeText(getContext(), "Đã đăng ký xong", Toast.LENGTH_SHORT).show();
 
-                            startActivity(new Intent(getContext(), MainActivity.class));
+                            uploadAnhXong = true;
                         }
                     }
                 });
+
+                Handler hanler = new Handler();
+                hanler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getContext(), "xong anh dai dien1", Toast.LENGTH_SHORT).show();
+                    }
+                }, 2000);
+                StorageReference storageReferenceXT = firebaseStorage.getReferenceFromUrl("gs://familydoctor-56b96.appspot.com/");
+                StorageReference referenceXT = storageReference.child(System.currentTimeMillis() + "jpg");
+                final UploadTask uploadTaskXT = referenceXT.putBytes(bitMapDataXT);
+
                 uploadTaskXT.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
-                        Toast.makeText(getActivity(),"lổi không đăng kí thông tin được",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "lổi không đăng kí thông tin được", Toast.LENGTH_LONG).show();
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -230,15 +245,26 @@ public class FragmentBacSi extends Fragment {
                         Uri downloadUrl = taskSnapshot.getDownloadUrl();
                         Us.setUriVanBangBacSi(downloadUrl.toString());
 
-                        if (uploadTask.isSuccessful()){
+                        if (uploadTaskXT.isSuccessful()) {
                             mDatabase.child("User_BacSi").child(Us.getSoDienThoaiBacSi()).setValue(Us);
                             progressDialog.hide();
                             Toast.makeText(getContext(), "Đã đăng ký xong", Toast.LENGTH_SHORT).show();
-
-                            startActivity(new Intent(getContext(), MainActivity.class));
+                            uploadAnhXong = true;
                         }
                     }
                 });
+                Handler hanler2 = new Handler();
+                hanler2.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getContext(), "xong anh dai dien2", Toast.LENGTH_SHORT).show();
+                        if (uploadAnhXong == true) {
+                            startActivity(new Intent(getContext(), MainActivity.class));
+
+                        }
+                    }
+                }, 2000);
+
 
             }
         });
