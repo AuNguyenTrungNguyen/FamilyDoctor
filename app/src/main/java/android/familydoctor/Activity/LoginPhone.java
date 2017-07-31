@@ -1,7 +1,6 @@
 package android.familydoctor.Activity;
 
 import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,6 +15,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -84,6 +84,8 @@ public class LoginPhone extends AppCompatActivity implements
     BroadcastReceiver receiver;
     String get_body,code;
 
+    int Count = 0 ;
+
     public static int dinhDanh = 0;
     public static double xxx;
     public static double yyy;
@@ -124,11 +126,10 @@ public class LoginPhone extends AppCompatActivity implements
             mPhoneNumberField.setText(tm.getLine1Number());
             Log.i("phonemunber", "Gettext: " + mPhoneNumberField.getText());
         }
-
         //tạo bộ lọc để lắng nghe tin nhắn gửi tới
         IntentFilter filter=new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
         //tạo bộ lắng nghe
-        receiver=new BroadcastReceiver() {
+        receiver = new BroadcastReceiver() {
             // hàm tự kích hoạt khi có tin nhắn mới
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -216,7 +217,6 @@ public class LoginPhone extends AppCompatActivity implements
         };
         // [END phone_auth_callbacks]
     }
-
     private void DocTinNhanReceive() {
         Uri uri =Uri.parse("content://sms/inbox");
         Cursor cursor= getContentResolver().query(uri,null,null,null,null);
@@ -387,12 +387,11 @@ public class LoginPhone extends AppCompatActivity implements
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
                 // khởi tạo dialog
-                alertDialogBuilder.setMessage("Chờ 1 tí nha ...");
+                alertDialogBuilder.setMessage("Loading...");
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 // tạo dialog
                 alertDialog.show();
                 // hiển thị dialog
-
                 Log.i("checkUser", "Đã dăng nhập thành công");
                 kiemTraCSDL(user);
 
@@ -508,7 +507,6 @@ public class LoginPhone extends AppCompatActivity implements
             }
         });
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -532,6 +530,32 @@ public class LoginPhone extends AppCompatActivity implements
                 break;
             case R.id.button_resend:
                 resendVerificationCode(mPhoneNumberField.getText().toString(), mResendToken);
+
+                new CountDownTimer(5000,100){
+
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+
+                        Count++ ;
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginPhone.this);
+                        // khởi tạo dialog
+                        alertDialogBuilder.setMessage("Đang Gởi Lại Mã Xác Nhận "+ String.valueOf(Count));
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        // tạo dialog
+                        alertDialog.show();
+
+                    }
+                    @Override
+                    public void onFinish() {
+
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginPhone.this);
+                        // khởi tạo dialog
+                        alertDialogBuilder.setMessage("tap để tiếp tục");
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        // tạo dialog
+                        alertDialog.show();
+                    }
+                }.start();
                 break;
         }
     }
@@ -596,10 +620,9 @@ public class LoginPhone extends AppCompatActivity implements
             alert.show();
         }
     }
-
+    @Override
     protected void onDestroy() {
-	    super.onDestroy();
-	    //hủy bỏ đăng ký khi tắt ứng dụng
-	    unregisterReceiver(receiver);
+        super.onDestroy();
+        unregisterReceiver(receiver);
     }
 }
