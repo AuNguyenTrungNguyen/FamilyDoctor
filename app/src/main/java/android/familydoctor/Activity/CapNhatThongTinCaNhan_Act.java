@@ -28,11 +28,15 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -60,7 +64,7 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.xemttbacsi);
+        setContentView(R.layout.activity_capnhatthongtin);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_about);
         setSupportActionBar(toolbar);
@@ -69,7 +73,7 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
         }
 
         HoTen = (EditText) findViewById(R.id.HoTenE);
-        NamSinh = (Spinner) findViewById(R.id.spNamSinhBenhNhan);
+        NamSinh = (Spinner) findViewById(R.id.spNamSinh);
         DiaChi = (EditText) findViewById(R.id.DiaChiE);
         img = (ImageView) findViewById(R.id.ImgAvaE);
         setData = (Button) findViewById(R.id.Submit);
@@ -122,6 +126,24 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
     }
 
     private void capNhatBenhNhan(){
+
+        DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference checksDoctor = root.child("User_BacSi").child(LoginPhone.sdt_key);
+        DatabaseReference checksPanter = root.child("User_BenhNhan").child(LoginPhone.sdt_key);
+
+        checksDoctor.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                bacSi = dataSnapshot.getValue(BacSi.class);
+                HoTen.setText(bacSi.getHoTenBacSi());
+                DiaChi.setText(bacSi.getDiaChiBacSi());
+                Picasso.with(getApplicationContext()).load(bacSi.getUriHinhAnhBacSi()).into(img);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
         final String key = mDatabase.child("User_BenhNhan").push().getKey();
         setData.setOnClickListener(new View.OnClickListener() {
             @Override

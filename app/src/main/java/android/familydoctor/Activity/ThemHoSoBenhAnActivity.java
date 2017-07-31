@@ -213,7 +213,7 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Date date = new Date();
-                String strDateFormat = "dd/MM/yyyy";
+                String strDateFormat = "dd-MM-yyyy";
                 SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
 
                 if(!soDienThoai[0].equals("") &&
