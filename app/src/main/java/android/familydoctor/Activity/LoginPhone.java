@@ -150,7 +150,11 @@ public class LoginPhone extends AppCompatActivity implements
 
             @Override
             public void afterTextChanged(Editable s) {
+                mResendButton.setVisibility(View.GONE);
+                mVerifyButton.setVisibility(View.GONE);
+                mVerificationField.setVisibility(View.GONE);
                 mStartButton.setVisibility(View.VISIBLE);
+                mStartButton.setEnabled(true);
 
             }
         });
