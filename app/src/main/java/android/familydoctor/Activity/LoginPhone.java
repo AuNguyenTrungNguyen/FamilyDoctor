@@ -1,6 +1,7 @@
 package android.familydoctor.Activity;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -92,6 +93,8 @@ public class LoginPhone extends AppCompatActivity implements
     //Bác sĩ = 1
     //Bệnh nhân = 2
     public static String sdt_key = "";
+
+    ProgressDialog progress ;
 
 
     @Override
@@ -531,29 +534,18 @@ public class LoginPhone extends AppCompatActivity implements
             case R.id.button_resend:
                 resendVerificationCode(mPhoneNumberField.getText().toString(), mResendToken);
 
-                new CountDownTimer(5000,100){
-
+                progress = new ProgressDialog(LoginPhone.this);
+                progress.setMessage("Chờ vài giây");
+                progress.setIndeterminate(true);
+                progress.show();
+                new CountDownTimer(8000,1000){
                     @Override
                     public void onTick(long millisUntilFinished) {
-
-                        Count++ ;
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginPhone.this);
-                        // khởi tạo dialog
-                        alertDialogBuilder.setMessage("Đang Gởi Lại Mã Xác Nhận "+ String.valueOf(Count));
-                        AlertDialog alertDialog = alertDialogBuilder.create();
-                        // tạo dialog
-                        alertDialog.show();
 
                     }
                     @Override
                     public void onFinish() {
-
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginPhone.this);
-                        // khởi tạo dialog
-                        alertDialogBuilder.setMessage("tap để tiếp tục");
-                        AlertDialog alertDialog = alertDialogBuilder.create();
-                        // tạo dialog
-                        alertDialog.show();
+                        progress.dismiss();
                     }
                 }.start();
                 break;
