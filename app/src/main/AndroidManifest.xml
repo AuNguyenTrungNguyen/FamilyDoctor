@@ -44,9 +44,6 @@
             android:name=".Activity.ThongTinUngDungActivity"
             />
         <activity
-            android:name=".Activity.CaiDat_TaiKhoan"
-            />
-        <activity
             android:name=".Activity.CapNhatThongTinCaNhan_Act"
             android:parentActivityName=".Activity.MainActivity"
             />
