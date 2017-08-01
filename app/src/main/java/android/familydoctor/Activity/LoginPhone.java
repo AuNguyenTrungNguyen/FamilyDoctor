@@ -15,6 +15,7 @@ import android.familydoctor.service.GPSTracker;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
@@ -24,7 +25,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -96,6 +99,21 @@ public class LoginPhone extends AppCompatActivity implements
 
     ProgressDialog progress ;
 
+    //Permission
+    int PERMISSION_ALL = 1;
+    String[] PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.CALL_PHONE,
+            Manifest.permission.INTERNET,
+            Manifest.permission.ACCESS_NETWORK_STATE,
+            Manifest.permission.CAMERA,
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.SET_WALLPAPER,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_SMS,
+            Manifest.permission.RECEIVE_SMS,
+            Manifest.permission.READ_PHONE_STATE};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,24 +124,42 @@ public class LoginPhone extends AppCompatActivity implements
             onRestoreInstanceState(savedInstanceState);
         }
 
+        //Permission
+        if(!hasPermissions(this, PERMISSIONS)){
+            ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
+        }
+
         turnGPSOn();
 
         mPhoneNumberField = (EditText) findViewById(R.id.field_phone_number);
         mVerificationField = (EditText) findViewById(R.id.field_verification_code);
+        mStartButton = (Button) findViewById(R.id.button_start_verification);
+        mVerifyButton = (Button) findViewById(R.id.button_verify_phone);
+        mResendButton = (Button) findViewById(R.id.button_resend);
+
+        mPhoneNumberField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mStartButton.setVisibility(View.VISIBLE);
+
+            }
+        });
 
         // ĐỌc số điện thoại từ trực tiếp từ điện thoại
         TelephonyManager tm = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
 
         int permissionCheck = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_PHONE_STATE);
-        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_READ_PHONE_STATE);
-            if (tm != null && permissionCheck == PackageManager.PERMISSION_GRANTED) {
-                Log.i("phonemunber", "onCreate: " + tm.getLine1Number());
-                mPhoneNumberField.setText(tm.getLine1Number());
-                Log.i("phonemunber", "Gettext: " + mPhoneNumberField.getText());
-            }
-        }
         if (tm != null && permissionCheck == PackageManager.PERMISSION_GRANTED) {
             Log.i("phonemunber", "onCreate: " + tm.getLine1Number());
             mPhoneNumberField.setText(tm.getLine1Number());
@@ -143,9 +179,7 @@ public class LoginPhone extends AppCompatActivity implements
         //đăng ký bộ lắng nghe vào hệ thống
         registerReceiver(receiver, filter);
 
-        mStartButton = (Button) findViewById(R.id.button_start_verification);
-        mVerifyButton = (Button) findViewById(R.id.button_verify_phone);
-        mResendButton = (Button) findViewById(R.id.button_resend);
+
 
         mStartButton.setOnClickListener(this);
         mVerifyButton.setOnClickListener(this);
@@ -616,5 +650,16 @@ public class LoginPhone extends AppCompatActivity implements
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(receiver);
+    }
+
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
