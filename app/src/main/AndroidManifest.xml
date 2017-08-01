@@ -35,8 +35,6 @@
         <activity android:name=".Activity.LuaChonLoaiTaiKhoanActivity">
 
         </activity>
-        <activity android:name=".Activity.Sign_in">
-        </activity>
         <activity android:name=".Activity.MainActivity" >
         </activity>
         <activity
@@ -57,9 +55,6 @@
             />
         <activity
             android:name=".Activity.XemTTBenhNhan_Act"
-            />
-        <activity
-            android:name=".Activity.User_Edit"
             />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
