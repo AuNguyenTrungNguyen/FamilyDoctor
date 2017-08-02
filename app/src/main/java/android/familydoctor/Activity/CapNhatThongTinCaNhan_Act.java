@@ -6,6 +6,7 @@ import android.familydoctor.Class.BacSi;
 import android.familydoctor.Class.BenhNhan;
 import android.familydoctor.service.GPSTracker;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationManager;
@@ -66,7 +67,8 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_capnhatthongtin);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_about);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

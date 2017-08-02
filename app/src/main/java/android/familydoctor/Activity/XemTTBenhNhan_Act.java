@@ -44,7 +44,10 @@ public class XemTTBenhNhan_Act extends AppCompatActivity{
         txtDiaChi= (TextView) findViewById(R.id.txtDiaChi);
         txtSDT= (TextView) findViewById(R.id.txtSDT);
         txtTen= (TextView) findViewById(R.id.txtTen);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_about);
+
+
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

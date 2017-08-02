@@ -1,5 +1,6 @@
 package android.familydoctor.Activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.familydoctor.R;
 import android.support.annotation.Nullable;
@@ -18,7 +19,8 @@ public class ThongTinUngDungActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thong_tin_ung_dung);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_about);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

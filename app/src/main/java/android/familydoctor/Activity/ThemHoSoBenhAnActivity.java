@@ -8,6 +8,7 @@ import android.familydoctor.Class.BenhNhan;
 import android.familydoctor.Class.HoSoBenh;
 import android.familydoctor.Class.Thuoc;
 import android.familydoctor.R;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -243,6 +244,7 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
     public void addControls() {
 
         toolbarThemHoSoBenhAn = (Toolbar) findViewById(R.id.toolbarThemHoSoBenhAn);
+        toolbarThemHoSoBenhAn.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbarThemHoSoBenhAn);
 
         if (getSupportActionBar() != null) {

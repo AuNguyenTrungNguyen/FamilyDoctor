@@ -8,8 +8,10 @@ import android.familydoctor.Class.HoSoBenh;
 import android.familydoctor.Class.Thuoc;
 import android.familydoctor.Fragment.FragmentHoSoBenhAn;
 import android.familydoctor.R;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
@@ -36,6 +38,13 @@ public class HienThiThongTinHoSoBenhAnActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hien_thi_thong_tin_ho_so_benh_an);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(Color.WHITE);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         final TextView txtNameShow = (TextView) findViewById(R.id.txtNameShow);
         TextView txtTenBenhShow = (TextView) findViewById(R.id.txtTenBenhShow);

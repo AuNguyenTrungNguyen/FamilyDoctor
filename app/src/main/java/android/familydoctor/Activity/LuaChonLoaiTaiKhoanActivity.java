@@ -69,6 +69,7 @@ public class LuaChonLoaiTaiKhoanActivity extends AppCompatActivity {
 
         toolbarChoose = (Toolbar) findViewById(R.id.toolbar_choose);
         setSupportActionBar(toolbarChoose);
+        toolbarChoose.setTitle("Lựa chọn loại tài khoản");
         toolbarChoose.setTitleTextColor(Color.WHITE);
 
         tabLayoutChoose = (TabLayout) findViewById(R.id.tab_layout_choose);
@@ -91,4 +92,30 @@ public class LuaChonLoaiTaiKhoanActivity extends AppCompatActivity {
         tabLayoutChoose.setupWithViewPager(viewPagerChoose);
 
     }
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Bạn có muốn thoát ứng dụng?");
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("Có",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                moveTaskToBack(true);
+                                android.os.Process.killProcess(android.os.Process.myPid());
+                                System.exit(1);
+                            }
+                        })
+
+                .setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
 }

@@ -43,7 +43,11 @@ public class DanhSachThuocActivity extends AppCompatActivity {
         setContentView(R.layout.activity_danh_sach_thuoc);
 
         toolbarDanhSachThuoc = (Toolbar) findViewById(R.id.toolbarDanhSachThuoc);
+
         setSupportActionBar(toolbarDanhSachThuoc);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         elvDanhSachThuoc = (ExpandableListView) findViewById(R.id.elvDanhSachThuoc);
         listTenThuoc = new ArrayList<>();

@@ -6,14 +6,9 @@
     android:layout_height="match_parent"
     android:background="#fefefe">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_about"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
-        android:background="@color/colorPrimaryDark"
-        />
+    <include
+        layout="@layout/layout_toolbar">
+    </include>
 
     <TextView
         android:id="@+id/tud"

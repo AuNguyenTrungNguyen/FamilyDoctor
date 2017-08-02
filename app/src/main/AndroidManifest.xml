@@ -39,9 +39,11 @@
         </activity>
         <activity
             android:name=".Activity.Them_HoSoBenhAn"
+            android:parentActivityName=".Activity.MainActivity"
             />
         <activity
             android:name=".Activity.ThongTinUngDungActivity"
+            android:parentActivityName=".Activity.MainActivity"
             />
         <activity
             android:name=".Activity.CapNhatThongTinCaNhan_Act"
@@ -49,9 +51,11 @@
             />
         <activity
             android:name=".Activity.XemTTBacSi_Act"
+            android:parentActivityName=".Activity.MainActivity"
             />
         <activity
             android:name=".Activity.XemTTBenhNhan_Act"
+            android:parentActivityName=".Activity.MainActivity"
             />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -70,15 +74,20 @@
             android:parentActivityName=".Activity.MainActivity" />
         <activity
             android:name=".Activity.DanhSachThuocActivity"
-            android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".Activity.ViewWeb" />
+            android:windowSoftInputMode="adjustPan"
+            android:parentActivityName=".Activity.MainActivity"/>
+        <activity android:name=".Activity.ViewWeb"
+            android:parentActivityName=".Activity.MainActivity"
+            />
 
         <service
             android:name=".service.GPSTracker"
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".Activity.HienThiThongTinHoSoBenhAnActivity"></activity>
+        <activity android:name=".Activity.HienThiThongTinHoSoBenhAnActivity"
+            android:parentActivityName=".Activity.MainActivity">
+        </activity>
     </application>
 
 </manifest>
