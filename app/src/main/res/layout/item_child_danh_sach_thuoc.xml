@@ -18,7 +18,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Số lượng:"
+            android:text="@string/Number"
             android:textStyle="bold" />
 
         <EditText
@@ -37,7 +37,7 @@
             android:layout_weight="1"
             android:enabled="false"
             android:gravity="center"
-            android:text="viên"
+            android:text="@string/pill"
             android:textColor="#ff6f00" />
 
     </LinearLayout>
@@ -55,7 +55,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Buổi sáng: " />
+            android:text="@string/Morning" />
 
         <EditText
             android:id="@+id/edtSoLuongSang"
@@ -74,7 +74,7 @@
             android:layout_weight="1"
             android:enabled="false"
             android:gravity="center"
-            android:text="viên"
+            android:text="@string/pill"
             android:textColor="#ff6f00"
             android:visibility="gone" />
 
@@ -93,7 +93,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Buổi Trưa: " />
+            android:text="@string/Afternoon" />
 
         <EditText
             android:id="@+id/edtSoLuongTrua"
@@ -112,7 +112,7 @@
             android:layout_weight="1"
             android:enabled="false"
             android:gravity="center"
-            android:text="viên"
+            android:text="@string/pill"
             android:textColor="#ff6f00"
             android:visibility="gone" />
 
@@ -132,7 +132,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Buổi Chiều: " />
+            android:text="@string/Night" />
 
         <EditText
             android:id="@+id/edtSoLuongChieu"
@@ -151,7 +151,7 @@
             android:layout_weight="1"
             android:enabled="false"
             android:gravity="center"
-            android:text="viên"
+            android:text="@string/pill"
             android:textColor="#ff6f00"
             android:visibility="gone" />
 
@@ -163,6 +163,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:layout_margin="5dp"
-        android:text="Xác nhận" />
+        android:background="#027598"
+        android:textColor="@color/white"
+        android:text="@string/Add" />
 
 </LinearLayout>

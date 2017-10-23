@@ -14,7 +14,7 @@
         android:id="@+id/tud"
         android:layout_marginTop="70dp"
         android:layout_marginLeft="40dp"
-        android:text="Tên ứng dụng:"
+        android:text="@string/Application_name"
         android:textSize="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -35,7 +35,7 @@
         android:layout_marginLeft="40dp"
         android:textSize="20dp"
         android:layout_below="@+id/tud"
-        android:text="Phiên bản 1.0"
+        android:text="@string/Version"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

@@ -4,6 +4,7 @@ package android.familydoctor.Fragment;
  * Created by ASUS on 27/05/2017.
  */
 
+import android.content.Context;
 import android.content.Intent;
 import android.familydoctor.Activity.HienThiThongTinHoSoBenhAnActivity;
 import android.familydoctor.Activity.LoginPhone;
@@ -40,11 +41,12 @@ public class FragmentHoSoBenhAn extends Fragment {
     LinearLayoutManager layoutManager;
     List<HoSoBenh> list = new ArrayList<>();
 
-    // ko có public static và bằng LoginPhone.dinhDanh
+    // xem người đang đăng nhập là bác sĩ hay bệnh nhân
     int dinhDanh = LoginPhone.dinhDanh;
 
-    // ko có public static và bằng LoginPhone.sdt_key
+    // số điện thoại người dùng hiện hành
     String id = LoginPhone.sdt_key;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -57,16 +59,19 @@ public class FragmentHoSoBenhAn extends Fragment {
 
         databaseHSBA = FirebaseDatabase.getInstance().getReference();
 
-        adapter = new AdapterHoSoBenhAn(list, dinhDanh);
+        adapter = new AdapterHoSoBenhAn(list, dinhDanh,getContext() );
 
         recyclerView.setAdapter(adapter);
 
+        // hàm đọc toàn bộ hồ sơ bệnh án của người dùng hiện hành
         loadDuLieu();
 
+        // xử lý sự kiện khi chọn vào 1 hồ sơ bệnh án
         adapter.setOnItemClickListener(new AdapterHoSoBenhAn.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int position) {
 
+                // chuyển đến Activity Hiển thị thông tin hồ sơ bệnh án
                 Intent intentHienThiThongTinHoSoBenhAn = new Intent(getContext(), HienThiThongTinHoSoBenhAnActivity.class);
                 HoSoBenh hoSoBenh = list.get(position);
                 intentHienThiThongTinHoSoBenhAn.putExtra("hoSoBenhAn", (Serializable) hoSoBenh);
@@ -83,17 +88,22 @@ public class FragmentHoSoBenhAn extends Fragment {
     }
 
     public void loadDuLieu() {
-
+        // duyệt tất cả hồ sơ bệnh án
         databaseHSBA.child("HoSoBenhAn").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
                 HoSoBenh hoSoBenh = dataSnapshot.getValue(HoSoBenh.class);
                 assert hoSoBenh != null;
+                // người dùng hiện hành là bác sĩ
                 if(dinhDanh == 1){
+                    //nếu id của bác sĩ trong Hồ sơ bệnh án bằng với id hiện hành sẽ hiển thị hồ sơ bệnh án này
                     if (TextUtils.equals(hoSoBenh.getIdBacSi(), id)) {
                         adapter.addItem(list.size(), hoSoBenh);
                     }
+                // người dùng hiện hành là bệnh nhân
                 }else if (dinhDanh == 2){
+                    //nếu id của bệnh nhân trong Hồ sơ bệnh án bằng với id hiện hành sẽ hiển thị hồ sơ bệnh án này
                     if (TextUtils.equals(hoSoBenh.getIdBenhNhan(), id)) {
                         adapter.addItem(list.size(), hoSoBenh);
                     }

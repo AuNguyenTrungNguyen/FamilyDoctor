@@ -67,10 +67,10 @@ public class XemTTBacSi_Act extends AppCompatActivity {
         txtSDT = (TextView) findViewById(R.id.txtSDT);
         final ProgressBar progressAnhDaiDien = (ProgressBar) findViewById(R.id.progressAnhdaidien);
         final ProgressBar progressVanBang = (ProgressBar) findViewById(R.id.progressVanBang);
-        txtTen.setText("Tên:"+name);
-        txtChuyenMon.setText("Chuyên môn:"+chuyenmon);
-        txtDiaChi.setText("Địa chỉ : "+diachi);
-        txtSDT.setText("SDT liên hệ : "+sdt);
+        txtTen.setText(getResources().getString(R.string.Name)+":"+name);
+        txtChuyenMon.setText(getResources().getString(R.string.Doctorname)+":"+chuyenmon);
+        txtDiaChi.setText(getResources().getString(R.string.Address)+" : "+diachi);
+        txtSDT.setText(getResources().getString(R.string.Phone_number)+": "+sdt);
         Picasso.with(this).load(url1).into(imganhdaidien, new Callback() {
             @Override
             public void onSuccess() {

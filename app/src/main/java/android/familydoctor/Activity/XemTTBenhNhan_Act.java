@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.familydoctor.Class.HoSoBenh;
 import android.familydoctor.R;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -48,6 +49,7 @@ public class XemTTBenhNhan_Act extends AppCompatActivity{
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -59,9 +61,9 @@ public class XemTTBenhNhan_Act extends AppCompatActivity{
         final String sdt = it.getStringExtra("sdt");
         String diachi = it.getStringExtra("diachi");
         String url1 = it.getStringExtra("url1");
-        txtTen.setText("Tên bệnh nhân: "+ name);
-        txtSDT.setText("SDT liên hệ: "+sdt);
-        txtDiaChi.setText("Địa chỉ : "+diachi);
+        txtTen.setText(getResources().getString(R.string.Patient_name)+": "+ name);
+        txtSDT.setText(getResources().getString(R.string.Phone_number)+": "+sdt);
+        txtDiaChi.setText(getResources().getString(R.string.Address)+": "+diachi);
         Picasso.with(this).load(url1).into(img, new Callback() {
             @Override
             public void onSuccess() {

@@ -49,7 +49,7 @@ public class HienThiThongTinHoSoBenhAnActivity extends AppCompatActivity {
         final TextView txtNameShow = (TextView) findViewById(R.id.txtNameShow);
         TextView txtTenBenhShow = (TextView) findViewById(R.id.txtTenBenhShow);
         TextView txtNgayKhamShow = (TextView) findViewById(R.id.txtNgayKhamShow);
-        TextView txtngayTaiKhamShow = (TextView) findViewById(R.id.txtNgayTaiKhamShow);
+        TextView txtNgayTaiKhamShow = (TextView) findViewById(R.id.txtNgayTaiKhamShow);
 
         elvDanhSachThuocShow = (ExpandableListView) findViewById(R.id.elvDanhSachThuocShow);
         listTenThuoc = new ArrayList<>();//list header
@@ -58,27 +58,36 @@ public class HienThiThongTinHoSoBenhAnActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         if(intent != null){
+            //Nhận hồ sơ bệnh án từ FragmentHoSoBenhAn để xem thông tin đầy dử
             final HoSoBenh hsb = (HoSoBenh) intent.getSerializableExtra("hoSoBenhAn");
 
-            // LoginPhone.dinhDanh
+            // Kiểm tra người dùng là bác sĩ hay bệnh nhân
             int dinhDanh = LoginPhone.dinhDanh;
 
+            //Lấy toàn bộ danh sách thuốc trong Hồ sơ bệnh án
             List<Thuoc> listThuocTrongHSBA = hsb.getThuocDung();
 
             for (int i = 0; i <listThuocTrongHSBA.size() ; i++) {
+                // thêm tất cả các tên thuốc để gán vào list Header Adapter
                 listTenThuoc.add(listThuocTrongHSBA.get(i).getTenThuoc());
+
+                // thêm tất cả các thông tin thuốc để gán vào list Child Adapter
                 listThongTinThuoc.put(listThuocTrongHSBA.get(i).getTenThuoc(),listThuocTrongHSBA.get(i));
             }
 
-            txtTenBenhShow.setText("Bệnh cần điều trị : "+hsb.getTenBenh());
-            txtNgayKhamShow.setText("Ngày khám : "+hsb.getNgayKham());
-            txtngayTaiKhamShow.setText("Ngày tái khám : "+hsb.getNgayTaiKham());
+            //gán tên bệnh, ngày khám và ngày tái khám
+            txtTenBenhShow.setText(getResources().getString(R.string.The_disease_needs_treatment)+": "+hsb.getTenBenh());
+            txtNgayKhamShow.setText(getResources().getString(R.string.Day_of_the_examination)+" "+hsb.getNgayKham());
+            txtNgayTaiKhamShow.setText(getResources().getString(R.string.On_reexamination)+" "+hsb.getNgayTaiKham());
+
             adapterThongTinHoSoBenhAn = new AdapterThongTinHoSoBenhAn(HienThiThongTinHoSoBenhAnActivity.this, listTenThuoc, listThongTinThuoc);
             elvDanhSachThuocShow.setAdapter(adapterThongTinHoSoBenhAn);
 
             databaseHSBA = FirebaseDatabase.getInstance().getReference();
 
+            //nếu người đang đăng nhập là bác sĩ
             if(dinhDanh == 1){
+                //lấy id bệnh nhân ra để tìm tên bệnh nhân
                 final String idBenhNhan = hsb.getIdBenhNhan();
                 databaseHSBA.child("User_BenhNhan").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -87,18 +96,19 @@ public class HienThiThongTinHoSoBenhAnActivity extends AppCompatActivity {
                             BenhNhan benhNhan = data.getValue(BenhNhan.class);
                             assert benhNhan != null;
                             if (benhNhan.getSoDienThoaiBenhNhan().equals(idBenhNhan)){
-                                txtNameShow.setText("Tên bệnh nhân: " + benhNhan.getHoTenBenhNhan());
+                                txtNameShow.setText(getResources().getString(R.string.Patient_name)+": " + benhNhan.getHoTenBenhNhan());
                                 break;
                             }
                         }
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
                 });
+            //nếu người đang đăng nhập là bệnh nhân
             }else if(dinhDanh == 2){
+                //lấy id bác sĩ ra để tìm tên bác sĩ
                 final String idBacSi = hsb.getIdBacSi();
                 databaseHSBA.child("User_BacSi").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -107,12 +117,11 @@ public class HienThiThongTinHoSoBenhAnActivity extends AppCompatActivity {
                             BacSi bacSi = data.getValue(BacSi.class);
                             assert bacSi != null;
                             if (bacSi.getSoDienThoaiBacSi().equals(idBacSi)){
-                                txtNameShow.setText("Bác sĩ khám: " + bacSi.getHoTenBacSi());
+                                txtNameShow.setText(getResources().getString(R.string.Patient_name)+": " + bacSi.getHoTenBacSi());
                                 break;
                             }
                         }
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 

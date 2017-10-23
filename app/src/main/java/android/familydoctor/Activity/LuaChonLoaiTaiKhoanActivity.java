@@ -33,9 +33,9 @@ public class LuaChonLoaiTaiKhoanActivity extends AppCompatActivity {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                     this);
             alertDialogBuilder
-                    .setMessage("Mở GPS của bạn!")
+                    .setMessage(getResources().getString(R.string.enable_GPS))
                     .setCancelable(false)
-                    .setPositiveButton("Mở",
+                    .setPositiveButton(getResources().getString(R.string.open),
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog,
                                                     int id) {
@@ -44,7 +44,7 @@ public class LuaChonLoaiTaiKhoanActivity extends AppCompatActivity {
                                     startActivity(callGPSSettingIntent);
                                 }
                             });
-            alertDialogBuilder.setNegativeButton("Hủy",
+            alertDialogBuilder.setNegativeButton(getResources().getString(R.string.cancel),
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
@@ -69,15 +69,15 @@ public class LuaChonLoaiTaiKhoanActivity extends AppCompatActivity {
 
         toolbarChoose = (Toolbar) findViewById(R.id.toolbar_choose);
         setSupportActionBar(toolbarChoose);
-        toolbarChoose.setTitle("Lựa chọn loại tài khoản");
+        toolbarChoose.setTitle(getResources().getString(R.string.select_an_account_type));
         toolbarChoose.setTitleTextColor(Color.WHITE);
 
         tabLayoutChoose = (TabLayout) findViewById(R.id.tab_layout_choose);
         viewPagerChoose = (ViewPager) findViewById(R.id.view_pager_choose);
 
         List<String> titles = new ArrayList<>();
-        titles.add("Bác sĩ");
-        titles.add("Bệnh nhân");
+        titles.add(getResources().getString(R.string.doctor));
+        titles.add(getResources().getString(R.string.Patient));
         tabLayoutChoose.addTab(tabLayoutChoose.newTab().setText(titles.get(0)));
         tabLayoutChoose.addTab(tabLayoutChoose.newTab().setText(titles.get(1)));
 
@@ -95,10 +95,10 @@ public class LuaChonLoaiTaiKhoanActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle("Bạn có muốn thoát ứng dụng?");
+        alertDialogBuilder.setTitle(getResources().getString(R.string.question_exit));
         alertDialogBuilder
                 .setCancelable(false)
-                .setPositiveButton("Có",
+                .setPositiveButton(getResources().getString(R.string.yes),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 moveTaskToBack(true);
@@ -107,7 +107,7 @@ public class LuaChonLoaiTaiKhoanActivity extends AppCompatActivity {
                             }
                         })
 
-                .setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                         dialog.cancel();

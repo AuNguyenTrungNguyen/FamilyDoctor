@@ -70,11 +70,11 @@ public class TinTucSucKhoe extends Fragment {
         tinTucs = new ArrayList<TinTuc>();
 
         listView = (ListView) rootView.findViewById(R.id.List_item);
-
+        // lay link
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                new ReadData().execute("http://vnexpress.net/rss/suc-khoe.rss");
+                new ReadData().execute("https://vnexpress.net/rss/suc-khoe.rss");
             }
         });
 
@@ -82,6 +82,7 @@ public class TinTucSucKhoe extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), ViewWeb.class);
+                // chuyen v wweb view
                 intent.putExtra("link", tinTucs.get(position).getLink());
                 startActivity(intent);
             }
@@ -112,18 +113,20 @@ public class TinTucSucKhoe extends Fragment {
                 title = parser.getValue(element, "title");
                 link = parser.getValue(element, "link");
                 String Cdata = nodeListDes.item(i + 1).getTextContent();
+                // lay file anh tu link chi ddih
                 Pattern p = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
                 Matcher matcher = p.matcher(Cdata);
                 if (matcher.find()) {
                     Image = matcher.group(1);
                 }
+                // lay item tin tuc taoj thanh list tin tuc
                 tinTucs.add(new TinTuc(title, link, Image));
             }
             customAdapter = new TinTucAdapter(getActivity(),R.layout.item_rss, tinTucs);
             listView.setAdapter(customAdapter);
         }
     }
-
+// doc noi dung tu Url
     private String docNoiDung_Tu_URL(String theUrl) {
         StringBuilder content = new StringBuilder();
         try {

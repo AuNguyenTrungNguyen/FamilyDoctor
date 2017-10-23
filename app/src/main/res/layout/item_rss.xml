@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:layout_gravity="center_vertical"
-                android:text="Tin tuc"
+                android:text="@string/News"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 

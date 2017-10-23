@@ -2,6 +2,7 @@ package android.familydoctor.Activity;
 //trungbanh
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -27,6 +28,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,11 +38,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
-    private TabLayout mTabLayout;
+    public TabLayout mTabLayout;
     private FloatingActionButton fabThemHoSoBenhAn;
 
     @Override
@@ -63,16 +66,16 @@ public class MainActivity extends AppCompatActivity {
         switch (i) {
             case 1:
                 //Bác sĩ
-                titles.add("Tin tức sức khỏe");
-                titles.add("Hồ sơ đã tạo");
-                titles.add("Tìm Bệnh nhân");
-                titles.add("Cài đặt");
+                titles.add(getResources().getString(R.string.tab_title_main_1_doctoc));
+                titles.add(getResources().getString(R.string.tab_title_main_2_doctoc));
+                titles.add(getResources().getString(R.string.tab_title_main_3_doctoc));
+                titles.add(getResources().getString(R.string.tab_title_main_4_doctoc));
             case 2:
                 //Bệnh nhân
-                titles.add("Tin tức sức khỏe");
-                titles.add("Hồ sơ bệnh cá nhân");
-                titles.add("Tìm Bác sĩ");
-                titles.add("Cài đặt");
+                titles.add(getResources().getString(R.string.tab_title_main_1_patient));
+                titles.add(getResources().getString(R.string.tab_title_main_2_patient));
+                titles.add(getResources().getString(R.string.tab_title_main_3_patient));
+                titles.add(getResources().getString(R.string.tab_title_main_4_patient));
         }
 
         mTabLayout.addTab(mTabLayout.newTab().setText(titles.get(0)));
@@ -100,31 +103,36 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
+                View view = MainActivity.this.getCurrentFocus();
                 switch (position) {
                     case 0:
-                        Toast.makeText(getApplicationContext(), "tab 1", Toast.LENGTH_SHORT).show();
                         fabThemHoSoBenhAn.hide();
+                        if (view != null) {
+                            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                        }
                         break;
                     case 1:
-
                         if (LoginPhone.dinhDanh == 1){
                             fabThemHoSoBenhAn.show();
+                            if (view != null) {
+                                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                            }
                         }
-
-                        Toast.makeText(getApplicationContext(), "tab 2", Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
                         fabThemHoSoBenhAn.hide();
                         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
                         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                            Toast.makeText(getApplicationContext(), "Bạn chưa bật GPS nên không tìm được vị trí của bạn!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.GPS_not_enable) , Toast.LENGTH_SHORT).show();
 
 
                             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
                             alertDialogBuilder
-                                    .setMessage("Mở GPS của bạn!")
+                                    .setMessage(getResources().getString(R.string.enable_GPS))
                                     .setCancelable(false)
-                                    .setPositiveButton("Mở",
+                                    .setPositiveButton(getResources().getString(R.string.yes),
                                             new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog,
                                                                     int id) {
@@ -133,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                                                     startActivity(callGPSSettingIntent);
                                                 }
                                             });
-                            alertDialogBuilder.setNegativeButton("Hủy",
+                            alertDialogBuilder.setNegativeButton(getResources().getString(R.string.no),
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             dialog.cancel();
@@ -145,7 +153,11 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 3:
                         fabThemHoSoBenhAn.hide();
-                        Toast.makeText(MainActivity.this, "tab4", Toast.LENGTH_SHORT).show();
+                        if (view != null) {
+                            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                        }
+
                         break;
                 }
             }
@@ -182,10 +194,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle("Bạn có muốn thoát ứng dụng?");
+        alertDialogBuilder.setTitle(getResources().getString(R.string.question_exit));
         alertDialogBuilder
                 .setCancelable(false)
-                .setPositiveButton("Có",
+                .setPositiveButton(getResources().getString(R.string.yes),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 moveTaskToBack(true);
@@ -194,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         })
 
-                .setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                         dialog.cancel();

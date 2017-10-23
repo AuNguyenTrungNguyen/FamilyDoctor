@@ -232,7 +232,7 @@ public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
                         || (soLuongTrua == 0 && chkTrua.isChecked())
                         || (soLuongChieu == 0 && chkChieu.isChecked())
                         || !hopLe) {
-                    Toast.makeText(context, "Thông tin thuốc không chính xác", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, context.getResources().getString(R.string.Drug_information_is_inaccurate) , Toast.LENGTH_SHORT).show();
 
                 } else {
 
@@ -249,7 +249,7 @@ public class AdapterDanhSachThuoc extends BaseExpandableListAdapter {
                     if(soLuongChieu > 0){
                         thuoc.setLieuDungChieu(String.valueOf(soLuongChieu));
                     }
-                    Toast.makeText(context, "Đã xác nhận: " + thuoc.getTenThuoc(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, thuoc.getTenThuoc()+ context.getResources().getString(R.string.X_has_been_updated), Toast.LENGTH_SHORT).show();
                 }
             }
         });

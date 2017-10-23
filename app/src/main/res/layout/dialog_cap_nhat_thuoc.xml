@@ -23,7 +23,7 @@
 
         <TextView
             android:gravity="center"
-            android:text="Số lượng:"
+            android:text="@string/Number_"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -47,7 +47,7 @@
             android:gravity="center"
             android:inputType="phone"
             android:enabled="false"
-            android:text="viên"
+            android:text="@string/pill"
             android:textColor="#ff6f00" />
 
     </LinearLayout>
@@ -65,7 +65,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Buổi sáng: " />
+            android:text="@string/Morning_" />
 
         <EditText
             android:id="@+id/edtSoLuongSang"
@@ -84,7 +84,7 @@
             android:layout_weight="1"
             android:enabled="false"
             android:gravity="center"
-            android:text="viên"
+            android:text="@string/pill"
             android:textColor="#ff6f00"
             android:visibility="gone" />
 
@@ -103,7 +103,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Buổi Trưa: " />
+            android:text="@string/Afternoon_" />
 
         <EditText
             android:visibility="gone"
@@ -123,7 +123,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:enabled="false"
-            android:text="viên"
+            android:text="@string/pill"
             android:textColor="#ff6f00" />
 
     </LinearLayout>
@@ -142,7 +142,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Buổi Chiều: " />
+            android:text="@string/Night_" />
 
         <EditText
             android:visibility="gone"
@@ -162,7 +162,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:enabled="false"
-            android:text="viên"
+            android:text="@string/pill"
             android:textColor="#ff6f00" />
 
     </LinearLayout>
@@ -171,6 +171,9 @@
         android:id="@+id/btnXacNhanCapNhatThuoc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cập nhật"/>
+        android:text="@string/Update_drug"
+        android:background="#027598"
+        android:textColor="@color/white"
+        />
 
 </LinearLayout>

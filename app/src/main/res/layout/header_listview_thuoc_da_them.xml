@@ -11,7 +11,7 @@
         android:layout_height="20dp"
         android:layout_margin="5dp"
         android:gravity="center"
-        android:text="Danh sách thuốc"
+        android:text="@string/Drug_list"
         android:textStyle="bold"/>
 
 </LinearLayout>

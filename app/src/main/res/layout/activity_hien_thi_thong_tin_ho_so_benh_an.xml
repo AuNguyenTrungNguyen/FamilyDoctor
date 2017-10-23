@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="Thông tin bệnh án"
+                android:text="@string/Medical_records_information"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -71,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="Danh sách thuốc dùng"
+                android:text="@string/Drug_list"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -82,7 +82,9 @@
                 android:layout_margin="5dp"
                 android:divider="@color/colorPrimary"
                 android:dividerHeight="1dp"
-                android:listSelector="#ffffff">
+                android:listSelector="#ffffff"
+                android:headerDividersEnabled="false"
+                android:groupIndicator="@null">
             </ExpandableListView>
 
         </LinearLayout>

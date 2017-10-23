@@ -18,6 +18,9 @@ import android.widget.Toast;
 
 import java.util.List;
 
+
+// adapter dùng hiển thị các loại thuốc đã được thêm vào hồ sơ bệnh án
+
 public class AdapterThuoc extends ArrayAdapter<Thuoc> {
     private Activity activity;
     private int resource;
@@ -48,19 +51,19 @@ public class AdapterThuoc extends ArrayAdapter<Thuoc> {
         Thuoc thuoc = this.objects.get(position);
 
         txtTenThuoc.setText(thuoc.getTenThuoc().toUpperCase());
-        txtSoLuongThuoc.setText("Số lượng: " + thuoc.getSoLuong() + " viên");
+        txtSoLuongThuoc.setText(getContext().getResources().getString(R.string.number)+": " + thuoc.getSoLuong() +" "+ getContext().getResources().getString(R.string.pill));
 
         if (!thuoc.getLieuDungSang().equals("")) {
 
-            txtLieuDungSang.setText(thuoc.getLieuDungSang() + " viên");
+            txtLieuDungSang.setText(thuoc.getLieuDungSang() + " "+ getContext().getResources().getString(R.string.pill));
         }
 
         if (!thuoc.getLieuDungTrua().equals("")) {
-            txtLieuDungTrua.setText(thuoc.getLieuDungTrua() + " viên");
+            txtLieuDungTrua.setText(thuoc.getLieuDungTrua() +" "+ getContext().getResources().getString(R.string.pill));
         }
 
         if (!thuoc.getLieuDungChieu().equals("")) {
-            txtLieuDungChieu.setText(thuoc.getLieuDungChieu() + " viên");
+            txtLieuDungChieu.setText(thuoc.getLieuDungChieu() +" "+ getContext().getResources().getString(R.string.pill));
         }
 
         btnXoaThuoc.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +78,7 @@ public class AdapterThuoc extends ArrayAdapter<Thuoc> {
             @Override
             public void onClick(View v) {
                 final Dialog dialogCapNhatThuoc = new Dialog(getContext());
-                dialogCapNhatThuoc.setTitle("Cập nhật thuốc: ");
+                dialogCapNhatThuoc.setTitle(getContext().getResources().getString(R.string.Update_drug));
                 dialogCapNhatThuoc.setContentView(R.layout.dialog_cap_nhat_thuoc);
 
                 final EditText edtSoLuongThuoc;
@@ -177,6 +180,7 @@ public class AdapterThuoc extends ArrayAdapter<Thuoc> {
                     }
                 });
 
+                // xác nhận cập nhật lại thuốc trong danh sách thuốc
                 btnXacNhanCapNhatThuoc.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -214,7 +218,7 @@ public class AdapterThuoc extends ArrayAdapter<Thuoc> {
                                 || (soLuongTrua == 0 && chkTrua.isChecked())
                                 || (soLuongChieu == 0 && chkChieu.isChecked())
                                 || !hopLe) {
-                            Toast.makeText(activity, "Thông tin thuốc không chính xác", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity,getContext().getResources().getString(R.string.Drug_information_is_inaccurate) , Toast.LENGTH_SHORT).show();
                         } else {
                             thuoc.setSoLuong(edtSoLuongThuoc.getText().toString());
                             if (soLuongSang > 0) {
@@ -228,7 +232,7 @@ public class AdapterThuoc extends ArrayAdapter<Thuoc> {
                             if (soLuongChieu > 0) {
                                 thuoc.setLieuDungChieu(String.valueOf(soLuongChieu));
                             }
-                            Toast.makeText(activity, "Đã lưu thông tin: " + thuoc.getTenThuoc(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity,thuoc.getTenThuoc()+ getContext().getResources().getString(R.string.X_has_been_updated), Toast.LENGTH_SHORT).show();
                             notifyDataSetChanged();
                             dialogCapNhatThuoc.dismiss();
                         }

@@ -19,6 +19,7 @@ import java.util.List;
  */
 
 public class AdapterThongTinHoSoBenhAn extends BaseExpandableListAdapter {
+    // adapter này dùng để hiện thị thông tin về thuốc sẽ dùng trong hô sơ bệnh án khi người dùng muốn xem thông tin đầy đủ
 
     Context context;
     List<String> listTenThuoc;
@@ -66,6 +67,7 @@ public class AdapterThongTinHoSoBenhAn extends BaseExpandableListAdapter {
         return false;
     }
 
+    // gán tên thuốc
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         String header = (String) getGroup(groupPosition);
@@ -79,6 +81,7 @@ public class AdapterThongTinHoSoBenhAn extends BaseExpandableListAdapter {
         return convertView;
     }
 
+    //xem các thông tin về thuốc như số lượng và liều dùng khi click vào tên thuốc đó
     @Override
     public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, final ViewGroup parent) {
 
@@ -108,9 +111,10 @@ public class AdapterThongTinHoSoBenhAn extends BaseExpandableListAdapter {
         edtSoLuongChieu = (EditText) convertView.findViewById(R.id.edtSoLuongChieuShow);
         edtDonViChieu = (EditText) convertView.findViewById(R.id.edtDonViChieuShow);
 
-
+        // số lượng thuốc
         edtSoLuongThuoc.setText(thuoc.getSoLuong());
 
+        //kiểm tra nếu số lượng thuốc khác rỗng thì mới hiển thị liều dùng
         if (!thuoc.getLieuDungSang().equals("")) {
             layoutSang.setVisibility(View.VISIBLE);
             edtSoLuongSang.setText(thuoc.getLieuDungSang());

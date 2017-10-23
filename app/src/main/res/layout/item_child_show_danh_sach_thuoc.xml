@@ -18,7 +18,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Số lượng:"
+            android:text="@string/Number"
             android:textStyle="bold" />
 
         <EditText
@@ -40,7 +40,7 @@
             android:enabled="false"
             android:gravity="center"
             android:inputType="phone"
-            android:text="viên"
+            android:text="@string/pill"
             android:textColor="#ff6f00" />
 
     </LinearLayout>
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:enabled="false"
-            android:text="Buổi sáng: "
+            android:text="@string/Morning_"
             android:textColor="#4e2406" />
 
         <EditText
@@ -80,7 +80,7 @@
             android:layout_weight="1"
             android:enabled="false"
             android:gravity="center"
-            android:text="viên"
+            android:text="@string/pill"
             android:textColor="#ff6f00" />
 
     </LinearLayout>
@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:enabled="false"
-            android:text="Buổi trưa: "
+            android:text="@string/Afternoon_"
             android:textColor="#4e2406" />
 
         <EditText
@@ -120,7 +120,7 @@
             android:layout_weight="1"
             android:enabled="false"
             android:gravity="center"
-            android:text="viên"
+            android:text="@string/pill"
             android:textColor="#ff6f00" />
 
     </LinearLayout>
@@ -140,7 +140,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:enabled="false"
-            android:text="Buổi chiều: "
+            android:text="@string/Night_"
             android:textColor="#4e2406" />
 
         <EditText
@@ -160,7 +160,7 @@
             android:layout_weight="1"
             android:enabled="false"
             android:gravity="center"
-            android:text="viên"
+            android:text="@string/pill"
             android:textColor="#ff6f00" />
 
     </LinearLayout>

@@ -22,14 +22,14 @@
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="chọn ảnh đại diện" />
+            android:text="@string/Add_Avatar_picture" />
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_margin="5dp"
-            android:hint="Nhập họ tên:"
+            android:hint="@string/Full_name"
             android:textStyle="bold" />
 
         <EditText
@@ -47,7 +47,7 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="20dp"
-                android:hint="Chọn năm sinh:"
+                android:hint="@string/Year_of_Birth"
                 android:textStyle="bold" />
 
             <Spinner
@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_margin="5dp"
-            android:hint="Nhập địa chỉ:"
+            android:hint="@string/Address"
             android:textStyle="bold" />
 
         <EditText
@@ -75,9 +75,9 @@
             android:id="@+id/Submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#0079bf"
+            android:background="#027598"
             android:textColor="@color/white"
-            android:text="Đăng ký thông tin"
+            android:text="@string/Register"
             />
 
     </LinearLayout>

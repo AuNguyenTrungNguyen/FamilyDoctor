@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:background="#fafafa"
             android:textAllCaps="false"
-            android:text="Gửi lại mã xác nhận"
+            android:text="@string/But_Resend"
             />
 
 

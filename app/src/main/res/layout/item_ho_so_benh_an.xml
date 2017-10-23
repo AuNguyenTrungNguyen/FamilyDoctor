@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="Tên"
+                android:text="@string/Name"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="Tên bệnh"
+                android:text="@string/Disease_name"
                 android:textSize="18sp" />
 
             <TextView
@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="Ngày khám:"
+                android:text="@string/Day_of_the_examination"
                 android:textSize="16sp"
                 android:textStyle="italic" />
 
@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="Ngày tái khám:"
+                android:text="@string/On_reexamination"
                 android:textSize="16sp"
                 android:textStyle="italic" />
         </LinearLayout>

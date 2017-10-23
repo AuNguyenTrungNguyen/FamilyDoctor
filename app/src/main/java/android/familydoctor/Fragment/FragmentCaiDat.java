@@ -78,11 +78,11 @@ public class FragmentCaiDat extends Fragment {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:familydoctor1996@gmail.com"));
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Phản hồi về FamilyDoctor");
+        intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.Feedback_about_FamilyDoctor));
         try {
             startActivity(intent);
         } catch (Exception e) {
-            Toast.makeText(getActivity(), "Không tìm thấy Gmail", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getResources().getString(R.string.Gmail_was_not_found), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -114,7 +114,7 @@ public class FragmentCaiDat extends Fragment {
             @Override
             public void onClick(View v) {
 
-                new AlertDialog.Builder(getContext()).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(getContext()).setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mAuth.signOut();
@@ -122,9 +122,9 @@ public class FragmentCaiDat extends Fragment {
                         Intent intent = new Intent(getActivity(),LoginPhone.class);
                         startActivity(intent);
                     }
-                }).setNegativeButton("Hủy", null)
-                        .setMessage("Bạn có chắc chắn muốn đăng xuất không ?")
-                        .setTitle("Xác nhận thoát")
+                }).setNegativeButton(getResources().getString(R.string.no), null)
+                        .setMessage(getResources().getString(R.string.Are_you_sure_you_want_to_log_out))
+                        .setTitle(getResources().getString(R.string.Log_out))
                         .show();
             }
         });

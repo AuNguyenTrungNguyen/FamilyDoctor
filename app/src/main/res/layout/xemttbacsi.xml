@@ -44,7 +44,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Cá nhân:"
+                        android:text="@string/Personal_information"
                         android:textSize="25sp"
                         android:textStyle="bold" />
 
@@ -84,7 +84,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="0.1"
-                                android:text="Huỳnh Bảo Quốc"
+                                android:text="@string/Full_name"
                                 android:textSize="20sp" />
 
                             <TextView
@@ -92,7 +92,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="0.1"
-                                android:text="Răng hàm mặt"
+                                android:text="@string/Doctoral_degree"
                                 android:textSize="20sp" />
                         </LinearLayout>
 
@@ -106,7 +106,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Chi tiết liên hệ:"
+                        android:text="@string/Contact_Details_"
                         android:textSize="25sp"
                         android:textStyle="bold" />
 
@@ -120,14 +120,14 @@
                             android:id="@+id/txtDiaChi"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Ninh kiều ,cần thơ"
+                            android:text=""
                             android:textSize="20sp" />
 
                         <TextView
                             android:id="@+id/txtSDT"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="01262985603"
+                            android:text=""
                             android:textSize="20sp" />
                     </LinearLayout>
 
@@ -139,7 +139,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Văn bằng,chứng chỉ khác:"
+                        android:text="@string/Doctoral_degree"
                         android:textSize="25sp"
                         android:textStyle="bold" />
 

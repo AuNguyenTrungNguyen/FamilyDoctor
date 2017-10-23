@@ -88,33 +88,38 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
             }
         });
 
+        // tao list nam sinh tu dong
         List<String> namList = new ArrayList<>();
         for (int i = 1960; i < 2018; i++) {
             namList.add(i + "");
         }
+        //set list vao adapter
         ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, namList);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         NamSinh.setAdapter(aa);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         firebaseStorage = FirebaseStorage.getInstance();
 
+
         img = (ImageView) findViewById(R.id.ImgAvaE);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                new AlertDialog.Builder(CapNhatThongTinCaNhan_Act.this).setNeutralButton("Chụp ảnh mới", new DialogInterface.OnClickListener() {
+                // set chup hinh
+                new AlertDialog.Builder(CapNhatThongTinCaNhan_Act.this).setNeutralButton(getResources().getString(R.string.Take_a_new_photo), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        // id la 1 de phan biet luc chup anh
                         startActivityForResult(intent, 1);
                     }
                 })
-                        .setNegativeButton("Chọn ảnh từ thư viện", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(getResources().getString(R.string.Select_a_photo_from_the_gallery), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intent = new Intent(Intent.ACTION_PICK,
                                         MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                                // crop anh vua voi khung hinh
                                 intent.setType("image/*");
                                 intent.putExtra("crop", "true");
                                 intent.putExtra("scale", true);
@@ -175,17 +180,18 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
                 //Up Hình ảnh
                 StorageReference storageReference = firebaseStorage.getReferenceFromUrl("gs://familydoctor-56b96.appspot.com/");
                 StorageReference reference = storageReference.child(System.currentTimeMillis() + "jpg");
-
+                // su dung bitmap de luu inh anh
                 Bitmap bitmap = ((BitmapDrawable) img.getDrawable()).getBitmap();
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                // cat anh ra thanh tung byte
                 byte[] bitMapData = stream.toByteArray();
-
+                //taoj ra 1 thread de day file anh len theo byte
                 UploadTask uploadTask = reference.putBytes(bitMapData);
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
-                        Toast.makeText(getApplicationContext(), "lổi không đăng kí thông tin được", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Error_no_registration_information), Toast.LENGTH_LONG).show();
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -194,7 +200,7 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
                         benhNhan.setUriHinhAnhBenhNhan(downloadUrl.toString());
                         mDatabase.child("User_BenhNhan").child(LoginPhone.sdt_key).setValue(benhNhan);
 
-                        Toast.makeText(CapNhatThongTinCaNhan_Act.this,"Đã cập nhật thông tin thành công", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CapNhatThongTinCaNhan_Act.this,getResources().getString(R.string.Successfully_registered_information), Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 });
@@ -244,7 +250,7 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
-                        Toast.makeText(getApplicationContext(), "lổi không đăng kí thông tin được", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Error_no_registration_information) , Toast.LENGTH_LONG).show();
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -254,7 +260,7 @@ public class CapNhatThongTinCaNhan_Act extends AppCompatActivity{
 
                         mDatabase.child("User_BacSi").child(LoginPhone.sdt_key).setValue(bacSi);
 
-                        Toast.makeText(CapNhatThongTinCaNhan_Act.this,"Đã cập nhật thông tin thành công", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CapNhatThongTinCaNhan_Act.this,getResources().getString(R.string.Successfully_registered_information), Toast.LENGTH_SHORT).show();
                         finish();
 //                        startActivity(new Intent(CapNhatThongTinCaNhan_Act.this,MainActivity.class));
                     }

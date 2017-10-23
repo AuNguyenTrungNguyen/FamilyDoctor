@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_margin="5dp"
-        android:text="Tên bệnh nhân:"
+        android:text="@string/Patient_name"
         android:textStyle="bold" />
 
 
@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_margin="5dp"
-        android:text="Năm sinh bệnh nhân:"
+        android:text="@string/Year_of_Birth"
         android:textStyle="bold" />
 
 
@@ -47,8 +47,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
+            android:background="#027598"
+            android:textColor="#ffffff"
             android:layout_weight="1"
-            android:text="Lập Hồ Sơ" />
+            android:text="@string/Add_new_medical_record" />
 
         <Button
             android:id="@+id/btnHuyBo"
@@ -56,7 +58,9 @@
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="Hủy bỏ" />
+            android:background="#027598"
+            android:textColor="#ffffff"
+            android:text="@string/cancel" />
 
     </LinearLayout>
 

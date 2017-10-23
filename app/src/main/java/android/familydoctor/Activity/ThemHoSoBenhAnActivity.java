@@ -68,7 +68,7 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
         for (int i = 1; i < 10; i++) {
             String soDienThoaiBenhNhan = String.valueOf(i * 11111111);
             String namSinhBenhNhan = String.valueOf(1990 + i);
-            String hoTenBenhNhan = "Bệnh nhân: " + i;
+            String hoTenBenhNhan = getResources().getString(R.string.Patient)+" : " + i;
             //emailBenhNhan = diaChiBenhNhan = uriHinhAnhBenhNhan = xBenhNhan = yBenhNhan= "";
             BenhNhan benhNhan = new BenhNhan(soDienThoaiBenhNhan, namSinhBenhNhan, hoTenBenhNhan, "", "", "", 1, 1);
             databaseReference.child("User_BenhNhan").child(soDienThoaiBenhNhan).setValue(benhNhan);
@@ -91,7 +91,7 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
                 listThuocSeThem = new ArrayList<>();
                 adapterThuoc = new AdapterThuoc(ThemHoSoBenhAnActivity.this, R.layout.item_thuoc, listThuocSeThem);
                 lvDanhSachThuocDaThem.setAdapter(adapterThuoc);
-                txtChonNgayTaiKham.setText("CHỌN NGÀY TÁI KHÁM");
+                txtChonNgayTaiKham.setText( getResources().getString(R.string.Choose_reexamination_date));
                 edtTenBenhTrongHoSoBenhAn.setText("");
 
                 databaseReference.child("User_BenhNhan").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -107,7 +107,7 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
                                 String namSinhBenhNhan = benhNhan.getNamSinhBenhNhan();
 
                                 final Dialog dialogKiemTra = new Dialog(ThemHoSoBenhAnActivity.this);
-                                dialogKiemTra.setTitle("Thông tin: " + soDienThoai[0]);
+                                dialogKiemTra.setTitle(getResources().getString(R.string.Information_of) + soDienThoai[0]);
                                 dialogKiemTra.setContentView(R.layout.dialog_kiem_tra_so_dien_thoai);
 
                                 EditText edtTenBenhNhan, edtNamSinhBenhNhan;
@@ -127,7 +127,7 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
                                 btnHuyBo.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        Toast.makeText(ThemHoSoBenhAnActivity.this, "Hủy bỏ lập hồ sơ", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ThemHoSoBenhAnActivity.this, getResources().getString(R.string.cancel) , Toast.LENGTH_SHORT).show();
                                         dialogKiemTra.dismiss();
                                     }
                                 });
@@ -140,6 +140,9 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
                                         btnThemThuoc.setVisibility(View.VISIBLE);
                                         lvDanhSachThuocDaThem.setVisibility(View.VISIBLE);
                                         dialogKiemTra.dismiss();
+                                        edtSoDienThoaiCanKiemTra.clearFocus();
+                                        edtTenBenhTrongHoSoBenhAn.findFocus();
+
                                     }
                                 });
 
@@ -148,7 +151,7 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
                         }
 
                         if (!tonTai) {
-                            Toast.makeText(ThemHoSoBenhAnActivity.this, "Số điện thoại này không tồn tại.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ThemHoSoBenhAnActivity.this, getResources().getString(R.string.Phone_number_does_not_exist) , Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -190,12 +193,12 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
                                 if(Integer.parseInt(ngayTaiKham) > Integer.parseInt(ngayHienTai)){
                                     txtChonNgayTaiKham.setText(dayString + "-" + monthString + "-" + year);
                                 }else{
-                                    Toast.makeText(ThemHoSoBenhAnActivity.this, "Ngày tái khám không hợp lệ.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ThemHoSoBenhAnActivity.this, getResources().getString(R.string.Invalid_return_date) , Toast.LENGTH_SHORT).show();
                                 }
 
                             }
                         },  mYear, mMonth, mDay);
-                date.setTitle("Chọn ngày tái khám");
+                date.setTitle(getResources().getString(R.string.Choose_reexamination_date));
                 date.show();
 
             }
@@ -218,7 +221,7 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
                 SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
 
                 if(!soDienThoai[0].equals("") &&
-                   !txtChonNgayTaiKham.getText().equals("CHỌN NGÀY TÁI KHÁM") &&
+                   !txtChonNgayTaiKham.getText().equals( getResources().getString(R.string.Choose_reexamination_date)) &&
                    listThuocSeThem.size() != 0){
                     HoSoBenh hoSoBenh = new HoSoBenh();
 
@@ -232,10 +235,10 @@ public class ThemHoSoBenhAnActivity extends AppCompatActivity {
                     hoSoBenh.setNgayTaiKham(txtChonNgayTaiKham.getText().toString());
                     hoSoBenh.setThuocDung(listThuocSeThem);
                     databaseReference.child("HoSoBenhAn").child(idHoSoBenh).setValue(hoSoBenh);
-                    Toast.makeText(ThemHoSoBenhAnActivity.this, "Thêm Hồ sơ bệnh án thành công.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ThemHoSoBenhAnActivity.this,  getResources().getString(R.string.Add_medical_records_successfully) , Toast.LENGTH_SHORT).show();
                     finish();
                 }else{
-                    Toast.makeText(ThemHoSoBenhAnActivity.this, "Thông tin chưa hợp lệ. Xin kiểm tra lại.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ThemHoSoBenhAnActivity.this,  getResources().getString(R.string.The_information_is_not_valid) , Toast.LENGTH_SHORT).show();
                 }
             }
         });

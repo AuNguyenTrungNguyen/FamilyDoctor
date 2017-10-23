@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:weightSum="0.5"
     android:gravity="bottom"
     android:layout_margin="10dp"
     android:layout_height="match_parent">
-    <EditText
-        android:background="@drawable/custom_edittext"
-        android:layout_weight="0.4"
-        android:hint="Nhập sdt người cần tìm vào để tìm"
-        android:id="@+id/edtSDT"
-        android:inputType="phone"
-        android:layout_width="0dp"
-        android:layout_height="50dp" />
-    <ImageButton
-        android:layout_weight="0.1"
-        android:background="@mipmap/ic_search"
-        android:id="@+id/btnSearchAddress"
-        android:layout_width="0dp"
-        android:layout_height="50dp" />
-</LinearLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#ffffff">
+        <EditText
+            android:background="@drawable/custom_edittext"
+            android:hint="@string/Enter_the_phone_number_to_search"
+            android:id="@+id/edtSDT"
+            android:inputType="phone"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageButton
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/ic_search"
+            android:id="@+id/btnSearchAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+</RelativeLayout>

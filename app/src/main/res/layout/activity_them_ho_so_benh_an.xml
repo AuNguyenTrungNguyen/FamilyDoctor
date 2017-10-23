@@ -30,20 +30,22 @@
                     android:weightSum="1">
 
                     <EditText
-                        android:hint="Nhập số điện thoại bệnh nhân"
+                        android:hint="@string/Enter_phone_number_of_the_patient"
                         android:id="@+id/edtSoDienThoaiCanKiemTra"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="0.7"
+                        android:layout_weight="0.8"
                         android:inputType="phone" />
 
                     <Button
                         android:id="@+id/btnKiemTra"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="0.3"
-                        android:text="Kiểm tra"
-                        android:textAllCaps="false" />
+                        android:layout_weight="0.2"
+                        android:text="@string/Check"
+                        android:background="#027598"
+                        android:textColor="#ffffff"
+                        android:textAllCaps="true" />
                 </LinearLayout>
 
 
@@ -58,7 +60,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
                         android:layout_margin="5dp"
-                        android:text="Tên bệnh:"
+                        android:text="@string/Disease_name"
                         android:textStyle="bold" />
 
 
@@ -71,11 +73,12 @@
                     <TextView
                         android:id="@+id/txtChonNgayTaiKham"
                         android:layout_width="match_parent"
-                        android:layout_height="20dp"
+                        android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:gravity="center"
-                        android:text="CHỌN NGÀY TÁI KHÁM"
-                        android:textColor="#ff4800"
+                        android:text="@string/Choose_reexamination_date"
+                        android:background="#027598"
+                        android:textColor="#ffffff"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -88,6 +91,7 @@
 
     <LinearLayout
         android:weightSum="2"
+        android:layout_margin="5dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -98,8 +102,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Thêm thuốc"
-            android:textAllCaps="false" />
+            android:text="@string/Add_medicine"
+            android:background="#027598"
+            android:textColor="#ffffff"
+            android:textAllCaps="false"
+            android:layout_marginRight="5dp"/>
 
         <Button
             android:visibility="gone"
@@ -107,7 +114,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Hoàn thành"
+            android:text="@string/Finished"
+            android:background="#027598"
+            android:textColor="#ffffff"
             android:textAllCaps="false" />
 
     </LinearLayout>

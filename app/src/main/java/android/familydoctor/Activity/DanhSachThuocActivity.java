@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.familydoctor.Adapter.AdapterDanhSachThuoc;
 import android.familydoctor.Class.Thuoc;
 import android.familydoctor.R;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -43,6 +44,7 @@ public class DanhSachThuocActivity extends AppCompatActivity {
         setContentView(R.layout.activity_danh_sach_thuoc);
 
         toolbarDanhSachThuoc = (Toolbar) findViewById(R.id.toolbarDanhSachThuoc);
+        toolbarDanhSachThuoc.setTitleTextColor(Color.WHITE);
 
         setSupportActionBar(toolbarDanhSachThuoc);
         if (getSupportActionBar() != null) {
@@ -53,6 +55,7 @@ public class DanhSachThuocActivity extends AppCompatActivity {
         listTenThuoc = new ArrayList<>();
         listThongTinThuoc = new HashMap<>();
 
+        // lấy danh sách tên thuốc trong resoucre
         danhSachThuoc =  getResources().getStringArray(R.array.danhSachThuoc);
 
         for(int i = 0; i < danhSachThuoc.length; i++){
@@ -68,6 +71,7 @@ public class DanhSachThuocActivity extends AppCompatActivity {
 
         btnHoanThanhThemThuoc = (Button) findViewById(R.id.btnHoanThanhThemThuoc);
 
+        //xác nhận hoàn thành việc thêm thuốc và gửi về activity thêm hồ sơ bệnh án
         btnHoanThanhThemThuoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,6 +103,7 @@ public class DanhSachThuocActivity extends AppCompatActivity {
                 return false;
             }
 
+            //lọc ra loại thuốc có tên trùng với người dùng nhập vào
             @Override
             public boolean onQueryTextChange(String newText) {
                 List<String> listSearch = new ArrayList<>();
@@ -115,6 +120,7 @@ public class DanhSachThuocActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    //nhắc nhở chưa lưu lại thuốc đã thêm vào hồ sơ bệnh án
     @Override
     public void onBackPressed() {
 
@@ -127,7 +133,7 @@ public class DanhSachThuocActivity extends AppCompatActivity {
 
         if(count > 0){
             Dialog dialog = new Dialog(this);
-            dialog.setTitle("Nhắc nhở:");
+            dialog.setTitle(getResources().getString(R.string.Remind)+":");
             dialog.setContentView(R.layout.dialog_nhac_nho);
             dialog.show();
         }else{

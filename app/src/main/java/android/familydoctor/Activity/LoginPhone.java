@@ -50,6 +50,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class LoginPhone extends AppCompatActivity implements
@@ -63,7 +65,6 @@ public class LoginPhone extends AppCompatActivity implements
     private static final int STATE_VERIFY_SUCCESS = 4;
     private static final int STATE_SIGNIN_FAILED = 5;
     private static final int STATE_SIGNIN_SUCCESS = 6;
-    private static final int REQUEST_READ_PHONE_STATE = 1;
 
     // [START declare_auth]
     private FirebaseAuth mAuth;
@@ -124,13 +125,40 @@ public class LoginPhone extends AppCompatActivity implements
             onRestoreInstanceState(savedInstanceState);
         }
 
+        khaibao();
         //Permission
         if(!hasPermissions(this, PERMISSIONS)){
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
         }
-
         turnGPSOn();
+        // ĐỌc số điện thoại từ trực tiếp từ điện thoại
+        readPhoneNumber();
 
+        //tạo bộ lọc để lắng nghe tin nhắn gửi tới
+        IntentFilter filter=new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
+        //tạo bộ lắng nghe
+        receiver = new BroadcastReceiver() {
+            // hàm tự kích hoạt khi có tin nhắn mới
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                DocTinNhanReceive();
+                mVerificationField.setText(code);
+            }
+        };
+        //đăng ký bộ lắng nghe vào hệ thống
+        registerReceiver(receiver, filter);
+
+        // su li so dien thoai
+        setmCallbacks();
+
+        mStartButton.setOnClickListener(this);
+        mVerifyButton.setOnClickListener(this);
+        mResendButton.setOnClickListener(this);
+
+        mAuth = FirebaseAuth.getInstance();
+
+    }
+    public void khaibao () {
         mPhoneNumberField = (EditText) findViewById(R.id.field_phone_number);
         mVerificationField = (EditText) findViewById(R.id.field_verification_code);
         mStartButton = (Button) findViewById(R.id.button_start_verification);
@@ -159,83 +187,42 @@ public class LoginPhone extends AppCompatActivity implements
             }
         });
 
-        // ĐỌc số điện thoại từ trực tiếp từ điện thoại
-        TelephonyManager tm = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
-
-        int permissionCheck = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_PHONE_STATE);
-        if (tm != null && permissionCheck == PackageManager.PERMISSION_GRANTED) {
-            Log.i("phonemunber", "onCreate: " + tm.getLine1Number());
-            mPhoneNumberField.setText(tm.getLine1Number());
-            Log.i("phonemunber", "Gettext: " + mPhoneNumberField.getText());
-        }
-        //tạo bộ lọc để lắng nghe tin nhắn gửi tới
-        IntentFilter filter=new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
-        //tạo bộ lắng nghe
-        receiver = new BroadcastReceiver() {
-            // hàm tự kích hoạt khi có tin nhắn mới
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                DocTinNhanReceive();
-                mVerificationField.setText(code);
-            }
-        };
-        //đăng ký bộ lắng nghe vào hệ thống
-        registerReceiver(receiver, filter);
 
 
+    }
 
-        mStartButton.setOnClickListener(this);
-        mVerifyButton.setOnClickListener(this);
-        mResendButton.setOnClickListener(this);
+    public void setmCallbacks (){
 
-        // [START initialize_auth]
-        mAuth = FirebaseAuth.getInstance();
-        // [END initialize_auth]
-        // Initialize phone auth callbacks
-        // [START phone_auth_callbacks]
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
             public void onVerificationCompleted(PhoneAuthCredential credential) {
-                // This callback will be invoked in two situations:
-                // 1 - Instant verification. In some cases the phone number can be instantly
-                //     verified without needing to send or enter a verification code.
-                // 2 - Auto-retrieval. On some devices Google Play services can automatically
-                //     detect the incoming verification SMS and perform verificaiton without
-                //     user action.
+
                 Log.d(TAG, "onVerificationCompleted:" + credential);
-                // [START_EXCLUDE silent]
+
                 mVerificationInProgress = false;
-                // [END_EXCLUDE]
-                // [START_EXCLUDE silent]
-                // Update the UI and attempt sign in with the phone credential
+
                 updateUI(STATE_VERIFY_SUCCESS, credential);
-                // [END_EXCLUDE]
+
                 signInWithPhoneAuthCredential(credential);
             }
 
             @Override
             public void onVerificationFailed(FirebaseException e) {
-                // This callback is invoked in an invalid request for verification is made,
-                // for instance if the the phone number format is not valid.
+
                 Log.w(TAG, "onVerificationFailed", e);
                 // [START_EXCLUDE silent]
                 mVerificationInProgress = false;
                 // [END_EXCLUDE]
                 if (e instanceof FirebaseAuthInvalidCredentialsException) {
-                    // Invalid request
-                    // [START_EXCLUDE]
+
                     mPhoneNumberField.setError("Invalid phone number.");
                     // [END_EXCLUDE]
                 } else if (e instanceof FirebaseTooManyRequestsException) {
-                    // The SMS quota for the project has been exceeded
-                    // [START_EXCLUDE]
+
                     Snackbar.make(findViewById(android.R.id.content), "Quota exceeded.",
                             Snackbar.LENGTH_SHORT).show();
                     // [END_EXCLUDE]
                 }
-                // Show a message and update the UI
-                // [START_EXCLUDE]
                 updateUI(STATE_VERIFY_FAILED);
                 // [END_EXCLUDE]
             }
@@ -256,15 +243,16 @@ public class LoginPhone extends AppCompatActivity implements
                 // [END_EXCLUDE]
             }
         };
-        // [END phone_auth_callbacks]
     }
+
+
     private void DocTinNhanReceive() {
         Uri uri =Uri.parse("content://sms/inbox");
         Cursor cursor= getContentResolver().query(uri,null,null,null,null);
         if (cursor.moveToNext()){
             int layNoiDung = cursor.getColumnIndex("body");
             get_body = cursor.getString(layNoiDung);
-            code = get_body.substring(0,6);
+            code = get_body.substring(38,get_body.length());
             Log.i("TinNhan",code);
         }
         cursor.close();
@@ -555,7 +543,7 @@ public class LoginPhone extends AppCompatActivity implements
                 if (!validatePhoneNumber()) {
                     return;
                 }
-                Toast.makeText(getApplicationContext(), "Đã gửi mã xác nhận", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.A_confirmation_code_has_been_sent), Toast.LENGTH_SHORT).show();
                 mStartButton.setEnabled(false);
                 startPhoneNumberVerification(mPhoneNumberField.getText().toString());
                 break;
@@ -564,7 +552,7 @@ public class LoginPhone extends AppCompatActivity implements
                 //
                 String code = mVerificationField.getText().toString();
                 if (TextUtils.isEmpty(code)) {
-                    mVerificationField.setError("Cannot be empty.");
+                    mVerificationField.setError(getResources().getString(R.string.Cannot_be_empty));
                     return;
                 }
                 verifyPhoneNumberWithCode(mVerificationId, code);
@@ -573,7 +561,7 @@ public class LoginPhone extends AppCompatActivity implements
                 resendVerificationCode(mPhoneNumberField.getText().toString(), mResendToken);
 
                 progress = new ProgressDialog(LoginPhone.this);
-                progress.setMessage("Chờ vài giây");
+                progress.setMessage(getResources().getString(R.string.Please_wait));
                 progress.setIndeterminate(true);
                 progress.show();
                 new CountDownTimer(8000,1000){
@@ -590,19 +578,7 @@ public class LoginPhone extends AppCompatActivity implements
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_READ_PHONE_STATE:
-                if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    //TODO
-                }
-                break;
 
-            default:
-                break;
-        }
-    }
 
     public void turnGPSOn() {
 
@@ -629,9 +605,9 @@ public class LoginPhone extends AppCompatActivity implements
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                     this);
             alertDialogBuilder
-                    .setMessage("Mở GPS của bạn!")
+                    .setMessage(getResources().getString(R.string.enable_GPS))
                     .setCancelable(false)
-                    .setPositiveButton("Mở",
+                    .setPositiveButton(getResources().getString(R.string.open),
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog,
                                                     int id) {
@@ -640,7 +616,7 @@ public class LoginPhone extends AppCompatActivity implements
                                     startActivity(callGPSSettingIntent);
                                 }
                             });
-            alertDialogBuilder.setNegativeButton("Hủy",
+            alertDialogBuilder.setNegativeButton(getResources().getString(R.string.cancel),
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
@@ -668,12 +644,55 @@ public class LoginPhone extends AppCompatActivity implements
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        Log.d(TAG, "Permission callback called-------");
+        switch (requestCode) {
+            case 1: {
+
+                Map<String, Integer> perms = new HashMap<>();
+                // Initialize the map with both permissions
+                perms.put(Manifest.permission.READ_PHONE_STATE, PackageManager.PERMISSION_GRANTED);
+                perms.put(Manifest.permission.READ_SMS, PackageManager.PERMISSION_GRANTED);
+                // Fill with actual results from user
+                if (grantResults.length > 0) {
+                    for (int i = 0; i < permissions.length; i++)
+                        perms.put(permissions[i], grantResults[i]);
+                    // Check for both permissions
+                    if (perms.get(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED
+                            && perms.get(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED) {
+                        Log.d(TAG, "sms & location services permission granted");
+                        // process the normal flow
+                        readPhoneNumber();
+                        //else any one or both the permissions are not granted
+                    } else {
+                        Log.d(TAG, "Some permissions are not granted ask again ");
+                        Toast.makeText(this, "Go to settings and enable permissions", Toast.LENGTH_LONG).show();
+
+                    }
+                }
+            }
+        }
+    }
+
+    public void readPhoneNumber(){
+        TelephonyManager tm = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+        int permissionCheck = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_PHONE_STATE);
+        if (tm != null && permissionCheck == PackageManager.PERMISSION_GRANTED) {
+            Log.i("phonemunber", "onCreate: " + tm.getLine1Number());
+            mPhoneNumberField.setText(tm.getLine1Number());
+            Log.i("phonemunber", "Gettext: " + mPhoneNumberField.getText());
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle("Bạn có muốn thoát ứng dụng?");
+        alertDialogBuilder.setTitle(getResources().getString(R.string.question_exit));
         alertDialogBuilder
                 .setCancelable(false)
-                .setPositiveButton("Có",
+                .setPositiveButton(getResources().getString(R.string.yes),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 moveTaskToBack(true);
@@ -682,7 +701,7 @@ public class LoginPhone extends AppCompatActivity implements
                             }
                         })
 
-                .setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                         dialog.cancel();
@@ -692,5 +711,7 @@ public class LoginPhone extends AppCompatActivity implements
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
+
+
 
 }

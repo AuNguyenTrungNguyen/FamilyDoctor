@@ -80,12 +80,12 @@ public class FragmentBenhNhan extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_benh_nhan, container, false);
-
+        // xin quyen chup anh
         if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
         }
 
-
+        // khai bao can ban
         progressDialog = new ProgressDialog(getContext());
         HoTen = (EditText) view.findViewById(R.id.HoTenE);
         NamSinh = (Spinner) view.findViewById(R.id.spNamSinhBenhNhan);
@@ -93,7 +93,7 @@ public class FragmentBenhNhan extends Fragment {
         img = (ImageView) view.findViewById(R.id.ImgAvaE);
         setData = (Button) view.findViewById(R.id.Submit);
 
-
+        // tao nam sinh tu dong
         List<String> namList = new ArrayList<>();
         for (int i = 1960; i < 2018; i++) {
 
@@ -102,10 +102,12 @@ public class FragmentBenhNhan extends Fragment {
 
         ArrayAdapter aa = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, namList);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //set nam sinh vao adpter
         NamSinh.setAdapter(aa);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
+        // xac dinh tai khoan tren firebase
+        //firebase storing de luu tru anh
         firebaseStorage = FirebaseStorage.getInstance();
 
         img = (ImageView) view.findViewById(R.id.ImgAvaE);
@@ -114,39 +116,42 @@ public class FragmentBenhNhan extends Fragment {
             public void onClick(View v) {
 
                 String key = mDatabase.child("User_BenhNhan").push().getKey();
-
-                new AlertDialog.Builder(getContext()).setNeutralButton("Chụp ảnh mới", new DialogInterface.OnClickListener() {
+                //  chon cay noi de luu anh
+                new AlertDialog.Builder(getContext()).setNeutralButton(getResources().getString(R.string.Take_a_new_photo), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         startActivityForResult(intent, 1);
                     }
                 })
-                        .setNegativeButton("Chọn ảnh từ thư viện", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(getResources().getString(R.string.Select_a_photo_from_the_gallery), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                                 intent.setType("image/*");
+                                // luu vao bitmap voi dinh dah la 2
                                 startActivityForResult(intent, 2);
                             }
                         })
                         .show();
             }
         });
+        // goi du lieu di
         setData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressDialog.setMessage("Đang đăng ký.....");
+                progressDialog.setMessage(getResources().getString(R.string.Processing));
                 progressDialog.show();
                 String hoTen = HoTen.getText().toString();
                 String namSinh = NamSinh.getSelectedItem().toString();
                 String sdt = LoginPhone.sdt_key;
                 String diaChi = DiaChi.getText().toString();
+
+                // llay toa do
                 LocationManager manager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
                 GPSTracker gpsTracker = new GPSTracker(getContext());
                 if (gpsTracker != null && manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
                     Location location = gpsTracker.getLocation();
-
                     x = location.getLatitude() ;
                     y =location.getLongitude() ;
                 }
@@ -156,17 +161,19 @@ public class FragmentBenhNhan extends Fragment {
                 //Up Hình ảnh
                 StorageReference storageReference = firebaseStorage.getReferenceFromUrl("gs://familydoctor-56b96.appspot.com");//*
                 StorageReference reference = storageReference.child(System.currentTimeMillis() + "jpg");//*
-
+                    // lua hinh anh vao bitmap
                 Bitmap bitmap = ((BitmapDrawable) img.getDrawable()).getBitmap();
+
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                // phantich than mang va put len firebase
                 byte[] bitMapData = stream.toByteArray();
 
                 UploadTask uploadTask = reference.putBytes(bitMapData);
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
-                        Toast.makeText(getActivity(), "lổi không đăng kí thông tin được", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.Error_no_registration_information), Toast.LENGTH_LONG).show();
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -176,7 +183,7 @@ public class FragmentBenhNhan extends Fragment {
 
                         mDatabase.child("User_BenhNhan").child(Us.getSoDienThoaiBenhNhan()).setValue(Us);
                         progressDialog.hide();
-                        Toast.makeText(getContext(), "Đã đăng ký xong", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getResources().getString(R.string.Successfully_registered_information), Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getContext(), MainActivity.class));
                     }
                 });

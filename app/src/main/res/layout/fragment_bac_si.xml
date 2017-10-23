@@ -26,7 +26,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="5dp"
                 android:gravity="center"
-                android:hint="Chọn ảnh đại diện"
+                android:hint="@string/Add_Avatar_picture"
                 android:textStyle="bold" />
 
             <TextView
@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:layout_margin="5dp"
-                android:hint="Nhập họ tên:"
+                android:hint="@string/Full_name"
                 android:textStyle="bold" />
 
             <EditText
@@ -54,7 +54,7 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="20dp"
-                    android:hint="Chọn năm sinh:"
+                    android:hint="@string/Year_of_Birth"
                     android:textStyle="bold" />
 
                 <Spinner
@@ -69,7 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:layout_margin="5dp"
-                android:hint="Nhập địa chỉ:"
+                android:hint="@string/Address"
                 android:textStyle="bold" />
 
             <EditText
@@ -87,7 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_margin="5dp"
-                    android:hint="Chuyên môn:"
+                    android:hint="@string/Medical_specialty"
                     android:textStyle="bold" />
 
                 <Spinner
@@ -102,7 +102,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:layout_margin="5dp"
-                android:hint="Chọn ảnh xác thực:"
+                android:hint="@string/Add_image_of_Doctoral_degree"
                 android:textStyle="bold" />
 
             <ImageView
@@ -116,8 +116,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_marginTop="10dp"
-                android:background="#0079bf"
-                android:text="Đăng ký thông tin"
+                android:background="#027598"
+                android:text="@string/Register"
                 android:textColor="@color/white" />
 
 

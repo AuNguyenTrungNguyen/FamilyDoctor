@@ -120,13 +120,13 @@ public class FragmentBacSi extends Fragment {
         imgAva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(getContext()).setNeutralButton("Chụp ảnh mới", new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(getContext()).setNeutralButton(getResources().getString(R.string.Take_a_new_photo), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         startActivityForResult(intent, 1);
                     }
-                }).setNegativeButton("Chọn ảnh từ thư viện", new DialogInterface.OnClickListener() {
+                }).setNegativeButton(getResources().getString(R.string.Select_a_photo_from_the_gallery), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(Intent.ACTION_PICK,
@@ -150,13 +150,13 @@ public class FragmentBacSi extends Fragment {
         imgXT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(getContext()).setNeutralButton("Chụp ảnh mới", new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(getContext()).setNeutralButton(getResources().getString(R.string.Take_a_new_photo), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         startActivityForResult(intent, 3);
                     }
-                }).setNegativeButton("Chọn ảnh từ thư viện", new DialogInterface.OnClickListener() {
+                }).setNegativeButton(getResources().getString(R.string.Select_a_photo_from_the_gallery), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(Intent.ACTION_PICK,
@@ -180,7 +180,7 @@ public class FragmentBacSi extends Fragment {
         setData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressDialog.setMessage("Đang đăng ký.....");
+                progressDialog.setMessage(getResources().getString(R.string.Processing));
                 progressDialog.show();
                 String key = mDatabase.child("Users").push().getKey();
 
@@ -222,7 +222,7 @@ public class FragmentBacSi extends Fragment {
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
-                        Toast.makeText(getActivity(), "lổi không đăng kí thông tin được", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(),getResources().getString(R.string.Error_no_registration_information), Toast.LENGTH_LONG).show();
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -233,7 +233,7 @@ public class FragmentBacSi extends Fragment {
                         if (uploadTask.isSuccessful()) {
                             mDatabase.child("User_BacSi").child(Us.getSoDienThoaiBacSi()).setValue(Us);
                             progressDialog.hide();
-                            Toast.makeText(getContext(), "Đã đăng ký xong", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), getResources().getString(R.string.Successfully_registered_information), Toast.LENGTH_SHORT).show();
 
                             uploadAnhXong = true;
                         }
@@ -244,7 +244,7 @@ public class FragmentBacSi extends Fragment {
                 hanler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getContext(), "xong anh dai dien1", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), "xong anh dai dien1", Toast.LENGTH_SHORT).show();
                     }
                 }, 2000);
                 StorageReference storageReferenceXT = firebaseStorage.getReferenceFromUrl("gs://familydoctor-56b96.appspot.com/");
@@ -254,7 +254,7 @@ public class FragmentBacSi extends Fragment {
                 uploadTaskXT.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
-                        Toast.makeText(getActivity(), "lổi không đăng kí thông tin được", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.Error_no_registration_information), Toast.LENGTH_LONG).show();
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -265,7 +265,7 @@ public class FragmentBacSi extends Fragment {
                         if (uploadTaskXT.isSuccessful()) {
                             mDatabase.child("User_BacSi").child(Us.getSoDienThoaiBacSi()).setValue(Us);
                             progressDialog.hide();
-                            Toast.makeText(getContext(), "Đã đăng ký xong", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(),getResources().getString(R.string.Successfully_registered_information), Toast.LENGTH_SHORT).show();
                             uploadAnhXong = true;
                         }
                     }
@@ -274,7 +274,7 @@ public class FragmentBacSi extends Fragment {
                 hanler2.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getContext(), "xong anh dai dien2", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), "xong anh dai dien2", Toast.LENGTH_SHORT).show();
                         if (uploadAnhXong == true) {
                             startActivity(new Intent(getContext(), MainActivity.class));
 
